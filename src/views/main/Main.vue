@@ -2,7 +2,7 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-22 15:15:28
+ * @Last Modified time: 2019-03-22 15:39:42
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -46,7 +46,8 @@
                         <el-menu-item
                             v-for="(item1, index1) in item.children"
                             :key="item1.value"
-                            :index="String(index1)">
+                            :index="String(index1)"
+                            @click="handleClick(item1)">
                             {{ item1.label }}
                         </el-menu-item>
                     </el-menu-item-group>
@@ -86,7 +87,6 @@ export default {
                 {
                     label: '路径图',
                     value: 'lines',
-                    url: 'lines',
                     type: 'echarts',
                     children: [
                         {
@@ -117,6 +117,11 @@ export default {
         // 侧边栏-折叠
         handleClose(key, keyPath) {
             console.log(key, keyPath);
+        },
+
+        // 侧边栏-选择
+        handleClick(v) {
+            this.$router.push(`/${this.activeHeaderMenu}/${v.url}`)
         }
     }
 };
