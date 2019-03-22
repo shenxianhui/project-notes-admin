@@ -2,7 +2,7 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-22 09:41:29
+ * @Last Modified time: 2019-03-22 15:15:28
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -14,19 +14,47 @@
                 <h2>小贤笔记</h2>
             </div>
             <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-                <el-menu-item index="1">处理中心</el-menu-item>
-                <el-menu-item index="2">处理中心</el-menu-item>
-                <el-menu-item index="3">处理中心</el-menu-item>
-                <el-menu-item index="4">处理中心</el-menu-item>
-                <el-menu-item index="5">处理中心</el-menu-item>
-                <el-menu-item index="6">处理中心</el-menu-item>
+                <el-menu-item
+                    v-for="(item, index) in headerList"
+                    :key="item.value"
+                    :index="String(index)">
+                    {{ item.label }}
+                </el-menu-item>
             </el-menu>
         </div>
-        
 
         <!-- 侧边栏+内容 -->
         <div class="aside">
-            <router-view />
+            <el-menu
+                default-active="0-0"
+                class="el-menu-vertical-demo"
+                :unique-opened="true"
+                @open="handleOpen"
+                @close="handleClose"
+                :collapse="isCollapse">
+                <div class="collapse" @click="isCollapse = !isCollapse">{{ isCollapse ? '→' : '←' }}</div>
+                <el-submenu
+                    v-show="item.type === activeHeaderMenu"
+                    v-for="(item, index) in asideList"
+                    :key="item.id"
+                    :index="String(index)">
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>{{ item.label }}</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item
+                            v-for="(item1, index1) in item.children"
+                            :key="item1.value"
+                            :index="String(index1)">
+                            {{ item1.label }}
+                        </el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+            </el-menu>
+            <div class="content">
+                <router-view />
+            </div>
         </div>
     </div>
 </template>
@@ -38,15 +66,56 @@ export default {
     props: {},
     data() {
         return {
-            activeIndex: '1', // 当前选中
+            activeIndex: '0', // 当前选中
+            isCollapse: false, // 折叠
+            activeHeaderMenu: 'echarts', // 顶部选中菜单
+
+            headerList: [ // 顶部导航列表
+                {
+                    label: 'ECharts',
+                    value: 'echarts',
+                    url: 'echarts'
+                },
+                {
+                    label: '高德地图',
+                    value: 'gaode',
+                    url: 'gaode'
+                }
+            ],
+            asideList: [ // 菜单列表
+                {
+                    label: '路径图',
+                    value: 'lines',
+                    url: 'lines',
+                    type: 'echarts',
+                    children: [
+                        {
+                            label: '北京出租车路线',
+                            value: 'linesBeijing',
+                            url: 'lines-beijing',
+                        }
+                    ]
+                }
+            ]
         };
     },
     computed: {},
     watch: {},
     created() {},
     methods: {
-        // 选中项
+        // 顶栏-选中
         handleSelect(key, keyPath) {
+            this.activeHeaderMenu = this.headerList[key].value;
+            this.$router.push(`/${this.headerList[key].url}`);
+        },
+
+        // 侧边栏-展开
+        handleOpen(key, keyPath) {
+            console.log(key, keyPath);
+        },
+
+        // 侧边栏-折叠
+        handleClose(key, keyPath) {
             console.log(key, keyPath);
         }
     }
@@ -89,8 +158,28 @@ export default {
 
     /* 侧边栏+内容 */
     .aside {
+        display: flex;
+
         width: 100%;
         height: calc(100% - 61px);
+        /deep/ .el-menu {
+            .collapse {
+                width: 100%;
+                height: 20px;
+                text-align: center;
+                line-height: 20px;
+                border-bottom: 1px solid #eee;
+                user-select: none;
+                cursor: pointer;
+            }
+            .collapse:hover {
+                background-color: #eee;
+            }
+        }
+        /deep/ .el-menu-vertical-demo:not(.el-menu--collapse) {
+            width: 200px;
+            min-height: 400px;
+        }
     }
 }
 </style>
