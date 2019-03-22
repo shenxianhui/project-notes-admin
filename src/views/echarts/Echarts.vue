@@ -2,7 +2,7 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-22 10:53:33 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-22 11:18:34
+ * @Last Modified time: 2019-03-22 17:04:54
  */
 <!-- ECharts -->
 <template>
@@ -27,5 +27,8 @@ export default {
 </script>
 
 <style scoped lang='less'>
-
+.echarts {
+    width: 100%;
+    height: 100%;
+}
 </style>

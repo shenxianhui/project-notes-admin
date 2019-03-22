@@ -2,7 +2,7 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-22 15:39:42
+ * @Last Modified time: 2019-03-22 17:04:08
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -184,6 +184,12 @@ export default {
         /deep/ .el-menu-vertical-demo:not(.el-menu--collapse) {
             width: 200px;
             min-height: 400px;
+        }
+
+        /* 内容 */
+        .content {
+            width: 100%;
+            height: 100%;
         }
     }
 }

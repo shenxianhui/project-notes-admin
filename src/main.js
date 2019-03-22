@@ -3,11 +3,15 @@ import App from './App.vue';
 import router from './router/index';
 import store from './store/index';
 import ElementUI from 'element-ui';
+import echarts from 'echarts'
+require('echarts/extension/bmap/bmap');
 
 import 'element-ui/lib/theme-chalk/index.css';
 import './style/common.less';
 
 Vue.use(ElementUI);
+
+Vue.prototype.$echarts = echarts;
 
 Vue.config.productionTip = false;
 
