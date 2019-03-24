@@ -1,8 +1,8 @@
 /*
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
- * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-22 17:04:08
+ * @Last Modified by: Shen Xianhui
+ * @Last Modified time: 2019-03-24 09:39:21
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -46,7 +46,7 @@
                         <el-menu-item
                             v-for="(item1, index1) in item.children"
                             :key="item1.value"
-                            :index="String(index1)"
+                            :index="index + '-' + index1"
                             @click="handleClick(item1)">
                             {{ item1.label }}
                         </el-menu-item>
@@ -92,7 +92,12 @@ export default {
                         {
                             label: '北京出租车路线',
                             value: 'linesBeijing',
-                            url: 'lines-beijing',
+                            url: 'lines-beijing'
+                        },
+                        {
+                            label: '上海出租车路线',
+                            value: 'linesShanghai',
+                            url: 'lines-shanghai'
                         }
                     ]
                 }
@@ -182,7 +187,7 @@ export default {
             }
         }
         /deep/ .el-menu-vertical-demo:not(.el-menu--collapse) {
-            width: 200px;
+            min-width: 200px;
             min-height: 400px;
         }
 

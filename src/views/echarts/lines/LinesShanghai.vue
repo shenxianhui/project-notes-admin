@@ -1,19 +1,20 @@
 /*
- * @Author: ShenXianhui 
- * @Date: 2019-03-22 11:17:32 
+ * @Author: Shen Xianhui 
+ * @Date: 2019-03-24 09:42:15 
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-03-24 09:49:43
+ * @Last Modified time: 2019-03-24 10:48:06
  */
-<!-- 北京出租车路线 -->
+
+<!-- 上海出租车路线 -->
 <template>
-    <div class="lines-beijing" id="lines-beijing"></div>
+    <div class="lines-shanghai" id="lines-shanghai"></div>
 </template>
 
 <script>
-import Lines from '@/assets/data/lines/beijing.json';
+import Lines from '@/assets/data/lines/shanghai.json';
 
 export default {
-    name: 'LinesBeijing',
+    name: 'LinesShanghai',
     components: {},
     props: {},
     data() {
@@ -26,39 +27,32 @@ export default {
     },
     methods: {
         getLines() {
-            var myChart = this.$echarts.init(document.getElementById('lines-beijing'));
-            // 基于准备好的dom，初始化echarts实例
-            var hStep = 300 / (Lines.length - 1);
+            let myChart = this.$echarts.init(document.getElementById('lines-shanghai'));
+            let points = []; // 偶数项为经度, 奇数项为纬度
             let _this = this;
-            var busLines = [].concat.apply([], Lines.map(function (busLine, idx) {
-                var prevPt;
-                var points = [];
-                for (var i = 0; i < busLine.length; i += 2) {
-                    var pt = [busLine[i], busLine[i + 1]];
-                    if (i > 0) {
-                        pt = [
-                            prevPt[0] + pt[0],
-                            prevPt[1] + pt[1]
-                        ];
-                    }
-                    prevPt = pt;
+            let busLines = [];
 
-                    points.push([pt[0] / 1e4, pt[1] / 1e4]);
-                }
-                return {
-                    coords: points,
-                    lineStyle: {
-                        normal: {
-                            color: _this.$echarts.color.modifyHSL('#5A94DF', Math.round(hStep * idx))
-                        }
+            Lines.forEach((item, index) => {
+                let _tmp = [];
+                _tmp[0] = Number(item.longitude); // 经度
+                _tmp[1] = Number(item.latitude); // 纬度
+
+                points.push([_tmp[0], _tmp[1]]);
+            });
+            let _obj = { // 路线
+                coords: points,
+                lineStyle: {
+                    normal: {
+                        color: _this.$echarts.color.modifyHSL('#5A94DF', Math.round(Math.random()*300))
                     }
-                };
-            }));
+                }
+            };
+            busLines.push(_obj);
             console.log(busLines);
 
             myChart.setOption({
                 bmap: {
-                    center: [116.46, 39.92],
+                    center: [121.46, 31.22],
                     zoom: 10,
                     roam: true,
                     mapStyle: {
@@ -226,7 +220,7 @@ export default {
 </script>
 
 <style scoped lang='less'>
-.lines-beijing {
+.lines-shanghai {
     width: 100%;
     height: 100%;
 }

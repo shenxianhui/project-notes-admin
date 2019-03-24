@@ -10,6 +10,7 @@ const Error = () => import('../views/common/Error.vue');
 // ECharts
 const Echarts = () => import('../views/echarts/Echarts.vue');
 const LinesBeijing = () => import('../views/echarts/lines/LinesBeijing.vue');
+const LinesShanghai = () => import('../views/echarts/lines/LinesShanghai.vue');
 
 // 高德地图
 const Gaode = () => import('../views/gaode/Gaode.vue');
@@ -43,7 +44,12 @@ export default new Router({
                         { // 北京出租车路线
                             path: 'lines-beijing',
                             name: 'linesBeijing',
-                            component: LinesBeijing,
+                            component: LinesBeijing
+                        },
+                        { // 上海出租车路线
+                            path: 'lines-shanghai',
+                            name: 'linesShanghai',
+                            component: LinesShanghai
                         }
                     ]
                 },
