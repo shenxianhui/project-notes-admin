@@ -1,8 +1,8 @@
 /*
  * @Author: Shen Xianhui 
  * @Date: 2019-03-24 09:42:15 
- * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-03-24 10:48:06
+ * @Last Modified by: ShenXianhui
+ * @Last Modified time: 2019-03-25 09:37:39
  */
 
 <!-- 上海出租车路线 -->
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Lines from '@/assets/data/lines/shanghai.json';
+import * as Lines from '@/assets/data/lines/shanghai/index.js'; // 接口全部引用
 
 export default {
     name: 'LinesShanghai',
@@ -28,27 +28,32 @@ export default {
     methods: {
         getLines() {
             let myChart = this.$echarts.init(document.getElementById('lines-shanghai'));
-            let points = []; // 偶数项为经度, 奇数项为纬度
             let _this = this;
-            let busLines = [];
+            var busLines = [];
 
-            Lines.forEach((item, index) => {
-                let _tmp = [];
-                _tmp[0] = Number(item.longitude); // 经度
-                _tmp[1] = Number(item.latitude); // 纬度
-
-                points.push([_tmp[0], _tmp[1]]);
-            });
-            let _obj = { // 路线
-                coords: points,
-                lineStyle: {
-                    normal: {
-                        color: _this.$echarts.color.modifyHSL('#5A94DF', Math.round(Math.random()*300))
+            Object.values(Lines).forEach(item => {
+                let points = []; // 偶数项为经度, 奇数项为纬度
+                item.forEach((item1, index) => {
+                    if (!item1.id) {
+                        return false;
                     }
-                }
-            };
-            busLines.push(_obj);
-            console.log(busLines);
+                    let _tmp = [];
+                    _tmp[0] = Number(item1.longitude); // 经度
+                    _tmp[1] = Number(item1.latitude); // 纬度
+
+                    points.push([_tmp[0], _tmp[1]]);
+                });
+                let _obj = { // 路线
+                    coords: points,
+                    lineStyle: {
+                        normal: {
+                            color: _this.$echarts.color.modifyHSL('#5A94DF', Math.round(Math.random()*300))
+                        }
+                    }
+                };
+                busLines.push(_obj);
+            });
+                console.log(busLines);
 
             myChart.setOption({
                 bmap: {
@@ -56,127 +61,127 @@ export default {
                     zoom: 10,
                     roam: true,
                     mapStyle: {
-                    'styleJson': [
-                        {
-                            'featureType': 'water',
-                            'elementType': 'all',
-                            'stylers': {
-                                'color': '#031628'
+                        'styleJson': [
+                            {
+                                'featureType': 'water',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'color': '#031628'
+                                }
+                            },
+                            {
+                                'featureType': 'land',
+                                'elementType': 'geometry',
+                                'stylers': {
+                                    'color': '#000102'
+                                }
+                            },
+                            {
+                                'featureType': 'highway',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'visibility': 'off'
+                                }
+                            },
+                            {
+                                'featureType': 'arterial',
+                                'elementType': 'geometry.fill',
+                                'stylers': {
+                                    'color': '#000000'
+                                }
+                            },
+                            {
+                                'featureType': 'arterial',
+                                'elementType': 'geometry.stroke',
+                                'stylers': {
+                                    'color': '#0b3d51'
+                                }
+                            },
+                            {
+                                'featureType': 'local',
+                                'elementType': 'geometry',
+                                'stylers': {
+                                    'color': '#000000'
+                                }
+                            },
+                            {
+                                'featureType': 'railway',
+                                'elementType': 'geometry.fill',
+                                'stylers': {
+                                    'color': '#000000'
+                                }
+                            },
+                            {
+                                'featureType': 'railway',
+                                'elementType': 'geometry.stroke',
+                                'stylers': {
+                                    'color': '#08304b'
+                                }
+                            },
+                            {
+                                'featureType': 'subway',
+                                'elementType': 'geometry',
+                                'stylers': {
+                                    'lightness': -70
+                                }
+                            },
+                            {
+                                'featureType': 'building',
+                                'elementType': 'geometry.fill',
+                                'stylers': {
+                                    'color': '#000000'
+                                }
+                            },
+                            {
+                                'featureType': 'all',
+                                'elementType': 'labels.text.fill',
+                                'stylers': {
+                                    'color': '#857f7f'
+                                }
+                            },
+                            {
+                                'featureType': 'all',
+                                'elementType': 'labels.text.stroke',
+                                'stylers': {
+                                    'color': '#000000'
+                                }
+                            },
+                            {
+                                'featureType': 'building',
+                                'elementType': 'geometry',
+                                'stylers': {
+                                    'color': '#022338'
+                                }
+                            },
+                            {
+                                'featureType': 'green',
+                                'elementType': 'geometry',
+                                'stylers': {
+                                    'color': '#062032'
+                                }
+                            },
+                            {
+                                'featureType': 'boundary',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'color': '#465b6c'
+                                }
+                            },
+                            {
+                                'featureType': 'manmade',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'color': '#022338'
+                                }
+                            },
+                            {
+                                'featureType': 'label',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'visibility': 'off'
+                                }
                             }
-                        },
-                        {
-                            'featureType': 'land',
-                            'elementType': 'geometry',
-                            'stylers': {
-                                'color': '#000102'
-                            }
-                        },
-                        {
-                            'featureType': 'highway',
-                            'elementType': 'all',
-                            'stylers': {
-                                'visibility': 'off'
-                            }
-                        },
-                        {
-                            'featureType': 'arterial',
-                            'elementType': 'geometry.fill',
-                            'stylers': {
-                                'color': '#000000'
-                            }
-                        },
-                        {
-                            'featureType': 'arterial',
-                            'elementType': 'geometry.stroke',
-                            'stylers': {
-                                'color': '#0b3d51'
-                            }
-                        },
-                        {
-                            'featureType': 'local',
-                            'elementType': 'geometry',
-                            'stylers': {
-                                'color': '#000000'
-                            }
-                        },
-                        {
-                            'featureType': 'railway',
-                            'elementType': 'geometry.fill',
-                            'stylers': {
-                                'color': '#000000'
-                            }
-                        },
-                        {
-                            'featureType': 'railway',
-                            'elementType': 'geometry.stroke',
-                            'stylers': {
-                                'color': '#08304b'
-                            }
-                        },
-                        {
-                            'featureType': 'subway',
-                            'elementType': 'geometry',
-                            'stylers': {
-                                'lightness': -70
-                            }
-                        },
-                        {
-                            'featureType': 'building',
-                            'elementType': 'geometry.fill',
-                            'stylers': {
-                                'color': '#000000'
-                            }
-                        },
-                        {
-                            'featureType': 'all',
-                            'elementType': 'labels.text.fill',
-                            'stylers': {
-                                'color': '#857f7f'
-                            }
-                        },
-                        {
-                            'featureType': 'all',
-                            'elementType': 'labels.text.stroke',
-                            'stylers': {
-                                'color': '#000000'
-                            }
-                        },
-                        {
-                            'featureType': 'building',
-                            'elementType': 'geometry',
-                            'stylers': {
-                                'color': '#022338'
-                            }
-                        },
-                        {
-                            'featureType': 'green',
-                            'elementType': 'geometry',
-                            'stylers': {
-                                'color': '#062032'
-                            }
-                        },
-                        {
-                            'featureType': 'boundary',
-                            'elementType': 'all',
-                            'stylers': {
-                                'color': '#465b6c'
-                            }
-                        },
-                        {
-                            'featureType': 'manmade',
-                            'elementType': 'all',
-                            'stylers': {
-                                'color': '#022338'
-                            }
-                        },
-                        {
-                            'featureType': 'label',
-                            'elementType': 'all',
-                            'stylers': {
-                                'visibility': 'off'
-                            }
-                        }
-                    ]
+                        ]
                     }
                 },
                 series: [{
