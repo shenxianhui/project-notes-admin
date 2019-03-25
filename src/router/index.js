@@ -9,8 +9,10 @@ const Error = () => import('../views/common/Error.vue');
 
 // ECharts
 const Echarts = () => import('../views/echarts/Echarts.vue');
-const LinesBeijing = () => import('../views/echarts/lines/LinesBeijing.vue');
-const LinesShanghai = () => import('../views/echarts/lines/LinesShanghai.vue');
+const LinesBeijing = () => import('../views/echarts/lines/Beijing.vue');
+const LinesShanghai = () => import('../views/echarts/lines/Shanghai.vue');
+const Lines3DWorld = () => import('../views/echarts/lines_3d/World.vue');
+const Lines3DShanghai = () => import('../views/echarts/lines_3d/Shanghai.vue');
 
 // 高德地图
 const Gaode = () => import('../views/gaode/Gaode.vue');
@@ -50,6 +52,16 @@ export default new Router({
                             path: 'lines-shanghai',
                             name: 'linesShanghai',
                             component: LinesShanghai
+                        },
+                        { // 全球路线3D
+                            path: 'lines-3d-world',
+                            name: 'lines3DWorld',
+                            component: Lines3DWorld
+                        },
+                        { // 上海出租车路线3D
+                            path: 'lines-3d-shanghai',
+                            name: 'lines3DShanghai',
+                            component: Lines3DShanghai
                         }
                     ]
                 },

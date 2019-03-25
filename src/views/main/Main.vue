@@ -1,8 +1,8 @@
 /*
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
- * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-03-24 09:39:21
+ * @Last Modified by: ShenXianhui
+ * @Last Modified time: 2019-03-25 13:12:52
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -98,6 +98,23 @@ export default {
                             label: '上海出租车路线',
                             value: 'linesShanghai',
                             url: 'lines-shanghai'
+                        }
+                    ]
+                },
+                {
+                    label: '3D路径图',
+                    value: 'lines3D',
+                    type: 'echarts',
+                    children: [
+                        {
+                            label: '全球路线',
+                            value: 'lines3DWorld',
+                            url: 'lines-3d-world'
+                        },
+                        {
+                            label: '上海出租车路线',
+                            value: 'lines3DShanghai',
+                            url: 'lines-3d-shanghai'
                         }
                     ]
                 }
