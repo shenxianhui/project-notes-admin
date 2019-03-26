@@ -11,7 +11,10 @@ const Error = () => import('../views/common/Error.vue');
 const Echarts = () => import('../views/echarts/Echarts.vue');
 const LinesBeijing = () => import('../views/echarts/lines/Beijing.vue');
 const LinesShanghai = () => import('../views/echarts/lines/Shanghai.vue');
+const Lines3DGlobe = () => import('../views/echarts/lines_3d/Globe.vue');
 const Lines3DWorld = () => import('../views/echarts/lines_3d/World.vue');
+const Lines3DSouthAfrica = () => import('../views/echarts/lines_3d/SouthAfrica.vue');
+const Lines3DChengdu = () => import('../views/echarts/lines_3d/Chengdu.vue');
 const Lines3DShanghai = () => import('../views/echarts/lines_3d/Shanghai.vue');
 
 // 高德地图
@@ -54,9 +57,24 @@ export default new Router({
                             component: LinesShanghai
                         },
                         { // 全球路线3D
+                            path: 'lines-3d-globe',
+                            name: 'lines3DGlobe',
+                            component: Lines3DGlobe
+                        },
+                        { // 世界路线3D
                             path: 'lines-3d-world',
                             name: 'lines3DWorld',
                             component: Lines3DWorld
+                        },
+                        { // 南非路线3D
+                            path: 'lines-3d-south-africa',
+                            name: 'lines3DSouthAfrica',
+                            component: Lines3DSouthAfrica
+                        },
+                        { // 成都路线3D
+                            path: 'lines-3d-chengdu',
+                            name: 'lines3DChengdu',
+                            component: Lines3DChengdu
                         },
                         { // 上海出租车路线3D
                             path: 'lines-3d-shanghai',

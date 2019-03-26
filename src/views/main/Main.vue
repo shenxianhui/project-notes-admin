@@ -2,7 +2,7 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-25 13:12:52
+ * @Last Modified time: 2019-03-26 10:45:04
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -90,12 +90,12 @@ export default {
                     type: 'echarts',
                     children: [
                         {
-                            label: '北京出租车路线',
+                            label: '北京出租车',
                             value: 'linesBeijing',
                             url: 'lines-beijing'
                         },
                         {
-                            label: '上海出租车路线',
+                            label: '上海出租车',
                             value: 'linesShanghai',
                             url: 'lines-shanghai'
                         }
@@ -107,12 +107,27 @@ export default {
                     type: 'echarts',
                     children: [
                         {
-                            label: '全球路线',
+                            label: '全球',
+                            value: 'lines3DGlobe',
+                            url: 'lines-3d-globe'
+                        },
+                        {
+                            label: '世界',
                             value: 'lines3DWorld',
                             url: 'lines-3d-world'
                         },
                         {
-                            label: '上海出租车路线',
+                            label: '南非',
+                            value: 'lines3DSouthAfrica',
+                            url: 'lines-3d-south-africa'
+                        },
+                        {
+                            label: '成都',
+                            value: 'lines3DChengdu',
+                            url: 'lines-3d-chengdu'
+                        },
+                        {
+                            label: '上海出租车',
                             value: 'lines3DShanghai',
                             url: 'lines-3d-shanghai'
                         }

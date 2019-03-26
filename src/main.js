@@ -5,7 +5,7 @@ import store from './store/index';
 import ElementUI from 'element-ui';
 // ECharts 及扩展
 import echarts from 'echarts'
-import 'echarts-gl'; 
+import 'echarts-gl';
 require('echarts/extension/bmap/bmap');
 
 import 'element-ui/lib/theme-chalk/index.css';

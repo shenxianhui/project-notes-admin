@@ -5,6 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<link rel="icon" href="<%= BASE_URL %>favicon.ico">
+		<link href="'https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css"></link>
 		<title>小贤笔记</title>
     </head>
     <body>
@@ -14,5 +15,9 @@
 		<div id="app"></div>
 		<!-- built files will be auto injected -->
 		<script src="http://api.map.baidu.com/api?v=2.0&ak=WtfzT34lcKH9OQHNXFWaAxlhuF20zGRM"></script>
+		<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js"></script>
+		<script>
+			window.mapboxgl.accessToken = 'pk.eyJ1IjoiYWFyb242NjYiLCJhIjoiY2o2M2NmZmJ4MWc0ZDJxbnI3dmZ5OXB2MSJ9.T3trJ5Tu66Kw-w-1ELpzBA';
+		</script>
     </body>
 </html>
