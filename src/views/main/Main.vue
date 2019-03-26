@@ -1,8 +1,8 @@
 /*
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
- * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-26 10:45:04
+ * @Last Modified by: Shen Xianhui
+ * @Last Modified time: 2019-03-26 21:21:41
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -106,16 +106,6 @@ export default {
                     value: 'lines3D',
                     type: 'echarts',
                     children: [
-                        {
-                            label: '全球',
-                            value: 'lines3DGlobe',
-                            url: 'lines-3d-globe'
-                        },
-                        {
-                            label: '世界',
-                            value: 'lines3DWorld',
-                            url: 'lines-3d-world'
-                        },
                         {
                             label: '南非',
                             value: 'lines3DSouthAfrica',
