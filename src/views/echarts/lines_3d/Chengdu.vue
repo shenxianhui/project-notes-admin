@@ -1438,8 +1438,8 @@ export default {
             };
             myChart.setOption(option);
 
-            /*
-            var map = myChart.getModel().getComponent('mapbox').getMapbox();
+            // 底图渲染
+            var map = myChart.getModel().getComponent('mapbox3D').getMapbox();
             map.on('load', function() {
 
                 // Insert the layer beneath any symbol layer.
@@ -1543,7 +1543,6 @@ export default {
 
                 map.addControl(new mapboxgl.NavigationControl());
             });
-            */
         }
     }
 };
