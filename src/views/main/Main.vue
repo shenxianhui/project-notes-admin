@@ -1,8 +1,8 @@
 /*
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
- * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-03-26 21:21:41
+ * @Last Modified by: ShenXianhui
+ * @Last Modified time: 2019-03-27 08:39:21
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -26,7 +26,7 @@
         <!-- 侧边栏+内容 -->
         <div class="aside">
             <el-menu
-                default-active="0-0"
+                :default-active="String($route.path.split('/').pop())"
                 class="el-menu-vertical-demo"
                 :unique-opened="true"
                 @open="handleOpen"
@@ -44,9 +44,9 @@
                     </template>
                     <el-menu-item-group>
                         <el-menu-item
-                            v-for="(item1, index1) in item.children"
+                            v-for="item1 in item.children"
                             :key="item1.value"
-                            :index="index + '-' + index1"
+                            :index="item1.url"
                             @click="handleClick(item1)">
                             {{ item1.label }}
                         </el-menu-item>
@@ -67,7 +67,7 @@ export default {
     props: {},
     data() {
         return {
-            activeIndex: '0', // 当前选中
+            activeIndex: '0', // 当前选中-顶栏
             isCollapse: false, // 折叠
             activeHeaderMenu: 'echarts', // 顶部选中菜单
 
