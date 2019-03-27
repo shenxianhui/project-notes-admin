@@ -2,15 +2,15 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-26 10:37:48 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-26 10:39:14
+ * @Last Modified time: 2019-03-27 10:47:45
  */
 <!-- 成都出租车路线 -->
 <template>
-    <div class="lines3d-chengdu" id="lines3d-chengdu"></div>
+    <div class="lines-3d-chengdu" id="lines-3d-chengdu"></div>
 </template>
 
 <script>
-import Lines from '@/assets/data/lines_3d/chengdu.json';
+import Lines from '@/assets/data/echarts/lines_3d/chengdu.json';
 
 export default {
     name: 'lines3DChengdu',
@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         getLines() {
-            var myChart = this.$echarts.init(document.getElementById('lines3d-chengdu'));
+            var myChart = this.$echarts.init(document.getElementById('lines-3d-chengdu'));
 
             var geoDData = {
                 "features": [
@@ -1365,9 +1365,8 @@ export default {
                 }
                 taxiRoutes.push({
                     coords: lnglats,
-                    lineStyle: {
-                    }
-                })
+                    lineStyle: {}
+                });
             }
 
             function rotateCamera(timestamp) {
@@ -1549,7 +1548,7 @@ export default {
 </script>
 
 <style scoped lang='less'>
-.lines3d-chengdu {
+.lines-3d-chengdu {
     width: 100%;
     height: 100%;
 }

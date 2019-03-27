@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import * as Lines from '@/assets/data/lines/shanghai/index.js'; // 接口全部引用
+import * as Lines from '@/assets/data/echarts/lines/shanghai/index.js'; // 接口全部引用
 
 export default {
     name: 'LinesShanghai',

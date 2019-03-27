@@ -54,12 +54,12 @@ export default new Router({
                             name: 'linesShanghai',
                             component: LinesShanghai
                         },
-                        { // 南非路线3D
+                        { // 南非出租车路线3D
                             path: 'lines-3d-south-africa',
                             name: 'lines3DSouthAfrica',
                             component: Lines3DSouthAfrica
                         },
-                        { // 成都路线3D
+                        { // 成都出租车路线3D
                             path: 'lines-3d-chengdu',
                             name: 'lines3DChengdu',
                             component: Lines3DChengdu

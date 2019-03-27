@@ -2,7 +2,7 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-27 08:39:21
+ * @Last Modified time: 2019-03-27 08:47:06
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -90,19 +90,19 @@ export default {
                     type: 'echarts',
                     children: [
                         {
-                            label: '北京出租车',
+                            label: '北京',
                             value: 'linesBeijing',
                             url: 'lines-beijing'
                         },
                         {
-                            label: '上海出租车',
+                            label: '上海',
                             value: 'linesShanghai',
                             url: 'lines-shanghai'
                         }
                     ]
                 },
                 {
-                    label: '3D路径图',
+                    label: '路径图 - 3D',
                     value: 'lines3D',
                     type: 'echarts',
                     children: [
@@ -117,7 +117,7 @@ export default {
                             url: 'lines-3d-chengdu'
                         },
                         {
-                            label: '上海出租车',
+                            label: '上海',
                             value: 'lines3DShanghai',
                             url: 'lines-3d-shanghai'
                         }

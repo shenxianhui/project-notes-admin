@@ -2,20 +2,18 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-26 10:09:37 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-26 10:36:42
+ * @Last Modified time: 2019-03-27 08:54:05
  */
 <!-- 3D路线图-南非 -->
 <template>
-    <div class="south-africa">
+    <div class="lines-3d-south-africa">
         New page
     </div>
 </template>
 
 <script>
-// import Lines from '@/assets/data/lines_3d/world.json';
-
 export default {
-    name: 'SouthAfrica',
+    name: 'lines3DSouthAfrica',
     components: {},
     props: {},
     data() {

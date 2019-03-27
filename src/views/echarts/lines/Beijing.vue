@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Lines from '@/assets/data/lines/beijing/beijing.json';
+import Lines from '@/assets/data/echarts/lines/beijing/beijing.json';
 
 export default {
     name: 'LinesBeijing',
