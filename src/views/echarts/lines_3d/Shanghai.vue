@@ -34,6 +34,9 @@ export default {
             Object.values(Lines).forEach(item => {
                 var lnglats = [];
                 item.forEach(item1 => {
+                    if (!item1.id) {
+                        return false;
+                    }
                     lnglats.push([item1.longitude, item1.latitude]);
                 });
                 taxiRoutes.push({
@@ -90,7 +93,7 @@ export default {
                     effect: {
                         show: true,
                         constantSpeed: 1,
-                        trailWidth: 2,
+                        trailWidth: 3,
                         trailLength: 0.4,
                         trailOpacity: 1,
                         spotIntensity: 10

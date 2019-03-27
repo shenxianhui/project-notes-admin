@@ -1361,7 +1361,7 @@ export default {
                 var pointArr = pointString.split(';');
                 var lnglats = [];
                 for (var j in pointArr) {
-                    lnglats.push(pointArr[j].split(','))
+                    lnglats.push(pointArr[j].split(','));
                 }
                 taxiRoutes.push({
                     coords: lnglats,
