@@ -1,8 +1,8 @@
 /*
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
- * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-27 08:47:06
+ * @Last Modified by: Shen Xianhui
+ * @Last Modified time: 2019-03-27 21:45:35
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -84,6 +84,18 @@ export default {
                 }
             ],
             asideList: [ // 菜单列表
+                {
+                    label: '柱状图',
+                    value: 'bar',
+                    type: 'echarts',
+                    children: [
+                        {
+                            label: '实例',
+                            value: 'bar',
+                            url: 'bar'
+                        }
+                    ]
+                },
                 {
                     label: '路径图',
                     value: 'lines',

@@ -14,6 +14,7 @@ const LinesShanghai = () => import('../views/echarts/lines/Shanghai.vue');
 const Lines3DSouthAfrica = () => import('../views/echarts/lines_3d/SouthAfrica.vue');
 const Lines3DChengdu = () => import('../views/echarts/lines_3d/Chengdu.vue');
 const Lines3DShanghai = () => import('../views/echarts/lines_3d/Shanghai.vue');
+const Bar = () => import('../views/echarts/bar/Bar.vue');
 
 // 高德地图
 const Gaode = () => import('../views/gaode/Gaode.vue');
@@ -42,7 +43,7 @@ export default new Router({
                     path: 'echarts',
                     name: 'echarts',
                     component: Echarts,
-                    redirect: 'echarts/lines-beijing',
+                    redirect: 'echarts/bar', // 默认
                     children: [
                         { // 北京出租车路线
                             path: 'lines-beijing',
@@ -68,6 +69,11 @@ export default new Router({
                             path: 'lines-3d-shanghai',
                             name: 'lines3DShanghai',
                             component: Lines3DShanghai
+                        },
+                        { // 柱状图
+                            path: 'bar',
+                            name: 'bar',
+                            component: Bar
                         }
                     ]
                 },
