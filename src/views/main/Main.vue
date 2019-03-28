@@ -1,8 +1,8 @@
 /*
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
- * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-03-27 21:45:35
+ * @Last Modified by: ShenXianhui
+ * @Last Modified time: 2019-03-28 13:49:29
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -93,6 +93,18 @@ export default {
                             label: '实例',
                             value: 'bar',
                             url: 'bar'
+                        }
+                    ]
+                },
+                {
+                    label: '饼图',
+                    value: 'pie',
+                    type: 'echarts',
+                    children: [
+                        {
+                            label: '实例',
+                            value: 'pie',
+                            url: 'pie'
                         }
                     ]
                 },

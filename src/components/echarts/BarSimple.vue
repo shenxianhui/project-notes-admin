@@ -2,7 +2,7 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-28 08:23:39 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-28 13:41:06
+ * @Last Modified time: 2019-03-28 14:23:41
  */
 <!-- 柱状图 -->
 <template>
@@ -21,12 +21,10 @@ export default {
                     show: true, // 显示
                     text: '柱状图', // 文字
                     textStyle: { // 样式
-                        fontSize: 15, // 大小
-                        color: '#333', // 颜色
-                        fontWeight: 'normal', // 粗细
+                        color: '#999' // 颜色
                     },
-                    right: 20, // 右边距
-                    top: 20 // 上边距
+                    left: 20, // 左边距
+                    top: 10 // 上边距
                 }
             }
         },
@@ -53,7 +51,7 @@ export default {
                 return [
                     { // 底部
                         show: true, // 显示
-                        data: ['0-10%', '10%-20%', '12%-30%', '30%-40%', '40%-50%', '50%以上'], // 数据
+                        data: ['一', '二', '三', '四', '五', '六'], // 数据
                         axisTick: { // 刻度
                             show: false // 显示
                         },

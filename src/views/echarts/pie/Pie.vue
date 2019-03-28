@@ -1,32 +1,26 @@
 /*
- * @Author: Shen Xianhui 
- * @Date: 2019-03-27 21:32:19 
+ * @Author: ShenXianhui 
+ * @Date: 2019-03-28 13:50:46 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-28 14:08:55
+ * @Last Modified time: 2019-03-28 14:09:16
  */
-<!-- 柱状图 -->
+<!-- 饼图 -->
 <template>
-    <div class="bar">
+    <div class="pie">
         <div class="item">
-            <!-- 柱状图 -->
-            <BarSimple></BarSimple>
-        </div>
-        <div class="item">
-            <!-- 柱状折线图 -->
-            <BarLine></BarLine>
+            <!-- 饼图-渐变 -->
+            <PieGradient></PieGradient>
         </div>
     </div>
 </template>
 
 <script>
-import BarSimple from '@/components/echarts/BarSimple'
-import BarLine from '@/components/echarts/BarLine'
+import PieGradient from '@/components/echarts/PieGradient'
 
 export default {
-    name: 'Bar',
+    name: 'Pie',
     components: {
-        BarSimple,
-        BarLine
+        PieGradient
     },
     props: {},
     data() {
@@ -35,12 +29,13 @@ export default {
     computed: {},
     watch: {},
     mounted() {},
+    created() {},
     methods: {}
 };
 </script>
 
 <style scoped lang='less'>
-.bar {
+.pie {
     display: flex;
 
     width: 100%;
