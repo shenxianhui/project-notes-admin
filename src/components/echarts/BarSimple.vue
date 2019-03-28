@@ -2,7 +2,7 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-28 08:23:39 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-28 11:17:36
+ * @Last Modified time: 2019-03-28 13:41:06
  */
 <!-- 柱状图 -->
 <template>
@@ -42,7 +42,8 @@ export default {
             type: Object,
             default: () => {
                 return {
-                    show: false // 显示
+                    show: false, // 显示
+                    data:['data'] // 与 series.name 对应
                 }
             }
         },
@@ -109,6 +110,7 @@ export default {
                 return [
                     { // 柱状图
                         type: 'bar', // 类型
+                        name: 'data', // 名称
                         data: [5, 20, 36, 10, 10, 20], // 数据
                         itemStyle: { // 样式
                             color: '#aaa' // 颜色

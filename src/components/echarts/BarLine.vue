@@ -2,7 +2,7 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-28 08:23:39 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-28 11:18:17
+ * @Last Modified time: 2019-03-28 13:44:35
  */
 <!-- 柱状折线图 -->
 <template>
@@ -43,7 +43,13 @@ export default {
             type: Object,
             default: () => {
                 return {
-                    show: false // 显示
+                    show: true, // 显示
+                    data:['data1', 'data2'], // 与 series.name 对应
+                    // 自定义图例
+                    icon:'roundRect', // 形状
+                    itemWidth: 30, // 宽度
+                    itemHeight: 15, // 高度
+                    itemGap: 40 // 间距
                 }
             }
         },
@@ -110,6 +116,7 @@ export default {
                 return [
                     { // 柱状图
                         type: 'bar', // 类型
+                        name: 'data1', // 名称
                         data: [5, 20, 36, 10, 10, 20], // 数据
                         itemStyle: { // 样式
                             color: '#aaa' // 颜色
@@ -129,6 +136,21 @@ export default {
                             // ], false)
                         },
                         barWidth: 40 // 柱条宽度(不填为自适应)
+                    },
+                    {
+                        type: 'line', // 类型
+                        name: 'data2', // 名称
+                        data: [15, 28, 30, 11, 30, 15], // 数据
+                        lineStyle: { // 线样式
+                            color: '#ccc', // 颜色
+                            width: 2 // 宽度
+                        },
+                        symbol: 'circle', // 拐点类型
+                        symbolSize: 6, // 拐点大小
+                        itemStyle: { // 拐点样式
+                            color: '#ccc', // 颜色
+                            borderColor: '#ccc' // 边框颜色
+                        }
                     }
                 ]
             }
