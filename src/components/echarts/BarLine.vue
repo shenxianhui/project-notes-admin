@@ -2,16 +2,17 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-28 08:23:39 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-28 11:17:36
+ * @Last Modified time: 2019-03-28 11:18:17
  */
-<!-- 柱状图 -->
+<!-- 柱状折线图 -->
 <template>
-    <div class="bar-simple" id="bar-simple"></div>
+    <div class="bar-line" id="bar-line"></div>
 </template>
 
 <script>
+
 export default {
-    name: 'BarSimple',
+    name: 'BarLine',
     components: {},
     props: {
         title: { // 标题
@@ -144,7 +145,7 @@ export default {
     created() {},
     methods: {
         getLines() {
-            let myChart = this.$echarts.init(document.getElementById('bar-simple'));
+            let myChart = this.$echarts.init(document.getElementById('bar-line'));
 
             let option = {
                 title: this.title,
@@ -162,7 +163,7 @@ export default {
 </script>
 
 <style scoped lang='less'>
-.bar-simple {
+.bar-line {
     width: 100%;
     height: 100%;
 }
