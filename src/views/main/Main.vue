@@ -2,7 +2,7 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-28 13:49:29
+ * @Last Modified time: 2019-03-28 16:47:15
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -105,6 +105,18 @@ export default {
                             label: '实例',
                             value: 'pie',
                             url: 'pie'
+                        }
+                    ]
+                },
+                {
+                    label: '地图',
+                    value: 'map',
+                    type: 'echarts',
+                    children: [
+                        {
+                            label: '中国',
+                            value: 'mapChina',
+                            url: 'map-china'
                         }
                     ]
                 },
