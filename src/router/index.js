@@ -27,7 +27,7 @@ export default new Router({
     routes: [
         { // 默认
             path: '/',
-            redirect: '/echarts/lines-beijing'
+            redirect: '/echarts/bar'
         },
         { // 错误页
             path: '/error',
