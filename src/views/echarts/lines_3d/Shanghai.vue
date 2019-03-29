@@ -2,8 +2,11 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-25 10:44:12 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-27 11:17:32
+ * @Last Modified time: 2019-03-29 10:50:20
  */
+
+/* 摘自: https://gallery.echartsjs.com/editor.html?c=xTz93GGXbm */
+
 <!-- 上海出租车路线 -->
 <template>
     <div class="lines-3d-shanghai" id="lines-3d-shanghai"></div>

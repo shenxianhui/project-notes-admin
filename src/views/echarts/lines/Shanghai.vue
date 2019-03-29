@@ -2,8 +2,10 @@
  * @Author: Shen Xianhui 
  * @Date: 2019-03-24 09:42:15 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-25 10:39:27
+ * @Last Modified time: 2019-03-29 10:52:43
  */
+
+/* 摘自: https://echarts.baidu.com/examples/editor.html?c=lines-bmap-effect */
 
 <!-- 上海出租车路线 -->
 <template>

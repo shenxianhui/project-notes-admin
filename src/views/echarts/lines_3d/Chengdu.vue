@@ -2,8 +2,11 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-26 10:37:48 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-27 10:47:45
+ * @Last Modified time: 2019-03-29 10:48:49
  */
+
+/* 摘自: https://gallery.echartsjs.com/editor.html?c=xTz93GGXbm */
+
 <!-- 成都出租车路线 -->
 <template>
     <div class="lines-3d-chengdu" id="lines-3d-chengdu"></div>

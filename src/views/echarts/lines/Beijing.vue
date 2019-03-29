@@ -2,8 +2,11 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-22 11:17:32 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-25 11:06:52
+ * @Last Modified time: 2019-03-29 10:52:20
  */
+
+/* 摘自: https://echarts.baidu.com/examples/editor.html?c=lines-bmap-effect */
+
 <!-- 北京出租车路线 -->
 <template>
     <div class="lines-beijing" id="lines-beijing"></div>

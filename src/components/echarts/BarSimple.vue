@@ -2,8 +2,9 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-28 08:23:39 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-28 14:23:41
+ * @Last Modified time: 2019-03-29 10:54:07
  */
+
 <!-- 柱状图 -->
 <template>
     <div class="bar-simple" id="bar-simple"></div>
