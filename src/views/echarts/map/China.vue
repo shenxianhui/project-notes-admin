@@ -2,7 +2,7 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-28 16:41:33 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-29 10:57:16
+ * @Last Modified time: 2019-03-29 13:40:33
  */
 
 /* 摘自: https://gallery.echartsjs.com/editor.html?c=xBkU4Ocw-7 */
@@ -254,54 +254,57 @@ export default {
                             id: name,
                             left: pos.leftCur + pos.leftPlus,
                             top: pos.top + 3,
-                            children: [{
-                                type: 'polyline',
-                                left: -90,
-                                top: -5,
-                                shape: {
-                                    points: line
+                            children: [
+                                {
+                                    type: 'polyline',
+                                    left: -90,
+                                    top: -5,
+                                    shape: {
+                                        points: line
+                                    },
+                                    style: {
+                                        stroke: '#fff',
+                                        key: name
+                                        // lineWidth: 2,
+                                    },
+                                    onclick: function() {
+                                        var name = this.style.key;
+                                        handleEvents.resetOption(chart, option, name);
+                                    }
                                 },
-                                style: {
-                                    stroke: '#fff',
-                                    key: name
-                                    // lineWidth: 2,
+                                {
+                                    type: 'text',
+                                    left: -68,
+                                    top: 'middle',
+                                    style: {
+                                        text: name,
+                                        textAlign: 'center',
+                                        fill: style.textColor,
+                                        font: style.font
+                                    },
+                                    onclick: function() {
+                                        var name = this.style.text;
+                                        handleEvents.resetOption(chart, option, name);
+                                    }
                                 },
-                                onclick: function() {
-                                    var name = this.style.key;
-                                    handleEvents.resetOption(chart, option, name);
+                                {
+                                    type: 'text',
+                                    left: -68,
+                                    top: 10,
+                                    style: {
+                                        name: name,
+                                        text: cityToPinyin[name] ? cityToPinyin[name].toUpperCase() : '',
+                                        textAlign: 'center',
+                                        fill: style.textColor,
+                                        font: '12px "Microsoft YaHei", sans-serif',
+                                    },
+                                    onclick: function() {
+                                        // console.log(this.style);
+                                        var name = this.style.name;
+                                        handleEvents.resetOption(chart, option, name);
+                                    }
                                 }
-                            }, {
-                                type: 'text',
-                                left: -68,
-                                top: 'middle',
-                                style: {
-                                    text: name,
-                                    textAlign: 'center',
-                                    fill: style.textColor,
-                                    font: style.font
-                                },
-                                onclick: function() {
-                                    var name = this.style.text;
-                                    handleEvents.resetOption(chart, option, name);
-                                }
-                            }, {
-                                type: 'text',
-                                left: -68,
-                                top: 10,
-                                style: {
-
-                                    name: name,
-                                    text: cityToPinyin[name] ? cityToPinyin[name].toUpperCase() : '',
-                                    textAlign: 'center',
-                                    fill: style.textColor,
-                                    font: '12px "Microsoft YaHei", sans-serif',
-                                },
-                                onclick: function() {
-                                    // console.log(this.style);
-                                    var name = this.style.name;
-                                    handleEvents.resetOption(chart, option, name);
-                                }
-                            }]
+                            ]
                         }
 
                         pos.leftCur += pos.leftPlus;
@@ -448,7 +451,7 @@ export default {
                     ],
                     geo: {
                         map: opt.mapName,
-                        roam: true,
+                        roam: true, // 开启鼠标缩放和平移漫游
                         zoom: 1,
                         label: {
                             normal: {
