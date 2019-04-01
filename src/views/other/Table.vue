@@ -1,19 +1,19 @@
 /*
- * @Author: ShenXianhui 
- * @Date: 2019-03-22 11:03:29 
- * @Last Modified by:   ShenXianhui 
- * @Last Modified time: 2019-03-22 11:03:29 
+ * @Author: Shen Xianhui 
+ * @Date: 2019-04-01 20:42:50 
+ * @Last Modified by:   Shen Xianhui 
+ * @Last Modified time: 2019-04-01 20:42:50 
  */
-<!-- 高德地图 -->
+<!-- 表格 -->
 <template>
-    <div class="gaode">
+    <div class="table">
         New page
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Gaode',
+    name: 'Table',
     components: {},
     props: {},
     data() {
@@ -21,6 +21,7 @@ export default {
     },
     computed: {},
     watch: {},
+    mounted() {},
     created() {},
     methods: {}
 };

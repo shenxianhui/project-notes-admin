@@ -1,14 +1,16 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-// 导航
+// 通用容器
+const Container = () => import('../views/Container');
+
+// 导航页
 const Main = () => import('../views/main/Main');
 
 // 错误页面
 const Error = () => import('../views/common/Error.vue');
 
 // ECharts
-const Echarts = () => import('../views/echarts/Echarts.vue');
 const Bar = () => import('../views/echarts/bar/Bar.vue');
 const Pie = () => import('../views/echarts/pie/Pie.vue');
 const MapChina = () => import('../views/echarts/map/China.vue');
@@ -18,8 +20,8 @@ const Lines3DSouthAfrica = () => import('../views/echarts/lines_3d/SouthAfrica.v
 const Lines3DChengdu = () => import('../views/echarts/lines_3d/Chengdu.vue');
 const Lines3DShanghai = () => import('../views/echarts/lines_3d/Shanghai.vue');
 
-// 高德地图
-const Gaode = () => import('../views/gaode/Gaode.vue');
+// 其他
+const Table = () => import('../views/other/Table.vue');
 
 Vue.use(Router);
 
@@ -44,7 +46,7 @@ export default new Router({
                 { // ECharts
                     path: 'echarts',
                     name: 'echarts',
-                    component: Echarts,
+                    component: Container,
                     redirect: 'echarts/bar', // 默认
                     children: [
                         { // 柱状图
@@ -89,10 +91,18 @@ export default new Router({
                         }
                     ]
                 },
-                { // 高德地图
-                    path: 'gaode',
-                    name: 'gaode',
-                    component: Gaode
+                { // 其他
+                    path: 'other',
+                    name: 'other',
+                    component: Container,
+                    redirect: 'other/table', // 默认
+                    children: [
+                        {
+                            path: 'table',
+                            name: 'table',
+                            component: Table
+                        }
+                    ]
                 }
             ]
         }

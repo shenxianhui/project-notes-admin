@@ -1,8 +1,8 @@
 /*
  * @Author: ShenXianhui 
  * @Date: 2019-03-21 15:35:31 
- * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-28 16:47:15
+ * @Last Modified by: Shen Xianhui
+ * @Last Modified time: 2019-04-01 21:34:45
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -35,7 +35,7 @@
                 <div class="collapse" @click="isCollapse = !isCollapse">{{ isCollapse ? '→' : '←' }}</div>
                 <el-submenu
                     v-show="item.type === activeHeaderMenu"
-                    v-for="(item, index) in asideList"
+                    v-for="(item, index) in menuList"
                     :key="item.id"
                     :index="String(index)">
                     <template slot="title">
@@ -70,105 +70,128 @@ export default {
             activeIndex: '0', // 当前选中-顶栏
             isCollapse: false, // 折叠
             activeHeaderMenu: 'echarts', // 顶部选中菜单
+            menuList: [], // 菜单
 
             headerList: [ // 顶部导航列表
                 {
                     label: 'ECharts',
                     value: 'echarts',
-                    url: 'echarts'
+                    url: 'echarts',
+                    list: 'echartsList'
                 },
                 {
-                    label: '高德地图',
-                    value: 'gaode',
-                    url: 'gaode'
+                    label: '其他',
+                    value: 'other',
+                    url: 'other',
+                    list: 'otherList'
                 }
             ],
-            asideList: [ // 菜单列表
-                {
-                    label: '柱状图',
-                    value: 'bar',
-                    type: 'echarts',
-                    children: [
-                        {
-                            label: '实例',
-                            value: 'bar',
-                            url: 'bar'
-                        }
-                    ]
-                },
-                {
-                    label: '饼图',
-                    value: 'pie',
-                    type: 'echarts',
-                    children: [
-                        {
-                            label: '实例',
-                            value: 'pie',
-                            url: 'pie'
-                        }
-                    ]
-                },
-                {
-                    label: '地图',
-                    value: 'map',
-                    type: 'echarts',
-                    children: [
-                        {
-                            label: '中国',
-                            value: 'mapChina',
-                            url: 'map-china'
-                        }
-                    ]
-                },
-                {
-                    label: '路径图',
-                    value: 'lines',
-                    type: 'echarts',
-                    children: [
-                        {
-                            label: '北京',
-                            value: 'linesBeijing',
-                            url: 'lines-beijing'
-                        },
-                        {
-                            label: '上海',
-                            value: 'linesShanghai',
-                            url: 'lines-shanghai'
-                        }
-                    ]
-                },
-                {
-                    label: '路径图 - 3D',
-                    value: 'lines3D',
-                    type: 'echarts',
-                    children: [
-                        {
-                            label: '南非',
-                            value: 'lines3DSouthAfrica',
-                            url: 'lines-3d-south-africa'
-                        },
-                        {
-                            label: '成都',
-                            value: 'lines3DChengdu',
-                            url: 'lines-3d-chengdu'
-                        },
-                        {
-                            label: '上海',
-                            value: 'lines3DShanghai',
-                            url: 'lines-3d-shanghai'
-                        }
-                    ]
-                }
-            ]
+            sideList: { // 侧边导航列表
+                echartsList: [ // Echarts
+                    {
+                        label: '柱状图',
+                        value: 'bar',
+                        type: 'echarts',
+                        children: [
+                            {
+                                label: '实例',
+                                value: 'bar',
+                                url: 'bar'
+                            }
+                        ]
+                    },
+                    {
+                        label: '饼图',
+                        value: 'pie',
+                        type: 'echarts',
+                        children: [
+                            {
+                                label: '实例',
+                                value: 'pie',
+                                url: 'pie'
+                            }
+                        ]
+                    },
+                    {
+                        label: '地图',
+                        value: 'map',
+                        type: 'echarts',
+                        children: [
+                            {
+                                label: '中国',
+                                value: 'mapChina',
+                                url: 'map-china'
+                            }
+                        ]
+                    },
+                    {
+                        label: '路径图',
+                        value: 'lines',
+                        type: 'echarts',
+                        children: [
+                            {
+                                label: '北京',
+                                value: 'linesBeijing',
+                                url: 'lines-beijing'
+                            },
+                            {
+                                label: '上海',
+                                value: 'linesShanghai',
+                                url: 'lines-shanghai'
+                            }
+                        ]
+                    },
+                    {
+                        label: '路径图 - 3D',
+                        value: 'lines3D',
+                        type: 'echarts',
+                        children: [
+                            {
+                                label: '南非',
+                                value: 'lines3DSouthAfrica',
+                                url: 'lines-3d-south-africa'
+                            },
+                            {
+                                label: '成都',
+                                value: 'lines3DChengdu',
+                                url: 'lines-3d-chengdu'
+                            },
+                            {
+                                label: '上海',
+                                value: 'lines3DShanghai',
+                                url: 'lines-3d-shanghai'
+                            }
+                        ]
+                    }
+                ],
+                otherList: [ // 其他
+                    {
+                        label: '表格',
+                        value: 'table',
+                        type: 'other',
+                        children: [
+                            {
+                                label: '实例',
+                                value: 'table',
+                                url: 'table'
+                            }
+                        ]
+                    }
+                ]
+            }
         };
     },
     computed: {},
     watch: {},
-    created() {},
+    created() {
+        this.menuList = this.sideList.echartsList;
+        this.activeHeaderMenu = this.headerList[0].value;
+    },
     methods: {
         // 顶栏-选中
         handleSelect(key, keyPath) {
             this.activeHeaderMenu = this.headerList[key].value;
+            this.menuList = this.sideList[this.headerList[key].list];
             this.$router.push(`/${this.headerList[key].url}`);
         },
 
