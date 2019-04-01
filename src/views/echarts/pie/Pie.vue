@@ -2,14 +2,14 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-28 13:50:46 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-28 14:09:16
+ * @Last Modified time: 2019-04-01 16:51:16
  */
 <!-- 饼图 -->
 <template>
     <div class="pie">
         <div class="item">
             <!-- 饼图-渐变 -->
-            <PieGradient></PieGradient>
+            <PieGradient id="pie-gradient"></PieGradient>
         </div>
     </div>
 </template>

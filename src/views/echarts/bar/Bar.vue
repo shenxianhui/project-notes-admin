@@ -2,18 +2,18 @@
  * @Author: Shen Xianhui 
  * @Date: 2019-03-27 21:32:19 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-28 14:08:55
+ * @Last Modified time: 2019-04-01 16:47:59
  */
 <!-- 柱状图 -->
 <template>
     <div class="bar">
         <div class="item">
             <!-- 柱状图 -->
-            <BarSimple></BarSimple>
+            <BarSimple id="bar-simple"></BarSimple>
         </div>
         <div class="item">
             <!-- 柱状折线图 -->
-            <BarLine></BarLine>
+            <BarLine  id="bar-line"></BarLine>
         </div>
     </div>
 </template>

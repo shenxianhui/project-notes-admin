@@ -2,12 +2,12 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-28 08:23:39 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-29 10:54:07
+ * @Last Modified time: 2019-04-01 17:03:22
  */
 
 <!-- 柱状图 -->
 <template>
-    <div class="bar-simple" id="bar-simple"></div>
+    <div class="bar-simple" :id="id"></div>
 </template>
 
 <script>
@@ -15,6 +15,10 @@ export default {
     name: 'BarSimple',
     components: {},
     props: {
+        id: {
+            type: String,
+            default: 'bar-simple'
+        },
         title: { // 标题
             type: Object,
             default: () => {
@@ -84,7 +88,8 @@ export default {
                         splitLine: { // 分割线
                             show: true, // 显示
                             lineStyle: {// 样式
-                                color: ['#ddd'] // 颜色
+                                color: ['#ddd'], // 颜色
+                                opacity: 0.5 // 透明度
                             }
                         }
                     },
@@ -113,7 +118,7 @@ export default {
                         data: [5, 20, 36, 10, 10, 20], // 数据
                         itemStyle: { // 样式
                             color: '#aaa' // 颜色
-                            // color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [ // 渐变色(不能写在data内)
+                            // color: new this.$echarts.graphic.LinearGradient(0, 1, 0, 0, [ // 渐变色(写在data内)
                             //     {
                             //         offset: 0,
                             //         color: "#eee" // 0% 处的颜色
@@ -145,7 +150,7 @@ export default {
     created() {},
     methods: {
         getLines() {
-            let myChart = this.$echarts.init(document.getElementById('bar-simple'));
+            let myChart = this.$echarts.init(document.getElementById(this.id));
 
             let option = {
                 title: this.title,

@@ -2,12 +2,12 @@
  * @Author: ShenXianhui 
  * @Date: 2019-03-28 13:53:54 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-29 10:54:21
+ * @Last Modified time: 2019-04-01 17:02:56
  */
 
 <!-- 饼图-渐变 -->
 <template>
-    <div class="pie-gradient" id="pie-gradient"></div>
+    <div class="pie-gradient" :id="id"></div>
 </template>
 
 <script>
@@ -15,6 +15,10 @@ export default {
     name: 'PieGradient',
     components: {},
     props: {
+        id: {
+            type: String,
+            default: 'pie-gradient'
+        },
         title: { // 标题
             type: Object,
             default: () => {
@@ -111,7 +115,7 @@ export default {
     created() {},
     methods: {
         getLines() {
-            let myChart = this.$echarts.init(document.getElementById('pie-gradient'));
+            let myChart = this.$echarts.init(document.getElementById(this.id));
 
             let option = {
                 title: this.title,
