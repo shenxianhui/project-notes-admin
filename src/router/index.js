@@ -21,7 +21,7 @@ const Lines3DChengdu = () => import('../views/echarts/lines_3d/Chengdu.vue');
 const Lines3DShanghai = () => import('../views/echarts/lines_3d/Shanghai.vue');
 
 // 其他
-const Table = () => import('../views/other/Table.vue');
+const Table = () => import('../views/other/table/Table.vue');
 
 Vue.use(Router);
 

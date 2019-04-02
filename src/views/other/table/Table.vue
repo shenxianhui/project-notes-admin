@@ -1,32 +1,26 @@
 /*
  * @Author: Shen Xianhui 
- * @Date: 2019-03-27 21:32:19 
+ * @Date: 2019-04-01 20:42:50 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-04-02 08:52:29
+ * @Last Modified time: 2019-04-02 08:52:14
  */
-<!-- 柱状图 -->
+<!-- 表格 -->
 <template>
-    <div class="bar">
-        <!-- 柱状图 -->
+    <div class="table">
+        <!-- 首行固定 -->
         <div class="container">
-            <BarSimple id="bar-simple"></BarSimple>
-        </div>
-        <!-- 柱状折线图 -->
-        <div class="container">
-            <BarLine  id="bar-line"></BarLine>
+            <TableBase></TableBase>
         </div>
     </div>
 </template>
 
 <script>
-import BarSimple from '@/components/echarts/BarSimple'
-import BarLine from '@/components/echarts/BarLine'
+import TableBase from '@/components/table/TableBase';
 
 export default {
-    name: 'Bar',
+    name: 'Table',
     components: {
-        BarSimple,
-        BarLine
+        TableBase
     },
     props: {},
     data() {
@@ -35,19 +29,20 @@ export default {
     computed: {},
     watch: {},
     mounted() {},
+    created() {},
     methods: {}
 };
 </script>
 
 <style scoped lang='less'>
-.bar {
+.table {
     display: flex;
 
     width: 100%;
     height: 100%;
     .container {
-        width: 50%;
-        height: 50%;
+        width: 25%;
+        height: 25%;
         padding: 10px;
         border-bottom: 1px solid #ddd;
         &:not(:nth-child(2n)) {
