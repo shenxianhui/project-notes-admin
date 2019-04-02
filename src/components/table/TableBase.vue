@@ -2,7 +2,7 @@
  * @Author: ShenXianhui 
  * @Date: 2019-04-02 08:22:47 
  * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-04-02 08:54:19
+ * @Last Modified time: 2019-04-02 09:07:20
  */
 <!-- 表格-首行固定 -->
 <template>
@@ -71,6 +71,7 @@ export default {
         height: 100%;
         border-collapse: collapse; /* 合并边框 */
         text-align: center;
+        font-size: 14px;
         tr {
             width: 100%;
             height: 55px;
@@ -93,10 +94,10 @@ export default {
         }
         thead {
             display: block;
+
             width: 100%;
             tr {
                 background: #519FF1;
-                font-size: 14px;
                 color: #FFFFFF;
                 th {
                     font-weight: normal;
@@ -105,6 +106,7 @@ export default {
         }
         tbody {
             display: block;
+
             width: 100%;
             height: calc(100% - 51px);
             overflow: auto;
