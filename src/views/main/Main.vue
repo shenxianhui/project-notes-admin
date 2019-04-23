@@ -80,6 +80,12 @@ export default {
                     list: 'echartsList'
                 },
                 {
+                    label: '动画',
+                    value: 'animation',
+                    url: 'animation',
+                    list: 'animation'
+                },
+                {
                     label: '其他',
                     value: 'other',
                     url: 'other',
@@ -160,6 +166,20 @@ export default {
                                 label: '上海',
                                 value: 'lines3DShanghai',
                                 url: 'lines-3d-shanghai'
+                            }
+                        ]
+                    }
+                ],
+                animation: [ // 动画
+                    {
+                        label: '轨迹',
+                        value: 'trajectory',
+                        type: 'animation',
+                        children: [
+                            {
+                                label: '星系',
+                                value: 'galaxy',
+                                url: 'galaxy'
                             }
                         ]
                     }

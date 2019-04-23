@@ -20,6 +20,9 @@ const Lines3DSouthAfrica = () => import('../views/echarts/lines_3d/SouthAfrica.v
 const Lines3DChengdu = () => import('../views/echarts/lines_3d/Chengdu.vue');
 const Lines3DShanghai = () => import('../views/echarts/lines_3d/Shanghai.vue');
 
+// 动画
+const Galaxy = () => import('../views/animation/trajectory/Galaxy.vue');
+
 // 其他
 const Table = () => import('../views/other/table/Table.vue');
 
@@ -91,13 +94,26 @@ export default new Router({
                         }
                     ]
                 },
+                { // 动画
+                    path: 'animation',
+                    name: 'animation',
+                    component: Container,
+                    redirect: 'animation/galaxy', // 默认
+                    children: [
+                        { // 星系
+                            path: 'galaxy',
+                            name: 'galaxy',
+                            component: Galaxy
+                        }
+                    ]
+                },
                 { // 其他
                     path: 'other',
                     name: 'other',
                     component: Container,
                     redirect: 'other/table', // 默认
                     children: [
-                        {
+                        { // 表格
                             path: 'table',
                             name: 'table',
                             component: Table
