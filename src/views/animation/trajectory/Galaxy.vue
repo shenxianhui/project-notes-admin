@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @LastEditors: ShenXianhui
  * @Date: 2019-04-23 15:02:52
- * @LastEditTime: 2019-04-24 13:22:14
+ * @LastEditTime: 2019-04-24 15:34:57
  -->
 <!-- 星系 -->
 <template>
@@ -74,10 +74,50 @@ export default {
             img {
                 width: 25%;
                 // height: 35%;
-                margin-bottom: 7.3%;
+                // margin-bottom: 7.3%;
                 z-index: 10;
             }
         }
+        /* 地球自传 */
+        // .earth {
+        //     position: absolute;
+        //     top: 20%;
+        //     left: 40%;
+        //     margin-left: -90px;
+        //     margin-top: -40px;
+
+        //     width: 450px;
+        //     height: 450px;
+        //     // height: 18vw; /* vw是相对于视口宽度百分比的单位，1vw = 1% viewport width */
+        //     background: url('../../../assets/img/animation/globe.jpg') repeat-x 0 0;
+        //     box-shadow:
+        //         -8px 0 25px rgba(256,256,256,0.3),
+        //         -1px -2px 14px rgba(256,256,256,0.5) inset;
+        //     border: 1px solid rgba(26,18,101,0.3);
+        //     border-radius: 50%;
+        //     transform: scale(0.5, 0.5);
+        //     z-index: 10;
+        //     &::before {
+        //         position: absolute;
+        //         top: 0;
+        //         left: 0;
+
+        //         width: 450px;
+        //         height: 450px;
+        //         border-radius: 50%;
+        //         content: "";
+        //         box-shadow:  -150px -6px 25px rgba(0,0,0,0.7) inset;
+        //     }
+        //     @keyframes revolve {
+        //         0% {
+        //             background-position: 0 0;
+        //         }
+        //         100% {
+        //             background-position: -900px 0;
+        //         }
+        //     }
+        //     animation: revolve 10s linear infinite;
+        // }
         .globe {
             position: absolute;
             
@@ -103,21 +143,15 @@ export default {
             }
             @keyframes scale1 {
                 0% {
-                    transform: scale(1.2);
+                    transform: scale(1);
                     z-index: 0;
-                }
-                25% {
-                    z-index: 20;
                 }
                 50% {
                     transform: scale(1.5);
                     z-index: 20;
                 }
-                75% {
-                    z-index: 20;
-                }
                 100% {
-                    transform: scale(1.2);
+                    transform: scale(1);
                     z-index: 0;
                 }
             }
@@ -125,7 +159,7 @@ export default {
                 /* 周期 速度曲线 延迟 播放次数 反向播放 */
                 animX1 15s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
                 animY1 15s cubic-bezier(0.36, 0, 0.64, 1) -7.5s infinite alternate,
-                scale1 30s cubic-bezier(0.36, 0, 0.64, 1) -7.5s infinite alternate
+                scale1 30s cubic-bezier(0.36, 0, 0.64, 1) -7.5s infinite alternate;
         }
         .globe2 {
             @keyframes animX2 {
@@ -141,14 +175,8 @@ export default {
                     transform: scale(0.6);
                     z-index: 1;
                 }
-                25% {
-                    z-index: 19;
-                }
                 50% {
                     transform: scale(0.8);
-                    z-index: 19;
-                }
-                75% {
                     z-index: 19;
                 }
                 100% {
@@ -160,7 +188,7 @@ export default {
                 /* 周期 速度曲线 延迟 播放次数 反向播放 */
                 animX2 12s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
                 animY2 12s cubic-bezier(0.36, 0, 0.64, 1) -6s infinite alternate,
-                scale2 24s cubic-bezier(0.36, 0, 0.64, 1) -6s infinite alternate
+                scale2 24s cubic-bezier(0.36, 0, 0.64, 1) -6s infinite alternate;
         }
         .globe3 {
             @keyframes animX3 {
@@ -176,14 +204,8 @@ export default {
                     transform: scale(0.5);
                     z-index: 2;
                 }
-                25% {
-                    z-index: 18;
-                }
                 50% {
-                    transform: scale(0.8);
-                    z-index: 18;
-                }
-                75% {
+                    transform: scale(0.7);
                     z-index: 18;
                 }
                 100% {
@@ -195,7 +217,7 @@ export default {
                 /* 周期 速度曲线 延迟 播放次数 反向播放 */
                 animX3 10s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
                 animY3 10s cubic-bezier(0.36, 0, 0.64, 1) -5s infinite alternate,
-                scale3 20s cubic-bezier(0.36, 0, 0.64, 1) -5s infinite alternate
+                scale3 20s cubic-bezier(0.36, 0, 0.64, 1) -5s infinite alternate;
         }
         .globe4 {
             @keyframes animX4 {
@@ -211,14 +233,8 @@ export default {
                     transform: scale(0.3);
                     z-index: 3;
                 }
-                25% {
-                    z-index: 16;
-                }
                 50% {
                     transform: scale(0.5);
-                    z-index: 16;
-                }
-                75% {
                     z-index: 16;
                 }
                 100% {
@@ -230,7 +246,7 @@ export default {
                 /* 周期 速度曲线 延迟 播放次数 反向播放 */
                 animX4 6s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
                 animY4 6s cubic-bezier(0.36, 0, 0.64, 1) -3s infinite alternate,
-                scale4 12s cubic-bezier(0.36, 0, 0.64, 1) -3s infinite alternate
+                scale4 12s cubic-bezier(0.36, 0, 0.64, 1) -3s infinite alternate;
         }
         .globe5 {
             @keyframes animX5 {
@@ -246,14 +262,8 @@ export default {
                     transform: scale(0.2);
                     z-index: 4;
                 }
-                25% {
-                    z-index: 15;
-                }
                 50% {
                     transform: scale(0.4);
-                    z-index: 15;
-                }
-                75% {
                     z-index: 15;
                 }
                 100% {
@@ -265,7 +275,7 @@ export default {
                 /* 周期 速度曲线 延迟 播放次数 反向播放 */
                 animX5 3s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
                 animY5 3s cubic-bezier(0.36, 0, 0.64, 1) -1.5s infinite alternate,
-                scale5 6s cubic-bezier(0.36, 0, 0.64, 1) -1.5s infinite alternate
+                scale5 6s cubic-bezier(0.36, 0, 0.64, 1) -1.5s infinite alternate;
         }
         .globe6 {
             @keyframes animX6 {
@@ -281,14 +291,8 @@ export default {
                     transform: scale(0.1);
                     z-index: 5;
                 }
-                30% {
-                    z-index: 14;
-                }
                 50% {
-                    transform: scale(0.2);
-                    z-index: 14;
-                }
-                70% {
+                    transform: scale(0.15);
                     z-index: 14;
                 }
                 100% {
@@ -300,7 +304,7 @@ export default {
                 /* 周期 速度曲线 延迟 播放次数 反向播放 */
                 animX6 2s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
                 animY6 2s cubic-bezier(0.36, 0, 0.64, 1) -1s infinite alternate,
-                scale6 4s cubic-bezier(0.36, 0, 0.64, 1) -1s infinite alternate
+                scale6 4s cubic-bezier(0.36, 0, 0.64, 1) -1s infinite alternate;
         }
     }
 }
