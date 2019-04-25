@@ -26,7 +26,7 @@
         <!-- 侧边栏+内容 -->
         <div class="aside">
             <el-menu
-                :default-active="String($route.path.split('/').pop())"
+                :default-active="asideActive"
                 class="el-menu-vertical-demo"
                 :unique-opened="true"
                 @open="handleOpen"
@@ -83,7 +83,13 @@ export default {
                     label: '动画',
                     value: 'animation',
                     url: 'animation',
-                    list: 'animation'
+                    list: 'animationList'
+                },
+                {
+                    label: '游戏',
+                    value: 'game',
+                    url: 'game',
+                    list: 'gameList'
                 },
                 {
                     label: '其他',
@@ -170,7 +176,7 @@ export default {
                         ]
                     }
                 ],
-                animation: [ // 动画
+                animationList: [ // 动画
                     {
                         label: '轨迹',
                         value: 'trajectory',
@@ -180,6 +186,20 @@ export default {
                                 label: '星系',
                                 value: 'galaxy',
                                 url: 'galaxy'
+                            }
+                        ]
+                    }
+                ],
+                gameList: [ // 游戏
+                    {
+                        label: '贪吃蛇',
+                        value: 'snake',
+                        type: 'game',
+                        children: [
+                            {
+                                label: '贪吃蛇',
+                                value: 'snake',
+                                url: 'snake'
                             }
                         ]
                     }
@@ -201,7 +221,11 @@ export default {
             }
         };
     },
-    computed: {},
+    computed: {
+        asideActive() {
+            return this.$route.path.split('/').pop();
+        }
+    },
     watch: {},
     created() {
         this.menuList = this.sideList.echartsList;

@@ -23,6 +23,9 @@ const Lines3DShanghai = () => import('../views/echarts/lines_3d/Shanghai.vue');
 // 动画
 const Galaxy = () => import('../views/animation/trajectory/Galaxy.vue');
 
+// 游戏
+const Snake = () => import('../views/game/snake/Snake.vue');
+
 // 其他
 const Table = () => import('../views/other/table/Table.vue');
 
@@ -104,6 +107,19 @@ export default new Router({
                             path: 'galaxy',
                             name: 'galaxy',
                             component: Galaxy
+                        }
+                    ]
+                },
+                { // 游戏
+                    path: 'game',
+                    name: 'game',
+                    component: Container,
+                    redirect: 'game/snake', // 默认
+                    children: [
+                        { // 贪吃蛇
+                            path: 'snake',
+                            name: 'snake',
+                            component: Snake
                         }
                     ]
                 },
