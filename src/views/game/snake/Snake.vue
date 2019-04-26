@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @LastEditors: ShenXianhui
  * @Date: 2019-04-25 08:30:57
- * @LastEditTime: 2019-04-25 16:30:39
+ * @LastEditTime: 2019-04-26 08:58:16
  -->
 <!-- 贪吃蛇 -->
 <template>
@@ -19,7 +19,9 @@ export default {
     props: {},
     data() {
         return {
-            keyNumber: 39, // 键盘码
+            keyNumber: 0, // 键盘码
+            timer: null,
+            numDown: 0,
 
             snake: [], // 蛇
             snakeParts: { // 尺寸
@@ -75,19 +77,26 @@ export default {
                     // 蛇身跟随
                     for (let i = 1; i < this.snake.length; i++) {
                         this.snake[i].style.left = this.snake[i - 1].offsetLeft - this.snakeParts.width + 'px';
-                        this.snake[i].style.top = this.snake[i - 1].offsetTop
+                        this.snake[i].style.top = this.snake[i - 1].offsetTop + 'px';
                     }
                     break;
                 case 40: // ↓
                     this.initialPosition.top += this.snakeParts.height;
                     this.snake[0].style.top = this.initialPosition.top + 'px';
-                    
+
                     // 蛇身跟随
-                    for (let i = 1; i < this.snake.length; i++) {
-                        this.snake[i].style.left = this.snake[i - 1].offsetLeft;
-                        this.snake[i].style.top = this.snake[i - 1].offsetTop - this.snakeParts.height + 'px';
-                    }
-                    console.log(this.snake[1].style.top);
+                    // for (let i = 1; i < this.snake.length; i++) {
+                    //     this.snake[i].style.left = this.snake[i - 1].offsetLeft + 'px';
+                    //     this.snake[i].style.top = this.snake[i - 1].offsetTop - this.snakeParts.height + 'px';
+                    // }
+
+                    // console.log(this.numDown);
+                    // if (this.numDown > this.snake.length) {
+                    //     this.snake[this.numDown + 1].style.left = this.snake[this.numDown].offsetLeft + 'px';
+                    //     console.log(this.snake[0].style.left, this.snake[1].style.left, this.snake[2].style.left);
+                    //     this.numDown++;
+                    // }
+                    // this.snake[this.numDown + 1].style.top = this.snake[this.numDown].offsetTop - this.snakeParts.height + 'px';
                     break;
             }
         },
@@ -95,14 +104,17 @@ export default {
         // 键盘事件
         keyboard() {
             let _this = this;
-            document.onkeydown = function (e) {
+            document.onkeyup = function (e) {
+                let _keyNumber = _this.keyNumber;
+
                 _this.keyNumber = e.keyCode;
-                let timer;
-                clearInterval(timer);
-                timer = setInterval(() => {
-                    console.log(_this.keyNumber);
-                    _this.snakeMove();
-                }, 1000)
+                if (_this.keyNumber !== _keyNumber) { // 防止重复点击
+                    clearInterval(_this.timer);
+                    _this.snakeMove(); // 立即执行
+                    _this.timer = setInterval(() => {
+                        _this.snakeMove();
+                    },1000)
+                }
             }
         }
     }
