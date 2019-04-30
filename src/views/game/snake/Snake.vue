@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @LastEditors: ShenXianhui
  * @Date: 2019-04-25 08:30:57
- * @LastEditTime: 2019-04-28 11:06:25
+ * @LastEditTime: 2019-04-30 14:24:48
  -->
 <!-- 贪吃蛇 -->
 <template>
@@ -74,6 +74,7 @@ export default {
 
         // 移动
         snakeMove() {
+            this.snakeList = [];
             // 蛇身跟随
             for (let i = this.snake.length - 1; i > 0; i--) { // 先让数组末位等于前一位
                 this.snake[i].style.left = this.snake[i - 1].offsetLeft + 'px';
@@ -98,6 +99,11 @@ export default {
                     this.snake[0].style.top = this.initialPosition.top + 'px';
                     break;
             }
+
+            // 记录蛇的区域, 避免食物位置与蛇重合
+            this.snake.forEach(item => {
+                let snakePosition = {};
+            });
         },
 
         // 创建食物
