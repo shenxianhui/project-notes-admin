@@ -31,6 +31,10 @@ export default {
             initialPosition: { // 蛇头位置
                 left: 40,
                 top: 0
+            },
+            foodPosition: { // 食物位置
+                left: 0,
+                top: 0
             }
         };
     },
@@ -74,12 +78,25 @@ export default {
 
         // 移动
         snakeMove() {
+            // let snakePositionList = [];
             this.snakeList = [];
+
             // 蛇身跟随
             for (let i = this.snake.length - 1; i > 0; i--) { // 先让数组末位等于前一位
+                // 记录蛇的区域, 避免食物位置与蛇重合
+                let snakePosition = {
+                    left: this.snake[i].offsetLeft,
+                    top: this.snake[i].offsetTop
+                }
+                this.snakeList.push(snakePosition);
+
                 this.snake[i].style.left = this.snake[i - 1].offsetLeft + 'px';
                 this.snake[i].style.top = this.snake[i - 1].offsetTop + 'px';
+
             }
+            // console.log(this.initialPosition.left);
+            this.snakeList.push(this.initialPosition);
+            console.log(this.snakeList);
             // 蛇头(数组首项)移动
             switch(this.keyNumber) {
                 case 37: // ←
@@ -99,11 +116,6 @@ export default {
                     this.snake[0].style.top = this.initialPosition.top + 'px';
                     break;
             }
-
-            // 记录蛇的区域, 避免食物位置与蛇重合
-            this.snake.forEach(item => {
-                let snakePosition = {};
-            });
         },
 
         // 创建食物
@@ -121,6 +133,8 @@ export default {
             item.style.width = this.snakeParts.width + 'px';
             item.style.height = this.snakeParts.height + 'px';
             item.style.backgroundColor = '#000';
+            this.foodPosition.left = randomL;
+            this.foodPosition.top = randomT;
 
             this.$refs.map.appendChild(item);
         },
@@ -128,7 +142,7 @@ export default {
         // 键盘事件
         keyboard() {
             let _this = this;
-            document.onkeyup = function (e) {
+            document.onkeydown = function (e) {
                 let _keyNumber = _this.keyNumber;
 
                 _this.keyNumber = e.keyCode;
