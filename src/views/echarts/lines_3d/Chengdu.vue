@@ -1,8 +1,8 @@
 /*
  * @Author: ShenXianhui 
  * @Date: 2019-03-26 10:37:48 
- * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-29 10:48:49
+ * @Last Modified by: Shen Xianhui
+ * @Last Modified time: 2019-05-19 07:41:19
  */
 
 /* 摘自: https://gallery.echartsjs.com/editor.html?c=xTz93GGXbm */
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Lines from '@/assets/data/echarts/lines_3d/chengdu.json';
+import Lines from '@/data/echarts/lines_3d/chengdu.json';
 
 export default {
     name: 'lines3DChengdu',

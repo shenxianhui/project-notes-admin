@@ -1,8 +1,8 @@
 /*
  * @Author: ShenXianhui 
  * @Date: 2019-03-22 11:17:32 
- * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-29 10:52:20
+ * @Last Modified by: Shen Xianhui
+ * @Last Modified time: 2019-05-19 07:40:59
  */
 
 /* 摘自: https://echarts.baidu.com/examples/editor.html?c=lines-bmap-effect */
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Lines from '@/assets/data/echarts/lines/beijing/beijing.json';
+import Lines from '@/data/echarts/lines/beijing/beijing.json';
 
 export default {
     name: 'LinesBeijing',

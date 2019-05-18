@@ -1,8 +1,8 @@
 /*
  * @Author: ShenXianhui 
  * @Date: 2019-03-25 10:44:12 
- * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-29 10:50:20
+ * @Last Modified by: Shen Xianhui
+ * @Last Modified time: 2019-05-19 07:41:20
  */
 
 /* 摘自: https://gallery.echartsjs.com/editor.html?c=xTz93GGXbm */
@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import * as Lines from '@/assets/data/echarts/lines/shanghai/index.js'; // 接口全部引用
-// import data from '@/assets/data/echarts/lines_3d/chengdu.json';
+import * as Lines from '@/data/echarts/lines/shanghai/index.js'; // 接口全部引用
+// import data from '@/data/echarts/lines_3d/chengdu.json';
 
 export default {
     name: 'lines3DShanghai',
