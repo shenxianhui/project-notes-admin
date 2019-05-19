@@ -1,8 +1,8 @@
 /*
  * @Author: ShenXianhui 
  * @Date: 2019-03-28 16:41:33 
- * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-03-29 13:40:33
+ * @Last Modified by: Shen Xianhui
+ * @Last Modified time: 2019-05-19 07:47:49
  */
 
 /* 摘自: https://gallery.echartsjs.com/editor.html?c=xBkU4Ocw-7 */
@@ -13,40 +13,40 @@
 </template>
 
 <script>
-import zhongguo from "@/data/echarts/maps/cool/data-china.json";
-import hainan from "@/data/echarts/maps/cool/data-hainan.json";
-import xizang from "@/data/echarts/maps/cool/data-xizang.json";
-import zhejiang from "@/data/echarts/maps/cool/data-zhejiang.json";
-import yunnan from "@/data/echarts/maps/cool/data-yunnan.json";
-import xinjiang from "@/data/echarts/maps/cool/data-xinjiang.json";
-import tianjin from "@/data/echarts/maps/cool/data-tianjin.json";
-import sichuan from "@/data/echarts/maps/cool/data-sichuan.json";
-import shanxi from "@/data/echarts/maps/cool/data-shanxi.json";
-import shangxi from "@/data/echarts/maps/cool/data-shangxi.json";
-import shanghai from "@/data/echarts/maps/cool/data-shanghai.json";
-import shangdong from "@/data/echarts/maps/cool/data-shangdong.json";
-import qinghai from "@/data/echarts/maps/cool/data-qinghai.json";
-import ningxia from "@/data/echarts/maps/cool/data-ningxia.json";
-import neimenggu from "@/data/echarts/maps/cool/data-neimenggu.json";
-import liaoning from "@/data/echarts/maps/cool/data-liaoning.json";
-import jilin from "@/data/echarts/maps/cool/data-jilin.json";
-import jiangxi from "@/data/echarts/maps/cool/data-jiangxi.json";
-import jiangsu from "@/data/echarts/maps/cool/data-jiangsu.json";
-import hunan from "@/data/echarts/maps/cool/data-hunan.json";
-import hubei from "@/data/echarts/maps/cool/data-hubei.json";
-import henan from "@/data/echarts/maps/cool/data-henan.json";
-import heilongjiang from "@/data/echarts/maps/cool/data-heilongjiang.json";
-import hebei from "@/data/echarts/maps/cool/data-hebei.json";
-import guizhou from "@/data/echarts/maps/cool/data-guizhou.json";
-import guangxi from "@/data/echarts/maps/cool/data-guangxi.json";
-import guangdong from "@/data/echarts/maps/cool/data-guangdong.json";
-import gansu from "@/data/echarts/maps/cool/data-gansu.json";
-import chongqing from "@/data/echarts/maps/cool/data-chongqing.json";
-import aomen from "@/data/echarts/maps/cool/data-aomen.json";
-import anhui from "@/data/echarts/maps/cool/data-anhui.json";
-import beijing from "@/data/echarts/maps/cool/data-beijing.json";
-import fujian from "@/data/echarts/maps/cool/data-fujian.json";
-import xianggang from "@/data/echarts/maps/cool/data-xianggang.json";
+import zhongguo from "@/data/echarts/maps/china/data-china.json";
+import hainan from "@/data/echarts/maps/china/data-hainan.json";
+import xizang from "@/data/echarts/maps/china/data-xizang.json";
+import zhejiang from "@/data/echarts/maps/china/data-zhejiang.json";
+import yunnan from "@/data/echarts/maps/china/data-yunnan.json";
+import xinjiang from "@/data/echarts/maps/china/data-xinjiang.json";
+import tianjin from "@/data/echarts/maps/china/data-tianjin.json";
+import sichuan from "@/data/echarts/maps/china/data-sichuan.json";
+import shanxi from "@/data/echarts/maps/china/data-shanxi.json";
+import shangxi from "@/data/echarts/maps/china/data-shangxi.json";
+import shanghai from "@/data/echarts/maps/china/data-shanghai.json";
+import shangdong from "@/data/echarts/maps/china/data-shangdong.json";
+import qinghai from "@/data/echarts/maps/china/data-qinghai.json";
+import ningxia from "@/data/echarts/maps/china/data-ningxia.json";
+import neimenggu from "@/data/echarts/maps/china/data-neimenggu.json";
+import liaoning from "@/data/echarts/maps/china/data-liaoning.json";
+import jilin from "@/data/echarts/maps/china/data-jilin.json";
+import jiangxi from "@/data/echarts/maps/china/data-jiangxi.json";
+import jiangsu from "@/data/echarts/maps/china/data-jiangsu.json";
+import hunan from "@/data/echarts/maps/china/data-hunan.json";
+import hubei from "@/data/echarts/maps/china/data-hubei.json";
+import henan from "@/data/echarts/maps/china/data-henan.json";
+import heilongjiang from "@/data/echarts/maps/china/data-heilongjiang.json";
+import hebei from "@/data/echarts/maps/china/data-hebei.json";
+import guizhou from "@/data/echarts/maps/china/data-guizhou.json";
+import guangxi from "@/data/echarts/maps/china/data-guangxi.json";
+import guangdong from "@/data/echarts/maps/china/data-guangdong.json";
+import gansu from "@/data/echarts/maps/china/data-gansu.json";
+import chongqing from "@/data/echarts/maps/china/data-chongqing.json";
+import aomen from "@/data/echarts/maps/china/data-aomen.json";
+import anhui from "@/data/echarts/maps/china/data-anhui.json";
+import beijing from "@/data/echarts/maps/china/data-beijing.json";
+import fujian from "@/data/echarts/maps/china/data-fujian.json";
+import xianggang from "@/data/echarts/maps/china/data-xianggang.json";
 
 export default {
     name: 'MapChina',
