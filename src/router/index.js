@@ -13,7 +13,9 @@ const Error = () => import('../views/common/Error.vue');
 // ECharts
 const Bar = () => import('../views/echarts/bar/Bar.vue');
 const Pie = () => import('../views/echarts/pie/Pie.vue');
-const MapChina = () => import('../views/echarts/map/China.vue');
+const MapChina1 = () => import('../views/echarts/map/China.vue');
+const MapSingle = () => import('../views/echarts/map/MapSingle.vue');
+const MapScatter = () => import('../views/echarts/map/MapScatter.vue');
 const LinesBeijing = () => import('../views/echarts/lines/Beijing.vue');
 const LinesShanghai = () => import('../views/echarts/lines/Shanghai.vue');
 const Lines3DSouthAfrica = () => import('../views/echarts/lines_3d/SouthAfrica.vue');
@@ -66,9 +68,19 @@ export default new Router({
                             component: Pie
                         },
                         { // 地图-中国
-                            path: 'map-china',
-                            name: 'mapChina',
-                            component: MapChina
+                            path: 'map-china1',
+                            name: 'mapChina1',
+                            component: MapChina1
+                        },
+                        { // 地图-普通
+                            path: 'map-single',
+                            name: 'mapSingle',
+                            component: MapSingle
+                        },
+                        { // 地图-散点&映射
+                            path: 'map-scatter',
+                            name: 'mapScatter',
+                            component: MapScatter
                         },
                         { // 路线图-北京出租车
                             path: 'lines-beijing',

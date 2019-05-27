@@ -131,8 +131,18 @@ export default {
                         children: [
                             {
                                 label: '中国',
-                                value: 'mapChina',
-                                url: 'map-china'
+                                value: 'mapChina1',
+                                url: 'map-china1'
+                            },
+                            {
+                                label: '普通',
+                                value: 'mapSingle',
+                                url: 'map-single'
+                            },
+                            {
+                                label: '散点&映射',
+                                value: 'mapScatter',
+                                url: 'map-scatter'
                             }
                         ]
                     },
