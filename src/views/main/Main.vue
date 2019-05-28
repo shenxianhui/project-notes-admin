@@ -1,8 +1,8 @@
 /*
- * @Author: ShenXianhui 
- * @Date: 2019-03-21 15:35:31 
+ * @Author: ShenXianhui
+ * @Date: 2019-03-21 15:35:31
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-04-01 21:34:45
+ * @Last Modified time: 2019-05-28 10:24:06
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -261,7 +261,7 @@ export default {
 
         // 侧边栏-选择
         handleClick(v) {
-            this.$router.push(`/${this.activeHeaderMenu}/${v.url}`)
+            this.$router.push(`/${this.activeHeaderMenu}/${v.url}`);
         }
     }
 };

@@ -11,8 +11,7 @@
 </template>
 
 <script>
-import World from "@/data/map/world";
-// import World from "@/data/map/china/china";
+import World from '@/data/map/000000';
 
 export default {
     name: 'MapSingle',
@@ -20,6 +19,9 @@ export default {
     props: {},
     data() {
         return {
+            area: 'world', // 当前区域
+            level: 'world', // 当前地区层级
+            map: World, // 加载地图
             option: {
                 backgroundColor: '#154e90',
                 series: [
@@ -56,7 +58,7 @@ export default {
                             shadowColor: 'rgba(128, 217, 248, 1)',
                             shadowBlur: 10,
                             shadowOffsetX: -2,
-                            shadowOffsetY: 2,
+                            shadowOffsetY: 2
                         },
                         emphasis: { // 高亮状态
                             itemStyle: {
@@ -71,24 +73,53 @@ export default {
     },
     computed: {},
     watch: {},
-    created() {},
     mounted() {
         this.initMap();
     },
     methods: {
         initMap() {
-            // let chart = this.$echarts.getInstanceByDom(document.getElementById('map-single'));
-            // if (chart) {
-            //     // 销毁实例
-            //     chart.dispose();
-            // }
+            let chart = this.$echarts.getInstanceByDom(document.getElementById('map-single'));
+            if (chart) {
+                // 销毁实例
+                chart.dispose();
+            }
 
             let myChart = this.$echarts.init(document.getElementById('map-single'));
-            // 注册地图
-            this.$echarts.registerMap('world', World);
+            // // 注册地图
+            this.$echarts.registerMap(this.option.series[0].map, this.map);
 
             // 设置配置项, 刷新图表
-            myChart.setOption(this.option);
+            myChart.setOption(this.option, true);
+
+            // 点击事件
+            myChart.on('click', (e) => {
+                console.log(e);
+                // const China = require(`@/data/map/china/china.json`);
+                this.area = e.name;
+                switch (this.level) { // 当前地区层级
+                    case 'world': // 世界
+                        this.level = 'country';
+                        this.option.series[0].map = 'country';
+                        this.map = require(`@/data/map/100000`);
+                        break;
+                    case 'country': // 国家
+                        this.level = 'province';
+                        this.option.series[0].map = 'province';
+                        break;
+                    case 'province': // 省
+                        this.level = 'city';
+                        this.option.series[0].map = 'city';
+                        break;
+                    case 'city': // 市
+                        this.level = 'area';
+                        this.option.series[0].map = 'area';
+                        break;
+                    case 'area': // 区
+                        break;
+                }
+
+                this.initMap();
+            });
         }
     }
 };
