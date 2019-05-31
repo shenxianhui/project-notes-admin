@@ -1,17 +1,17 @@
-<!--
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-05-27 08:59:05
- * @LastEditTime: 2019-05-27 14:21:35
- * @LastEditors: Shen Xianhui
- -->
+/*
+ * @Author: Shen Xianhui
+ * @Date: 2019-05-31 15:09:26
+ * @Last Modified by: Shen Xianhui
+ * @Last Modified time: 2019-05-31 17:18:29
+ */
 <!-- 中国地图 -->
 <template>
     <div class="map-single" id="map-single"></div>
 </template>
 
 <script>
-import World from '@/data/map/000000';
+import AreaCode from '@/data/map/area-code';
+import World from '@/data/map/0';
 
 export default {
     name: 'MapSingle',
@@ -19,7 +19,8 @@ export default {
     props: {},
     data() {
         return {
-            area: 'world', // 当前区域
+            areaName: 'world', // 当前区域-名称
+            areaCode: '0', // 当前区域-编号
             level: 'world', // 当前地区层级
             map: World, // 加载地图
             option: {
@@ -93,14 +94,14 @@ export default {
 
             // 点击事件
             myChart.on('click', (e) => {
-                console.log(e);
-                // const China = require(`@/data/map/china/china.json`);
+                // console.log(e);
+                // console.log(AreaCode);
                 this.area = e.name;
                 switch (this.level) { // 当前地区层级
                     case 'world': // 世界
                         this.level = 'country';
                         this.option.series[0].map = 'country';
-                        this.map = require(`@/data/map/100000`);
+                        this.map = require(`@/data/map/10`);
                         break;
                     case 'country': // 国家
                         this.level = 'province';
@@ -117,6 +118,10 @@ export default {
                     case 'area': // 区
                         break;
                 }
+
+                AreaCode.forEach(province => {
+                    console.log(province);
+                });
 
                 this.initMap();
             });
