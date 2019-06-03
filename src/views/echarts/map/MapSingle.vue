@@ -11,7 +11,7 @@
 
 <script>
 import AreaCode from '@/data/map/area-code';
-import World from '@/data/map/0';
+import World from '@/data/map/000000';
 
 export default {
     name: 'MapSingle',
@@ -21,10 +21,96 @@ export default {
         return {
             areaName: 'world', // 当前区域-名称
             areaCode: '0', // 当前区域-编号
-            level: 'world', // 当前地区层级
+            areaLevel: 'world', // 当前区域-层级
             map: World, // 加载地图
             option: {
                 backgroundColor: '#154e90',
+                graphic: { // 顶部导航
+                    elements: [
+                        {
+                            type: 'group',
+                            left: 80,
+                            top: 40,
+                            children: [
+                                {
+                                    type: 'line',
+                                    left: 0,
+                                    top: 0,
+                                    shape: {
+                                        x1: 0,
+                                        y1: 0,
+                                        x2: 60,
+                                        y2: 0
+                                    },
+                                    style: {
+                                        stroke: 'rgba(147, 235, 248, .8)'
+                                    }
+                                },
+                                {
+                                    type: 'line',
+                                    left: 0,
+                                    top: 40,
+                                    shape: {
+                                        x1: 0,
+                                        y1: 0,
+                                        x2: 60,
+                                        y2: 0
+                                    },
+                                    style: {
+                                        stroke: 'rgba(147, 235, 248, .8)'
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            id: 'China',
+                            type: 'group',
+                            left: 90,
+                            top: 50,
+                            children: [
+                                {
+                                    type: 'polyline',
+                                    left: 70,
+                                    top: 5,
+                                    shape: {
+                                        points: [
+                                            [0, 10],
+                                            [8, 20],
+                                            [0, 30]
+                                        ]
+                                    },
+                                    style: {
+                                        // stroke: 'transparent',
+                                        stroke: '#fff'
+                                    }
+                                },
+                                {
+                                    type: 'text',
+                                    left: 0,
+                                    // top: 'middle',
+                                    top: 5,
+                                    style: {
+                                        text: 'World',
+                                        textAlign: 'center',
+                                        fill: '#eee',
+                                        font: '14px "Microsoft YaHei", sans-serif'
+                                    }
+                                },
+                                {
+                                    type: 'text',
+                                    left: 0,
+                                    top: 20,
+                                    style: {
+                                        text: '000000',
+                                        textAlign: 'center',
+                                        fill: '#eee',
+                                        font: '11px "Microsoft YaHei", sans-serif'
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
                 series: [
                     {
                         type: 'map',
@@ -94,37 +180,80 @@ export default {
 
             // 点击事件
             myChart.on('click', (e) => {
-                // console.log(e);
+                console.log(e);
                 // console.log(AreaCode);
                 this.area = e.name;
-                switch (this.level) { // 当前地区层级
+                switch (this.areaLevel) { // 当前地区层级
                     case 'world': // 世界
-                        this.level = 'country';
+                        this.areaName = 'China';
+                        this.areaLevel = 'country';
                         this.option.series[0].map = 'country';
-                        this.map = require(`@/data/map/10`);
+
+                        this.getCountry(e);
                         break;
                     case 'country': // 国家
-                        this.level = 'province';
+                        this.areaLevel = 'province';
                         this.option.series[0].map = 'province';
+
+                        this.getProvince(e);
                         break;
                     case 'province': // 省
-                        this.level = 'city';
+                        this.areaLevel = 'city';
                         this.option.series[0].map = 'city';
+
+                        this.getCity(e);
                         break;
                     case 'city': // 市
-                        this.level = 'area';
+                        this.areaLevel = 'area';
                         this.option.series[0].map = 'area';
+
+                        this.getArea(e);
                         break;
                     case 'area': // 区
                         break;
                 }
-
-                AreaCode.forEach(province => {
-                    console.log(province);
-                });
+                // console.log(this.areaName, this.areaCode, this.areaLevel);
 
                 this.initMap();
             });
+        },
+
+        // 获取国家
+        getCountry(e) {
+            this.map = require(`@/data/map/100000`);
+
+            // 修改导航样式
+            this.option.graphic.elements[0].children[0].shape.x2 = 170;
+            this.option.graphic.elements[0].children[1].shape.x2 = 170;
+        },
+
+        // 获取省
+        getProvince(e) {
+            AreaCode.forEach(province => {
+                if (e.name.slice(0, 2) === province.name.slice(0, 2)) {
+                    this.areaCode = province.code;
+                    this.areaName = province.name;
+                    this.map = require(`@/data/map/${province.code}0000`);
+                }
+            });
+        },
+
+        // 获取市
+        getCity(e) {
+            AreaCode.forEach(province => {
+                province.children.forEach(city => {
+                    if (e.name.slice(0, 2) === city.name.slice(0, 2)) {
+                        this.areaCode = city.code;
+                        this.areaName = city.name;
+                        this.map = require(`@/data/map/${city.code}00`);
+                    }
+                });
+            });
+        },
+
+        // 获取区
+        getArea(e) {
+            console.log(e);
         }
     }
 };

@@ -1,6 +1,6 @@
 /*
- * @Author: ShenXianhui 
- * @Date: 2019-03-28 16:41:33 
+ * @Author: ShenXianhui
+ * @Date: 2019-03-28 16:41:33
  * @Last Modified by: Shen Xianhui
  * @Last Modified time: 2019-05-19 07:47:49
  */
@@ -13,41 +13,42 @@
 </template>
 
 <script>
-import zhongguo from "@/data/echarts/maps/china/data-china.json";
-import hainan from "@/data/echarts/maps/china/data-hainan.json";
-import xizang from "@/data/echarts/maps/china/data-xizang.json";
-import zhejiang from "@/data/echarts/maps/china/data-zhejiang.json";
-import yunnan from "@/data/echarts/maps/china/data-yunnan.json";
-import xinjiang from "@/data/echarts/maps/china/data-xinjiang.json";
-import tianjin from "@/data/echarts/maps/china/data-tianjin.json";
-import sichuan from "@/data/echarts/maps/china/data-sichuan.json";
-import shanxi from "@/data/echarts/maps/china/data-shanxi.json";
-import shangxi from "@/data/echarts/maps/china/data-shangxi.json";
-import shanghai from "@/data/echarts/maps/china/data-shanghai.json";
-import shangdong from "@/data/echarts/maps/china/data-shangdong.json";
-import qinghai from "@/data/echarts/maps/china/data-qinghai.json";
-import ningxia from "@/data/echarts/maps/china/data-ningxia.json";
-import neimenggu from "@/data/echarts/maps/china/data-neimenggu.json";
-import liaoning from "@/data/echarts/maps/china/data-liaoning.json";
-import jilin from "@/data/echarts/maps/china/data-jilin.json";
-import jiangxi from "@/data/echarts/maps/china/data-jiangxi.json";
-import jiangsu from "@/data/echarts/maps/china/data-jiangsu.json";
-import hunan from "@/data/echarts/maps/china/data-hunan.json";
-import hubei from "@/data/echarts/maps/china/data-hubei.json";
-import henan from "@/data/echarts/maps/china/data-henan.json";
-import heilongjiang from "@/data/echarts/maps/china/data-heilongjiang.json";
-import hebei from "@/data/echarts/maps/china/data-hebei.json";
-import guizhou from "@/data/echarts/maps/china/data-guizhou.json";
-import guangxi from "@/data/echarts/maps/china/data-guangxi.json";
-import guangdong from "@/data/echarts/maps/china/data-guangdong.json";
-import gansu from "@/data/echarts/maps/china/data-gansu.json";
-import chongqing from "@/data/echarts/maps/china/data-chongqing.json";
-import aomen from "@/data/echarts/maps/china/data-aomen.json";
-import anhui from "@/data/echarts/maps/china/data-anhui.json";
-import beijing from "@/data/echarts/maps/china/data-beijing.json";
-import fujian from "@/data/echarts/maps/china/data-fujian.json";
-import xianggang from "@/data/echarts/maps/china/data-xianggang.json";
+import zhongguo from '@/data/echarts/maps/china/data-china.json';
+import hainan from '@/data/echarts/maps/china/data-hainan.json';
+import xizang from '@/data/echarts/maps/china/data-xizang.json';
+import zhejiang from '@/data/echarts/maps/china/data-zhejiang.json';
+import yunnan from '@/data/echarts/maps/china/data-yunnan.json';
+import xinjiang from '@/data/echarts/maps/china/data-xinjiang.json';
+import tianjin from '@/data/echarts/maps/china/data-tianjin.json';
+import sichuan from '@/data/echarts/maps/china/data-sichuan.json';
+import shanxi from '@/data/echarts/maps/china/data-shanxi.json';
+import shangxi from '@/data/echarts/maps/china/data-shangxi.json';
+import shanghai from '@/data/echarts/maps/china/data-shanghai.json';
+import shangdong from '@/data/echarts/maps/china/data-shangdong.json';
+import qinghai from '@/data/echarts/maps/china/data-qinghai.json';
+import ningxia from '@/data/echarts/maps/china/data-ningxia.json';
+import neimenggu from '@/data/echarts/maps/china/data-neimenggu.json';
+import liaoning from '@/data/echarts/maps/china/data-liaoning.json';
+import jilin from '@/data/echarts/maps/china/data-jilin.json';
+import jiangxi from '@/data/echarts/maps/china/data-jiangxi.json';
+import jiangsu from '@/data/echarts/maps/china/data-jiangsu.json';
+import hunan from '@/data/echarts/maps/china/data-hunan.json';
+import hubei from '@/data/echarts/maps/china/data-hubei.json';
+import henan from '@/data/echarts/maps/china/data-henan.json';
+import heilongjiang from '@/data/echarts/maps/china/data-heilongjiang.json';
+import hebei from '@/data/echarts/maps/china/data-hebei.json';
+import guizhou from '@/data/echarts/maps/china/data-guizhou.json';
+import guangxi from '@/data/echarts/maps/china/data-guangxi.json';
+import guangdong from '@/data/echarts/maps/china/data-guangdong.json';
+import gansu from '@/data/echarts/maps/china/data-gansu.json';
+import chongqing from '@/data/echarts/maps/china/data-chongqing.json';
+import aomen from '@/data/echarts/maps/china/data-aomen.json';
+import anhui from '@/data/echarts/maps/china/data-anhui.json';
+import beijing from '@/data/echarts/maps/china/data-beijing.json';
+import fujian from '@/data/echarts/maps/china/data-fujian.json';
+import xianggang from '@/data/echarts/maps/china/data-xianggang.json';
 
+/* eslint-disable */
 export default {
     name: 'MapChina',
     components: {},
@@ -66,10 +67,10 @@ export default {
             this.$echarts.extendsMap = function(id, opt) {
                 let _this = this;
                 // 实例
-                var chart = this.init(document.getElementById('map-china'));
+                let chart = this.init(document.getElementById('map-china'));
 
-                var curGeoJson = {};
-                var cityMap = {
+                let curGeoJson = {};
+                let cityMap = {
                     '中国': zhongguo,
                     '上海': shanghai,
                     '河北': hebei,
@@ -105,18 +106,18 @@ export default {
                     '香港': xianggang,
                     '澳门': aomen
                 };
-                var geoCoordMap = {
-                    "金桂园": [115.460204, 36.50157],
-                    "正泰大厦": [120.228755, 30.212541]
+                let geoCoordMap = {
+                    '金桂园': [115.460204, 36.50157],
+                    '正泰大厦': [120.228755, 30.212541]
                 };
 
-                var levelColorMap = {
+                let levelColorMap = {
                     '1': 'rgba(241, 109, 115, .8)',
                     '2': 'rgba(255, 235, 59, .7)',
                     '3': 'rgba(147, 235, 248, 1)'
                 };
 
-                var defaultOpt = {
+                let defaultOpt = {
                     mapName: 'china', // 地图展示
                     goDown: false, // 是否下钻
                     bgColor: '#404a59', // 画布背景色
@@ -125,25 +126,25 @@ export default {
                     // 下钻回调(点击的地图名、实例对象option、实例对象)
                     callback: function(name, option, instance) {}
                 };
-                if (opt) opt = this.util.extend(defaultOpt, opt);
+                if (opt) {opt = this.util.extend(defaultOpt, opt);}
 
                 // 层级索引
-                var name = [opt.mapName];
-                var idx = 0;
-                var pos = {
+                let name = [opt.mapName];
+                let idx = 0;
+                let pos = {
                     leftPlus: 115,
                     leftCur: 150,
                     left: 198,
                     top: 50
                 };
 
-                var line = [
+                let line = [
                     [0, 0],
                     [8, 11],
                     [0, 22]
                 ];
                 // style
-                var style = {
+                let style = {
                     font: '18px "Microsoft YaHei", sans-serif',
                     textColor: '#eee',
                     lineColor: 'rgba(147, 235, 248, .8)'
@@ -156,17 +157,17 @@ export default {
                     * n 地图名
                     **/
                     resetOption: function(i, o, n) {
-                        var breadcrumb = this.createBreadcrumb(n);
-                        var j = name.indexOf(n);
-                        var l = o.graphic.length;
+                        let breadcrumb = this.createBreadcrumb(n);
+                        let j = name.indexOf(n);
+                        let l = o.graphic.length;
                         if (j < 0) {
                             o.graphic.push(breadcrumb);
                             o.graphic[0].children[0].shape.x2 = 145;
                             o.graphic[0].children[1].shape.x2 = 145;
                             if (o.graphic.length > 2) {
-                                var cityData = [];
-                                var cityJson;
-                                for (var x = 0; x < opt.data.length; x++) {
+                                let cityData = [];
+                                let cityJson;
+                                for (let x = 0; x < opt.data.length; x++) {
                                     if (n === opt.data[x].city) {
                                         [opt.data[x]].forEach(function(data) {
                                             cityJson = {
@@ -174,7 +175,7 @@ export default {
                                                 name: data.name,
                                                 label: data.label
                                             };
-                                            cityData.push(cityJson)
+                                            cityData.push(cityJson);
                                         });
                                     }
                                 }
@@ -195,11 +196,11 @@ export default {
                                 o.graphic[0].children[0].shape.x2 = 60;
                                 o.graphic[0].children[1].shape.x2 = 60;
                                 o.series[0].data = handleEvents.initSeriesData(opt.data);
-                            };
+                            }
                             name.splice(j + 1, l);
                             idx = j;
                             pos.leftCur -= pos.leftPlus * (l - j - 1);
-                        };
+                        }
 
                         o.geo.map = n;
                         o.geo.zoom = 0.4;
@@ -213,7 +214,7 @@ export default {
                     * name 地图名
                     **/
                     createBreadcrumb: function(name) {
-                        var cityToPinyin = {
+                        let cityToPinyin = {
                             '中国': 'zhongguo',
                             '上海': 'shanghai',
                             '河北': 'hebei',
@@ -249,7 +250,7 @@ export default {
                             '香港': 'xianggang',
                             '澳门': 'aomen'
                         };
-                        var breadcrumb = {
+                        let breadcrumb = {
                             type: 'group',
                             id: name,
                             left: pos.leftCur + pos.leftPlus,
@@ -268,7 +269,7 @@ export default {
                                         // lineWidth: 2,
                                     },
                                     onclick: function() {
-                                        var name = this.style.key;
+                                        let name = this.style.key;
                                         handleEvents.resetOption(chart, option, name);
                                     }
                                 },
@@ -283,7 +284,7 @@ export default {
                                         font: style.font
                                     },
                                     onclick: function() {
-                                        var name = this.style.text;
+                                        let name = this.style.text;
                                         handleEvents.resetOption(chart, option, name);
                                     }
                                 },
@@ -296,16 +297,16 @@ export default {
                                         text: cityToPinyin[name] ? cityToPinyin[name].toUpperCase() : '',
                                         textAlign: 'center',
                                         fill: style.textColor,
-                                        font: '12px "Microsoft YaHei", sans-serif',
+                                        font: '12px "Microsoft YaHei", sans-serif'
                                     },
                                     onclick: function() {
                                         // console.log(this.style);
-                                        var name = this.style.name;
+                                        let name = this.style.name;
                                         handleEvents.resetOption(chart, option, name);
                                     }
                                 }
                             ]
-                        }
+                        };
 
                         pos.leftCur += pos.leftPlus;
 
@@ -314,9 +315,9 @@ export default {
 
                     // 设置 effectscatter
                     initSeriesData: function(data) {
-                        var temp = [];
-                        for (var i = 0; i < data.length; i++) {
-                            var geoCoord = geoCoordMap[data[i].name];
+                        let temp = [];
+                        for (let i = 0; i < data.length; i++) {
+                            let geoCoord = geoCoordMap[data[i].name];
                             if (geoCoord) {
                                 temp.push({
                                     name: data[i].name,
@@ -324,22 +325,22 @@ export default {
                                     label: data[i].label
                                 });
                             }
-                        };
+                        }
                         return temp;
                     },
                     zoomAnimation: function() {
-                        var count = null;
+                        let count = null;
                         var zoom = function(per) {
-                            if (!count) count = per;
+                            if (!count) {count = per;}
                             count = count + per;
                             chart.setOption({
                                 geo: {
                                     zoom: count
                                 }
                             });
-                            if (count < 1) window.requestAnimationFrame(function() {
+                            if (count < 1) {window.requestAnimationFrame(function() {
                                 zoom(0.2);
-                            });
+                            });}
                         };
                         window.requestAnimationFrame(function() {
                             zoom(0.2);
@@ -379,7 +380,7 @@ export default {
                                         y2: 0
                                     },
                                     style: {
-                                        stroke: style.lineColor,
+                                        stroke: style.lineColor
                                     }
                                 },
                                 {
@@ -393,7 +394,7 @@ export default {
                                         y2: 0
                                     },
                                     style: {
-                                        stroke: style.lineColor,
+                                        stroke: style.lineColor
                                     }
                                 }
                             ]
@@ -416,7 +417,7 @@ export default {
                                         key: name[0]
                                     },
                                     onclick: function() {
-                                        var name = this.style.key;
+                                        let name = this.style.key;
                                         handleEvents.resetOption(chart, option, name);
                                     }
                                 }, {
@@ -440,7 +441,7 @@ export default {
                                         text: 'China',
                                         textAlign: 'center',
                                         fill: style.textColor,
-                                        font: '12px "Microsoft YaHei", sans-serif',
+                                        font: '12px "Microsoft YaHei", sans-serif'
                                     },
                                     onclick: function() {
                                         handleEvents.resetOption(chart, option, '中国');
@@ -515,7 +516,7 @@ export default {
                                             }
                                         }
                                     }
-                                }
+                                };
                             } else {
                                 return {
                                     name: item,
@@ -525,7 +526,7 @@ export default {
                                             areaColor: '#389BB7'
                                         }
                                     }
-                                }
+                                };
                             }
                         })
                     },
@@ -555,10 +556,10 @@ export default {
                 chart.setOption(option);
                 // 添加事件
                 chart.on('click', function(params) {
-                    var _self = this;
+                    let _self = this;
                     if (opt.goDown && params.name !== name[idx]) {
                         if (cityMap[params.name]) {
-                            var url = cityMap[params.name];
+                            let url = cityMap[params.name];
                             curGeoJson = url;
                             _this.registerMap(params.name, url);
                             handleEvents.resetOption(_self, option, params.name);
@@ -567,11 +568,11 @@ export default {
                 });
 
                 chart.setMap = function(mapName) {
-                    var _self = this;
-                    if (mapName.indexOf('市') < 0) mapName = mapName + '市';
-                    var citySource = cityMap[mapName];
+                    let _self = this;
+                    if (mapName.indexOf('市') < 0) {mapName = mapName + '市';}
+                    let citySource = cityMap[mapName];
                     if (citySource) {
-                        var url = './map/' + citySource + '.json';
+                        let url = './map/' + citySource + '.json';
                         curGeoJson = url;
                         _this.registerMap(mapName, url);
                         handleEvents.resetOption(_self, option, mapName);
@@ -580,19 +581,19 @@ export default {
                 };
 
                 return chart;
-            }
+            };
 
             this.$echarts.registerMap('中国', zhongguo);
-            var myChart = this.$echarts.extendsMap('chart-panel', {
+            let myChart = this.$echarts.extendsMap('chart-panel', {
                 bgColor: '#154e90', // 画布背景色
                 mapName: '中国', // 地图名
                 text: '啦啦啦啦',
                 goDown: true, // 是否下钻
                 // 下钻回调
                 callback: function(name, option, instance) {
-                    //console.log(name, option, instance);
+                    // console.log(name, option, instance);
                 },
-                // 数据展示            	
+                // 数据展示
                 data: [
                     {
                         city: '山东',
