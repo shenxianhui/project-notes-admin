@@ -2,13 +2,13 @@
  * @Author: Shen Xianhui
  * @Date: 2019-05-31 15:09:26
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-05-31 17:18:29
+ * @Last Modified time: 2019-06-05 10:56:35
  */
-<!-- 中国地图 -->
+<!-- 地图-普通 -->
 <template>
     <div class="container">
         <span v-show="areaLevel !== 'world'" @click="back()">返回上级</span>
-        <div class="map-single" id="map-single"></div>
+        <div class="map" id="map"></div>
     </div>
 </template>
 
@@ -89,13 +89,13 @@ export default {
     },
     methods: {
         initMap() {
-            let chart = this.$echarts.getInstanceByDom(document.getElementById('map-single'));
+            let chart = this.$echarts.getInstanceByDom(document.getElementById('map'));
             if (chart) {
                 // 销毁实例
                 chart.dispose();
             }
 
-            let myChart = this.$echarts.init(document.getElementById('map-single'));
+            let myChart = this.$echarts.init(document.getElementById('map'));
             // // 注册地图
             this.$echarts.registerMap(this.option.series[0].map, this.map);
 
@@ -117,7 +117,7 @@ export default {
                         break;
                     case 'city': // 市
                         this.getArea(e);
-                        // 选中区
+                        // 已选中区的话不要 `init`, 否则不会触发选中模式
                         if (this.areaLevel === 'area') {
                             return;
                         }
@@ -232,7 +232,7 @@ export default {
         cursor: pointer;
         z-index: 1;
     }
-    .map-single {
+    .map {
         width: 100%;
         height: 100%;
     }
