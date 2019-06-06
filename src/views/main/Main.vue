@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @Date: 2019-03-21 15:35:31
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-05-28 10:24:06
+ * @Last Modified time: 2019-06-06 16:53:18
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -90,6 +90,12 @@ export default {
                     value: 'game',
                     url: 'game',
                     list: 'gameList'
+                },
+                {
+                    label: '模板',
+                    value: 'template',
+                    url: 'template',
+                    list: 'templateList'
                 },
                 {
                     label: '其他',
@@ -210,6 +216,20 @@ export default {
                                 label: '贪吃蛇',
                                 value: 'snake',
                                 url: 'snake'
+                            }
+                        ]
+                    }
+                ],
+                templateList: [ // 模板
+                    {
+                        label: '表格页',
+                        value: 'tablePage',
+                        type: 'template',
+                        children: [
+                            {
+                                label: '表格页',
+                                value: 'tablePage',
+                                url: 'table-page'
                             }
                         ]
                     }

@@ -28,6 +28,10 @@ const Galaxy = () => import('../views/animation/trajectory/Galaxy.vue');
 // 游戏
 const Snake = () => import('../views/game/snake/Snake.vue');
 
+// 模板
+const TablePage = () => import('../views/template/tablePage/TablePage.vue');
+const TablePageDet = () => import('../views/template/tablePage/TablePageDet.vue');
+
 // 其他
 const Table = () => import('../views/other/table/Table.vue');
 
@@ -132,6 +136,24 @@ export default new Router({
                             path: 'snake',
                             name: 'snake',
                             component: Snake
+                        }
+                    ]
+                },
+                { // 模板
+                    path: 'template',
+                    name: 'template',
+                    component: Container,
+                    redirect: 'template/table-page', // 默认
+                    children: [
+                        { // 表格页
+                            path: 'table-page',
+                            name: 'tablePage',
+                            component: TablePage
+                        },
+                        { // 表格页-详情
+                            path: 'table-page-det',
+                            name: 'tablePageDet',
+                            component: TablePageDet
                         }
                     ]
                 },
