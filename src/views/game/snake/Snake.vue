@@ -1,8 +1,8 @@
 <!--
  * @Author: ShenXianhui
- * @LastEditors: ShenXianhui
+ * @LastEditors: Shen Xianhui
  * @Date: 2019-04-25 08:30:57
- * @LastEditTime: 2019-04-30 14:24:48
+ * @LastEditTime: 2019-06-07 09:48:54
  -->
 <!-- 贪吃蛇 -->
 <template>
@@ -45,7 +45,11 @@ export default {
         this.setMap();
         this.createSnake();
         this.createFood();
-        this.keyboard();
+        window.addEventListener('keydown', this.keyboard);
+    },
+    destroyed() {
+        clearInterval(this.timer);
+        window.removeEventListener('keydown', this.keyboard);
     },
     methods: {
         // 设置地图大小
@@ -140,19 +144,16 @@ export default {
         },
 
         // 键盘事件
-        keyboard() {
-            let _this = this;
-            document.onkeydown = function (e) {
-                let _keyNumber = _this.keyNumber;
+        keyboard(e) {
+            let _keyNumber = this.keyNumber;
 
-                _this.keyNumber = e.keyCode;
-                if (_this.keyNumber !== _keyNumber) { // 防止重复点击
-                    clearInterval(_this.timer);
-                    _this.snakeMove(); // 立即执行
-                    _this.timer = setInterval(() => {
-                        _this.snakeMove();
-                    },1000)
-                }
+            this.keyNumber = e.keyCode;
+            if (this.keyNumber !== _keyNumber) { // 防止重复点击
+                clearInterval(this.timer);
+                this.snakeMove(); // 立即执行
+                this.timer = setInterval(() => {
+                    this.snakeMove();
+                },1000)
             }
         }
     }

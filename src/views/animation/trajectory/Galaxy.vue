@@ -1,9 +1,9 @@
-<!--
- * @Author: ShenXianhui
- * @LastEditors: ShenXianhui
+/*
+ * @Author: Shen Xianhui
  * @Date: 2019-04-23 15:02:52
- * @LastEditTime: 2019-04-24 15:34:57
- -->
+ * @Last Modified by: Shen Xianhui
+ * @Last Modified time: 2019-06-07 16:52:03
+ */
 <!-- 星系 -->
 <template>
     <div class="galaxy">
