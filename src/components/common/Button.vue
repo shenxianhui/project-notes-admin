@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-08 08:35:09
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-08 09:57:36
+ * @Last Modified time: 2019-06-10 07:42:34
  */
 <!-- 按钮公共组件 -->
 <template>
@@ -72,7 +72,6 @@ export default {
     watch: {},
     methods: {
         click(v) {
-            // console.log(v);
             this.$emit('click', {
                 value: v
             });

@@ -151,7 +151,7 @@ export default new Router({
                             component: TablePage
                         },
                         { // 表格页-详情
-                            path: 'table-page-det',
+                            path: 'table-page-det/:id',
                             name: 'tablePageDet',
                             component: TablePageDet
                         }

@@ -2,11 +2,11 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-07 16:48:54
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-08 10:42:22
+ * @Last Modified time: 2019-06-10 13:34:09
  */
-<!-- 模板-表格页 -->
+<!-- 模板-表格页 (element-ui 2.9+) -->
 <template>
-    <div class='table-page'>
+    <div class="table-page">
         <div class="table-page-inner">
             <!-- 搜索 -->
             <div class="table-search" ref="tableSearch">
@@ -25,7 +25,7 @@
                         </el-form-item>
                         <el-form-item label="带标签输入框" prop="tag">
                             <el-input v-model.number="form.tag" clearable>
-                                <template slot="append">岁</template>
+                                <template slot="append">单位</template>
                             </el-input>
                         </el-form-item>
                         <el-form-item label="年" prop="year">
@@ -110,14 +110,20 @@
                         border
                         @selection-change="handleSelectionChange">
                         <el-table-column type="selection" width="35"></el-table-column>
-                        <el-table-column align="center" type="index" label="序号" width="55"></el-table-column>
+                        <el-table-column align="center" label="序号" width="60">
+                            <template slot-scope="scope">
+                                {{ (form.page - 1) * form.pageSize + scope.$index + 1 }}
+                            </template>
+                        </el-table-column>
                         <el-table-column align="center" prop="value" label="A"></el-table-column>
                         <el-table-column align="center" prop="value" label="B"></el-table-column>
                         <el-table-column align="center" prop="value" label="C"></el-table-column>
+                        <el-table-column align="center" prop="value" label="D"></el-table-column>
                         <el-table-column label="操作" align="center">
                             <template slot-scope="scope">
                                 <el-button type="text" size="small" @click="handleDet(scope.row)">详情</el-button>
                                 <el-button type="text" size="small" @click="handleRev(scope.row)">编辑</el-button>
+                                <el-button type="text" size="small" @click="handleDload(scope.row)">下载</el-button>
                                 <el-button type="text" size="small" @click="handleDel(scope.row)">删除</el-button>
                             </template>
                         </el-table-column>
@@ -133,7 +139,7 @@
                         :page-size="form.pageSize"
                         :page-sizes="[10, 20, 50, 100]"
                         layout="total, sizes, prev, pager, next, jumper"
-                        :total="520">
+                        :total="1000">
                     </el-pagination>
                 </div>
             </div>
@@ -147,7 +153,10 @@
             top="0"
             width="35%">
             <div class="content">
-                <p v-if="dialog.message" v-loading="isLoadingDialog">{{ dialog.message }}</p>
+                <div v-if="dialog.message" class="message">
+                    <h3>内标题 (不需要删掉即可)</h3>
+                    <p v-loading="isLoadingDialog">{{ dialog.message }}</p>
+                </div>
                 <el-form
                     v-loading="isLoadingDialog"
                     v-else
@@ -168,25 +177,27 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="添加文件" prop="file">
+                        <!-- 注: 此方法最多上传 1 个 -->
                         <el-upload
                             :auto-upload="true"
                             :http-request="handleFile"
                             :limit="dialog.limit"
                             :accept="dialog.accept"
+                            :on-remove="handleRemove"
                             action
                             class="upload"
                             ref="upload">
                             <Button label="选取文件"></Button>
                             <div class="el-upload__tip" slot="tip">
-                                {{ `只能上传 ${dialog.accept} 文件, 最多上传${dialog.limit} 个` }}
+                                {{ `最多上传 ${dialog.limit} 个文件, 且不超过 ${dialog.fileSize / 1024} KB` }}
                             </div>
                         </el-upload>
                     </el-form-item>
                 </el-form>
             </div>
             <div class="dialog-footer">
-                <Button label="取消" color="primary-plain" @click="dialog.dialogVisible = false"></Button>
                 <Button label="确定" @click="submitFormDialog('dialogForm')"></Button>
+                <Button label="取消" color="primary-plain" @click="dialog.dialogVisible = false"></Button>
             </div>
         </el-dialog>
     </div>
@@ -194,7 +205,7 @@
 
 <script>
 import Button from '@/components/common/Button';
-import { setTimeout } from 'timers';
+import { setTimeout, clearTimeout } from 'timers';
 
 export default {
     name: 'TablePage',
@@ -211,17 +222,23 @@ export default {
             if (!Number.isInteger(value)) {
                 callback(new Error('请输入数字值'));
             } else {
-                if (value < 150) {
+                if (value < 99) {
                     callback();
                 } else {
-                    callback(new Error('小于150'));
+                    callback(new Error('小于99'));
                 }
             }
         };
         let checkFile = (rule, value, callback) => {
-            // if (!value) {
-            //     callback(new Error('请选择文件'));
-            // }
+            if (!this.dialogForm.file.name) {
+                callback(new Error('请选择文件'));
+            } else {
+                if (this.dialogForm.file.size > this.dialog.fileSize) {
+                    callback(new Error(`文件大小不能超过 ${this.dialog.fileSize / 1024} KB`));
+                } else {
+                    callback();
+                }
+            }
         };
 
         return {
@@ -239,7 +256,7 @@ export default {
                 radio: '',
                 checkbox: [],
                 page: 1,
-                pageSize: 50
+                pageSize: 20
             },
             rules: { // 表单校验规则
                 text: [
@@ -269,10 +286,11 @@ export default {
             dialog: { // 弹出框-编辑
                 dialogVisible: false,
                 title: '提示',
-                message: '', // 仅作为信息提示框
-                source: '',
+                message: '', // 信息提示框
+                source: '', // 来源
                 limit: 1,
-                accept: '.pdf, .doc, .docx, .xls, .xlsx'
+                accept: '.pdf, .doc, .docx, .xls, .xlsx',
+                fileSize: 500 * 1024 // 单位: Bytes
             },
             dialogForm: { // 弹出框-提交
                 text: '',
@@ -318,54 +336,76 @@ export default {
             });
         },
 
-        // 表格-删除
+        // 批量-删除
         handleDelBatch() {
-            this.dialog.source = 'handleDelBatch';
-            this.dialog.title = '提示';
-            this.dialog.message = '是否删除已选内容?';
-            this.dialog.dialogVisible = true;
+            let myDialog = {
+                dialogVisible: true,
+                source: 'handleDelBatch',
+                title: '提示',
+                message: '是否删除已选内容?'
+            };
+
+            Object.assign(this.dialog, myDialog);
         },
 
-        // 表格-上传
+        // 批量-上传
         handleUploadBatch() {
-            this.dialog.source = 'handleUploadBatch';
-            this.dialog.title = '上传文件';
-            this.dialog.dialogVisible = true;
+            let myDialog = {
+                dialogVisible: true,
+                source: 'handleUploadBatch',
+                title: '上传文件'
+            };
+
+            Object.assign(this.dialog, myDialog);
         },
 
-        // 表格-下载
+        // 批量-下载
         handleDownloadBatch() {
-            this.dialog.source = 'handleDownloadBatch';
-            this.dialog.title = '提示';
-            this.dialog.message = '是否下载已选内容?';
-            this.dialog.dialogVisible = true;
+            let myDialog = {
+                dialogVisible: true,
+                source: 'handleDownloadBatch',
+                title: '提示',
+                message: '是否下载已选内容?'
+            };
+
+            Object.assign(this.dialog, myDialog);
         },
 
-        // 表格-更多
+        // 批量-更多
         handleMore(params) {
             console.log(params);
         },
 
-        // 表格-已选
+        // 批量-选中
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },
 
-        // 表格-操作-详情
+        // 操作-详情
         handleDet(data) {
-            console.log(data);
+            this.$router.push(`/template/table-page-det/${data.value}`);
         },
 
-        // 表格-操作-编辑
+        // 操作-编辑
         handleRev(data) {
             console.log(data);
         },
 
-        // 表格-操作-删除
+        // 操作-下载
+        handleDload(data) {
+            console.log(data);
+        },
+
+        // 操作-删除
         handleDel(data) {
-            this.$message.success('操作成功!');
-            
-            this.mockData();
+            let myDialog = {
+                dialogVisible: true,
+                source: 'handleDel',
+                title: '提示',
+                message: '是否删除该条数据'
+            };
+
+            Object.assign(this.dialog, myDialog);
         },
 
         // 分页-每页/条
@@ -384,68 +424,110 @@ export default {
 
         // 弹出框-选择文件
         handleFile(file) {
-            this.dialogForm.file = file;
+            this.dialogForm.file = file.file;
+        },
+
+        // 弹出框-文件列表-移除
+        handleRemove(file, fileList) {
+            this.dialogForm.file = {};
         },
 
         // 弹出框-确定
         submitFormDialog(formName) {
             switch (this.dialog.source) {
-                case 'handleDelBatch': // 删除
+                case 'handleDelBatch': // 批量-删除
                     this.submitDelBatch();
                     break;
                 case 'handleUploadBatch': // 上传
                     this.submitUploadBatch(formName);
                     break;
-                case 'handleDownloadBatch': // 下载
+                case 'handleDownloadBatch': // 批量-下载
                     this.submitDownloadBatch();
+                    break;
+                case 'handleDel': // 操作-删除
+                    this.submitDel();
                     break;
             }
         },
 
-        // 弹出框-提交-删除
+        // 弹出框-批量-删除
         submitDelBatch() {
             this.isLoadingDialog = true;
-            setTimeout(() => { // 定时器用来测试效果, 开发请删除
-                // do something...
+
+            let timer; // 定时器用来测试效果, 开发时请删除
+            clearTimeout(timer);
+            timer = setTimeout(() => {
                 this.dialog.dialogVisible = false;
                 this.$message.success('操作成功!');
+
+                this.mockData();
             }, 500);
         },
 
-        // 弹出框-提交-上传
+        // 弹出框-上传
         submitUploadBatch(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     this.isLoadingDialog = true;
-                    setTimeout(() => { // 定时器用来测试效果, 开发请删除
+
+                    let timer; // 定时器用来测试效果, 开发时请删除
+                    clearTimeout(timer);
+                    timer = setTimeout(() => {
                         this.dialog.dialogVisible = false;
                         this.$message.success('操作成功!');
+
+                        this.mockData();
                     }, 500);
                 }
             });
         },
 
-        // 弹出框-提交-下载
+        // 弹出框-批量-下载
         submitDownloadBatch() {
             this.isLoadingDialog = true;
-            setTimeout(() => { // 定时器用来测试效果, 开发请删除
+
+            let timer; // 定时器用来测试效果, 开发时请删除
+            clearTimeout(timer);
+            timer = setTimeout(() => {
                 // do something...
                 this.dialog.dialogVisible = false;
                 this.$message.success('操作成功!');
+
+                this.mockData();
             }, 500);
         },
 
-        // 弹出框-关闭后
+        // 弹出框-单个-删除
+        submitDel() {
+            this.isLoadingDialog = true;
+
+            let timer; // 定时器用来测试效果, 开发时请删除
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                this.dialog.dialogVisible = false;
+                this.$message.success('操作成功!');
+
+                this.mockData();
+            }, 500);
+        },
+
+        // 弹出框-关闭后回调
         closedDialog() {
+            this.isLoadingDialog = false;
             this.dialog = {
                 dialogVisible: false,
                 title: '提示',
                 message: '',
                 source: '',
                 limit: 1,
-                accept: '.pdf, .doc, .docx, .xls, .xlsx'
+                accept: '.pdf, .doc, .docx, .xls, .xlsx',
+                fileSize: 500 * 1024 // 单位: Bytes
+            };
+
+            if (this.$refs.dialogForm) {
+                this.$refs.dialogForm.resetFields(); // 清空表单
+                this.$refs.upload.clearFiles(); // 清空文件列表
             }
-            this.isLoadingDialog = false;
         },
 
         // 样式修改
@@ -462,12 +544,16 @@ export default {
 
         // mock 数据
         mockData() {
+            this.tableData = [];
             this.isLoading = true;
-            setTimeout(() => { // 定时器用来测试效果, 开发请删除
-                for (let i = 0; i < 50; i++) {
+
+            let timer; // 定时器用来测试效果, 开发时请删除
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                for (let i = 0; i < this.form.pageSize; i++) {
                     let tmp = {
                         value: Math.round(Math.random() * 1000 + 100)
-                    }
+                    };
 
                     this.tableData.push(tmp);
                 }
@@ -530,10 +616,12 @@ export default {
                             /* 右侧有单位的 input */
                             .el-input-group--append {
                                 .el-input__inner {
+                                    width: 100px;
                                     border-top-right-radius: 0;
                                     border-bottom-right-radius: 0;
                                 }
                                 .el-input-group__append {
+                                    padding: 0 10px;
                                     border-top-right-radius: 2px;
                                     border-bottom-right-radius: 2px;
                                 }
@@ -636,12 +724,15 @@ export default {
                 /deep/ .el-table {
                     width: 100%;
                     height: 100%;
+                    border: 1px solid #bbb;
                     .el-table__header-wrapper {
                         .el-table__header {
                             thead {
                                 tr {
                                     th {
                                         padding: 8px 0;
+                                        border-bottom: 0;
+                                        border-right-color: #bbb;
                                         background-color: #ddd;
                                         .cell {
                                             font-size: 14px;
@@ -660,6 +751,18 @@ export default {
                                 tr {
                                     td {
                                         padding: 4px 0;
+                                        border-bottom: 0;
+                                        border-right-color: #bbb;
+                                    }
+                                    &:hover {
+                                        td {
+                                            background-color: #E2F0FF;
+                                        }
+                                    }
+                                }
+                                .el-table__row--striped {
+                                    td {
+                                        background-color: #f2f2f2;
                                     }
                                 }
                             }
@@ -679,15 +782,15 @@ export default {
                             height: 30px;
                             min-width: 30px;
                             padding: 0;
-                            border: 1px solid #ccc;
                             border-radius: 4px;
+                            color: #666;
+                            border: 1px solid #ccc;
                             &.active {
                                 border-color: #006EEC;
                                 color: #1467C5;
                             }
                             &:hover {
-                                border-color: #006EEC;
-                                color: #1467C5;
+                                border-color: #999;
                             }
                             &:not(:last-child) {
                                 margin-right: 6px;
@@ -709,12 +812,37 @@ export default {
         align-items: center;
         .el-dialog {
             margin: 0;
+            .el-dialog__header {
+                display: flex;
+                align-items: center;
+
+                height: 40px;
+                padding: 0;
+                padding-left: 20px;
+                background-color: #F2F2F2;
+                border-bottom: 1px solid #ccc;
+                .el-dialog__title {
+                    font-size: 14px;
+                    color: #222;
+                }
+                .el-dialog__headerbtn {
+                    top: 12px;
+                }
+            }
             .el-dialog__body {
-                padding: 30px;
+                padding: 0;
                 .content {
-                    margin-bottom: 20px;
-                    p {
-                        font-size: 16px;
+                    padding: 30px 40px;
+                    .message {
+                        h3 {
+                            font-size: 14px;
+                            color: #000;
+                            margin-bottom: 10px;
+                        }
+                        p {
+                            font-size: 14px;
+                            color: #666;
+                        }
                     }
                     .el-form {
                         .el-form-item {
@@ -732,9 +860,27 @@ export default {
                 .dialog-footer {
                     display: flex;
                     justify-content: flex-end;
+                    align-items: center;
+
+                    height: 56px;
+                    border-top: 1px solid #ccc;
+                    padding: 0 20px;
                     .button {
                         &:not(:last-child) {
                             margin-right: 20px;
+                        }
+                        .button-common {
+                            width: 80px;
+                            height: 36px;
+                            line-height: 34px;
+                        }
+                        .primary-plain {
+                            color: #333;
+                            background-color: #f2f2f2;
+                            border-color: #ccc;
+                            &:hover {
+                                opacity: 0.8;
+                            }
                         }
                     }
                 }
