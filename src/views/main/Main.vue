@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @Date: 2019-03-21 15:35:31
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-06 16:53:18
+ * @Last Modified time: 2019-06-10 15:20:02
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -230,6 +230,18 @@ export default {
                                 label: '表格页',
                                 value: 'tablePage',
                                 url: 'table-page'
+                            }
+                        ]
+                    },
+                    {
+                        label: '详情页',
+                        value: 'detailsPage',
+                        type: 'template',
+                        children: [
+                            {
+                                label: '详情页',
+                                value: 'detailsPage',
+                                url: 'details-page/0'
                             }
                         ]
                     }

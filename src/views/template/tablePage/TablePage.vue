@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-07 16:48:54
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-10 13:34:09
+ * @Last Modified time: 2019-06-10 16:47:14
  */
 <!-- 模板-表格页 (element-ui 2.9+) -->
 <template>
@@ -95,9 +95,10 @@
                 <div class="table-content-header">
                     <h2>标题</h2>
                     <div class="table-content-buttons">
+                        <Button label="添加" color="success-plain" @click="handleAddBatch()"></Button>
                         <Button label="删除" color="danger-plain" @click="handleDelBatch()"></Button>
                         <Button label="上传" color="primary-plain" @click="handleUploadBatch()"></Button>
-                        <Button label="下载" @click="handleDownloadBatch()"></Button>
+                        <Button label="下载" color="info-plain" @click="handleDownloadBatch()"></Button>
                         <Button type="dropdown" label="更多" :dropdownList="dropdownList" @click="handleMore"></Button>
                     </div>
                 </div>
@@ -154,7 +155,7 @@
             width="35%">
             <div class="content">
                 <div v-if="dialog.message" class="message">
-                    <h3>内标题 (不需要删掉即可)</h3>
+                    <h3>标题 (不需要删掉即可)</h3>
                     <p v-loading="isLoadingDialog">{{ dialog.message }}</p>
                 </div>
                 <el-form
@@ -245,6 +246,7 @@ export default {
             isLoading: true, // 表格-加载
             isLoadingDialog: false, // 弹出框-加载
             tableData: [], // 表格-数据
+            multipleSelection: [], // 表格-选中项
             form: { // 表单提交 (注: 所有选项都要加入校验, 否则无法重置)
                 text: '',
                 select: '',
@@ -320,7 +322,7 @@ export default {
         this.setStyle();
     },
     methods: {
-        // 表单-重置
+        // 表单-重置 (所有表单都要加入校验规则, 否则无法重置)
         resetForm(formName) {
             this.$refs[formName].resetFields();
         },
@@ -334,6 +336,11 @@ export default {
                     this.mockData();
                 }
             });
+        },
+
+        // 批量-添加
+        handleAddBatch() {
+            // this.$router.push(`/template/add-page`);
         },
 
         // 批量-删除
@@ -383,7 +390,7 @@ export default {
 
         // 操作-详情
         handleDet(data) {
-            this.$router.push(`/template/table-page-det/${data.value}`);
+            // this.$router.push(`/template/details-page/${data.value}`);
         },
 
         // 操作-编辑
@@ -432,7 +439,7 @@ export default {
             this.dialogForm.file = {};
         },
 
-        // 弹出框-确定
+        // 弹出框-提交
         submitFormDialog(formName) {
             switch (this.dialog.source) {
                 case 'handleDelBatch': // 批量-删除
@@ -452,6 +459,10 @@ export default {
 
         // 弹出框-批量-删除
         submitDelBatch() {
+            if (!this.multipleSelection.length) {
+                this.$message.warning('请先勾选需要删除的内容');
+                return;
+            }
             this.isLoadingDialog = true;
 
             let timer; // 定时器用来测试效果, 开发时请删除
@@ -484,6 +495,10 @@ export default {
 
         // 弹出框-批量-下载
         submitDownloadBatch() {
+            if (!this.multipleSelection.length) {
+                this.$message.warning('请先勾选需要下载的内容');
+                return;
+            }
             this.isLoadingDialog = true;
 
             let timer; // 定时器用来测试效果, 开发时请删除
