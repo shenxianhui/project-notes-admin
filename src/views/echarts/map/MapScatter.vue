@@ -29,53 +29,122 @@ export default {
             option: {
                 backgroundColor: '#154e90',
                 tooltip: {
-                    formatter: `{b}: {c}`
+                    // formatter: `{b}: {c}`
+                    formatter(params) {
+                        // console.log(params);
+                        if (typeof (params.value)[2] === 'undefined') { // 改变气泡提示框内容
+                            return params.name + ' : ' + (params.value || 0);
+                        } else {
+                            return params.name + ' : ' + params.value[2];
+                        }
+                    }
+                },
+                visualMap: {
+                    show: true,
+                    right: 0,
+                    min: 0,
+                    max: 15000,
+                    itemWidth: 10,
+                    itemHeight: 70,
+                    align: 'left',
+                    text: ['高', '低'],
+                    realtime: false,
+                    calculable: true,
+                    seriesIndex: 0,
+                    inRange: {
+                        color: ['#043E6D', '#00A2FF']
+                    },
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 14
+                    }
+                },
+                geo: {
+                    show: true,
+                    map: 'China', // 要与 `registerMap()` 的第一个参数对应
+                    roam: true, // 鼠标缩放+平移
+                    selectedMode: 'single', // 选中
+                    label: {
+                        show: true,
+                        fontSize: 12,
+                        color: '#fff',
+                        position: 'inside' // 注: 将地图 JSON 文件的 cp 坐标删掉才有效
+                    },
+                    itemStyle: {
+                        areaColor: {
+                            type: 'radial', // 径向渐变
+                            x: 0.5,
+                            y: 0.5,
+                            r: 0.8,
+                            colorStops: [
+                                { // 0% 处的颜色
+                                    offset: 0,
+                                    color: 'rgba(147, 235, 248, 0)'
+                                },
+                                { // 100% 处的颜色
+                                    offset: 1,
+                                    color: 'rgba(147, 235, 248, .2)'
+                                }
+                            ]
+                        },
+                        borderColor: 'rgba(147, 235, 248, 1)',
+                        borderWidth: 1,
+                        shadowColor: 'rgba(128, 217, 248, 1)',
+                        shadowBlur: 10,
+                        shadowOffsetX: -2,
+                        shadowOffsetY: 2
+                    },
+                    emphasis: { // 高亮状态
+                        label: {
+                            color: '#fff'
+                        },
+                        itemStyle: {
+                            areaColor: '#389BB7'
+                        }
+                    }
                 },
                 series: [
                     {
                         type: 'map',
                         map: 'China', // 要与 `registerMap()` 的第一个参数对应
-                        roam: true, // 鼠标缩放+平移
-                        selectedMode: 'single', // 选中
+                        geoIndex: 0, // 共享 geo 样式
+                        data: []
+                    },
+                    // {
+                    //     type: 'scatter',
+                    //     coordinateSystem: 'geo',
+                    //     itemStyle: {
+                    //         normal: {
+                    //             color: '#fff'
+                    //         }
+                    //     }
+                    // },
+                    {
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        symbol: 'pin',
+                        symbolSize: [70, 60],
+                        zlevel: 1,
                         label: {
                             show: true,
-                            fontSize: 12,
-                            color: '#fff',
-                            position: 'inside' // 注: 将地图 JSON 文件的 cp 坐标删掉才有效
-                        },
-                        itemStyle: {
-                            areaColor: {
-                                type: 'radial', // 径向渐变
-                                x: 0.5,
-                                y: 0.5,
-                                r: 0.8,
-                                colorStops: [
-                                    { // 0% 处的颜色
-                                        offset: 0,
-                                        color: 'rgba(147, 235, 248, 0)'
-                                    },
-                                    { // 100% 处的颜色
-                                        offset: 1,
-                                        color: 'rgba(147, 235, 248, .2)'
-                                    }
-                                ]
+                            textStyle: {
+                                color: '#00E0FF',
+                                fontSize: 14
                             },
-                            borderColor: 'rgba(147, 235, 248, 1)',
-                            borderWidth: 1,
-                            shadowColor: 'rgba(128, 217, 248, 1)',
-                            shadowBlur: 10,
-                            shadowOffsetX: -2,
-                            shadowOffsetY: 2
-                        },
-                        emphasis: { // 高亮状态
-                            label: {
-                                color: '#fff'
-                            },
-                            itemStyle: {
-                                areaColor: '#389BB7'
+                            formatter(value) {
+                                return value.data.value[2];
                             }
                         },
-                        data: []
+                        itemStyle: {
+                            color: '#fff', // 标志颜色
+                            opacity: 1
+                        },
+                        data: [
+                            {
+                                name: '杭州市',
+                                value: [120.21, 30.25, 174]
+                            }
+                        ]
                     }
                 ]
             }
@@ -84,12 +153,11 @@ export default {
     computed: {},
     watch: {
         areaLevel() {
-            this.option.series[0].map = this.areaLevel;
+            this.option.series[0].map = this.option.geo.map = this.areaLevel;
         }
     },
     mounted() {
         this.mockData();
-        console.log(this.option);
         this.initMap();
     },
     methods: {
@@ -211,10 +279,11 @@ export default {
             switch (this.areaLevel) {
                 case 'country':
                     AreaCode.forEach(province => {
-                        console.log(province);
                         let obj = {
                             // 使之 name 与地图对应
-                            name: province.name === ('内蒙古自治区' || '黑龙江省') ? province.name.slice(0, 3) : province.name.slice(0, 2),
+                            name: (province.name === '内蒙古自治区') || (province.name === '黑龙江省') ?
+                                province.name.slice(0, 3) :
+                                province.name.slice(0, 2),
                             code: province.code,
                             value: Math.round(Math.random() * 10000 + 5000)
                         };
