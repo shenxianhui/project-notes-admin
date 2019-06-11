@@ -159,11 +159,6 @@ export default new Router({
                             path: 'details-page/:id',
                             name: 'detailsPage',
                             component: DetailsPage
-                        },
-                        { // 表格页-编辑
-                            path: 'edit-page/:id',
-                            name: 'editPage',
-                            component: DetailsPage
                         }
                     ]
                 },

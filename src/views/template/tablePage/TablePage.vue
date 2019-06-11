@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-07 16:48:54
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-10 16:47:14
+ * @Last Modified time: 2019-06-11 15:14:20
  */
 <!-- 模板-表格页 (element-ui 2.9+) -->
 <template>
@@ -13,10 +13,9 @@
                 <div class="table-search-form">
                     <el-form :model="form" :rules="rules" ref="form">
                         <el-form-item label="文本输入框" prop="text">
-                            <el-input v-model="form.text" clearable>
-                            </el-input>
+                            <el-input v-model="form.text" clearable></el-input>
                         </el-form-item>
-                        <el-form-item label="选择框" prop="select">
+                        <el-form-item label="选择下拉框" prop="select">
                             <el-select v-model="form.select" clearable>
                                 <el-option label="选项一" value="1"></el-option>
                                 <el-option label="选项二" value="2"></el-option>
@@ -81,11 +80,11 @@
                                 <el-checkbox label="3">选项三</el-checkbox>
                             </el-checkbox-group>
                         </el-form-item>
+                        <div class="table-search-buttons">
+                            <Button label="重置" color="primary-plain" @click="resetForm('form')"></Button>
+                            <Button label="查询" @click="submitForm('form')"></Button>
+                        </div>
                     </el-form>
-                </div>
-                <div class="table-search-buttons">
-                    <Button label="重置" color="primary-plain" @click="resetForm('form')"></Button>
-                    <Button label="查询" @click="submitForm('form')"></Button>
                 </div>
             </div>
 
@@ -123,7 +122,6 @@
                         <el-table-column label="操作" align="center">
                             <template slot-scope="scope">
                                 <el-button type="text" size="small" @click="handleDet(scope.row)">详情</el-button>
-                                <el-button type="text" size="small" @click="handleRev(scope.row)">编辑</el-button>
                                 <el-button type="text" size="small" @click="handleDload(scope.row)">下载</el-button>
                                 <el-button type="text" size="small" @click="handleDel(scope.row)">删除</el-button>
                             </template>
@@ -243,6 +241,7 @@ export default {
         };
 
         return {
+            isClick: false, // 重复点击判定
             isLoading: true, // 表格-加载
             isLoadingDialog: false, // 弹出框-加载
             tableData: [], // 表格-数据
@@ -393,11 +392,6 @@ export default {
             // this.$router.push(`/template/details-page/${data.value}`);
         },
 
-        // 操作-编辑
-        handleRev(data) {
-            console.log(data);
-        },
-
         // 操作-下载
         handleDload(data) {
             console.log(data);
@@ -479,7 +473,13 @@ export default {
         submitUploadBatch(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    if (this.isClick) {
+                        this.$message.warning('请勿重复点击');
+                        return;
+                    }
+
                     this.isLoadingDialog = true;
+                    this.isClick = true;
 
                     let timer; // 定时器用来测试效果, 开发时请删除
                     clearTimeout(timer);
@@ -487,8 +487,9 @@ export default {
                         this.dialog.dialogVisible = false;
                         this.$message.success('操作成功!');
 
+                        this.closedDialog();
                         this.mockData();
-                    }, 500);
+                    }, 1000);
                 }
             });
         },
@@ -528,6 +529,7 @@ export default {
 
         // 弹出框-关闭后回调
         closedDialog() {
+            this.isClick = false;
             this.isLoadingDialog = false;
             this.dialog = {
                 dialogVisible: false,
@@ -594,18 +596,22 @@ export default {
             align-items: flex-end;
 
             margin: 0 40px;
+            padding-top: 20px;
             .table-search-form {
+                width: 100%;
                 /deep/ .el-form {
-                    display: flex;
-                    justify-content: flex-start;
-                    flex-wrap: wrap;
+                    width: 100%;
+                    &::after {
+                        display: block;
+                        height: 0;
+                        content: '';
+                        clear: both;
+                    }
                     .el-form-item {
+                        float: left;
                         display: flex;
 
-                        margin: 20px 0 0;
-                        &:not(:last-child) {
-                            margin-right: 30px;
-                        }
+                        margin: 0 30px 20px 0;
                         .el-form-item__label {
                             color: #333;
                             line-height: 30px;
@@ -630,8 +636,9 @@ export default {
                             }
                             /* 右侧有单位的 input */
                             .el-input-group--append {
+                                width: 140px;
                                 .el-input__inner {
-                                    width: 100px;
+                                    width: 100%;
                                     border-top-right-radius: 0;
                                     border-bottom-right-radius: 0;
                                 }
@@ -639,6 +646,7 @@ export default {
                                     padding: 0 10px;
                                     border-top-right-radius: 2px;
                                     border-bottom-right-radius: 2px;
+                                    border-color: #ccc;
                                 }
                             }
                             /* 日期选择框 */
@@ -653,6 +661,7 @@ export default {
                             /* 日期选择框-范围 */
                             .el-range-editor {
                                 width: 240px;
+                                border-color: #ccc;
                                 .el-range-separator {
                                     width: 10%;
                                     line-height: 23px;
@@ -676,14 +685,16 @@ export default {
                             }
                         }
                     }
-                }
-            }
-            .table-search-buttons {
-                display: flex;
-                align-items: center;
-                .button {
-                    &:not(:last-child) {
-                        margin-right: 20px;
+                    .table-search-buttons {
+                        float: right;
+                        display: flex;
+
+                        margin-bottom: 20px;
+                        .button {
+                            &:not(:last-child) {
+                                margin-right: 20px;
+                            }
+                        }
                     }
                 }
             }
@@ -692,8 +703,8 @@ export default {
         /* 表格 */
         .table-content {
             padding: 20px;
-            margin: 20px;
-            border-radius: 5px;
+            margin: 0 20px 20px;
+            border-radius: 4px;
             background-color: #fff;
             /* 表格-头部 (按钮) */
             .table-content-header {

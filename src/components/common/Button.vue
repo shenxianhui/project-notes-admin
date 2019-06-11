@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-08 08:35:09
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-10 07:42:34
+ * @Last Modified time: 2019-06-11 08:25:19
  */
 <!-- 按钮公共组件 -->
 <template>
@@ -98,19 +98,19 @@ export default {
 /* 颜色 */
 .success {
     color: #fff;
-    background-color: #67C23A;
-    border-color: #67C23A;
+    background-color: #12B800;
+    border-color: #12B800;
     &:hover {
         opacity: 0.8;
     }
 }
 .success-plain {
-    color: #67C23A;
-    border-color: #67C23A;
+    color: #12B800;
+    border-color: #12B800;
     &:hover {
         color: #fff;
-        background-color: #67C23A;
-        border-color: #67C23A;
+        background-color: #12B800;
+        border-color: #12B800;
     }
 }
 .primary {
