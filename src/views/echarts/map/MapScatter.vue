@@ -39,11 +39,11 @@ export default {
                         }
                     }
                 },
-                visualMap: {
+                visualMap: { // 视觉映射
                     show: true,
                     right: 0,
                     min: 0,
-                    max: 15000,
+                    max: 100,
                     itemWidth: 10,
                     itemHeight: 70,
                     align: 'left',
@@ -110,15 +110,6 @@ export default {
                         geoIndex: 0, // 共享 geo 样式
                         data: []
                     },
-                    // {
-                    //     type: 'scatter',
-                    //     coordinateSystem: 'geo',
-                    //     itemStyle: {
-                    //         normal: {
-                    //             color: '#fff'
-                    //         }
-                    //     }
-                    // },
                     {
                         type: 'scatter',
                         coordinateSystem: 'geo',
@@ -162,15 +153,34 @@ export default {
     },
     methods: {
         initMap() {
+            let myChart = this.$echarts.init(document.getElementById('map'));
             let chart = this.$echarts.getInstanceByDom(document.getElementById('map'));
+            let maxNum = 0;
+
             if (chart) {
                 // 销毁实例
                 chart.dispose();
             }
 
-            let myChart = this.$echarts.init(document.getElementById('map'));
-            // // 注册地图
+            // 注册地图
             this.$echarts.registerMap(this.option.series[0].map, this.map);
+
+            // 计算视觉映射 max
+            this.option.series[0].data.forEach(item => {
+                if (maxNum < item.value) {
+                    maxNum = item.value;
+                }
+            });
+            if (String(maxNum).length <= 1) {
+                maxNum = 10;
+            } else {
+                let powNum = Math.pow(10, String(maxNum).length - 2);
+                maxNum = Math.ceil(maxNum / powNum) * powNum;
+            }
+            this.option.visualMap.max = maxNum;
+
+            // 气泡设置
+            
 
             // 设置配置项, 刷新图表
             myChart.setOption(this.option, true);
