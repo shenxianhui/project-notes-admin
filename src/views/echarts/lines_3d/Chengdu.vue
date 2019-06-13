@@ -1,8 +1,8 @@
 /*
- * @Author: ShenXianhui 
- * @Date: 2019-03-26 10:37:48 
+ * @Author: ShenXianhui
+ * @Date: 2019-03-26 10:37:48
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-05-19 07:41:19
+ * @Last Modified time: 2019-06-13 10:01:36
  */
 
 /* 摘自: https://gallery.echartsjs.com/editor.html?c=xTz93GGXbm */
@@ -29,21 +29,21 @@ export default {
     },
     methods: {
         getLines() {
-            var myChart = this.$echarts.init(document.getElementById('lines-3d-chengdu'));
+            let myChart = this.$echarts.init(document.getElementById('lines-3d-chengdu'));
 
-            var geoDData = {
-                "features": [
+            let geoDData = {
+                'features': [
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "Bird Exhibit",
-                            "height": 0,
-                            "base_height": 0,
-                            "color": "orange"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'Bird Exhibit',
+                            'height': 0,
+                            'base_height': 0,
+                            'color': 'orange'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.078312,
@@ -75,21 +75,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "06e8fa0b3f851e3ae0e1da5fc17e111e"
+                        'id': '06e8fa0b3f851e3ae0e1da5fc17e111e'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "Bird Exhibit",
-                            "height":180,
-                            "base_height": 0,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'Bird Exhibit',
+                            'height': 180,
+                            'base_height': 0,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.077808,
@@ -121,21 +121,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "08a10ab2bf15c4d14669b588062f7f08"
+                        'id': '08a10ab2bf15c4d14669b588062f7f08'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "East Hallway",
-                            "base_height": 0,
-                            "height": 0,
-                            "color": "indigo"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'East Hallway',
+                            'base_height': 0,
+                            'height': 0,
+                            'color': 'indigo'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.076704,
@@ -159,21 +159,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "09ead44537d94ece576c7bc001c33e53"
+                        'id': '09ead44537d94ece576c7bc001c33e53'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "East Entrance",
-                            "base_height": 0,
-                            "height": 0,
-                            "color": "violet"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'East Entrance',
+                            'base_height': 0,
+                            'height': 0,
+                            'color': 'violet'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.07544,
@@ -197,21 +197,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "12251ebf764b36cf3b8c5ad42e2deb29"
+                        'id': '12251ebf764b36cf3b8c5ad42e2deb29'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "height": 0,
-                            "base_height": 0,
-                            "level": 1,
-                            "name": "Under the Earth",
-                            "color": "red"
+                        'type': 'Feature',
+                        'properties': {
+                            'height': 0,
+                            'base_height': 0,
+                            'level': 1,
+                            'name': 'Under the Earth',
+                            'color': 'red'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.076701,
@@ -243,21 +243,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "1ce4f8c186a40b9927006644e27bfd69"
+                        'id': '1ce4f8c186a40b9927006644e27bfd69'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "Atrium",
-                            "base_height": 0,
-                            "height": 0,
-                            "color": "yellow"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'Atrium',
+                            'base_height': 0,
+                            'height': 0,
+                            'color': 'yellow'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.077365,
@@ -281,21 +281,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "369f5d8865e677120b7576b1de6082eb"
+                        'id': '369f5d8865e677120b7576b1de6082eb'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "Ancient Egypt",
-                            "height": 0,
-                            "base_height": 0,
-                            "color": "blue"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'Ancient Egypt',
+                            'height': 0,
+                            'base_height': 0,
+                            'color': 'blue'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.07807,
@@ -327,21 +327,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "3e9f198afe6d7dff01ac81c6eaa511fb"
+                        'id': '3e9f198afe6d7dff01ac81c6eaa511fb'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "West Arch",
-                            "height":180,
-                            "base_height": 30,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'West Arch',
+                            'height': 180,
+                            'base_height': 30,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.077424,
@@ -365,21 +365,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "402706f28b793d27c78d9615fff747f2"
+                        'id': '402706f28b793d27c78d9615fff747f2'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "Bird Exhibit",
-                            "height":180,
-                            "base_height": 0,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'Bird Exhibit',
+                            'height': 180,
+                            'base_height': 0,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.078312,
@@ -403,21 +403,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "43e1e2fc8399dee075ad59764f2a2878"
+                        'id': '43e1e2fc8399dee075ad59764f2a2878'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "name": "Arch",
-                            "level": 1,
-                            "color": "white",
-                            "base_height": 30,
-                            "height":180
+                        'type': 'Feature',
+                        'properties': {
+                            'name': 'Arch',
+                            'level': 1,
+                            'color': 'white',
+                            'base_height': 30,
+                            'height': 180
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.077971,
@@ -441,21 +441,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "4528ad9b9264cbec65bb2e55ac0012c1"
+                        'id': '4528ad9b9264cbec65bb2e55ac0012c1'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "color": "white",
-                            "base_height": 30,
-                            "height":180,
-                            "name": "Arch"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'color': 'white',
+                            'base_height': 30,
+                            'height': 180,
+                            'name': 'Arch'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.077979,
@@ -479,21 +479,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "4be6817c3b595042c8d971eebd0c4fd3"
+                        'id': '4be6817c3b595042c8d971eebd0c4fd3'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "name": "Kids Zone",
-                            "level": 1,
-                            "base_height": 0,
-                            "height": 0,
-                            "color": "green"
+                        'type': 'Feature',
+                        'properties': {
+                            'name': 'Kids Zone',
+                            'level': 1,
+                            'base_height': 0,
+                            'height': 0,
+                            'color': 'green'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.076718,
@@ -525,21 +525,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "5775eba03674ea1cb3550ffb38321432"
+                        'id': '5775eba03674ea1cb3550ffb38321432'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "color": "white",
-                            "name": "Arch",
-                            "height":180,
-                            "base_height": 30
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'color': 'white',
+                            'name': 'Arch',
+                            'height': 180,
+                            'base_height': 30
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.076286,
@@ -563,21 +563,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "598832b1512dc9facc855c5367251531"
+                        'id': '598832b1512dc9facc855c5367251531'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "Arch",
-                            "color": "white",
-                            "height":180,
-                            "base_height": 30
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'Arch',
+                            'color': 'white',
+                            'height': 180,
+                            'base_height': 30
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.076287,
@@ -601,21 +601,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "59ed13d4411ff5f88714d9af539788d2"
+                        'id': '59ed13d4411ff5f88714d9af539788d2'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "color": "white",
-                            "name": "center_arch",
-                            "base_height": 30,
-                            "height":180
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'color': 'white',
+                            'name': 'center_arch',
+                            'base_height': 30,
+                            'height': 180
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.07737,
@@ -639,21 +639,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "67f8952a18dfe21ee0744a3e86bc41d8"
+                        'id': '67f8952a18dfe21ee0744a3e86bc41d8'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "Kids Zone",
-                            "height": 0,
-                            "base_height": 40,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'Kids Zone',
+                            'height': 0,
+                            'base_height': 40,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.075719,
@@ -677,21 +677,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "6bb2c92386bcf4678113d6b3e400ae3b"
+                        'id': '6bb2c92386bcf4678113d6b3e400ae3b'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "Under the Earth",
-                            "height":180,
-                            "base_height": 0,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'Under the Earth',
+                            'height': 180,
+                            'base_height': 0,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.076089,
@@ -715,21 +715,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "844c87987089df6b9db3923f6a00e4d6"
+                        'id': '844c87987089df6b9db3923f6a00e4d6'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "Under the Earth",
-                            "height":180,
-                            "base_height": 0,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'Under the Earth',
+                            'height': 180,
+                            'base_height': 0,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.076707,
@@ -753,21 +753,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "85547a1ecdbd2ca1fdc6324aea3c6b70"
+                        'id': '85547a1ecdbd2ca1fdc6324aea3c6b70'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "North Entrance",
-                            "height": 0,
-                            "base_height": 0,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'North Entrance',
+                            'height': 0,
+                            'base_height': 0,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.077386,
@@ -807,21 +807,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "91ab1ee01729c33568c7b57eb258e699"
+                        'id': '91ab1ee01729c33568c7b57eb258e699'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "Ancient Egypt",
-                            "height":180,
-                            "base_height": 0,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'Ancient Egypt',
+                            'height': 180,
+                            'base_height': 0,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.077394,
@@ -853,21 +853,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "943171d55d207024791e15294def7e8f"
+                        'id': '943171d55d207024791e15294def7e8f'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "Ancient Egypt",
-                            "height":180,
-                            "base_height": 0,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'Ancient Egypt',
+                            'height': 180,
+                            'base_height': 0,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.077976,
@@ -891,21 +891,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "a37230898905988cab9b72927dc99258"
+                        'id': 'a37230898905988cab9b72927dc99258'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "name": "West Hallway",
-                            "level": 1,
-                            "base_height": 0,
-                            "height": 0,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'name': 'West Hallway',
+                            'level': 1,
+                            'base_height': 0,
+                            'height': 0,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.078309,
@@ -929,21 +929,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "c7cc79da8711d746985f23a9b22c1d5e"
+                        'id': 'c7cc79da8711d746985f23a9b22c1d5e'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "Kids Zone",
-                            "height":180,
-                            "base_height": 0,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'Kids Zone',
+                            'height': 180,
+                            'base_height': 0,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.076286,
@@ -967,21 +967,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "cfbf2aee6a73a45c12e7fc7432d6009e"
+                        'id': 'cfbf2aee6a73a45c12e7fc7432d6009e'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "South Entrance",
-                            "height": 0,
-                            "base_height": 0,
-                            "color": "teal"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'South Entrance',
+                            'height': 0,
+                            'base_height': 0,
+                            'color': 'teal'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.077359,
@@ -1021,21 +1021,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "d71ab89467076ad023161c37f4ff0d5f"
+                        'id': 'd71ab89467076ad023161c37f4ff0d5f'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "East Arch",
-                            "height":180,
-                            "base_height": 30,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'East Arch',
+                            'height': 180,
+                            'base_height': 30,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.076688,
@@ -1059,21 +1059,21 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "dd2baec57e4079eb65dcae5be495da62"
+                        'id': 'dd2baec57e4079eb65dcae5be495da62'
                     },
                     {
-                        "type": "Feature",
-                        "properties": {
-                            "level": 1,
-                            "name": "outer-walls",
-                            "base_height": 0,
-                            "height":200,
-                            "color": "white"
+                        'type': 'Feature',
+                        'properties': {
+                            'level': 1,
+                            'name': 'outer-walls',
+                            'base_height': 0,
+                            'height': 200,
+                            'color': 'white'
                         },
-                        "geometry": {
-                            "coordinates": [
+                        'geometry': {
+                            'coordinates': [
                                 [
                                     [
                                         104.078087,
@@ -1345,25 +1345,23 @@ export default {
                                     ]
                                 ]
                             ],
-                            "type": "Polygon"
+                            'type': 'Polygon'
                         },
-                        "id": "ef6512f46485e27963c248bcc945c3db"
+                        'id': 'ef6512f46485e27963c248bcc945c3db'
                     }
                 ],
-                "type": "FeatureCollection"
-            }
+                'type': 'FeatureCollection'
+            };
 
-            var taxiRoutes = [];
-            var data = Lines;
-            var hStep = 300 / (data.length - 1);
+            let taxiRoutes = [];
+            let data = Lines;
 
-            var i = 0;
-            for (var x in data) {
-                var line = data[x];
-                var pointString = line.ROAD_LINE;
-                var pointArr = pointString.split(';');
-                var lnglats = [];
-                for (var j in pointArr) {
+            for (let x in data) {
+                let line = data[x];
+                let pointString = line.ROAD_LINE;
+                let pointArr = pointString.split(';');
+                let lnglats = [];
+                for (let j in pointArr) {
                     lnglats.push(pointArr[j].split(','));
                 }
                 taxiRoutes.push({
@@ -1379,7 +1377,7 @@ export default {
                 requestAnimationFrame(rotateCamera);
             }
 
-            var option = {
+            let option = {
                 mapbox: {
                     style: 'mapbox://styles/mapbox/dark-v9',
                     center: [104.070, 30.650],
@@ -1445,7 +1443,7 @@ export default {
             map.on('load', function() {
 
                 // Insert the layer beneath any symbol layer.
-                var layers = map.getStyle().layers;
+                let layers = map.getStyle().layers;
                 map.flyTo({
                     center: [104.076, 30.645],
                     speed: 0.8,
@@ -1455,8 +1453,8 @@ export default {
                     }
                 });
 
-                var labelLayerId;
-                for (var i = 0; i < layers.length; i++) {
+                let labelLayerId;
+                for (let i = 0; i < layers.length; i++) {
                     if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
                         labelLayerId = layers[i].id;
                         break;
@@ -1476,18 +1474,18 @@ export default {
                         // use an 'interpolate' expression to add a smooth transition effect to the
                         // buildings as the user zooms in
                         'fill-extrusion-height': [
-                            "interpolate", ["linear"],
-                            ["zoom"],
+                            'interpolate', ['linear'],
+                            ['zoom'],
                             15, 0,
-                            15.05, ["get", "height"]
+                            15.05, ['get', 'height']
                         ],
                         'fill-extrusion-base': [
-                            "interpolate", ["linear"],
-                            ["zoom"],
+                            'interpolate', ['linear'],
+                            ['zoom'],
                             15, 0,
-                            15.05, ["get", "min_height"]
+                            15.05, ['get', 'min_height']
                         ],
-                        'fill-extrusion-opacity': .6
+                        'fill-extrusion-opacity': 0.6
                     }
                 }, labelLayerId);
 
@@ -1519,7 +1517,7 @@ export default {
                     }
                 });
 
-                var layerss = ['country-label-lg', 'country-label-md', 'country-label-sm'];
+                let layerss = ['country-label-lg', 'country-label-md', 'country-label-sm'];
 
                 layerss.forEach(function(layer) {
                     map.setLayoutProperty(layer, 'text-field', ['format',
@@ -1527,11 +1525,11 @@ export default {
                         '\n', {},
                         ['get', 'name'], {
                             'font-scale': 1.2,
-                            'text-font': ['literal', [ 'DIN Offc Pro Italic', 'Arial Unicode MS Regular' ]]
+                            'text-font': ['literal', ['DIN Offc Pro Italic', 'Arial Unicode MS Regular']]
                         }
                     ]);
                 });
-                
+
                 mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.0/mapbox-gl-rtl-text.js');
 
                 map.addControl(new MapboxLanguage({

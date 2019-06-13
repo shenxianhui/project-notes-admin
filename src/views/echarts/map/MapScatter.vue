@@ -31,7 +31,6 @@ export default {
                 tooltip: {
                     // formatter: `{b}: {c}`
                     formatter(params) {
-                        // console.log(params);
                         if (typeof (params.value)[2] === 'undefined') { // 改变气泡提示框内容
                             return params.name + ' : ' + (params.value || 0);
                         } else {
@@ -133,7 +132,7 @@ export default {
                         data: [
                             {
                                 name: '杭州市',
-                                value: [120.21, 30.25, 174]
+                                value: [120.21, 30.25, 666]
                             }
                         ]
                     }
@@ -151,16 +150,26 @@ export default {
         this.mockData();
         this.initMap();
     },
+    destroyed() {
+        this.destroyChart();
+    },
     methods: {
-        initMap() {
-            let myChart = this.$echarts.init(document.getElementById('map'));
+        // 销毁图表实例, 防止内存泄漏
+        destroyChart() {
             let chart = this.$echarts.getInstanceByDom(document.getElementById('map'));
-            let maxNum = 0;
 
             if (chart) {
-                // 销毁实例
-                chart.dispose();
+                chart.clear(); // 释放图形资源
+                chart.dispose(); // 销毁实例对象
             }
+        },
+
+        // 图表初始化
+        initMap() {
+            this.destroyChart();
+
+            let myChart = this.$echarts.init(document.getElementById('map'));
+            let maxNum = 0;
 
             // 注册地图
             this.$echarts.registerMap(this.option.series[0].map, this.map);
@@ -179,8 +188,10 @@ export default {
             }
             this.option.visualMap.max = maxNum;
 
-            // 气泡设置
-            
+            // 气泡设置 (根据地图 json 文件, 把对应坐标写到气泡对应的 data 中)
+            // this.map.features.forEach(province => {
+            //     console.log(province);
+            // });
 
             // 设置配置项, 刷新图表
             myChart.setOption(this.option, true);

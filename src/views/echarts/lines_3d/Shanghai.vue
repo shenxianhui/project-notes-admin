@@ -1,8 +1,8 @@
 /*
- * @Author: ShenXianhui 
- * @Date: 2019-03-25 10:44:12 
+ * @Author: ShenXianhui
+ * @Date: 2019-03-25 10:44:12
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-05-19 07:41:20
+ * @Last Modified time: 2019-06-13 10:04:53
  */
 
 /* 摘自: https://gallery.echartsjs.com/editor.html?c=xTz93GGXbm */
@@ -30,12 +30,12 @@ export default {
     },
     methods: {
         getLines() {
-            var myChart = this.$echarts.init(document.getElementById('lines-3d-shanghai'));
+            let myChart = this.$echarts.init(document.getElementById('lines-3d-shanghai'));
 
-            var taxiRoutes = [];
+            let taxiRoutes = [];
 
             Object.values(Lines).forEach(item => {
-                var lnglats = [];
+                let lnglats = [];
                 item.forEach(item1 => {
                     if (!item1.id) {
                         return false;
@@ -55,7 +55,7 @@ export default {
                 requestAnimationFrame(rotateCamera);
             }
 
-            var option = {
+            let option = {
                 mapbox: {
                     style: 'mapbox://styles/mapbox/dark-v9',
                     center: [121.46, 31.22],

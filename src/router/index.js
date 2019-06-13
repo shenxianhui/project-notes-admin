@@ -13,12 +13,9 @@ const Error = () => import('../views/common/Error.vue');
 // ECharts
 const Bar = () => import('../views/echarts/bar/Bar.vue');
 const Pie = () => import('../views/echarts/pie/Pie.vue');
-const MapChina1 = () => import('../views/echarts/map/China.vue');
-const MapSingle = () => import('../views/echarts/map/MapSingle.vue');
 const MapScatter = () => import('../views/echarts/map/MapScatter.vue');
 const LinesBeijing = () => import('../views/echarts/lines/Beijing.vue');
 const LinesShanghai = () => import('../views/echarts/lines/Shanghai.vue');
-const Lines3DSouthAfrica = () => import('../views/echarts/lines_3d/SouthAfrica.vue');
 const Lines3DChengdu = () => import('../views/echarts/lines_3d/Chengdu.vue');
 const Lines3DShanghai = () => import('../views/echarts/lines_3d/Shanghai.vue');
 
@@ -71,16 +68,6 @@ export default new Router({
                             name: 'pie',
                             component: Pie
                         },
-                        { // 地图-中国
-                            path: 'map-china1',
-                            name: 'mapChina1',
-                            component: MapChina1
-                        },
-                        { // 地图-普通
-                            path: 'map-single',
-                            name: 'mapSingle',
-                            component: MapSingle
-                        },
                         { // 地图-散点&映射
                             path: 'map-scatter',
                             name: 'mapScatter',
@@ -95,11 +82,6 @@ export default new Router({
                             path: 'lines-shanghai',
                             name: 'linesShanghai',
                             component: LinesShanghai
-                        },
-                        { // 3D路线图-南非出租车
-                            path: 'lines-3d-south-africa',
-                            name: 'lines3DSouthAfrica',
-                            component: Lines3DSouthAfrica
                         },
                         { // 3D路线图-成都出租车
                             path: 'lines-3d-chengdu',

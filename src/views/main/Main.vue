@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @Date: 2019-03-21 15:35:31
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-10 15:20:02
+ * @Last Modified time: 2019-06-13 10:04:08
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -136,16 +136,6 @@ export default {
                         type: 'echarts',
                         children: [
                             {
-                                label: '中国',
-                                value: 'mapChina1',
-                                url: 'map-china1'
-                            },
-                            {
-                                label: '普通',
-                                value: 'mapSingle',
-                                url: 'map-single'
-                            },
-                            {
                                 label: '散点&映射',
                                 value: 'mapScatter',
                                 url: 'map-scatter'
@@ -174,11 +164,6 @@ export default {
                         value: 'lines3D',
                         type: 'echarts',
                         children: [
-                            {
-                                label: '南非',
-                                value: 'lines3DSouthAfrica',
-                                url: 'lines-3d-south-africa'
-                            },
                             {
                                 label: '成都',
                                 value: 'lines3DChengdu',
@@ -283,12 +268,12 @@ export default {
 
         // 侧边栏-展开
         handleOpen(key, keyPath) {
-            console.log(key, keyPath);
+            // console.log(key, keyPath);
         },
 
         // 侧边栏-折叠
         handleClose(key, keyPath) {
-            console.log(key, keyPath);
+            // console.log(key, keyPath);
         },
 
         // 侧边栏-选择
