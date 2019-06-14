@@ -1,31 +1,25 @@
 /*
  * @Author: Shen Xianhui
- * @Date: 2019-03-27 21:32:19
- * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-04-02 08:52:29
+ * @Date: 2019-06-14 09:34:37
+ * @Last Modified by: Shen Xianhui
+ * @Last Modified time: 2019-06-14 10:07:32
  */
-<!-- 柱状图 -->
+<!-- 图表 -->
 <template>
-    <div class="bar">
-        <!-- 柱状图 -->
-        <div class="container">
-            <BarSimple id="bar-simple"></BarSimple>
-        </div>
+    <div class="chart">
         <!-- 柱状折线图 -->
-        <div class="container">
+        <div class="group">
             <BarLine id="bar-line" :test="{text: 'dsaf'}"></BarLine>
         </div>
     </div>
 </template>
 
 <script>
-import BarSimple from '@/components/echarts/BarSimple';
 import BarLine from '@/components/echarts/BarLine';
 
 export default {
-    name: 'Bar',
+    name: 'Chart',
     components: {
-        BarSimple,
         BarLine
     },
     props: {},
@@ -34,21 +28,22 @@ export default {
     },
     computed: {},
     watch: {},
+    // created() {},
     // mounted() {},
     methods: {}
 };
 </script>
 
 <style scoped lang='less'>
-.bar {
+.chart {
     display: flex;
+    flex-wrap: wrap;
 
     width: 100%;
     height: 100%;
-    .container {
+    .group {
         width: 50%;
         height: 50%;
-        padding: 10px;
         border-bottom: 1px solid #ddd;
         &:not(:nth-child(2n)) {
             border-right: 1px solid #ddd;

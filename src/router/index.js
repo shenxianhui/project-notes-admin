@@ -2,35 +2,36 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 // 通用容器
-const Container = () => import('../views/Container');
+const Container = () => import('@/views/Container');
 
 // 导航页
-const Main = () => import('../views/main/Main');
+const Main = () => import('@/views/main/Main');
 
 // 错误页面
-const Error = () => import('../views/common/Error.vue');
+const Error = () => import('@/views/common/Error.vue');
 
 // ECharts
-const Bar = () => import('../views/echarts/bar/Bar.vue');
-const Pie = () => import('../views/echarts/pie/Pie.vue');
-const MapScatter = () => import('../views/echarts/map/MapScatter.vue');
-const LinesBeijing = () => import('../views/echarts/lines/Beijing.vue');
-const LinesShanghai = () => import('../views/echarts/lines/Shanghai.vue');
-const Lines3DChengdu = () => import('../views/echarts/lines_3d/Chengdu.vue');
-const Lines3DShanghai = () => import('../views/echarts/lines_3d/Shanghai.vue');
+const Chart = () => import('@/views/echarts/chart/Chart.vue');
+const Bar = () => import('@/views/echarts/bar/Bar.vue');
+const Pie = () => import('@/views/echarts/pie/Pie.vue');
+const MapScatter = () => import('@/views/echarts/map/MapScatter.vue');
+const LinesBeijing = () => import('@/views/echarts/lines/Beijing.vue');
+const LinesShanghai = () => import('@/views/echarts/lines/Shanghai.vue');
+const Lines3DChengdu = () => import('@/views/echarts/lines_3d/Chengdu.vue');
+const Lines3DShanghai = () => import('@/views/echarts/lines_3d/Shanghai.vue');
 
 // 动画
-const Galaxy = () => import('../views/animation/trajectory/Galaxy.vue');
+const Galaxy = () => import('@/views/animation/trajectory/Galaxy.vue');
 
 // 游戏
-const Snake = () => import('../views/game/snake/Snake.vue');
+const Snake = () => import('@/views/game/snake/Snake.vue');
 
 // 模板
-const TablePage = () => import('../views/template/tablePage/TablePage.vue');
-const DetailsPage = () => import('../views/template/detailsPage/DetailsPage.vue');
+const TablePage = () => import('@/views/template/tablePage/TablePage.vue');
+const DetailsPage = () => import('@/views/template/detailsPage/DetailsPage.vue');
 
 // 其他
-const Table = () => import('../views/other/table/Table.vue');
+const Table = () => import('@/views/other/table/Table.vue');
 
 Vue.use(Router);
 
@@ -58,6 +59,11 @@ export default new Router({
                     component: Container,
                     redirect: 'echarts/bar', // 默认
                     children: [
+                        { // 图表
+                            path: 'chart',
+                            name: 'chart',
+                            component: Chart
+                        },
                         { // 柱状图
                             path: 'bar',
                             name: 'bar',

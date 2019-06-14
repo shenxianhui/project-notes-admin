@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @Date: 2019-03-21 15:35:31
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-13 10:04:08
+ * @Last Modified time: 2019-06-14 09:46:03
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -106,6 +106,18 @@ export default {
             ],
             sideList: { // 侧边导航列表
                 echartsList: [ // Echarts
+                    {
+                        label: '图表',
+                        value: 'chart',
+                        type: 'echarts',
+                        children: [
+                            {
+                                label: '联动',
+                                value: 'chart',
+                                url: 'chart'
+                            }
+                        ]
+                    },
                     {
                         label: '柱状图',
                         value: 'bar',

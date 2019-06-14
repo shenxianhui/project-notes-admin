@@ -150,7 +150,7 @@ export default {
         this.mockData();
         this.initMap();
     },
-    destroyed() {
+    beforeDestroy() {
         this.destroyChart();
     },
     methods: {
