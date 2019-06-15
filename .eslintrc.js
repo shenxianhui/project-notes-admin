@@ -7,8 +7,7 @@ module.exports = {
         'eslint-config-kordeta/vue'
     ],
     globals: {
-        'axios': false,
-        '__PROJECTPATH__': false
+        'axios': false
     },
     rules: {
 

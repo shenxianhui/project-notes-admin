@@ -1,6 +1,6 @@
 /*
- * @Author: ShenXianhui 
- * @Date: 2019-03-28 13:50:46 
+ * @Author: ShenXianhui
+ * @Date: 2019-03-28 13:50:46
  * @Last Modified by: ShenXianhui
  * @Last Modified time: 2019-04-02 08:52:48
  */
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import PieGradient from '@/components/echarts/PieGradient'
+import PieGradient from '@/components/echarts/PieGradient';
 
 export default {
     name: 'Pie',

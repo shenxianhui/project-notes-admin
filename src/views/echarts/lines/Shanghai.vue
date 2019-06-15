@@ -1,6 +1,6 @@
 /*
- * @Author: Shen Xianhui 
- * @Date: 2019-03-24 09:42:15 
+ * @Author: Shen Xianhui
+ * @Date: 2019-03-24 09:42:15
  * @Last Modified by: ShenXianhui
  * @Last Modified time: 2019-03-29 10:52:43
  */
@@ -31,7 +31,7 @@ export default {
         getLines() {
             let myChart = this.$echarts.init(document.getElementById('lines-shanghai'));
             let _this = this;
-            var busLines = [];
+            let busLines = [];
 
             Object.values(Lines).forEach(item => {
                 let points = []; // 偶数项为经度, 奇数项为纬度
@@ -49,7 +49,7 @@ export default {
                     coords: points,
                     lineStyle: {
                         normal: {
-                            color: _this.$echarts.color.modifyHSL('#5A94DF', Math.round(Math.random()*300))
+                            color: _this.$echarts.color.modifyHSL('#5A94DF', Math.round(Math.random() * 300))
                         }
                     }
                 };

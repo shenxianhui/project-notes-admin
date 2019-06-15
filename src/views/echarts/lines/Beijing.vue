@@ -1,6 +1,6 @@
 /*
- * @Author: ShenXianhui 
- * @Date: 2019-03-22 11:17:32 
+ * @Author: ShenXianhui
+ * @Date: 2019-03-22 11:17:32
  * @Last Modified by: Shen Xianhui
  * @Last Modified time: 2019-05-19 07:40:59
  */
@@ -29,14 +29,14 @@ export default {
     },
     methods: {
         getLines() {
-            var myChart = this.$echarts.init(document.getElementById('lines-beijing'));
-            var hStep = 300 / (Lines.length - 1);
+            let myChart = this.$echarts.init(document.getElementById('lines-beijing'));
+            let hStep = 300 / (Lines.length - 1);
             let _this = this;
-            var busLines = [].concat.apply([], Lines.map(function (busLine, idx) {
-                var prevPt;
-                var points = [];
-                for (var i = 0; i < busLine.length; i += 2) {
-                    var pt = [busLine[i], busLine[i + 1]];
+            let busLines = [].concat.apply([], Lines.map(function(busLine, idx) {
+                let prevPt;
+                let points = [];
+                for (let i = 0; i < busLine.length; i += 2) {
+                    let pt = [busLine[i], busLine[i + 1]];
                     if (i > 0) {
                         pt = [
                             prevPt[0] + pt[0],

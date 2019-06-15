@@ -11,7 +11,7 @@ const result_107 = require('./result_107.json');
 // const result_129 = require('./result_129.json');
 
 // 导出
-export{
+export {
     result_105,
     result_106,
     result_107
@@ -22,4 +22,4 @@ export{
     // result_126,
     // result_127,
     // result_129
-}
+};

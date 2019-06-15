@@ -1,6 +1,6 @@
 /*
- * @Author: ShenXianhui 
- * @Date: 2019-03-28 08:23:39 
+ * @Author: ShenXianhui
+ * @Date: 2019-03-28 08:23:39
  * @Last Modified by: ShenXianhui
  * @Last Modified time: 2019-04-01 17:03:22
  */
@@ -30,15 +30,15 @@ export default {
                     },
                     left: 20, // 左边距
                     top: 10 // 上边距
-                }
+                };
             }
         },
         tooltip: { // 提示框
             type: Object,
             default: () => {
                 return {
-                    show: true, // 显示
-                }
+                    show: true // 显示
+                };
             }
         },
         legend: { // 图例
@@ -46,8 +46,8 @@ export default {
             default: () => {
                 return {
                     show: false, // 显示
-                    data:['data'] // 与 series.name 对应
-                }
+                    data: ['data'] // 与 series.name 对应
+                };
             }
         },
         xAxis: { // X轴
@@ -67,7 +67,7 @@ export default {
                             }
                         }
                     }
-                ]
+                ];
             }
         },
         yAxis: { // Y轴
@@ -105,7 +105,7 @@ export default {
                             }
                         }
                     }
-                ]
+                ];
             }
         },
         series: { // 图表
@@ -135,7 +135,7 @@ export default {
                         },
                         barWidth: 40 // 柱条宽度(不填为自适应)
                     }
-                ]
+                ];
             }
         }
     },

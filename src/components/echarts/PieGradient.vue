@@ -1,6 +1,6 @@
 /*
- * @Author: ShenXianhui 
- * @Date: 2019-03-28 13:53:54 
+ * @Author: ShenXianhui
+ * @Date: 2019-03-28 13:53:54
  * @Last Modified by: ShenXianhui
  * @Last Modified time: 2019-04-01 17:02:56
  */
@@ -30,7 +30,7 @@ export default {
                     },
                     left: 20, // 左边距
                     top: 20 // 上边距
-                }
+                };
             }
         },
         visualMap: { // 视觉映射
@@ -44,7 +44,7 @@ export default {
                         color: ['#fff', '#000'], // 颜色
                         colorLightness: [0, 1] // 颜色顺序反转
                     }
-                }
+                };
             }
         },
         tooltip: { // 提示框组件
@@ -52,8 +52,8 @@ export default {
             default: () => {
                 return {
                     trigger: 'item', // 触发类型
-                    formatter: "{a} <br/>{b} : {c} ({d}%)" // 提示框浮层内容格式器
-                }
+                    formatter: '{a} <br/>{b} : {c} ({d}%)' // 提示框浮层内容格式器
+                };
             }
         },
         series: { // 图表
@@ -61,24 +61,24 @@ export default {
             default: () => {
                 return [
                     {
-                        name:'访问来源', // 名称
-                        type:'pie', // 类型
+                        name: '访问来源', // 名称
+                        type: 'pie', // 类型
                         radius: ['20%', '70%'], // 半径
                         center: ['50%', '50%'], // 中心
                         clockwise: false, // 顺时针
                         startAngle: 90, // 起始角度
                         minAngle: 10, // 最小的扇区角度（0 ~ 360）
-                        data:[ // 数据
-                            {value: 1, name:'1'},
-                            {value: 2, name:'2'},
-                            {value: 3, name:'3'},
-                            {value: 4, name:'4'},
-                            {value: 5, name:'5'},
-                            {value: 6, name:'6'},
-                            {value: 7, name:'7'},
-                            {value: 8, name:'8'},
-                            {value: 9, name:'9'},
-                            {value: 10, name:'10'}
+                        data: [ // 数据
+                            {value: 1, name: '1'},
+                            {value: 2, name: '2'},
+                            {value: 3, name: '3'},
+                            {value: 4, name: '4'},
+                            {value: 5, name: '5'},
+                            {value: 6, name: '6'},
+                            {value: 7, name: '7'},
+                            {value: 8, name: '8'},
+                            {value: 9, name: '9'},
+                            {value: 10, name: '10'}
                         ],
                         roseType: 'radius', // 南丁格尔图，通过半径区分数据大小
                         label: { // 标注-文本
@@ -100,9 +100,9 @@ export default {
                         animationType: 'scale', // 初始动画效果
                         animationEasing: 'elasticOut' // 初始动画的缓动效果
                     }
-                ]
+                ];
             }
-        },
+        }
     },
     data() {
         return {};

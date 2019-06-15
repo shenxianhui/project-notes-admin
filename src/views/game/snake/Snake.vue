@@ -66,7 +66,7 @@ export default {
         // 创建🐍
         createSnake() {
             for (let i = 0; i < 3; i++) {
-                let item = document.createElement("span");
+                let item = document.createElement('span');
                 item.style.position = 'absolute';
                 item.style.top = '0px';
                 item.style.left = (this.initialPosition.left - (i * this.snakeParts.width)) + 'px';
@@ -91,7 +91,7 @@ export default {
                 let snakePosition = {
                     left: this.snake[i].offsetLeft,
                     top: this.snake[i].offsetTop
-                }
+                };
                 this.snakeList.push(snakePosition);
 
                 this.snake[i].style.left = this.snake[i - 1].offsetLeft + 'px';
@@ -102,7 +102,7 @@ export default {
             this.snakeList.push(this.initialPosition);
             console.log(this.snakeList);
             // 蛇头(数组首项)移动
-            switch(this.keyNumber) {
+            switch (this.keyNumber) {
                 case 37: // ←
                     this.initialPosition.left -= this.snakeParts.width;
                     this.snake[0].style.left = this.initialPosition.left + 'px';
@@ -128,8 +128,8 @@ export default {
             let snakeH = this.snakeParts.height;
             let randomL = Math.floor((Math.random() * (this.$refs.map.offsetWidth - snakeW)) / snakeW) * snakeW + 'px';
             let randomT = Math.floor((Math.random() * (this.$refs.map.offsetHeight - snakeH)) / snakeH) * snakeH + 'px';
-            
-            let item = document.createElement("i");
+
+            let item = document.createElement('i');
             item.style.position = 'absolute';
             item.style.left = randomL;
             item.style.top = randomT;
@@ -153,7 +153,7 @@ export default {
                 this.snakeMove(); // 立即执行
                 this.timer = setInterval(() => {
                     this.snakeMove();
-                },1000)
+                }, 1000);
             }
         }
     }

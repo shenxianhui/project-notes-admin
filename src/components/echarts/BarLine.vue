@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-14 17:45:48
+ * @Last Modified time: 2019-06-15 10:35:47
  */
 <!-- 柱状折线图 -->
 <template>
@@ -36,7 +36,7 @@ let seriesBar = {
         color: linearColor
     },
     barMaxWidth: 20,
-    data: [820, 932, 901, 934, 1290, 1330, 1320]
+    data: []
 };
 let seriesLine = {
     type: 'line',
@@ -60,7 +60,7 @@ let seriesLine = {
         color: linearColor,
         opacity: 1
     },
-    data: [820, 932, 901, 934, 1290, 1330, 1320]
+    data: []
 };
 
 export default {
@@ -71,19 +71,19 @@ export default {
             type: String,
             default: 'chart'
         },
-        seriesColor: { // 颜色 (非渐变色两项写一样的)
+        seriesColor: { // 颜色 [渐变色0%, 渐变色100%, lineColor(柱状图不传)]
             type: Object,
             default: () => {
-                return {
+                return { // 折线图不需要 areaStyle 的话, 前两项为空
                     bar: ['#00C1DE99', '#0080DE0D'],
-                    line: ['#4BD84F', '#4BD84F'],
-                    line1: ['#ECAD00', '#ECAD00']
+                    line: ['#67C23A99', '#67C23A00', '#67C23A'],
+                    line1: ['#F56C6C99', '#F56C6C00', '#F56C6C']
                 };
             }
         },
         seriesType: { // bar line barLine barLines
             type: String,
-            default: 'barLine'
+            default: 'barLines'
         },
         legendData: {
             type: Array,
@@ -91,19 +91,19 @@ export default {
         },
         xAxisData: {
             type: Array,
-            default: () => []
+            default: () => ['X1', 'X2', 'X3']
         },
         seriesDataBar: {
             type: Array,
-            default: () => []
+            default: () => [6, 2, 9]
         },
         seriesDataLine: {
             type: Array,
-            default: () => []
+            default: () => [5, 1, 8]
         },
         seriesDataLine1: {
             type: Array,
-            default: () => []
+            default: () => [2, 0, 3]
         }
     },
     data() {
@@ -148,7 +148,7 @@ export default {
                         }
                     },
                     boundaryGap: false, // 两边留白
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    data: []
                 },
                 yAxis: [
                     {
@@ -212,6 +212,7 @@ export default {
             let myChart = this.$echarts.init(document.getElementById(this.id));
 
             this.setChart();
+            this.getData();
 
             // 设置配置项, 刷新图表
             myChart.setOption(this.option, true);
@@ -221,19 +222,35 @@ export default {
         setChart() {
             let seriesData = [];
 
+            let _seriesBar = JSON.parse(JSON.stringify(seriesBar));
+            let _seriesLine = JSON.parse(JSON.stringify(seriesLine));
+            let _seriesLine1 = JSON.parse(JSON.stringify(seriesLine));
+
+            // 颜色设置
+            _seriesBar.itemStyle.color.colorStops[0].color = this.seriesColor.bar[0];
+            _seriesBar.itemStyle.color.colorStops[1].color = this.seriesColor.bar[1];
+
+             _seriesLine.areaStyle.color.colorStops[0].color = this.seriesColor.line[0];
+             _seriesLine.areaStyle.color.colorStops[1].color = this.seriesColor.line[1];
+            _seriesLine.lineStyle.color = _seriesLine.itemStyle.color = this.seriesColor.line[2];
+
+             _seriesLine1.areaStyle.color.colorStops[0].color = this.seriesColor.line1[0];
+             _seriesLine1.areaStyle.color.colorStops[1].color = this.seriesColor.line1[1];
+            _seriesLine1.lineStyle.color = _seriesLine1.itemStyle.color = this.seriesColor.line1[2];
+
             // 图表类型
             this.option.xAxis.boundaryGap = true;
             this.option.yAxis[1].show = false;
             switch (this.seriesType) {
                 case 'bar': // 柱
-                    seriesData.push(seriesBar);
+                    seriesData.push(_seriesBar);
                     break;
                 case 'line': // 线
                     this.option.xAxis.boundaryGap = false;
-                    seriesData.push(seriesLine);
+                    seriesData.push(_seriesLine);
                     break;
                 case 'barLine': // 柱 + 线
-                    seriesData.push(seriesBar, seriesLine);
+                    seriesData.push(_seriesBar, _seriesLine);
                     seriesData.forEach((item, index) => {
                         if (item.type === 'line') {
                             item.areaStyle.opacity = 0;
@@ -241,41 +258,39 @@ export default {
                     });
                     break;
                 case 'barLines': // 柱 + 2线
+                    seriesData.push(_seriesBar, _seriesLine, _seriesLine1);
+                    seriesData.forEach((item, index) => {
+                        if (item.type === 'line') {
+                            item.areaStyle.opacity = 0;
+                        }
+                    });
                     break;
             }
 
-            // 颜色
-            seriesData.forEach((item, index) => {
-                if (this.seriesColor.bar.length && item.type === 'bar') {
-                    item.itemStyle.color.colorStops[0].color = this.seriesColor.bar[0];
-                    item.itemStyle.color.colorStops[1].color = this.seriesColor.bar[1];
-                    console.log(item);
-                }
-                if (this.seriesColor.line.length && item.type === 'line' && index === 1) {
-                    item.areaStyle.color.colorStops[0].color =
-                    item.lineStyle.color =
-                    item.itemStyle.color =
-                    this.seriesColor.line[0];
-
-                    item.areaStyle.color.colorStops[1].color =
-                    item.lineStyle.color =
-                    item.itemStyle.color =
-                    this.seriesColor.line[1];
-                    if (seriesData.length > 2) {
-                        seriesData[index + 1].areaStyle.color.colorStops[0].color =
-                        seriesData[index + 1].lineStyle.color =
-                        seriesData[index + 1].itemStyle.color =
-                        this.seriesColor.line[0];
-
-                        seriesData[index + 1].areaStyle.color.colorStops[1].color =
-                        seriesData[index + 1].lineStyle.color =
-                        seriesData[index + 1].itemStyle.color =
-                        this.seriesColor.line[1];
-                    }
-                }
-            });
-
             this.option.series = seriesData;
+        },
+
+        // 数据导入
+        getData() {
+            this.option.legend.data = this.legendData;
+            this.option.xAxis.data = this.xAxisData;
+            switch (this.seriesType) {
+                case 'bar': // 柱
+                    this.option.series[0].data = this.seriesDataBar;
+                    break;
+                case 'line': // 线
+                    this.option.series[0].data = this.seriesDataLine;
+                    break;
+                case 'barLine': // 柱 + 线
+                    this.option.series[0].data = this.seriesDataBar;
+                    this.option.series[1].data = this.seriesDataLine;
+                    break;
+                case 'barLines': // 柱 + 2线
+                    this.option.series[0].data = this.seriesDataBar;
+                    this.option.series[1].data = this.seriesDataLine;
+                    this.option.series[2].data = this.seriesDataLine1;
+                    break;
+            }
         }
     }
 };
