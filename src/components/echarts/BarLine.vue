@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-15 10:35:47
+ * @Last Modified time: 2019-06-16 17:09:11
  */
 <!-- 柱状折线图 -->
 <template>

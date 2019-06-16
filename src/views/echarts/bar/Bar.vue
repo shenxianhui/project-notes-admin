@@ -1,8 +1,8 @@
 /*
  * @Author: Shen Xianhui
  * @Date: 2019-03-27 21:32:19
- * @Last Modified by: ShenXianhui
- * @Last Modified time: 2019-04-02 08:52:29
+ * @Last Modified by: Shen Xianhui
+ * @Last Modified time: 2019-06-16 17:02:29
  */
 <!-- 柱状图 -->
 <template>
@@ -13,7 +13,7 @@
         </div>
         <!-- 柱状折线图 -->
         <div class="container">
-            <BarLine id="bar-line" :test="{text: 'dsaf'}"></BarLine>
+            <BarLine id="bar-line"></BarLine>
         </div>
     </div>
 </template>
