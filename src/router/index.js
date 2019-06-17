@@ -41,7 +41,7 @@ export default new Router({
     routes: [
         { // 默认
             path: '/',
-            redirect: '/echarts/bar'
+            redirect: '/echarts/chart'
         },
         { // 错误页
             path: '/error',

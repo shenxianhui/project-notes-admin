@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-16 17:09:11
+ * @Last Modified time: 2019-06-17 10:35:26
  */
 <!-- 柱状折线图 -->
 <template>
@@ -71,6 +71,14 @@ export default {
             type: String,
             default: 'chart'
         },
+        legendData: {
+            type: Array,
+            default: () => []
+        },
+        xAxisData: {
+            type: Array,
+            default: () => ['X1', 'X2', 'X3']
+        },
         seriesColor: { // 颜色 [渐变色0%, 渐变色100%, lineColor(柱状图不传)]
             type: Object,
             default: () => {
@@ -85,14 +93,6 @@ export default {
             type: String,
             default: 'barLines'
         },
-        legendData: {
-            type: Array,
-            default: () => []
-        },
-        xAxisData: {
-            type: Array,
-            default: () => ['X1', 'X2', 'X3']
-        },
         seriesDataBar: {
             type: Array,
             default: () => [6, 2, 9]
@@ -101,7 +101,7 @@ export default {
             type: Array,
             default: () => [5, 1, 8]
         },
-        seriesDataLine1: {
+        seriesDataLineA: {
             type: Array,
             default: () => [2, 0, 3]
         }
@@ -230,12 +230,12 @@ export default {
             _seriesBar.itemStyle.color.colorStops[0].color = this.seriesColor.bar[0];
             _seriesBar.itemStyle.color.colorStops[1].color = this.seriesColor.bar[1];
 
-             _seriesLine.areaStyle.color.colorStops[0].color = this.seriesColor.line[0];
-             _seriesLine.areaStyle.color.colorStops[1].color = this.seriesColor.line[1];
+            _seriesLine.areaStyle.color.colorStops[0].color = this.seriesColor.line[0];
+            _seriesLine.areaStyle.color.colorStops[1].color = this.seriesColor.line[1];
             _seriesLine.lineStyle.color = _seriesLine.itemStyle.color = this.seriesColor.line[2];
 
-             _seriesLine1.areaStyle.color.colorStops[0].color = this.seriesColor.line1[0];
-             _seriesLine1.areaStyle.color.colorStops[1].color = this.seriesColor.line1[1];
+            _seriesLine1.areaStyle.color.colorStops[0].color = this.seriesColor.line1[0];
+            _seriesLine1.areaStyle.color.colorStops[1].color = this.seriesColor.line1[1];
             _seriesLine1.lineStyle.color = _seriesLine1.itemStyle.color = this.seriesColor.line1[2];
 
             // 图表类型
@@ -288,7 +288,7 @@ export default {
                 case 'barLines': // 柱 + 2线
                     this.option.series[0].data = this.seriesDataBar;
                     this.option.series[1].data = this.seriesDataLine;
-                    this.option.series[2].data = this.seriesDataLine1;
+                    this.option.series[2].data = this.seriesDataLineA;
                     break;
             }
         }

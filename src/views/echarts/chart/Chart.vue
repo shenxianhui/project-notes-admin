@@ -2,17 +2,27 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:34:37
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-16 18:04:45
+ * @Last Modified time: 2019-06-17 10:55:18
  */
 <!-- 图表 -->
 <template>
     <div class="chart">
         <!-- 柱状折线图 -->
         <div class="group">
-            <BarLine id="bar-line"></BarLine>
+            <BarLine
+                id="bar-line"
+                ref="bar-line"
+                :legendData="chartOption.legendData"
+                :xAxisData="chartOption.xAxisData"
+                :seriesColor="chartOption.seriesColor"
+                :seriesType="chartOption.seriesType"
+                :seriesDataBar="chartOption.seriesDataBar"
+                :seriesDataLine="chartOption.seriesDataLine"
+                :seriesDataLineA="chartOption.seriesDataLineA">
+            </BarLine>
         </div>
         <div class="select">
-            <el-select v-model="selectVal.date" @change="handleDate" size="mini" style="width: 80px">
+            <el-select v-model="selectVal.seriesType" @change="handleDate" size="mini" style="width: 100px">
                 <el-option
                     v-for="item in dateOptions"
                     :key="item.value"
@@ -20,16 +30,19 @@
                     :value="item.value">
                 </el-option>
             </el-select>
-            <el-select v-model="selectVal.type" @change="handleType" size="mini" style="width: 80px">
-                <el-option label="总计" value="total"></el-option>
-                <el-option label="平均" value="average"></el-option>
-            </el-select>
         </div>
     </div>
 </template>
 
 <script>
 import BarLine from '@/components/echarts/BarLine';
+import { clearTimeout } from 'timers';
+
+let seriesColor = {
+    bar: ['#00C1DE99', '#0080DE0D'],
+    line: ['#00C1DE99', '#0080DE0D', '#67C23A'],
+    line1: ['#F56C6C99', '#F56C6C00', '#F56C6C']
+};
 
 export default {
     name: 'Chart',
@@ -40,27 +53,39 @@ export default {
     data() {
         return {
             selectVal: {
-                date: 'date',
-                type: 'total'
+                seriesType: 'bar'
             },
             dateOptions: [
                 {
-                    label: '日',
-                    value: 'date'
+                    label: 'bar',
+                    value: 'bar'
                 },
                 {
-                    label: '月',
-                    value: 'month'
+                    label: 'line',
+                    value: 'line'
                 },
                 {
-                    label: '年',
-                    value: 'year'
+                    label: 'barLineA',
+                    value: 'barLineA'
                 },
                 {
-                    label: '总计',
-                    value: 'total'
+                    label: 'barLineB',
+                    value: 'barLineB'
+                },
+                {
+                    label: 'barLines',
+                    value: 'barLines'
                 }
-            ]
+            ],
+            chartOption: {
+                legendData: [],
+                xAxisData: ['X1', 'X2', 'X3'],
+                seriesColor: seriesColor,
+                seriesType: 'bar',
+                seriesDataBar: [6, 2, 9],
+                seriesDataLine: [5, 1, 8],
+                seriesDataLineA: [2, 0, 3]
+            }
         };
     },
     computed: {},
@@ -70,24 +95,35 @@ export default {
     methods: {
         handleDate(v) {
             switch (v) {
-                case 'date':
+                case 'bar':
+                    this.chartOption.seriesType = 'bar';
+                    seriesColor.bar = ['#00C1DE99', '#0080DE0D'];
                     break;
-                case 'month':
+                case 'line':
+                    this.chartOption.seriesType = 'line';
+                    seriesColor.line = ['#00C1DE99', '#0080DE0D', '#00C1DE'];
                     break;
-                case 'year':
+                case 'barLineA':
+                    this.chartOption.seriesType = 'barLine';
+                    seriesColor.line = ['#00C1DE99', '#0080DE0D', '#67C23A'];
                     break;
-                case 'total':
+                case 'barLineB':
+                    this.chartOption.seriesType = 'barLine';
+                    seriesColor.line = ['#00C1DE99', '#0080DE0D', '#F56C6C'];
+                    break;
+                case 'barLines':
+                    this.chartOption.seriesType = 'barLines';
+                    seriesColor.line = ['#00C1DE99', '#0080DE0D', '#67C23A'];
+                    seriesColor.line1 = ['#00C1DE99', '#0080DE0D', '#F56C6C'];
                     break;
             }
-        },
 
-        handleType(v) {
-            switch (v) {
-                case 'total':
-                    break;
-                case 'average':
-                    break;
-            }
+            // 解决图表数据没有及时更新BUG
+            let timer;
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                this.$refs['bar-line'].initChart();
+            }, 10);
         }
     }
 };
@@ -111,8 +147,8 @@ export default {
     }
     .select {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 30px;
+        right: 30px;
     }
 }
 </style>
