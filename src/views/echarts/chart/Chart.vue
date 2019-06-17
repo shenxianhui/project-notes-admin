@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:34:37
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-17 10:55:18
+ * @Last Modified time: 2019-06-17 15:26:40
  */
 <!-- 图表 -->
 <template>
@@ -18,11 +18,17 @@
                 :seriesType="chartOption.seriesType"
                 :seriesDataBar="chartOption.seriesDataBar"
                 :seriesDataLine="chartOption.seriesDataLine"
-                :seriesDataLineA="chartOption.seriesDataLineA">
+                :seriesDataLineA="chartOption.seriesDataLineA"
+                @handleClick="handleClick">
             </BarLine>
         </div>
         <div class="select">
-            <el-select v-model="selectVal.seriesType" @change="handleDate" size="mini" style="width: 100px">
+            <span>{{ selectVal.name }}</span>
+            <el-select
+                v-model="selectVal.seriesType"
+                @change="handleDate"
+                size="mini"
+                style="width: 100px">
                 <el-option
                     v-for="item in dateOptions"
                     :key="item.value"
@@ -53,6 +59,7 @@ export default {
     data() {
         return {
             selectVal: {
+                name: '',
                 seriesType: 'bar'
             },
             dateOptions: [
@@ -82,9 +89,48 @@ export default {
                 xAxisData: ['X1', 'X2', 'X3'],
                 seriesColor: seriesColor,
                 seriesType: 'bar',
-                seriesDataBar: [6, 2, 9],
-                seriesDataLine: [5, 1, 8],
-                seriesDataLineA: [2, 0, 3]
+                seriesDataBar: [
+                    {
+                        name: 'X1',
+                        value: 6
+                    },
+                    {
+                        name: 'X2',
+                        value: 2
+                    },
+                    {
+                        name: 'X3',
+                        value: 9
+                    }
+                ],
+                seriesDataLine: [
+                    {
+                        name: 'X1',
+                        value: 5
+                    },
+                    {
+                        name: 'X2',
+                        value: 1
+                    },
+                    {
+                        name: 'X3',
+                        value: 8
+                    }
+                ],
+                seriesDataLineA: [
+                    {
+                        name: 'X1',
+                        value: 2
+                    },
+                    {
+                        name: 'X2',
+                        value: 0
+                    },
+                    {
+                        name: 'X3',
+                        value: 3
+                    }
+                ]
             }
         };
     },
@@ -93,26 +139,47 @@ export default {
     // created() {},
     // mounted() {},
     methods: {
+        // 选择图表类型
         handleDate(v) {
+            // 清空选中的柱状图
+            this.chartOption.seriesDataBar.forEach(item => {
+                if (item.isSelected) {
+                    item.isSelected = false;
+                }
+                if (item.itemStyle && item.itemStyle.opacity) {
+                    item.itemStyle.opacity = 1;
+                }
+            });
+
             switch (v) {
                 case 'bar':
                     this.chartOption.seriesType = 'bar';
+
+                    this.chartOption.legendData = ['bar'];
                     seriesColor.bar = ['#00C1DE99', '#0080DE0D'];
                     break;
                 case 'line':
                     this.chartOption.seriesType = 'line';
+
+                    this.chartOption.legendData = ['line'];
                     seriesColor.line = ['#00C1DE99', '#0080DE0D', '#00C1DE'];
                     break;
                 case 'barLineA':
                     this.chartOption.seriesType = 'barLine';
+
+                    this.chartOption.legendData = ['bar', 'line'];
                     seriesColor.line = ['#00C1DE99', '#0080DE0D', '#67C23A'];
                     break;
                 case 'barLineB':
                     this.chartOption.seriesType = 'barLine';
+
+                    this.chartOption.legendData = ['bar', 'line2'];
                     seriesColor.line = ['#00C1DE99', '#0080DE0D', '#F56C6C'];
                     break;
                 case 'barLines':
                     this.chartOption.seriesType = 'barLines';
+
+                    this.chartOption.legendData = ['bar', 'line1', 'line2'];
                     seriesColor.line = ['#00C1DE99', '#0080DE0D', '#67C23A'];
                     seriesColor.line1 = ['#00C1DE99', '#0080DE0D', '#F56C6C'];
                     break;
@@ -123,7 +190,13 @@ export default {
             clearTimeout(timer);
             timer = setTimeout(() => {
                 this.$refs['bar-line'].initChart();
-            }, 10);
+            }, 100);
+        },
+
+        // 点击柱状图
+        handleClick(data) {
+            // console.log(data);
+            this.selectVal.name = data.selectName;
         }
     }
 };
@@ -149,6 +222,11 @@ export default {
         position: absolute;
         top: 30px;
         right: 30px;
+        display: flex;
+        align-items: center;
+        span {
+            margin-right: 10px;
+        }
     }
 }
 </style>

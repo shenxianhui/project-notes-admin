@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-17 10:35:26
+ * @Last Modified time: 2019-06-17 15:22:51
  */
 <!-- 柱状折线图 -->
 <template>
@@ -214,8 +214,41 @@ export default {
             this.setChart();
             this.getData();
 
+            // 事件解绑
+            myChart.off('click');
+
             // 设置配置项, 刷新图表
             myChart.setOption(this.option, true);
+
+            // 点击事件
+            myChart.on('click', (e) => {
+                let selectName = '';
+
+                if (this.seriesType !== 'bar') {
+                    return;
+                }
+                if (e.data.isSelected) {
+                    selectName = '';
+                    this.option.series[0].data.forEach(item => {
+                        Object.assign(item, { isSelected: false, itemStyle: {opacity: 1} });
+                    });
+                } else {
+                    this.option.series[0].data.forEach(item => {
+                        if (e.name === item.name) {
+                            selectName = item.name;
+                            Object.assign(item, { isSelected: true, itemStyle: {opacity: 1} });
+                        } else {
+                            Object.assign(item, { isSelected: false, itemStyle: {opacity: 0.2} });
+                        }
+                    });
+                }
+                this.$emit('handleClick', {
+                    e: e,
+                    selectName: selectName
+                });
+
+                myChart.setOption(this.option, true);
+            });
         },
 
         // 图表样式修改
@@ -291,6 +324,13 @@ export default {
                     this.option.series[2].data = this.seriesDataLineA;
                     break;
             }
+
+            this.option.series.forEach((item, index) => {
+                item.name = this.legendData[index];
+            });
+            // this.option.legend.data.forEach((item, index) => {
+            //     this.series[index].name = item;
+            // });
         }
     }
 };

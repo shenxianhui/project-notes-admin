@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-05 10:54:25
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-05 17:32:47
+ * @Last Modified time: 2019-06-17 14:02:23
  */
 <!-- 地图-散点&映射 -->
 <template>
@@ -192,6 +192,9 @@ export default {
             // this.map.features.forEach(province => {
             //     console.log(province);
             // });
+
+            // 事件解绑
+            myChart.off('click');
 
             // 设置配置项, 刷新图表
             myChart.setOption(this.option, true);
