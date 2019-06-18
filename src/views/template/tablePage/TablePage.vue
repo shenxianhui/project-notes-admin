@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-07 16:48:54
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-11 15:14:20
+ * @Last Modified time: 2019-06-18 17:29:32
  */
 <!-- 模板-表格页 (element-ui 2.9+) -->
 <template>
@@ -554,7 +554,7 @@ export default {
             let tableContentBody = this.$refs.tableContentBody;
 
             // 根据搜索区高度自适应
-            tableContent.style.height = `calc(100% - ${tableSearch.offsetHeight + 40}px)`;
+            tableContent.style.height = `calc(100% - ${tableSearch.offsetHeight + 20}px)`;
             // 表格宽度必须设置, 否则布局会出现问题
             tableContentBody.style.width = `${tableContentBody.offsetWidth}px`;
         },
@@ -800,7 +800,7 @@ export default {
             .table-content-footer {
                 float: right;
 
-                margin-top: 15px;
+                margin-top: 20px;
                 /deep/ .el-pagination {
                     .el-pager {
                         .number {
