@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @Date: 2019-03-21 15:35:31
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-14 09:46:03
+ * @Last Modified time: 2019-06-18 17:02:37
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -11,7 +11,7 @@
         <div class="header">
             <div class="logo">
                 <img src="@/assets/icon/logo.png" alt="logo">
-                <h2>小贤笔记</h2>
+                <h2 ref="logo" @click="setLogo()">小贤笔记</h2>
             </div>
             <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
                 <el-menu-item
@@ -115,30 +115,6 @@ export default {
                                 label: '联动',
                                 value: 'chart',
                                 url: 'chart'
-                            }
-                        ]
-                    },
-                    {
-                        label: '柱状图',
-                        value: 'bar',
-                        type: 'echarts',
-                        children: [
-                            {
-                                label: '实例',
-                                value: 'bar',
-                                url: 'bar'
-                            }
-                        ]
-                    },
-                    {
-                        label: '饼图',
-                        value: 'pie',
-                        type: 'echarts',
-                        children: [
-                            {
-                                label: '实例',
-                                value: 'pie',
-                                url: 'pie'
                             }
                         ]
                     },
@@ -291,6 +267,17 @@ export default {
         // 侧边栏-选择
         handleClick(v) {
             this.$router.push(`/${this.activeHeaderMenu}/${v.url}`);
+        },
+
+        // logo 设置
+        setLogo() {
+            let str = '#';
+
+            for (let i = 0; i < 3; i++) {
+                let num = Math.floor((Math.random()) * 16);
+                str += num;
+            }
+            this.$refs.logo.style.color = str;
         }
     }
 };

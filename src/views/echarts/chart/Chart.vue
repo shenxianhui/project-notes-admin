@@ -2,25 +2,34 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:34:37
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-17 15:26:40
+ * @Last Modified time: 2019-06-18 16:46:15
  */
 <!-- 图表 -->
 <template>
     <div class="chart">
-        <!-- 柱状折线图 -->
-        <div class="group">
-            <BarLine
-                id="bar-line"
-                ref="bar-line"
-                :legendData="chartOption.legendData"
-                :xAxisData="chartOption.xAxisData"
-                :seriesColor="chartOption.seriesColor"
-                :seriesType="chartOption.seriesType"
-                :seriesDataBar="chartOption.seriesDataBar"
-                :seriesDataLine="chartOption.seriesDataLine"
-                :seriesDataLineA="chartOption.seriesDataLineA"
-                @handleClick="handleClick">
-            </BarLine>
+        <div class="wrap">
+            <!-- 柱状折线图 -->
+            <div class="group">
+                <BarLine
+                    id="bar-line"
+                    ref="bar-line"
+                    :legendData="chartOption.legendData"
+                    :xAxisData="chartOption.xAxisData"
+                    :seriesColor="chartOption.seriesColor"
+                    :seriesType="chartOption.seriesType"
+                    :seriesDataBar="chartOption.seriesDataBar"
+                    :seriesDataLine="chartOption.seriesDataLine"
+                    :seriesDataLineA="chartOption.seriesDataLineA"
+                    @handleClick="handleClick">
+                </BarLine>
+            </div>
+            <!-- 饼图 -->
+            <div class="group">
+                <Pie
+                    id="pie"
+                    ref="pie">
+                </Pie>
+            </div>
         </div>
         <div class="select">
             <span>{{ selectVal.name }}</span>
@@ -42,7 +51,7 @@
 
 <script>
 import BarLine from '@/components/echarts/BarLine';
-import { clearTimeout } from 'timers';
+import Pie from '@/components/echarts/Pie';
 
 let seriesColor = {
     bar: ['#00C1DE99', '#0080DE0D'],
@@ -53,7 +62,8 @@ let seriesColor = {
 export default {
     name: 'Chart',
     components: {
-        BarLine
+        BarLine,
+        Pie
     },
     props: {},
     data() {
@@ -137,7 +147,9 @@ export default {
     computed: {},
     watch: {},
     // created() {},
-    // mounted() {},
+    mounted() {
+        this.handleDate();
+    },
     methods: {
         // 选择图表类型
         handleDate(v) {
@@ -151,7 +163,7 @@ export default {
                 }
             });
 
-            switch (v) {
+            switch (this.selectVal.seriesType) {
                 case 'bar':
                     this.chartOption.seriesType = 'bar';
 
@@ -195,7 +207,6 @@ export default {
 
         // 点击柱状图
         handleClick(data) {
-            // console.log(data);
             this.selectVal.name = data.selectName;
         }
     }
@@ -210,12 +221,17 @@ export default {
 
     width: 100%;
     height: 100%;
-    .group {
+    .wrap {
+        display: flex;
+        flex-direction: column;
+
         width: 50%;
-        height: 50%;
-        border-bottom: 1px solid #ddd;
-        &:not(:nth-child(2n)) {
+        height: 100%;
+        .group {
+            width: 100%;
+            height: 50%;
             border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
         }
     }
     .select {

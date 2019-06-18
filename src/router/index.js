@@ -12,8 +12,6 @@ const Error = () => import('@/views/common/Error.vue');
 
 // ECharts
 const Chart = () => import('@/views/echarts/chart/Chart.vue');
-const Bar = () => import('@/views/echarts/bar/Bar.vue');
-const Pie = () => import('@/views/echarts/pie/Pie.vue');
 const MapScatter = () => import('@/views/echarts/map/MapScatter.vue');
 const LinesBeijing = () => import('@/views/echarts/lines/Beijing.vue');
 const LinesShanghai = () => import('@/views/echarts/lines/Shanghai.vue');
@@ -57,22 +55,12 @@ export default new Router({
                     path: 'echarts',
                     name: 'echarts',
                     component: Container,
-                    redirect: 'echarts/bar', // 默认
+                    redirect: 'echarts/chart', // 默认
                     children: [
                         { // 图表
                             path: 'chart',
                             name: 'chart',
                             component: Chart
-                        },
-                        { // 柱状图
-                            path: 'bar',
-                            name: 'bar',
-                            component: Bar
-                        },
-                        { // 饼图
-                            path: 'pie',
-                            name: 'pie',
-                            component: Pie
                         },
                         { // 地图-散点&映射
                             path: 'map-scatter',

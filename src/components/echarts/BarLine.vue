@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-17 15:22:51
+ * @Last Modified time: 2019-06-18 16:05:46
  */
 <!-- 柱状折线图 -->
 <template>
@@ -109,13 +109,7 @@ export default {
     data() {
         return {
             option: {
-                grid: {
-                    left: 20,
-                    top: 60,
-                    right: 20,
-                    bottom: 20,
-                    containLabel: true // 包含坐标轴的刻度标签
-                },
+                grid: this.$myStore.grid,
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器
@@ -132,7 +126,7 @@ export default {
                     icon: 'rect',
                     itemWidth: 12,
                     itemHeight: 8,
-                    itemGap: 4,
+                    itemGap: 20,
                     textStyle: {
                         fontSize: 14
                     },
@@ -195,16 +189,6 @@ export default {
         this.destroyChart();
     },
     methods: {
-        // 销毁图表实例, 防止内存泄漏
-        destroyChart() {
-            let chart = this.$echarts.getInstanceByDom(document.getElementById(this.id));
-
-            if (chart) {
-                chart.clear(); // 释放图形资源
-                chart.dispose(); // 销毁实例对象
-            }
-        },
-
         // 图表初始化
         initChart() {
             this.destroyChart();
@@ -328,10 +312,18 @@ export default {
             this.option.series.forEach((item, index) => {
                 item.name = this.legendData[index];
             });
-            // this.option.legend.data.forEach((item, index) => {
-            //     this.series[index].name = item;
-            // });
+        },
+
+        // 销毁图表实例, 防止内存泄漏
+        destroyChart() {
+            let chart = this.$echarts.getInstanceByDom(document.getElementById(this.id));
+
+            if (chart) {
+                chart.clear(); // 释放图形资源
+                chart.dispose(); // 销毁实例对象
+            }
         }
+
     }
 };
 </script>
