@@ -25,8 +25,8 @@ const Galaxy = () => import('@/views/animation/trajectory/Galaxy.vue');
 const Snake = () => import('@/views/game/snake/Snake.vue');
 
 // 模板
-const TablePage = () => import('@/views/template/tablePage/TablePage.vue');
-const DetailsPage = () => import('@/views/template/detailsPage/DetailsPage.vue');
+const TablePage = () => import('@/views/demo/tablePage/TablePage.vue');
+const DetailsPage = () => import('@/views/demo/detailsPage/DetailsPage.vue');
 
 // 其他
 const Table = () => import('@/views/other/table/Table.vue');
@@ -116,10 +116,10 @@ export default new Router({
                     ]
                 },
                 { // 模板
-                    path: 'template',
-                    name: 'template',
+                    path: 'demo',
+                    name: 'demo',
                     component: Container,
-                    redirect: 'template/table-page', // 默认
+                    redirect: 'demo/table-page', // 默认
                     children: [
                         { // 表格页
                             path: 'table-page',

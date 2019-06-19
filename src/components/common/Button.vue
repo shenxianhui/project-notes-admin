@@ -115,19 +115,19 @@ export default {
 }
 .primary {
     color: #fff;
-    background-color: #006EEC;
-    border-color: #006EEC;
+    background-color: #008AFF;
+    border-color: #008AFF;
     &:hover {
         opacity: 0.8;
     }
 }
 .primary-plain {
-    color: #006EEC;
-    border-color: #006EEC;
+    color: #008AFF;
+    border-color: #008AFF;
     &:hover {
         color: #fff;
-        background-color: #006EEC;
-        border-color: #006EEC;
+        background-color: #008AFF;
+        border-color: #008AFF;
     }
 }
 .danger {

@@ -1,14 +1,14 @@
 /*
  * @Author: Shen Xianhui
- * @Date: 2019-06-05 10:54:25
+ * @Date: 2019-06-19 08:20:07
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 09:32:07
+ * @Last Modified time: 2019-06-19 10:04:56
  */
-<!-- 地图-散点&映射 -->
+<!-- 地图 -->
 <template>
     <div class="container">
         <span v-show="areaLevel !== 'country'" @click="back()">返回上级</span>
-        <div class="map" id="map"></div>
+        <div class="map" :id="id"></div>
     </div>
 </template>
 
@@ -17,9 +17,14 @@ import AreaCode from '@/data/map/area-code';
 import China from '@/data/map/100000';
 
 export default {
-    name: 'MapScatter',
+    name: 'Map',
     components: {},
-    props: {},
+    props: {
+        id: {
+            type: String,
+            default: 'map'
+        }
+    },
     data() {
         return {
             areaName: ['China'], // 当前区域-名称

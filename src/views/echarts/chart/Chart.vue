@@ -2,14 +2,14 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:34:37
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-18 16:46:15
+ * @Last Modified time: 2019-06-19 09:36:34
  */
 <!-- 图表 -->
 <template>
     <div class="chart">
         <div class="wrap">
-            <!-- 柱状折线图 -->
-            <div class="group">
+            <div class="chart-inner">
+                <!-- 柱状折线图 -->
                 <BarLine
                     id="bar-line"
                     ref="bar-line"
@@ -23,13 +23,16 @@
                     @handleClick="handleClick">
                 </BarLine>
             </div>
-            <!-- 饼图 -->
-            <div class="group">
+            <div class="chart-inner">
+                <!-- 饼图 -->
                 <Pie
                     id="pie"
                     ref="pie">
                 </Pie>
             </div>
+        </div>
+        <div class="wrap">
+            <Map></Map>
         </div>
         <div class="select">
             <span>{{ selectVal.name }}</span>
@@ -52,6 +55,7 @@
 <script>
 import BarLine from '@/components/echarts/BarLine';
 import Pie from '@/components/echarts/Pie';
+import Map from '@/components/echarts/Map';
 
 let seriesColor = {
     bar: ['#00C1DE99', '#0080DE0D'],
@@ -63,7 +67,8 @@ export default {
     name: 'Chart',
     components: {
         BarLine,
-        Pie
+        Pie,
+        Map
     },
     props: {},
     data() {
@@ -227,7 +232,7 @@ export default {
 
         width: 50%;
         height: 100%;
-        .group {
+        .chart-inner {
             width: 100%;
             height: 50%;
             border-right: 1px solid #ddd;

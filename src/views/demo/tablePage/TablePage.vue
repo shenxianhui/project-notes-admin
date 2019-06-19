@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-07 16:48:54
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-18 17:29:32
+ * @Last Modified time: 2019-06-19 10:37:31
  */
 <!-- 模板-表格页 (element-ui 2.9+) -->
 <template>
@@ -91,7 +91,7 @@
             <!-- 表格 -->
             <div class="table-content" ref="tableContent">
                 <!-- 表格-头部 (按钮) -->
-                <div class="table-content-header">
+                <div class="table-content-header" ref="tableContentHeader">
                     <h2>标题</h2>
                     <div class="table-content-buttons">
                         <Button label="添加" color="success-plain" @click="handleAddBatch()"></Button>
@@ -319,6 +319,13 @@ export default {
     },
     mounted() {
         this.setStyle();
+        window.onresize = () => {
+            this.setStyle();
+        };
+    },
+    beforeRouteLeave(to, from, next) {
+        window.removeEventListener('resize', this.setStyle());
+        next();
     },
     methods: {
         // 表单-重置 (所有表单都要加入校验规则, 否则无法重置)
@@ -339,7 +346,7 @@ export default {
 
         // 批量-添加
         handleAddBatch() {
-            // this.$router.push(`/template/add-page`);
+            // this.$router.push(`/demo/add-page`);
         },
 
         // 批量-删除
@@ -389,7 +396,7 @@ export default {
 
         // 操作-详情
         handleDet(data) {
-            // this.$router.push(`/template/details-page/${data.value}`);
+            // this.$router.push(`/demo/details-page/${data.value}`);
         },
 
         // 操作-下载
@@ -551,12 +558,13 @@ export default {
         setStyle() {
             let tableSearch = this.$refs.tableSearch;
             let tableContent = this.$refs.tableContent;
+            let tableContentHeader = this.$refs.tableContentHeader;
             let tableContentBody = this.$refs.tableContentBody;
 
             // 根据搜索区高度自适应
             tableContent.style.height = `calc(100% - ${tableSearch.offsetHeight + 20}px)`;
             // 表格宽度必须设置, 否则布局会出现问题
-            tableContentBody.style.width = `${tableContentBody.offsetWidth}px`;
+            tableContentBody.style.width = `${tableContentHeader.offsetWidth}px`;
         },
 
         // mock 数据
@@ -734,8 +742,8 @@ export default {
                                 border: 1px solid;
                                 padding: 0;
                                 color: #fff;
-                                background-color: #006EEC;
-                                border-color: #006EEC;
+                                background-color: #008AFF;
+                                border-color: #008AFF;
                                 &:hover {
                                     opacity: 0.8;
                                 }
@@ -812,8 +820,8 @@ export default {
                             color: #666;
                             border: 1px solid #ccc;
                             &.active {
-                                border-color: #006EEC;
-                                color: #1467C5;
+                                border-color: #008AFF;
+                                color: #008AFF;
                             }
                             &:hover {
                                 border-color: #999;

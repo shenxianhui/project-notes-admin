@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @Date: 2019-03-21 15:35:31
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-18 17:02:37
+ * @Last Modified time: 2019-06-19 10:30:24
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -93,9 +93,9 @@ export default {
                 },
                 {
                     label: '模板',
-                    value: 'template',
-                    url: 'template',
-                    list: 'templateList'
+                    value: 'demo',
+                    url: 'demo',
+                    list: 'demoList'
                 },
                 {
                     label: '其他',
@@ -193,11 +193,11 @@ export default {
                         ]
                     }
                 ],
-                templateList: [ // 模板
+                demoList: [ // 模板
                     {
                         label: '表格页',
                         value: 'tablePage',
-                        type: 'template',
+                        type: 'demo',
                         children: [
                             {
                                 label: '表格页',
@@ -209,7 +209,7 @@ export default {
                     {
                         label: '详情页',
                         value: 'detailsPage',
-                        type: 'template',
+                        type: 'demo',
                         children: [
                             {
                                 label: '详情页',
@@ -287,7 +287,6 @@ export default {
 .main {
     width: 100%;
     height: 100%;
-
     /* 顶部导航 */
     .header {
         display: flex;
