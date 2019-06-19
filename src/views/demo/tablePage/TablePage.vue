@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-07 16:48:54
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 10:37:31
+ * @Last Modified time: 2019-06-19 15:27:09
  */
 <!-- 模板-表格页 (element-ui 2.9+) -->
 <template>
@@ -91,7 +91,7 @@
             <!-- 表格 -->
             <div class="table-content" ref="tableContent">
                 <!-- 表格-头部 (按钮) -->
-                <div class="table-content-header" ref="tableContentHeader">
+                <div class="table-content-header">
                     <h2>标题</h2>
                     <div class="table-content-buttons">
                         <Button label="添加" color="success-plain" @click="handleAddBatch()"></Button>
@@ -204,7 +204,6 @@
 
 <script>
 import Button from '@/components/common/Button';
-import { setTimeout, clearTimeout } from 'timers';
 
 export default {
     name: 'TablePage',
@@ -558,13 +557,12 @@ export default {
         setStyle() {
             let tableSearch = this.$refs.tableSearch;
             let tableContent = this.$refs.tableContent;
-            let tableContentHeader = this.$refs.tableContentHeader;
             let tableContentBody = this.$refs.tableContentBody;
 
             // 根据搜索区高度自适应
             tableContent.style.height = `calc(100% - ${tableSearch.offsetHeight + 20}px)`;
             // 表格宽度必须设置, 否则布局会出现问题
-            tableContentBody.style.width = `${tableContentHeader.offsetWidth}px`;
+            tableContentBody.style.width = `${tableContent.offsetWidth - 40}px`;
         },
 
         // mock 数据

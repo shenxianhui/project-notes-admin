@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-19 08:20:07
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 11:23:53
+ * @Last Modified time: 2019-06-19 14:31:27
  */
 <!-- 地图 -->
 <template>
@@ -23,6 +23,10 @@ export default {
         id: {
             type: String,
             default: 'map'
+        },
+        mapData: {
+            type: Array,
+            default: () => []
         }
     },
     data() {
@@ -114,7 +118,7 @@ export default {
                         geoIndex: 0, // 共享 geo 样式
                         data: []
                     },
-                    {
+                    { // 气泡
                         type: 'scatter',
                         coordinateSystem: 'geo',
                         symbol: 'pin',
@@ -131,14 +135,14 @@ export default {
                             }
                         },
                         itemStyle: {
-                            color: '#fff', // 标志颜色
+                            color: '#fff',
                             opacity: 1
                         },
                         data: [
-                            {
-                                name: '杭州市',
-                                value: [120.21, 30.25, 666]
-                            }
+                            // {
+                            //     name: '杭州市',
+                            //     value: [120.21, 30.25, 666] // [经度, 纬度, value]
+                            // }
                         ]
                     }
                 ]
@@ -195,6 +199,8 @@ export default {
             //     console.log(province);
             // });
 
+            // this.setData();
+
             // 事件解绑
             myChart.off('click');
 
@@ -214,14 +220,20 @@ export default {
                     case 'city': // 市
                         this.getArea(e);
                         // 已选中区的话不要 `init`, 否则不会触发选中模式
-                        if (this.areaLevel === 'area') {
-                            return;
-                        }
+                        // if (this.areaLevel === 'area') {
+                        //     return;
+                        // }
                         break;
                     case 'area': // 区
                         this.getArea(e);
                         return;
                 }
+
+                this.$emit('handleClick', {
+                    areaName: this.areaName,
+                    areaCode: this.areaCode,
+                    areaLevel: this.areaLevel
+                });
 
                 this.mockData();
                 this.initMap();
@@ -258,6 +270,9 @@ export default {
 
         // 获取区
         getArea(e) {
+            // if (this.areaLevel === 'area') {
+
+            // }
             this.areaLevel = 'area';
 
             AreaCode.forEach(province => {
@@ -294,9 +309,20 @@ export default {
                     break;
             }
 
+            this.$emit('handleBack', {
+                areaName: this.areaName,
+                areaCode: this.areaCode,
+                areaLevel: this.areaLevel
+            });
+
             this.mockData();
             this.initMap();
         },
+
+        // 数据导入
+        // setData() {
+
+        // },
 
         // 模拟数据
         mockData() {

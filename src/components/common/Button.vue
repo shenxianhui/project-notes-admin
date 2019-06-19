@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-08 08:35:09
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-11 08:25:19
+ * @Last Modified time: 2019-06-19 15:26:20
  */
 <!-- 按钮公共组件 -->
 <template>
@@ -62,7 +62,8 @@ export default {
             default: 'click'
         },
         dropdownList: { // 列表内容 [{ label: xx, value: xx }]
-            type: Array
+            type: Array,
+            default: () => []
         }
     },
     data() {

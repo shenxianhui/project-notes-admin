@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:34:37
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 11:03:13
+ * @Last Modified time: 2019-06-19 14:12:08
  */
 <!-- 图表 -->
 <template>
@@ -13,29 +13,34 @@
                 <BarLine
                     id="bar-line"
                     ref="bar-line"
-                    :legendData="chartOption.legendData"
-                    :xAxisData="chartOption.xAxisData"
-                    :seriesColor="chartOption.seriesColor"
-                    :seriesType="chartOption.seriesType"
-                    :seriesDataBar="chartOption.seriesDataBar"
-                    :seriesDataLine="chartOption.seriesDataLine"
-                    :seriesDataLineA="chartOption.seriesDataLineA"
-                    @handleClick="handleClick">
+                    :legendData="barOption.legendData"
+                    :xAxisData="barOption.xAxisData"
+                    :seriesColor="barOption.seriesColor"
+                    :seriesType="barOption.seriesType"
+                    :seriesDataBar="barOption.seriesDataBar"
+                    :seriesDataLine="barOption.seriesDataLine"
+                    :seriesDataLineA="barOption.seriesDataLineA"
+                    @handleClick="handleClickBar">
                 </BarLine>
             </div>
             <div class="chart-inner">
                 <!-- 饼图 -->
                 <Pie
                     id="pie"
-                    ref="pie">
+                    ref="pie"
+                    @handleClick="handleClickPie">
                 </Pie>
             </div>
         </div>
         <div class="wrap">
-            <Map></Map>
+            <Map
+                id="map"
+                ref="map"
+                @handleClick="handleClickMap"
+                @handleBack="handleBackMap">
+            </Map>
         </div>
         <div class="select">
-            <span>{{ selectVal.name }}</span>
             <el-select
                 v-model="selectVal.seriesType"
                 @change="handleDate"
@@ -48,6 +53,7 @@
                     :value="item.value">
                 </el-option>
             </el-select>
+            <span>{{ selectVal.name }}</span>
         </div>
     </div>
 </template>
@@ -73,11 +79,11 @@ export default {
     props: {},
     data() {
         return {
-            selectVal: {
+            selectVal: { // 选择框
                 name: '',
                 seriesType: 'bar'
             },
-            dateOptions: [
+            dateOptions: [ // 选择框列表
                 {
                     label: 'bar',
                     value: 'bar'
@@ -99,7 +105,7 @@ export default {
                     value: 'barLines'
                 }
             ],
-            chartOption: {
+            barOption: { // 柱状折线图
                 legendData: [],
                 xAxisData: ['X1', 'X2', 'X3'],
                 seriesColor: seriesColor,
@@ -146,6 +152,11 @@ export default {
                         value: 3
                     }
                 ]
+            },
+            mapOption: { // 地图
+                areaName: [],
+                areaCode: '',
+                areaLevel: ''
             }
         };
     },
@@ -158,9 +169,10 @@ export default {
         // 选择图表类型
         handleDate(v) {
             // 清空选中的柱状图
-            this.chartOption.seriesDataBar.forEach(item => {
+            this.barOption.seriesDataBar.forEach(item => {
                 if (item.isSelected) {
                     item.isSelected = false;
+                    this.selectVal.name = '';
                 }
                 if (item.itemStyle && item.itemStyle.opacity) {
                     item.itemStyle.opacity = 1;
@@ -169,33 +181,33 @@ export default {
 
             switch (this.selectVal.seriesType) {
                 case 'bar':
-                    this.chartOption.seriesType = 'bar';
+                    this.barOption.seriesType = 'bar';
 
-                    this.chartOption.legendData = ['bar'];
+                    this.barOption.legendData = ['bar'];
                     seriesColor.bar = ['#00C1DE99', '#0080DE0D'];
                     break;
                 case 'line':
-                    this.chartOption.seriesType = 'line';
+                    this.barOption.seriesType = 'line';
 
-                    this.chartOption.legendData = ['line'];
+                    this.barOption.legendData = ['line'];
                     seriesColor.line = ['#00C1DE99', '#0080DE0D', '#00C1DE'];
                     break;
                 case 'barLineA':
-                    this.chartOption.seriesType = 'barLine';
+                    this.barOption.seriesType = 'barLine';
 
-                    this.chartOption.legendData = ['bar', 'line'];
+                    this.barOption.legendData = ['bar', 'line'];
                     seriesColor.line = ['#00C1DE99', '#0080DE0D', '#67C23A'];
                     break;
                 case 'barLineB':
-                    this.chartOption.seriesType = 'barLine';
+                    this.barOption.seriesType = 'barLine';
 
-                    this.chartOption.legendData = ['bar', 'line2'];
+                    this.barOption.legendData = ['bar', 'line2'];
                     seriesColor.line = ['#00C1DE99', '#0080DE0D', '#F56C6C'];
                     break;
                 case 'barLines':
-                    this.chartOption.seriesType = 'barLines';
+                    this.barOption.seriesType = 'barLines';
 
-                    this.chartOption.legendData = ['bar', 'line1', 'line2'];
+                    this.barOption.legendData = ['bar', 'line1', 'line2'];
                     seriesColor.line = ['#00C1DE99', '#0080DE0D', '#67C23A'];
                     seriesColor.line1 = ['#00C1DE99', '#0080DE0D', '#F56C6C'];
                     break;
@@ -209,9 +221,24 @@ export default {
             }, 100);
         },
 
-        // 点击柱状图
-        handleClick(data) {
+        // 柱状图-点击
+        handleClickBar(data) {
             this.selectVal.name = data.selectName;
+        },
+
+        // 饼图-点击
+        handleClickPie(data) {
+            console.log(data);
+        },
+
+        // 地图-点击
+        handleClickMap(data) {
+            // console.log(data);
+        },
+
+        // 地图-返回
+        handleBackMap(data) {
+            // console.log(data);
         }
     }
 };
@@ -240,12 +267,12 @@ export default {
     }
     .select {
         position: absolute;
-        top: 30px;
-        right: 30px;
+        top: 10px;
+        left: 10px;
         display: flex;
         align-items: center;
         span {
-            margin-right: 10px;
+            margin-left: 10px;
         }
     }
 }

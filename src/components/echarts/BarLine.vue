@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 11:24:08
+ * @Last Modified time: 2019-06-19 14:23:19
  */
 <!-- 柱状折线图 -->
 <template>
@@ -203,7 +203,7 @@ export default {
             let myChart = this.$echarts.init(document.getElementById(this.id));
 
             this.setChart();
-            this.getData();
+            this.setData();
 
             // 事件解绑
             myChart.off('click');
@@ -295,7 +295,7 @@ export default {
         },
 
         // 数据导入
-        getData() {
+        setData() {
             this.option.legend.data = this.legendData;
             this.option.xAxis.data = this.xAxisData;
             switch (this.seriesType) {
