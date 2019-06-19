@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-18 15:59:28
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-18 16:55:30
+ * @Last Modified time: 2019-06-19 11:25:20
  */
 <!-- 饼图 -->
 <template>
@@ -57,14 +57,20 @@ export default {
     },
     computed: {},
     watch: {},
-    // created() {},
     mounted() {
         this.initChart();
     },
-    beforeDestroy() {
-        this.destroyChart();
-    },
     methods: {
+        // 销毁图表实例, 防止内存泄漏
+        destroyChart() {
+            let chart = this.$echarts.getInstanceByDom(document.getElementById(this.id));
+
+            if (chart) {
+                chart.clear(); // 释放图形资源
+                chart.dispose(); // 销毁实例对象
+            }
+        },
+
         // 图表初始化
         initChart() {
             this.destroyChart();
@@ -85,16 +91,6 @@ export default {
 
                 myChart.setOption(this.option, true);
             });
-        },
-
-        // 销毁图表实例, 防止内存泄漏
-        destroyChart() {
-            let chart = this.$echarts.getInstanceByDom(document.getElementById(this.id));
-
-            if (chart) {
-                chart.clear(); // 释放图形资源
-                chart.dispose(); // 销毁实例对象
-            }
         }
     }
 };

@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-18 16:05:46
+ * @Last Modified time: 2019-06-19 11:24:08
  */
 <!-- 柱状折线图 -->
 <template>
@@ -185,10 +185,17 @@ export default {
     mounted() {
         this.initChart();
     },
-    beforeDestroy() {
-        this.destroyChart();
-    },
     methods: {
+        // 销毁图表实例, 防止内存泄漏
+        destroyChart() {
+            let chart = this.$echarts.getInstanceByDom(document.getElementById(this.id));
+
+            if (chart) {
+                chart.clear(); // 释放图形资源
+                chart.dispose(); // 销毁实例对象
+            }
+        },
+
         // 图表初始化
         initChart() {
             this.destroyChart();
@@ -312,18 +319,7 @@ export default {
             this.option.series.forEach((item, index) => {
                 item.name = this.legendData[index];
             });
-        },
-
-        // 销毁图表实例, 防止内存泄漏
-        destroyChart() {
-            let chart = this.$echarts.getInstanceByDom(document.getElementById(this.id));
-
-            if (chart) {
-                chart.clear(); // 释放图形资源
-                chart.dispose(); // 销毁实例对象
-            }
         }
-
     }
 };
 </script>

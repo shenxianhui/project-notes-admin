@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-05 10:54:25
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 09:32:07
+ * @Last Modified time: 2019-06-19 11:25:34
  */
 <!-- 地图-散点&映射 -->
 <template>
@@ -149,9 +149,6 @@ export default {
     mounted() {
         this.mockData();
         this.initMap();
-    },
-    beforeDestroy() {
-        this.destroyChart();
     },
     methods: {
         // 销毁图表实例, 防止内存泄漏

@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:34:37
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 09:36:34
+ * @Last Modified time: 2019-06-19 11:03:13
  */
 <!-- 图表 -->
 <template>
@@ -151,7 +151,6 @@ export default {
     },
     computed: {},
     watch: {},
-    // created() {},
     mounted() {
         this.handleDate();
     },
