@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-19 08:20:07
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 14:31:27
+ * @Last Modified time: 2019-06-20 14:45:45
  */
 <!-- 地图 -->
 <template>
@@ -153,10 +153,13 @@ export default {
     watch: {
         areaLevel() {
             this.option.series[0].map = this.option.geo.map = this.areaLevel;
+        },
+        mapData() {
+            this.initMap();
         }
     },
     mounted() {
-        this.mockData();
+        // this.mockData();
         this.initMap();
     },
     methods: {
@@ -172,6 +175,7 @@ export default {
 
         // 图表初始化
         initMap() {
+            this.setData();
             this.destroyChart();
 
             let myChart = this.$echarts.init(document.getElementById('map'));
@@ -199,8 +203,6 @@ export default {
             //     console.log(province);
             // });
 
-            // this.setData();
-
             // 事件解绑
             myChart.off('click');
 
@@ -226,7 +228,7 @@ export default {
                         break;
                     case 'area': // 区
                         this.getArea(e);
-                        return;
+                        break;
                 }
 
                 this.$emit('handleClick', {
@@ -235,8 +237,7 @@ export default {
                     areaLevel: this.areaLevel
                 });
 
-                this.mockData();
-                this.initMap();
+                // this.initMap();
             });
         },
 
@@ -271,7 +272,11 @@ export default {
         // 获取区
         getArea(e) {
             // if (this.areaLevel === 'area') {
-
+            //     this.mapData.forEach(area => {
+            //         if (area.code === this.areaCode) {
+            //             Object.assign(area, {selected: true});
+            //         }
+            //     });
             // }
             this.areaLevel = 'area';
 
@@ -315,70 +320,12 @@ export default {
                 areaLevel: this.areaLevel
             });
 
-            this.mockData();
-            this.initMap();
+            // this.initMap();
         },
 
         // 数据导入
-        // setData() {
-
-        // },
-
-        // 模拟数据
-        mockData() {
-            let areaList = [];
-
-            switch (this.areaLevel) {
-                case 'country':
-                    AreaCode.forEach(province => {
-                        let obj = {
-                            // 使之 name 与地图对应
-                            name: (province.name === '内蒙古自治区') || (province.name === '黑龙江省') ?
-                                province.name.slice(0, 3) :
-                                province.name.slice(0, 2),
-                            code: province.code,
-                            value: Math.round(Math.random() * 10000 + 5000)
-                        };
-
-                        areaList.push(obj);
-                    });
-                    break;
-                case 'province':
-                    AreaCode.forEach(province => {
-                        if (province.code === this.areaCode) {
-                            province.children.forEach(city => {
-                                let obj = {
-                                    name: city.name,
-                                    code: city.code,
-                                    value: Math.round(Math.random() * 1000 + 500)
-                                };
-
-                                areaList.push(obj);
-                            });
-                        }
-                    });
-                    break;
-                case 'city':
-                    AreaCode.forEach(province => {
-                        province.children.forEach(city => {
-                            if (city.code === this.areaCode) {
-                                city.children.forEach(area => {
-                                    let obj = {
-                                        name: area.name,
-                                        code: area.code,
-                                        value: Math.round(Math.random() * 100 + 50)
-                                    };
-
-                                    areaList.push(obj);
-                                });
-                            }
-                        });
-                    });
-                    break;
-            }
-
-            areaList.sort((a, b) => b['value'] - a['value']); // 降序
-            this.option.series[0].data = areaList;
+        setData() {
+            this.option.series[0].data = this.mapData;
         }
     }
 };

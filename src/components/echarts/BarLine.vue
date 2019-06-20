@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 14:23:19
+ * @Last Modified time: 2019-06-20 13:23:08
  */
 <!-- 柱状折线图 -->
 <template>
@@ -198,12 +198,11 @@ export default {
 
         // 图表初始化
         initChart() {
+            this.setChart();
+            this.setData();
             this.destroyChart();
 
             let myChart = this.$echarts.init(document.getElementById(this.id));
-
-            this.setChart();
-            this.setData();
 
             // 事件解绑
             myChart.off('click');

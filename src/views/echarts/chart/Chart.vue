@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:34:37
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 14:12:08
+ * @Last Modified time: 2019-06-20 14:31:18
  */
 <!-- 图表 -->
 <template>
@@ -36,6 +36,7 @@
             <Map
                 id="map"
                 ref="map"
+                :mapData="mapOption.mapData"
                 @handleClick="handleClickMap"
                 @handleBack="handleBackMap">
             </Map>
@@ -59,6 +60,7 @@
 </template>
 
 <script>
+import AreaCode from '@/data/map/area-code';
 import BarLine from '@/components/echarts/BarLine';
 import Pie from '@/components/echarts/Pie';
 import Map from '@/components/echarts/Map';
@@ -154,14 +156,18 @@ export default {
                 ]
             },
             mapOption: { // 地图
-                areaName: [],
-                areaCode: '',
-                areaLevel: ''
+                areaName: ['China'], // 当前区域-名称
+                areaCode: '0', // 当前区域-编号
+                areaLevel: 'country', // 当前区域-层级
+                mapData: []
             }
         };
     },
     computed: {},
     watch: {},
+    created() {
+        this.mockData();
+    },
     mounted() {
         this.handleDate();
     },
@@ -234,11 +240,97 @@ export default {
         // 地图-点击
         handleClickMap(data) {
             // console.log(data);
+            this.mapOption.areaName = data.areaName;
+            this.mapOption.areaCode = data.areaCode;
+            this.mapOption.areaLevel = data.areaLevel;
+            this.mockData();
         },
 
         // 地图-返回
         handleBackMap(data) {
             // console.log(data);
+            this.mapOption.areaName = data.areaName;
+            this.mapOption.areaCode = data.areaCode;
+            this.mapOption.areaLevel = data.areaLevel;
+            this.mockData();
+        },
+
+        // 模拟数据
+        mockData() {
+            let areaList = [];
+
+            switch (this.mapOption.areaLevel) {
+                case 'country':
+                    AreaCode.forEach(province => {
+                        let obj = {
+                            // 使之 name 与地图对应
+                            name: (province.name === '内蒙古自治区') || (province.name === '黑龙江省') ?
+                                province.name.slice(0, 3) :
+                                province.name.slice(0, 2),
+                            code: province.code,
+                            value: Math.round(Math.random() * 10000 + 5000)
+                        };
+
+                        areaList.push(obj);
+                    });
+                    break;
+                case 'province':
+                    AreaCode.forEach(province => {
+                        if (province.code === this.mapOption.areaCode) {
+                            province.children.forEach(city => {
+                                let obj = {
+                                    name: city.name,
+                                    code: city.code,
+                                    value: Math.round(Math.random() * 1000 + 500)
+                                };
+
+                                areaList.push(obj);
+                            });
+                        }
+                    });
+                    break;
+                case 'city':
+                    AreaCode.forEach(province => {
+                        if (province.code === this.mapOption.areaCode.slice(0, 2)) {
+                            province.children.forEach(city => {
+                                if (city.code === this.mapOption.areaCode) {
+                                    city.children.forEach(area => {
+                                        let obj = {
+                                            name: area.name,
+                                            code: area.code,
+                                            value: Math.round(Math.random() * 100 + 50)
+                                        };
+
+                                        areaList.push(obj);
+                                    });
+                                }
+                            });
+                        }
+                    });
+                    break;
+                case 'area':
+                    AreaCode.forEach(province => {
+                        if (province.code === this.mapOption.areaCode.slice(0, 2)) {
+                            province.children.forEach(city => {
+                                if (city.code === this.mapOption.areaCode.slice(0, 4)) {
+                                    city.children.forEach(area => {
+                                        let obj = {
+                                            name: area.name,
+                                            code: area.code,
+                                            value: Math.round(Math.random() * 100 + 50)
+                                        };
+
+                                        areaList.push(obj);
+                                    });
+                                }
+                            });
+                        }
+                    });
+                    break;
+            }
+
+            areaList.sort((a, b) => b['value'] - a['value']); // 降序
+            this.mapOption.mapData = areaList;
         }
     }
 };
