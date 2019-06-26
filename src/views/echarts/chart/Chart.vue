@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:34:37
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-20 14:31:18
+ * @Last Modified time: 2019-06-26 17:48:27
  */
 <!-- 图表 -->
 <template>
@@ -224,7 +224,7 @@ export default {
             clearTimeout(timer);
             timer = setTimeout(() => {
                 this.$refs['bar-line'].initChart();
-            }, 100);
+            }, 20);
         },
 
         // 柱状图-点击
@@ -243,7 +243,16 @@ export default {
             this.mapOption.areaName = data.areaName;
             this.mapOption.areaCode = data.areaCode;
             this.mapOption.areaLevel = data.areaLevel;
-            this.mockData();
+
+            if (this.mapOption.areaLevel !== 'area') {
+                this.mockData();
+
+                let timer;
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    this.$refs['map'].initMap();
+                }, 20);
+            }
         },
 
         // 地图-返回
@@ -253,6 +262,12 @@ export default {
             this.mapOption.areaCode = data.areaCode;
             this.mapOption.areaLevel = data.areaLevel;
             this.mockData();
+
+            let timer;
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                this.$refs['map'].initMap();
+            }, 20);
         },
 
         // 模拟数据
@@ -289,26 +304,7 @@ export default {
                         }
                     });
                     break;
-                case 'city':
-                    AreaCode.forEach(province => {
-                        if (province.code === this.mapOption.areaCode.slice(0, 2)) {
-                            province.children.forEach(city => {
-                                if (city.code === this.mapOption.areaCode) {
-                                    city.children.forEach(area => {
-                                        let obj = {
-                                            name: area.name,
-                                            code: area.code,
-                                            value: Math.round(Math.random() * 100 + 50)
-                                        };
-
-                                        areaList.push(obj);
-                                    });
-                                }
-                            });
-                        }
-                    });
-                    break;
-                case 'area':
+                default:
                     AreaCode.forEach(province => {
                         if (province.code === this.mapOption.areaCode.slice(0, 2)) {
                             province.children.forEach(city => {

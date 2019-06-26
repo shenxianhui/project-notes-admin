@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-05 10:54:25
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-20 17:48:45
+ * @Last Modified time: 2019-06-26 17:33:34
  */
 <!-- 地图-散点&映射 -->
 <template>
@@ -208,29 +208,28 @@ export default {
                         break;
                     case 'city': // 市
                         this.getArea(e);
-                        // 已选中区的话不要 `init`, 否则不会触发选中模式
-                        // if (this.areaLevel === 'area') {
-                        //     return;
-                        // }
                         break;
                     case 'area': // 区
                         this.getArea(e);
-                        return;
+                        break;
                 }
 
-                this.mockData();
-                this.initMap();
+                if (this.areaLevel !== 'area') {
+                    this.mockData();
+                    this.initMap();
+                }
             });
         },
 
         // 获取省
         getProvince(e) {
             this.areaLevel = 'province';
+            let dataList = this.option.series[0].data;
 
-            AreaCode.forEach(province => {
+            dataList.forEach(province => {
                 if (e.data.code === province.code) {
                     this.areaCode = province.code;
-                    this.areaName.push(province.name);
+                    this.areaName[1] = province.name;
                     this.map = require(`@/data/map/${province.code}0000`);
                 }
             });
@@ -239,16 +238,13 @@ export default {
         // 获取市
         getCity(e) {
             this.areaLevel = 'city';
+            let dataList = this.option.series[0].data;
 
-            AreaCode.forEach(province => {
-                if (e.data.code.slice(0, 2) === province.code) {
-                    province.children.forEach(city => {
-                        if (e.data.code === city.code) {
-                            this.areaCode = city.code;
-                            this.areaName.push(city.name);
-                            this.map = require(`@/data/map/${city.code}00`);
-                        }
-                    });
+            dataList.forEach(city => {
+                if (e.data.code === city.code) {
+                    this.areaCode = city.code;
+                    this.areaName[2] = city.name;
+                    this.map = require(`@/data/map/${city.code}00`);
                 }
             });
         },
@@ -256,38 +252,17 @@ export default {
         // 获取区
         getArea(e) {
             this.areaLevel = 'area';
+            let dataList = this.option.series[0].data;
 
-            AreaCode.forEach(province => {
-                if (e.data.code.slice(0, 2) === province.code) {
-                    province.children.forEach(city => {
-                        if (e.data.code.slice(0, 4) === city.code) {
-                            city.children.forEach(area => {
-                                if (e.data.code === area.code) {
-                                    this.areaCode = area.code;
-                                    this.areaName[4] = area.name;
-                                    // this.map = require(`@/data/map/${area.code}`);
-                                }
-                            });
-                        }
-                    });
+            dataList.forEach(area => {
+                if (e.data.code === area.code) {
+                    this.areaCode = area.code;
+                    this.areaName[3] = area.name;
                 }
+
+                this.map = require(`@/data/map/${area.code.slice(0, 4)}00`);
             });
         },
-        // getArea(e) {
-        //     this.areaLevel = 'area';
-
-        //     AreaCode.forEach(province => {
-        //         province.children.forEach(city => {
-        //             city.children.forEach(area => {
-        //                 if (e.name.slice(0, 2) === area.name.slice(0, 2)) {
-        //                     this.areaCode = area.code;
-        //                     this.areaName[4] = area.name;
-        //                     // this.map = require(`@/data/map/${area.code}`);
-        //                 }
-        //             });
-        //         });
-        //     });
-        // },
 
         // 返回键
         back() {
@@ -348,11 +323,11 @@ export default {
                         }
                     });
                     break;
-                case 'city':
+                default:
                     AreaCode.forEach(province => {
                         if (province.code === this.areaCode.slice(0, 2)) {
                             province.children.forEach(city => {
-                                if (city.code === this.areaCode) {
+                                if (city.code === this.areaCode.slice(0, 4)) {
                                     city.children.forEach(area => {
                                         let obj = {
                                             name: area.name,

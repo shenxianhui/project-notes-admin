@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-19 08:20:07
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-20 14:45:45
+ * @Last Modified time: 2019-06-26 17:40:27
  */
 <!-- 地图 -->
 <template>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import AreaCode from '@/data/map/area-code';
+// import AreaCode from '@/data/map/area-code';
 import China from '@/data/map/100000';
 
 export default {
@@ -153,10 +153,10 @@ export default {
     watch: {
         areaLevel() {
             this.option.series[0].map = this.option.geo.map = this.areaLevel;
-        },
-        mapData() {
-            this.initMap();
         }
+        // mapData() {
+        //     this.initMap();
+        // }
     },
     mounted() {
         // this.mockData();
@@ -221,10 +221,6 @@ export default {
                         break;
                     case 'city': // 市
                         this.getArea(e);
-                        // 已选中区的话不要 `init`, 否则不会触发选中模式
-                        // if (this.areaLevel === 'area') {
-                        //     return;
-                        // }
                         break;
                     case 'area': // 区
                         this.getArea(e);
@@ -237,18 +233,22 @@ export default {
                     areaLevel: this.areaLevel
                 });
 
-                // this.initMap();
+                if (this.areaLevel !== 'area') {
+                    this.mockData();
+                    this.initMap();
+                }
             });
         },
 
         // 获取省
         getProvince(e) {
             this.areaLevel = 'province';
+            let dataList = this.option.series[0].data;
 
-            AreaCode.forEach(province => {
-                if (e.name.slice(0, 2) === province.name.slice(0, 2)) {
+            dataList.forEach(province => {
+                if (e.data.code === province.code) {
                     this.areaCode = province.code;
-                    this.areaName.push(province.name);
+                    this.areaName[1] = province.name;
                     this.map = require(`@/data/map/${province.code}0000`);
                 }
             });
@@ -257,39 +257,29 @@ export default {
         // 获取市
         getCity(e) {
             this.areaLevel = 'city';
+            let dataList = this.option.series[0].data;
 
-            AreaCode.forEach(province => {
-                province.children.forEach(city => {
-                    if (e.name.slice(0, 2) === city.name.slice(0, 2)) {
-                        this.areaCode = city.code;
-                        this.areaName.push(city.name);
-                        this.map = require(`@/data/map/${city.code}00`);
-                    }
-                });
+            dataList.forEach(city => {
+                if (e.data.code === city.code) {
+                    this.areaCode = city.code;
+                    this.areaName[2] = city.name;
+                    this.map = require(`@/data/map/${city.code}00`);
+                }
             });
         },
 
         // 获取区
         getArea(e) {
-            // if (this.areaLevel === 'area') {
-            //     this.mapData.forEach(area => {
-            //         if (area.code === this.areaCode) {
-            //             Object.assign(area, {selected: true});
-            //         }
-            //     });
-            // }
             this.areaLevel = 'area';
+            let dataList = this.option.series[0].data;
 
-            AreaCode.forEach(province => {
-                province.children.forEach(city => {
-                    city.children.forEach(area => {
-                        if (e.name.slice(0, 2) === area.name.slice(0, 2)) {
-                            this.areaCode = area.code;
-                            this.areaName[4] = area.name;
-                            // this.map = require(`@/data/map/${area.code}`);
-                        }
-                    });
-                });
+            dataList.forEach(area => {
+                if (e.data.code === area.code) {
+                    this.areaCode = area.code;
+                    this.areaName[3] = area.name;
+                }
+
+                this.map = require(`@/data/map/${area.code.slice(0, 4)}00`);
             });
         },
 
