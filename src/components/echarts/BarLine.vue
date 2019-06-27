@@ -75,10 +75,6 @@ export default {
             type: Array,
             default: () => []
         },
-        xAxisData: {
-            type: Array,
-            default: () => ['X1', 'X2', 'X3']
-        },
         seriesColor: { // 颜色 [渐变色0%, 渐变色100%, lineColor(柱状图不传)]
             type: Object,
             default: () => {
@@ -95,15 +91,54 @@ export default {
         },
         seriesDataBar: {
             type: Array,
-            default: () => [6, 2, 9]
+            default: () => [
+                {
+                    name: 'X1',
+                    value: 6
+                },
+                {
+                    name: 'X2',
+                    value: 2
+                },
+                {
+                    name: 'X3',
+                    value: 9
+                }
+            ]
         },
         seriesDataLine: {
             type: Array,
-            default: () => [5, 1, 8]
+            default: () => [
+                {
+                    name: 'X1',
+                    value: 5
+                },
+                {
+                    name: 'X2',
+                    value: 1
+                },
+                {
+                    name: 'X3',
+                    value: 8
+                }
+            ]
         },
         seriesDataLineA: {
             type: Array,
-            default: () => [2, 0, 3]
+            default: () => [
+                {
+                    name: 'X1',
+                    value: 2
+                },
+                {
+                    name: 'X2',
+                    value: 0
+                },
+                {
+                    name: 'X3',
+                    value: 3
+                }
+            ]
         }
     },
     data() {
@@ -140,6 +175,9 @@ export default {
                         lineStyle: {
                             color: axisLineColor
                         }
+                    },
+                    axisLabel: {
+                        rotate: -30
                     },
                     boundaryGap: false, // 两边留白
                     data: []
@@ -232,6 +270,7 @@ export default {
                         }
                     });
                 }
+
                 this.$emit('handleClick', {
                     e: e,
                     selectName: selectName
@@ -295,8 +334,13 @@ export default {
 
         // 数据导入
         setData() {
+            let _xAxisData = [];
+
+            this.seriesDataBar.forEach(item => {
+                _xAxisData.push(item.name);
+            });
+            this.option.xAxis.data = _xAxisData;
             this.option.legend.data = this.legendData;
-            this.option.xAxis.data = this.xAxisData;
             switch (this.seriesType) {
                 case 'bar': // 柱
                     this.option.series[0].data = this.seriesDataBar;

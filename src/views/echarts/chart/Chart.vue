@@ -14,12 +14,11 @@
                     id="bar-line"
                     ref="bar-line"
                     :legendData="barOption.legendData"
-                    :xAxisData="barOption.xAxisData"
                     :seriesColor="barOption.seriesColor"
                     :seriesType="barOption.seriesType"
-                    :seriesDataBar="barOption.seriesDataBar"
-                    :seriesDataLine="barOption.seriesDataLine"
-                    :seriesDataLineA="barOption.seriesDataLineA"
+                    :seriesDataBar="mapData"
+                    :seriesDataLine="mapData"
+                    :seriesDataLineA="mapData"
                     @handleClick="handleClickBar">
                 </BarLine>
             </div>
@@ -28,15 +27,17 @@
                 <Pie
                     id="pie"
                     ref="pie"
+                    :seriesData="mapData"
                     @handleClick="handleClickPie">
                 </Pie>
             </div>
         </div>
         <div class="wrap">
+            <!-- 地图 -->
             <Map
                 id="map"
                 ref="map"
-                :mapData="mapOption.mapData"
+                :mapData="mapData"
                 @handleClick="handleClickMap"
                 @handleBack="handleBackMap">
             </Map>
@@ -82,7 +83,7 @@ export default {
     data() {
         return {
             selectVal: { // 选择框
-                name: '',
+                name: 'China',
                 seriesType: 'bar'
             },
             dateOptions: [ // 选择框列表
@@ -109,58 +110,18 @@ export default {
             ],
             barOption: { // 柱状折线图
                 legendData: [],
-                xAxisData: ['X1', 'X2', 'X3'],
                 seriesColor: seriesColor,
                 seriesType: 'bar',
-                seriesDataBar: [
-                    {
-                        name: 'X1',
-                        value: 6
-                    },
-                    {
-                        name: 'X2',
-                        value: 2
-                    },
-                    {
-                        name: 'X3',
-                        value: 9
-                    }
-                ],
-                seriesDataLine: [
-                    {
-                        name: 'X1',
-                        value: 5
-                    },
-                    {
-                        name: 'X2',
-                        value: 1
-                    },
-                    {
-                        name: 'X3',
-                        value: 8
-                    }
-                ],
-                seriesDataLineA: [
-                    {
-                        name: 'X1',
-                        value: 2
-                    },
-                    {
-                        name: 'X2',
-                        value: 0
-                    },
-                    {
-                        name: 'X3',
-                        value: 3
-                    }
-                ]
+                seriesDataBar: [],
+                seriesDataLine: [],
+                seriesDataLineA: []
             },
             mapOption: { // 地图
                 areaName: ['China'], // 当前区域-名称
                 areaCode: '0', // 当前区域-编号
-                areaLevel: 'country', // 当前区域-层级
-                mapData: []
-            }
+                areaLevel: 'country' // 当前区域-层级
+            },
+            mapData: [] // 地图数据
         };
     },
     computed: {},
@@ -229,20 +190,38 @@ export default {
 
         // 柱状图-点击
         handleClickBar(data) {
-            this.selectVal.name = data.selectName;
+            if (data.selectName) {
+                this.selectVal.name = data.selectName;
+            } else {
+                this.selectVal.name = this.mapOption.areaName[this.mapOption.areaName.length - 1];
+            }
+
+            let timer;
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                this.$refs['pie'].initChart();
+            }, 20);
         },
 
         // 饼图-点击
         handleClickPie(data) {
-            console.log(data);
+            if (data.selectName) {
+                this.selectVal.name = data.selectName;
+            } else {
+                this.selectVal.name = this.mapOption.areaName[this.mapOption.areaName.length - 1];
+            }
+
+            let timer;
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                this.$refs['bar-line'].initChart();
+            }, 20);
         },
 
         // 地图-点击
         handleClickMap(data) {
-            // console.log(data);
-            this.mapOption.areaName = data.areaName;
-            this.mapOption.areaCode = data.areaCode;
-            this.mapOption.areaLevel = data.areaLevel;
+            this.selectVal.name = data.areaName[data.areaName.length - 1];
+            Object.assign(this.mapOption, data);
 
             if (this.mapOption.areaLevel !== 'area') {
                 this.mockData();
@@ -251,22 +230,35 @@ export default {
                 clearTimeout(timer);
                 timer = setTimeout(() => {
                     this.$refs['map'].initMap();
+                    this.$refs['bar-line'].initChart();
+                    this.$refs['pie'].initChart();
                 }, 20);
+            } else {
+                this.mapData.forEach(item => {
+                    if (data.areaCode === item.code) {
+                        Object.assign(item, { isSelected: true, itemStyle: {opacity: 1} });
+                    } else {
+                        Object.assign(item, { isSelected: false, itemStyle: {opacity: 0.2} });
+                    }
+                });
+                this.$refs['bar-line'].initChart();
+                this.$refs['pie'].initChart();
             }
         },
 
         // 地图-返回
         handleBackMap(data) {
-            // console.log(data);
-            this.mapOption.areaName = data.areaName;
-            this.mapOption.areaCode = data.areaCode;
-            this.mapOption.areaLevel = data.areaLevel;
+            this.selectVal.name = data.areaName[data.areaName.length - 1];
+
+            Object.assign(this.mapOption, data);
             this.mockData();
 
             let timer;
             clearTimeout(timer);
             timer = setTimeout(() => {
                 this.$refs['map'].initMap();
+                this.$refs['bar-line'].initChart();
+                this.$refs['pie'].initChart();
             }, 20);
         },
 
@@ -326,7 +318,7 @@ export default {
             }
 
             areaList.sort((a, b) => b['value'] - a['value']); // 降序
-            this.mapOption.mapData = areaList;
+            this.mapData = areaList;
         }
     }
 };

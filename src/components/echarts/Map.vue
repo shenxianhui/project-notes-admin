@@ -13,7 +13,6 @@
 </template>
 
 <script>
-// import AreaCode from '@/data/map/area-code';
 import China from '@/data/map/100000';
 
 export default {
@@ -24,7 +23,7 @@ export default {
             type: String,
             default: 'map'
         },
-        mapData: {
+        mapData: { // 地图数据
             type: Array,
             default: () => []
         }
@@ -154,12 +153,8 @@ export default {
         areaLevel() {
             this.option.series[0].map = this.option.geo.map = this.areaLevel;
         }
-        // mapData() {
-        //     this.initMap();
-        // }
     },
     mounted() {
-        // this.mockData();
         this.initMap();
     },
     methods: {
@@ -233,10 +228,9 @@ export default {
                     areaLevel: this.areaLevel
                 });
 
-                if (this.areaLevel !== 'area') {
-                    this.mockData();
-                    this.initMap();
-                }
+                // if (this.areaLevel !== 'area') {
+                //     this.initMap();
+                // }
             });
         },
 
@@ -277,9 +271,8 @@ export default {
                 if (e.data.code === area.code) {
                     this.areaCode = area.code;
                     this.areaName[3] = area.name;
+                    this.map = require(`@/data/map/${area.code.slice(0, 4)}00`);
                 }
-
-                this.map = require(`@/data/map/${area.code.slice(0, 4)}00`);
             });
         },
 
@@ -288,7 +281,7 @@ export default {
             --this.areaName.length;
             switch (this.areaLevel) { // 当前地区层级
                 case 'province': // 省
-                    this.map = require(`@/data/map/100000`);
+                    this.map = China;
                     this.areaCode = '1';
                     this.areaLevel = 'country';
                     break;

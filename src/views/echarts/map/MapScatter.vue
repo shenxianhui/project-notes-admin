@@ -216,7 +216,12 @@ export default {
 
                 if (this.areaLevel !== 'area') {
                     this.mockData();
-                    this.initMap();
+
+                    let timer;
+                    clearTimeout(timer);
+                    timer = setTimeout(() => {
+                        this.initMap();
+                    }, 20);
                 }
             });
         },
@@ -269,7 +274,7 @@ export default {
             --this.areaName.length;
             switch (this.areaLevel) { // 当前地区层级
                 case 'province': // 省
-                    this.map = require(`@/data/map/100000`);
+                    this.map = China;
                     this.areaCode = '1';
                     this.areaLevel = 'country';
                     break;
