@@ -13,17 +13,17 @@
                 <div class="table-search-form">
                     <el-form :model="form" :rules="rules" ref="form">
                         <el-form-item label="文本输入框" prop="text">
-                            <el-input v-model="form.text" clearable></el-input>
+                            <el-input v-model="form.text" clearable  placeholder="请输入"></el-input>
                         </el-form-item>
                         <el-form-item label="选择下拉框" prop="select">
-                            <el-select v-model="form.select" clearable>
+                            <el-select v-model="form.select" clearable  placeholder="请输入">
                                 <el-option label="选项一" value="1"></el-option>
                                 <el-option label="选项二" value="2"></el-option>
                                 <el-option label="选项三" value="3"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="带标签输入框" prop="tag">
-                            <el-input v-model.number="form.tag" clearable>
+                            <el-input v-model.number="form.tag" clearable  placeholder="请输入">
                                 <template slot="append">单位</template>
                             </el-input>
                         </el-form-item>
@@ -165,8 +165,7 @@
                     :rules="dialogRules"
                     ref="dialogForm">
                     <el-form-item label="文本输入框" prop="text">
-                        <el-input v-model="dialogForm.text" clearable style="width: 60%">
-                        </el-input>
+                        <el-input v-model="dialogForm.text" clearable style="width: 60%"></el-input>
                     </el-form-item>
                     <el-form-item label="选择框" prop="select">
                         <el-select v-model="dialogForm.select" clearable style="width: 60%">
@@ -465,9 +464,7 @@ export default {
             }
             this.isLoadingDialog = true;
 
-            let timer; // 定时器用来测试效果, 开发时请删除
-            clearTimeout(timer);
-            timer = setTimeout(() => {
+            setTimeout(() => { // 定时器用来测试效果, 开发时请删除
                 this.dialog.dialogVisible = false;
                 this.$message.success('操作成功!');
 
@@ -487,9 +484,7 @@ export default {
                     this.isLoadingDialog = true;
                     this.isClick = true;
 
-                    let timer; // 定时器用来测试效果, 开发时请删除
-                    clearTimeout(timer);
-                    timer = setTimeout(() => {
+                    setTimeout(() => { // 定时器用来测试效果, 开发时请删除
                         this.dialog.dialogVisible = false;
                         this.$message.success('操作成功!');
 
@@ -508,10 +503,7 @@ export default {
             }
             this.isLoadingDialog = true;
 
-            let timer; // 定时器用来测试效果, 开发时请删除
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                // do something...
+            setTimeout(() => { // 定时器用来测试效果, 开发时请删除
                 this.dialog.dialogVisible = false;
                 this.$message.success('操作成功!');
 
@@ -523,9 +515,7 @@ export default {
         submitDel() {
             this.isLoadingDialog = true;
 
-            let timer; // 定时器用来测试效果, 开发时请删除
-            clearTimeout(timer);
-            timer = setTimeout(() => {
+            setTimeout(() => { // 定时器用来测试效果, 开发时请删除
                 this.dialog.dialogVisible = false;
                 this.$message.success('操作成功!');
 
@@ -567,20 +557,20 @@ export default {
 
         // mock 数据
         mockData() {
-            this.tableData = [];
+            let data = [];
+
             this.isLoading = true;
 
-            let timer; // 定时器用来测试效果, 开发时请删除
-            clearTimeout(timer);
-            timer = setTimeout(() => {
+            setTimeout(() => { // 定时器用来测试效果, 开发时请删除
                 for (let i = 0; i < this.form.pageSize; i++) {
                     let tmp = {
                         value: Math.round(Math.random() * 1000 + 100)
                     };
 
-                    this.tableData.push(tmp);
+                    data.push(tmp);
                 }
 
+                this.tableData = data;
                 this.isLoading = false;
             }, 500);
         }
@@ -589,335 +579,5 @@ export default {
 </script>
 
 <style scoped lang='less'>
-.table-page {
-    height: 100%;
-    background-color: #F6F6F6;
-    overflow: hidden;
-    .table-page-inner {
-        height: 100%;
-        /* 搜索 */
-        .table-search {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-
-            margin: 0 40px;
-            padding-top: 20px;
-            .table-search-form {
-                width: 100%;
-                /deep/ .el-form {
-                    width: 100%;
-                    &::after {
-                        display: block;
-                        height: 0;
-                        content: '';
-                        clear: both;
-                    }
-                    .el-form-item {
-                        float: left;
-                        display: flex;
-
-                        margin: 0 30px 20px 0;
-                        .el-form-item__label {
-                            color: #333;
-                            line-height: 30px;
-                        }
-                        .el-form-item__content {
-                            line-height: 0;
-                            /* 普通 input */
-                            .el-input {
-                                .el-input__inner {
-                                    width: 140px;
-                                    height: 30px;
-                                    border-radius: 2px;
-                                    border-color: #ccc;
-                                }
-                                .el-input__suffix {
-                                    .el-input__suffix-inner {
-                                        .el-input__icon {
-                                            line-height: 0;
-                                        }
-                                    }
-                                }
-                            }
-                            /* 右侧有单位的 input */
-                            .el-input-group--append {
-                                width: 140px;
-                                .el-input__inner {
-                                    width: 100%;
-                                    border-top-right-radius: 0;
-                                    border-bottom-right-radius: 0;
-                                }
-                                .el-input-group__append {
-                                    padding: 0 10px;
-                                    border-top-right-radius: 2px;
-                                    border-bottom-right-radius: 2px;
-                                    border-color: #ccc;
-                                }
-                            }
-                            /* 日期选择框 */
-                            .el-date-editor {
-                                width: 140px;
-                                height: 30px;
-                                border-radius: 2px;
-                                i {
-                                    line-height: 0;
-                                }
-                            }
-                            /* 日期选择框-范围 */
-                            .el-range-editor {
-                                width: 240px;
-                                border-color: #ccc;
-                                .el-range-separator {
-                                    width: 10%;
-                                    line-height: 23px;
-                                }
-                            }
-                            /* 单选 */
-                            .el-radio-group {
-                                display: flex;
-                                align-items: center;
-                                flex-wrap: wrap;
-
-                                height: 100%;
-                            }
-                            /* 多选 */
-                            .el-checkbox-group {
-                                display: flex;
-                                align-items: center;
-                                flex-wrap: wrap;
-
-                                height: 100%;
-                            }
-                        }
-                    }
-                    .table-search-buttons {
-                        float: right;
-                        display: flex;
-
-                        margin-bottom: 20px;
-                        .button {
-                            &:not(:last-child) {
-                                margin-right: 20px;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /* 表格 */
-        .table-content {
-            padding: 20px;
-            margin: 0 20px 20px;
-            border-radius: 4px;
-            background-color: #fff;
-            /* 表格-头部 (按钮) */
-            .table-content-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                margin-bottom: 20px;
-                h2 {
-                    font-size: 18px;
-                }
-                .table-content-buttons {
-                    display: flex;
-                    align-items: center;
-                    .button {
-                        &:not(:last-child) {
-                            margin-right: 20px;
-                        }
-                        /* 下拉按钮 */
-                        /deep/ .el-dropdown {
-                            .el-button {
-                                width: 90px;
-                                height: 30px;
-                                line-height: 28px;
-                                border-radius: 2px;
-                                font-size: 14px;
-                                border: 1px solid;
-                                padding: 0;
-                                color: #fff;
-                                background-color: #008AFF;
-                                border-color: #008AFF;
-                                &:hover {
-                                    opacity: 0.8;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            /* 表格-内容 */
-            .table-content-body {
-                height: calc(100% - 100px);
-                /deep/ .el-table {
-                    width: 100%;
-                    height: 100%;
-                    border: 1px solid #bbb;
-                    .el-table__header-wrapper {
-                        .el-table__header {
-                            thead {
-                                tr {
-                                    th {
-                                        padding: 8px 0;
-                                        border-bottom: 0;
-                                        border-right-color: #bbb;
-                                        background-color: #ddd;
-                                        .cell {
-                                            font-size: 14px;
-                                            color: #333;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .el-table__body-wrapper {
-                        height: calc(100% - 40px);
-                        overflow-y: auto;
-                        .el-table__body {
-                            tbody {
-                                tr {
-                                    td {
-                                        padding: 4px 0;
-                                        border-bottom: 0;
-                                        border-right-color: #bbb;
-                                    }
-                                    &:hover {
-                                        td {
-                                            background-color: #E2F0FF;
-                                        }
-                                    }
-                                }
-                                .el-table__row--striped {
-                                    td {
-                                        background-color: #f2f2f2;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            /* 表格-尾部 (分页) */
-            .table-content-footer {
-                float: right;
-
-                margin-top: 20px;
-                /deep/ .el-pagination {
-                    .el-pager {
-                        .number {
-                            width: 30px;
-                            height: 30px;
-                            min-width: 30px;
-                            padding: 0;
-                            border-radius: 4px;
-                            color: #666;
-                            border: 1px solid #ccc;
-                            &.active {
-                                border-color: #008AFF;
-                                color: #008AFF;
-                            }
-                            &:hover {
-                                border-color: #999;
-                            }
-                            &:not(:last-child) {
-                                margin-right: 6px;
-                            }
-                        }
-                        .btn-quicknext {
-                            margin-right: 6px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    /* 弹出框 */
-    /deep/ .el-dialog__wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .el-dialog {
-            margin: 0;
-            .el-dialog__header {
-                display: flex;
-                align-items: center;
-
-                height: 40px;
-                padding: 0;
-                padding-left: 20px;
-                background-color: #F2F2F2;
-                border-bottom: 1px solid #ccc;
-                .el-dialog__title {
-                    font-size: 14px;
-                    color: #222;
-                }
-                .el-dialog__headerbtn {
-                    top: 12px;
-                }
-            }
-            .el-dialog__body {
-                padding: 0;
-                .content {
-                    padding: 30px 40px;
-                    .message {
-                        h3 {
-                            font-size: 14px;
-                            color: #000;
-                            margin-bottom: 10px;
-                        }
-                        p {
-                            font-size: 14px;
-                            color: #666;
-                        }
-                    }
-                    .el-form {
-                        .el-form-item {
-                            .el-form-item__content {
-                                .upload {
-                                    ul {
-                                        max-height: 70px;
-                                        overflow: auto;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                .dialog-footer {
-                    display: flex;
-                    justify-content: flex-end;
-                    align-items: center;
-
-                    height: 56px;
-                    border-top: 1px solid #ccc;
-                    padding: 0 20px;
-                    .button {
-                        &:not(:last-child) {
-                            margin-right: 20px;
-                        }
-                        .button-common {
-                            width: 80px;
-                            height: 36px;
-                            line-height: 34px;
-                        }
-                        .primary-plain {
-                            color: #333;
-                            background-color: #f2f2f2;
-                            border-color: #ccc;
-                            &:hover {
-                                opacity: 0.8;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+@import '../../../style/tablePage.less';
 </style>
