@@ -13,17 +13,17 @@
                 <div class="table-search-form">
                     <el-form :model="form" :rules="rules" ref="form">
                         <el-form-item label="文本输入框" prop="text">
-                            <el-input v-model="form.text" clearable  placeholder="请输入"></el-input>
+                            <el-input v-model="form.text" clearable placeholder="请输入"></el-input>
                         </el-form-item>
                         <el-form-item label="选择下拉框" prop="select">
-                            <el-select v-model="form.select" clearable  placeholder="请输入">
+                            <el-select v-model="form.select" clearable placeholder="请输入">
                                 <el-option label="选项一" value="1"></el-option>
                                 <el-option label="选项二" value="2"></el-option>
                                 <el-option label="选项三" value="3"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="带标签输入框" prop="tag">
-                            <el-input v-model.number="form.tag" clearable  placeholder="请输入">
+                            <el-input v-model.number="form.tag" clearable placeholder="请输入">
                                 <template slot="append">单位</template>
                             </el-input>
                         </el-form-item>

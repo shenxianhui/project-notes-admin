@@ -23,6 +23,7 @@ const Snake = () => import('@/views/game/snake/Snake.vue');
 
 // 模板
 const TablePage = () => import('@/views/demo/tablePage/TablePage.vue');
+const EditPage = () => import('@/views/demo/editPage/EditPage.vue');
 const DetailsPage = () => import('@/views/demo/detailsPage/DetailsPage.vue');
 
 // 其他
@@ -128,10 +129,15 @@ export default new Router({
                             name: 'addPage',
                             component: DetailsPage
                         },
-                        { // 表格页-详情
+                        { // 表格页-编辑
                             path: 'details-page/:id',
                             name: 'detailsPage',
                             component: DetailsPage
+                        },
+                        { // 表格页-详情
+                            path: 'edit-page/:id',
+                            name: 'editPage',
+                            component: EditPage
                         }
                     ]
                 },

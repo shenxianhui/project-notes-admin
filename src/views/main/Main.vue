@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @Date: 2019-03-21 15:35:31
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 10:30:24
+ * @Last Modified time: 2019-07-02 09:36:01
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -203,6 +203,18 @@ export default {
                                 label: '表格页',
                                 value: 'tablePage',
                                 url: 'table-page'
+                            }
+                        ]
+                    },
+                    {
+                        label: '编辑页',
+                        value: 'editPage',
+                        type: 'demo',
+                        children: [
+                            {
+                                label: '详情页',
+                                value: 'editPage',
+                                url: 'edit-page/0'
                             }
                         ]
                     },
