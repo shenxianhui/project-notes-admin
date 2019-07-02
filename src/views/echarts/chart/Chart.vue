@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:34:37
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-26 17:48:27
+ * @Last Modified time: 2019-07-02 17:23:59
  */
 <!-- 图表 -->
 <template>
@@ -37,6 +37,9 @@
             <Map
                 id="map"
                 ref="map"
+                :areaCode="mapOption.areaCode"
+                :areaLevel="mapOption.areaLevel"
+                :areaName="mapOption.areaName"
                 :mapData="mapData"
                 @handleClick="handleClickMap"
                 @handleBack="handleBackMap">
@@ -181,61 +184,77 @@ export default {
             }
 
             // 解决图表数据没有及时更新BUG
-            let timer;
-            clearTimeout(timer);
-            timer = setTimeout(() => {
+            setTimeout(() => {
                 this.$refs['bar-line'].initChart();
             }, 20);
         },
 
         // 柱状图-点击
-        handleClickBar(data) {
-            if (data.selectName) {
-                this.selectVal.name = data.selectName;
-            } else {
-                this.selectVal.name = this.mapOption.areaName[this.mapOption.areaName.length - 1];
+        handleClickBar(e) {
+            // console.log(e);
+            this.selectVal.name = e.name;
+            this.mapOption.areaCode = e.data.code;
+
+            switch (this.mapOption.areaLevel) { // 当前地区层级
+                case 'country': // 国
+                    this.mapOption.areaName[1] = e.name;
+                    this.mapOption.areaLevel = 'province';
+                    break;
+                case 'province': // 省
+                    this.mapOption.areaName[2] = e.name;
+                    this.mapOption.areaLevel = 'city';
+                    break;
+                default: // 市/区
+                    this.mapOption.areaName[3] = e.name;
+                    this.mapOption.areaLevel = 'area';
+                    break;
             }
 
-            let timer;
-            clearTimeout(timer);
-            timer = setTimeout(() => {
+            setTimeout(() => {
                 this.$refs['pie'].initChart();
             }, 20);
         },
 
         // 饼图-点击
         handleClickPie(data) {
-            if (data.selectName) {
-                this.selectVal.name = data.selectName;
-            } else {
-                this.selectVal.name = this.mapOption.areaName[this.mapOption.areaName.length - 1];
-            }
+            // this.selectVal.name = e.name;
 
-            let timer;
-            clearTimeout(timer);
-            timer = setTimeout(() => {
+            setTimeout(() => {
                 this.$refs['bar-line'].initChart();
             }, 20);
         },
 
         // 地图-点击
-        handleClickMap(data) {
-            this.selectVal.name = data.areaName[data.areaName.length - 1];
-            Object.assign(this.mapOption, data);
+        handleClickMap(e) {
+            this.selectVal.name = e.name;
+            this.mapOption.areaCode = e.data.code;
+
+            switch (this.mapOption.areaLevel) { // 当前地区层级
+                case 'country': // 国
+                    this.mapOption.areaName[1] = e.name;
+                    this.mapOption.areaLevel = 'province';
+                    break;
+                case 'province': // 省
+                    this.mapOption.areaName[2] = e.name;
+                    this.mapOption.areaLevel = 'city';
+                    break;
+                default: // 市/区
+                    this.mapOption.areaName[3] = e.name;
+                    this.mapOption.areaLevel = 'area';
+                    break;
+            }
 
             if (this.mapOption.areaLevel !== 'area') {
                 this.mockData();
 
-                let timer;
-                clearTimeout(timer);
-                timer = setTimeout(() => {
+                setTimeout(() => {
                     this.$refs['map'].initMap();
                     this.$refs['bar-line'].initChart();
                     this.$refs['pie'].initChart();
                 }, 20);
             } else {
                 this.mapData.forEach(item => {
-                    if (data.areaCode === item.code) {
+                    if (e.data.code === item.code) {
                         Object.assign(item, { isSelected: true, itemStyle: {opacity: 1} });
                     } else {
                         Object.assign(item, { isSelected: false, itemStyle: {opacity: 0.2} });
@@ -247,15 +266,27 @@ export default {
         },
 
         // 地图-返回
-        handleBackMap(data) {
-            this.selectVal.name = data.areaName[data.areaName.length - 1];
+        handleBackMap() {
+            --this.mapOption.areaName.length;
+            this.selectVal.name = this.mapOption.areaName[this.mapOption.areaName.length - 1];
 
-            Object.assign(this.mapOption, data);
+            switch (this.mapOption.areaLevel) { // 当前地区层级
+                case 'province': // 省
+                    this.mapOption.areaLevel = 'country';
+                    this.mapOption.areaCode = '1';
+                    break;
+                case 'city': // 市
+                    this.mapOption.areaLevel = 'province';
+                    this.mapOption.areaCode = `${this.mapOption.areaCode.slice(0, 2)}`;
+                    break;
+                case 'area': // 区
+                    this.mapOption.areaLevel = 'city';
+                    this.mapOption.areaCode = `${this.mapOption.areaCode.slice(0, 4)}`;
+                    break;
+            }
             this.mockData();
 
-            let timer;
-            clearTimeout(timer);
-            timer = setTimeout(() => {
+            setTimeout(() => {
                 this.$refs['map'].initMap();
                 this.$refs['bar-line'].initChart();
                 this.$refs['pie'].initChart();

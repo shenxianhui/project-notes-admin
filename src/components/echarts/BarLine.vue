@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-20 13:23:08
+ * @Last Modified time: 2019-07-02 16:57:36
  */
 <!-- 柱状折线图 -->
 <template>
@@ -250,31 +250,24 @@ export default {
 
             // 点击事件
             myChart.on('click', (e) => {
-                let selectName = '';
-
                 if (this.seriesType !== 'bar') {
                     return;
                 }
                 if (e.data.isSelected) {
-                    selectName = '';
                     this.option.series[0].data.forEach(item => {
-                        Object.assign(item, { isSelected: false, itemStyle: {opacity: 1} });
+                        Object.assign(item, {isSelected: false, itemStyle: {opacity: 1}});
                     });
                 } else {
                     this.option.series[0].data.forEach(item => {
                         if (e.name === item.name) {
-                            selectName = item.name;
-                            Object.assign(item, { isSelected: true, itemStyle: {opacity: 1} });
+                            Object.assign(item, {isSelected: true, itemStyle: {opacity: 1}});
                         } else {
-                            Object.assign(item, { isSelected: false, itemStyle: {opacity: 0.2} });
+                            Object.assign(item, {isSelected: false, itemStyle: {opacity: 0.2}});
                         }
                     });
                 }
 
-                this.$emit('handleClick', {
-                    e: e,
-                    selectName: selectName
-                });
+                this.$emit('handleClick', e);
 
                 myChart.setOption(this.option, true);
             });

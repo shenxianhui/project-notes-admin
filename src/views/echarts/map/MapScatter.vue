@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-05 10:54:25
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-26 17:33:34
+ * @Last Modified time: 2019-07-02 16:24:51
  */
 <!-- 地图-散点&映射 -->
 <template>
@@ -198,74 +198,32 @@ export default {
 
             // 点击事件
             myChart.on('click', (e) => {
-                this.area = e.name;
+                this.areaCode = e.data.code;
                 switch (this.areaLevel) { // 当前地区层级
                     case 'country': // 国
-                        this.getProvince(e);
+                        this.areaLevel = 'province';
+                        this.areaName[1] = e.name;
+                        this.map = require(`@/data/map/${e.data.code}0000`);
                         break;
                     case 'province': // 省
-                        this.getCity(e);
+                        this.areaLevel = 'city';
+                        this.areaName[2] = e.name;
+                        this.map = require(`@/data/map/${e.data.code}00`);
                         break;
-                    case 'city': // 市
-                        this.getArea(e);
-                        break;
-                    case 'area': // 区
-                        this.getArea(e);
+                    default: // 市/区
+                        this.areaLevel = 'area';
+                        this.areaName[3] = e.name;
+                        this.map = require(`@/data/map/${e.data.code.slice(0, 4)}00`);
                         break;
                 }
 
                 if (this.areaLevel !== 'area') {
                     this.mockData();
 
-                    let timer;
-                    clearTimeout(timer);
-                    timer = setTimeout(() => {
+                    setTimeout(() => {
                         this.initMap();
                     }, 20);
                 }
-            });
-        },
-
-        // 获取省
-        getProvince(e) {
-            this.areaLevel = 'province';
-            let dataList = this.option.series[0].data;
-
-            dataList.forEach(province => {
-                if (e.data.code === province.code) {
-                    this.areaCode = province.code;
-                    this.areaName[1] = province.name;
-                    this.map = require(`@/data/map/${province.code}0000`);
-                }
-            });
-        },
-
-        // 获取市
-        getCity(e) {
-            this.areaLevel = 'city';
-            let dataList = this.option.series[0].data;
-
-            dataList.forEach(city => {
-                if (e.data.code === city.code) {
-                    this.areaCode = city.code;
-                    this.areaName[2] = city.name;
-                    this.map = require(`@/data/map/${city.code}00`);
-                }
-            });
-        },
-
-        // 获取区
-        getArea(e) {
-            this.areaLevel = 'area';
-            let dataList = this.option.series[0].data;
-
-            dataList.forEach(area => {
-                if (e.data.code === area.code) {
-                    this.areaCode = area.code;
-                    this.areaName[3] = area.name;
-                }
-
-                this.map = require(`@/data/map/${area.code.slice(0, 4)}00`);
             });
         },
 
