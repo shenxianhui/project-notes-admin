@@ -12,8 +12,8 @@
             <div class="edit-header">
                 <h2>{{ title }}</h2>
                 <div class="buttons">
-                    <Button v-show="isDisabled" label="编辑" color="primary" @click="handleEdit('form')"></Button>
-                    <Button label="返回" color="primary-plain" @click="handleBack('form')"></Button>
+                    <Button v-show="isDisabled" label="编辑" color="primary" @click="handleEdit()"></Button>
+                    <Button label="返回" color="primary-plain" @click="handleBack()"></Button>
                 </div>
             </div>
 
@@ -23,58 +23,58 @@
                     <div class="edit-body-content" v-loading="isLoading">
                         <div class="module">
                             <div class="module-title">
-                                <h3>信息</h3>
+                                <h3>信息1</h3>
                             </div>
                             <div class="module-content">
-                                <el-form :model="form" label-position="top" :rules="rules" ref="form">
+                                <el-form :model="form1" label-position="top" :rules="rules1" ref="form1">
                                     <el-form-item label="文本输入框" prop="text">
-                                        <el-input v-model="form.text" clearable :disabled="isDisabled"></el-input>
+                                        <el-input v-model="form1.text" clearable :disabled="isDisabled"></el-input>
                                     </el-form-item>
                                     <el-form-item label="文本输入框" prop="text">
-                                        <el-input v-model="form.text" clearable :disabled="isDisabled"></el-input>
+                                        <el-input v-model="form1.text" clearable :disabled="isDisabled"></el-input>
                                     </el-form-item>
                                     <el-form-item label="文本输入框" prop="text">
-                                        <el-input v-model="form.text" clearable :disabled="isDisabled"></el-input>
+                                        <el-input v-model="form1.text" clearable :disabled="isDisabled"></el-input>
                                     </el-form-item>
                                     <el-form-item label="选择下拉框" prop="select">
-                                        <el-select v-model="form.select" clearable :disabled="isDisabled">
+                                        <el-select v-model="form1.select" clearable :disabled="isDisabled">
                                             <el-option label="选项一" value="1"></el-option>
                                             <el-option label="选项二" value="2"></el-option>
                                             <el-option label="选项三" value="3"></el-option>
                                         </el-select>
                                     </el-form-item>
                                     <el-form-item label="选择下拉框" prop="select">
-                                        <el-select v-model="form.select" clearable :disabled="isDisabled">
+                                        <el-select v-model="form1.select" clearable :disabled="isDisabled">
                                             <el-option label="选项一" value="1"></el-option>
                                             <el-option label="选项二" value="2"></el-option>
                                             <el-option label="选项三" value="3"></el-option>
                                         </el-select>
                                     </el-form-item>
                                     <el-form-item label="选择下拉框" prop="select">
-                                        <el-select v-model="form.select" clearable :disabled="isDisabled">
+                                        <el-select v-model="form1.select" clearable :disabled="isDisabled">
                                             <el-option label="选项一" value="1"></el-option>
                                             <el-option label="选项二" value="2"></el-option>
                                             <el-option label="选项三" value="3"></el-option>
                                         </el-select>
                                     </el-form-item>
                                     <el-form-item label="带标签输入框" prop="tag">
-                                        <el-input v-model.number="form.tag" clearable :disabled="isDisabled">
+                                        <el-input v-model="form1.tag" clearable :disabled="isDisabled">
                                             <template slot="append">单位</template>
                                         </el-input>
                                     </el-form-item>
                                     <el-form-item label="带标签输入框" prop="tag">
-                                        <el-input v-model.number="form.tag" clearable :disabled="isDisabled">
+                                        <el-input v-model="form1.tag" clearable :disabled="isDisabled">
                                             <template slot="append">单位</template>
                                         </el-input>
                                     </el-form-item>
                                     <el-form-item label="带标签输入框" prop="tag">
-                                        <el-input v-model.number="form.tag" clearable :disabled="isDisabled">
+                                        <el-input v-model="form1.tag" clearable :disabled="isDisabled">
                                             <template slot="append">单位</template>
                                         </el-input>
                                     </el-form-item>
                                     <el-form-item label="日期区间" prop="interval">
                                         <el-date-picker
-                                            v-model="form.interval"
+                                            v-model="form1.interval"
                                             type="daterange"
                                             range-separator="至"
                                             start-placeholder="开始日期"
@@ -87,7 +87,7 @@
                                     </el-form-item>
                                     <el-form-item label="日期区间" prop="interval">
                                         <el-date-picker
-                                            v-model="form.interval"
+                                            v-model="form1.interval"
                                             type="daterange"
                                             range-separator="至"
                                             start-placeholder="开始日期"
@@ -100,7 +100,7 @@
                                     </el-form-item>
                                     <el-form-item label="日期区间" prop="interval">
                                         <el-date-picker
-                                            v-model="form.interval"
+                                            v-model="form1.interval"
                                             type="daterange"
                                             range-separator="至"
                                             start-placeholder="开始日期"
@@ -113,7 +113,7 @@
                                     </el-form-item>
                                     <el-form-item label="年" prop="year">
                                         <el-date-picker
-                                            v-model="form.year"
+                                            v-model="form1.year"
                                             type="year"
                                             format="yyyy"
                                             value-format="yyyy"
@@ -123,7 +123,7 @@
                                     </el-form-item>
                                     <el-form-item label="月" prop="month">
                                         <el-date-picker
-                                            v-model="form.month"
+                                            v-model="form1.month"
                                             type="month"
                                             format="yyyy-MM"
                                             value-format="yyyyMM"
@@ -133,7 +133,130 @@
                                     </el-form-item>
                                     <el-form-item label="日" prop="date">
                                         <el-date-picker
-                                            v-model="form.date"
+                                            v-model="form1.date"
+                                            type="date"
+                                            format="yyyy-MM-dd"
+                                            value-format="yyyyMMdd"
+                                            placeholder="选择日期"
+                                            :disabled="isDisabled">
+                                        </el-date-picker>
+                                    </el-form-item>
+                                </el-form>
+                            </div>
+                        </div>
+                        <div class="module">
+                            <div class="module-title">
+                                <h3>信息2</h3>
+                            </div>
+                            <div class="module-content">
+                                <el-form :model="form2" label-position="top" :rules="rules2" ref="form2">
+                                    <el-form-item label="文本输入框" prop="text">
+                                        <el-input v-model="form2.text" clearable :disabled="isDisabled"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="文本输入框" prop="text">
+                                        <el-input v-model="form2.text" clearable :disabled="isDisabled"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="文本输入框" prop="text">
+                                        <el-input v-model="form2.text" clearable :disabled="isDisabled"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="选择下拉框" prop="select">
+                                        <el-select v-model="form2.select" clearable :disabled="isDisabled">
+                                            <el-option label="选项一" value="1"></el-option>
+                                            <el-option label="选项二" value="2"></el-option>
+                                            <el-option label="选项三" value="3"></el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                    <el-form-item label="选择下拉框" prop="select">
+                                        <el-select v-model="form2.select" clearable :disabled="isDisabled">
+                                            <el-option label="选项一" value="1"></el-option>
+                                            <el-option label="选项二" value="2"></el-option>
+                                            <el-option label="选项三" value="3"></el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                    <el-form-item label="选择下拉框" prop="select">
+                                        <el-select v-model="form2.select" clearable :disabled="isDisabled">
+                                            <el-option label="选项一" value="1"></el-option>
+                                            <el-option label="选项二" value="2"></el-option>
+                                            <el-option label="选项三" value="3"></el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                    <el-form-item label="带标签输入框" prop="tag">
+                                        <el-input v-model="form2.tag" clearable :disabled="isDisabled">
+                                            <template slot="append">单位</template>
+                                        </el-input>
+                                    </el-form-item>
+                                    <el-form-item label="带标签输入框" prop="tag">
+                                        <el-input v-model="form2.tag" clearable :disabled="isDisabled">
+                                            <template slot="append">单位</template>
+                                        </el-input>
+                                    </el-form-item>
+                                    <el-form-item label="带标签输入框" prop="tag">
+                                        <el-input v-model="form2.tag" clearable :disabled="isDisabled">
+                                            <template slot="append">单位</template>
+                                        </el-input>
+                                    </el-form-item>
+                                    <el-form-item label="日期区间" prop="interval">
+                                        <el-date-picker
+                                            v-model="form2.interval"
+                                            type="daterange"
+                                            range-separator="至"
+                                            start-placeholder="开始日期"
+                                            end-placeholder="结束日期"
+                                            format="yyyy-MM-dd"
+                                            value-format="yyyyMMdd"
+                                            clearable
+                                            :disabled="isDisabled">
+                                        </el-date-picker>
+                                    </el-form-item>
+                                    <el-form-item label="日期区间" prop="interval">
+                                        <el-date-picker
+                                            v-model="form2.interval"
+                                            type="daterange"
+                                            range-separator="至"
+                                            start-placeholder="开始日期"
+                                            end-placeholder="结束日期"
+                                            format="yyyy-MM-dd"
+                                            value-format="yyyyMMdd"
+                                            clearable
+                                            :disabled="isDisabled">
+                                        </el-date-picker>
+                                    </el-form-item>
+                                    <el-form-item label="日期区间" prop="interval">
+                                        <el-date-picker
+                                            v-model="form2.interval"
+                                            type="daterange"
+                                            range-separator="至"
+                                            start-placeholder="开始日期"
+                                            end-placeholder="结束日期"
+                                            format="yyyy-MM-dd"
+                                            value-format="yyyyMMdd"
+                                            clearable
+                                            :disabled="isDisabled">
+                                        </el-date-picker>
+                                    </el-form-item>
+                                    <el-form-item label="年" prop="year">
+                                        <el-date-picker
+                                            v-model="form2.year"
+                                            type="year"
+                                            format="yyyy"
+                                            value-format="yyyy"
+                                            placeholder="选择日期"
+                                            :disabled="isDisabled">
+                                        </el-date-picker>
+                                    </el-form-item>
+                                    <el-form-item label="月" prop="month">
+                                        <el-date-picker
+                                            v-model="form2.month"
+                                            type="month"
+                                            format="yyyy-MM"
+                                            value-format="yyyyMM"
+                                            placeholder="选择日期"
+                                            :disabled="isDisabled">
+                                        </el-date-picker>
+                                    </el-form-item>
+                                    <el-form-item label="日" prop="date">
+                                        <el-date-picker
+                                            v-model="form2.date"
                                             type="date"
                                             format="yyyy-MM-dd"
                                             value-format="yyyyMMdd"
@@ -146,8 +269,8 @@
                         </div>
                     </div>
                     <div v-show="!isDisabled" class="buttons">
-                        <Button label="提交" @click="submitForm('form')"></Button>
-                        <Button label="重置" color="info-plain" @click="resetForm('form')"></Button>
+                        <Button label="提交" @click="submitForm()"></Button>
+                        <Button label="重置" color="info-plain" @click="resetForm()"></Button>
                     </div>
                 </div>
             </div>
@@ -170,7 +293,7 @@ export default {
             if (!value) { // 允许为空
                 callback();
             }
-            if (!Number.isInteger(value)) {
+            if (!Number.isInteger(Number(value))) {
                 callback(new Error('请输入数字值'));
             } else {
                 if (value < 99) {
@@ -185,7 +308,7 @@ export default {
             isDisabled: true, // 禁用
             isLoading: false, // 加载
             title: '标题',
-            form: { // 表单提交 (注: 所有选项都要加入校验, 否则无法重置)
+            form1: { // 表单提交 (注: 所有选项都要加入校验, 否则无法重置)
                 text: '',
                 select: '',
                 tag: '',
@@ -194,7 +317,30 @@ export default {
                 date: '',
                 interval: []
             },
-            rules: { // 表单校验规则
+            form2: { // 表单提交 (注: 所有选项都要加入校验, 否则无法重置)
+                text: '',
+                select: '',
+                tag: '',
+                year: '',
+                month: '',
+                date: '',
+                interval: []
+            },
+            rules1: { // 表单校验规则
+                text: [
+                    { required: true, message: '请输入内容' },
+                    { min: 5, max: 20, message: '长度在 5 到 20 个字符' }
+                ],
+                select: [],
+                tag: [
+                    { validator: checkTag }
+                ],
+                year: '',
+                month: '',
+                date: '',
+                interval: []
+            },
+            rules2: { // 表单校验规则
                 text: [
                     { required: true, message: '请输入内容' },
                     { min: 5, max: 20, message: '长度在 5 到 20 个字符' }
@@ -247,36 +393,46 @@ export default {
         },
 
         // 表单-提交
-        submitForm(formName) {
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                    if (this.isClick) {
-                        this.$message.warning('请勿重复点击');
-                        return;
-                    }
+        submitForm() {
+            let isValid = true;
 
-                    this.isLoading = true;
-                    this.isClick = true;
-                    let timer; // 定时器用来测试效果, 开发时请删除
-                    clearTimeout(timer);
-                    timer = setTimeout(() => {
-                        this.$message.success('提交成功!');
-                        this.isLoading = false;
-                        this.isClick = false;
-                        this.isDisabled = true;
-                    }, 500);
+            this.$refs['form1'].validate((valid) => {
+                if (!valid) {
+                    isValid = valid;
                 }
             });
+            this.$refs['form2'].validate((valid) => {
+                if (!valid) {
+                    isValid = valid;
+                }
+            });
+
+            if (isValid) {
+                if (this.isClick) {
+                    this.$message.warning('请勿重复点击');
+                    return;
+                }
+
+                this.isLoading = true;
+                this.isClick = true;
+                setTimeout(() => {
+                    this.$message.success('提交成功!');
+                    this.isLoading = false;
+                    this.isClick = false;
+                    this.isDisabled = true;
+                }, 500);
+            }
         },
 
         // 表单-重置
-        resetForm(formName) {
+        resetForm() {
             this.$confirm('是否重置所有内容?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                this.$refs[formName].resetFields();
+                this.$refs['form1'].resetFields();
+                this.$refs['form2'].resetFields();
             });
         }
     }
