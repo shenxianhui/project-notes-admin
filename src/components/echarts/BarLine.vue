@@ -253,19 +253,6 @@ export default {
                 if (this.seriesType !== 'bar') {
                     return;
                 }
-                if (e.data.isSelected) {
-                    this.option.series[0].data.forEach(item => {
-                        Object.assign(item, {isSelected: false, itemStyle: {opacity: 1}});
-                    });
-                } else {
-                    this.option.series[0].data.forEach(item => {
-                        if (e.name === item.name) {
-                            Object.assign(item, {isSelected: true, itemStyle: {opacity: 1}});
-                        } else {
-                            Object.assign(item, {isSelected: false, itemStyle: {opacity: 0.2}});
-                        }
-                    });
-                }
 
                 this.$emit('handleClick', e);
 

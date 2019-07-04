@@ -140,8 +140,8 @@ export default {
         handleDate(v) {
             // 清空选中的柱状图
             this.barOption.seriesDataBar.forEach(item => {
-                if (item.isSelected) {
-                    item.isSelected = false;
+                if (item.selected) {
+                    item.selected = false;
                     this.selectVal.name = '';
                 }
                 if (item.itemStyle && item.itemStyle.opacity) {
@@ -191,41 +191,21 @@ export default {
 
         // 柱状图-点击
         handleClickBar(e) {
-            // console.log(e);
-            this.selectVal.name = e.name;
-            this.mapOption.areaCode = e.data.code;
-
-            switch (this.mapOption.areaLevel) { // 当前地区层级
-                case 'country': // 国
-                    this.mapOption.areaName[1] = e.name;
-                    this.mapOption.areaLevel = 'province';
-                    break;
-                case 'province': // 省
-                    this.mapOption.areaName[2] = e.name;
-                    this.mapOption.areaLevel = 'city';
-                    break;
-                default: // 市/区
-                    this.mapOption.areaName[3] = e.name;
-                    this.mapOption.areaLevel = 'area';
-                    break;
-            }
-
-            setTimeout(() => {
-                this.$refs['pie'].initChart();
-            }, 20);
+            this.handleChar(e);
         },
 
         // 饼图-点击
-        handleClickPie(data) {
-            // this.selectVal.name = e.name;
-
-            setTimeout(() => {
-                this.$refs['bar-line'].initChart();
-            }, 20);
+        handleClickPie(e) {
+            this.handleChar(e);
         },
 
         // 地图-点击
         handleClickMap(e) {
+            this.handleChar(e);
+        },
+
+        // 点击图表
+        handleChar(e) {
             this.selectVal.name = e.name;
             this.mapOption.areaCode = e.data.code;
 
@@ -244,25 +224,34 @@ export default {
                     break;
             }
 
-            if (this.mapOption.areaLevel !== 'area') {
-                this.mockData();
+            this.mockData();
 
-                setTimeout(() => {
-                    this.$refs['map'].initMap();
-                    this.$refs['bar-line'].initChart();
-                    this.$refs['pie'].initChart();
-                }, 20);
-            } else {
-                this.mapData.forEach(item => {
-                    if (e.data.code === item.code) {
-                        Object.assign(item, { isSelected: true, itemStyle: {opacity: 1} });
-                    } else {
-                        Object.assign(item, { isSelected: false, itemStyle: {opacity: 0.2} });
-                    }
-                });
-                this.$refs['bar-line'].initChart();
-                this.$refs['pie'].initChart();
+            if (this.mapOption.areaLevel === 'area') {
+                if (e.data.selected) {
+                    this.mapOption.areaLevel = 'city';
+                    --this.mapOption.areaName.length;
+                    this.selectVal.name = this.mapOption.areaName[this.mapOption.areaName.length - 1];
+
+                    this.mapData.forEach(item => {
+                        Object.assign(item, {selected: false, itemStyle: {opacity: 1}});
+                    });
+                } else {
+                    this.mapData.forEach(item => {
+                        if (e.name === item.name) {
+                            Object.assign(item, {selected: true, itemStyle: {opacity: 1}});
+                        } else {
+                            Object.assign(item, {selected: false, itemStyle: {opacity: 0.2}});
+                        }
+                    });
+                }
             }
+
+            setTimeout(() => {
+                this.$refs['map'].getMap();
+                this.$refs['map'].initMap();
+                this.$refs['pie'].initChart();
+                this.$refs['bar-line'].initChart();
+            }, 40);
         },
 
         // 地图-返回
@@ -290,7 +279,7 @@ export default {
                 this.$refs['map'].initMap();
                 this.$refs['bar-line'].initChart();
                 this.$refs['pie'].initChart();
-            }, 20);
+            }, 40);
         },
 
         // 模拟数据

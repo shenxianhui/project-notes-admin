@@ -196,6 +196,15 @@ export default {
             // 设置配置项, 刷新图表
             myChart.setOption(this.option, true);
 
+            // 触发图表行为
+            // if (this.areaLevel === 'area') {
+            //     myChart.dispatchAction({ // 选中指定的地图区域
+            //         type: 'geoSelect',
+            //         name: this.areaName[this.areaName.length - 1],
+            //         seriesIndex: 0
+            //     });
+            // }
+
             // 点击事件
             myChart.on('click', (e) => {
                 this.areaCode = e.data.code;
@@ -222,7 +231,7 @@ export default {
 
                     setTimeout(() => {
                         this.initMap();
-                    }, 20);
+                    }, 10);
                 }
             });
         },

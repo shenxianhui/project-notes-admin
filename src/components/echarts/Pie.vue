@@ -106,28 +106,7 @@ export default {
 
             // 点击事件
             myChart.on('click', (e) => {
-                let selectName = '';
-
-                if (e.data.isSelected) {
-                    selectName = '';
-                    this.option.series[0].data.forEach(item => {
-                        Object.assign(item, { isSelected: false, itemStyle: {opacity: 1} });
-                    });
-                } else {
-                    this.option.series[0].data.forEach(item => {
-                        if (e.name === item.name) {
-                            selectName = item.name;
-                            Object.assign(item, { isSelected: true, itemStyle: {opacity: 1} });
-                        } else {
-                            Object.assign(item, { isSelected: false, itemStyle: {opacity: 0.2} });
-                        }
-                    });
-                }
-
-                this.$emit('handleClick', {
-                    e: e,
-                    selectName: selectName
-                });
+                this.$emit('handleClick', e);
 
                 myChart.setOption(this.option, true);
             });

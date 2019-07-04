@@ -162,23 +162,6 @@ export default {
         areaLevel() {
             this.option.series[0].map = this.option.geo.map = this.areaLevel;
         }
-        // areaCode() {
-        //     console.log(this.areaLevel, this.areaCode);
-        //     switch (this.areaLevel) { // 当前地区层级
-        //         case 'country': // 国
-        //             this.map = China;
-        //             break;
-        //         case 'province': // 省
-        //             this.map = require(`@/data/map/${this.areaCode}0000`);
-        //             break;
-        //         // case 'city': // 市
-        //         //     this.map = require(`@/data/map/${this.areaCode}00`);
-        //         //     break;
-        //         default: // 市/区
-        //             this.map = require(`@/data/map/${this.areaCode.slice(0, 4)}00`);
-        //             break;
-        //     }
-        // }
     },
     mounted() {
         this.initMap();
@@ -230,24 +213,40 @@ export default {
             // 设置配置项, 刷新图表
             myChart.setOption(this.option, true);
 
+            // 触发图表行为
+            if (this.areaLevel === 'area') {
+                myChart.dispatchAction({ // 选中指定的地图区域
+                    type: 'geoSelect',
+                    name: this.areaName[this.areaName.length - 1],
+                    seriesIndex: 0
+                });
+            }
+
             // 点击事件
             myChart.on('click', (e) => {
                 this.$emit('handleClick', e);
 
-                switch (this.areaLevel) { // 当前地区层级
-                    case 'country': // 国
-                        this.map = require(`@/data/map/${e.data.code}0000`);
-                        break;
-                    case 'province': // 省
-                        this.map = require(`@/data/map/${e.data.code}00`);
-                        break;
-                    default: // 市/区
-                        this.map = require(`@/data/map/${e.data.code.slice(0, 4)}00`);
-                        break;
-                }
+                setTimeout(() => {
+                    this.getMap();
+                }, 20);
             });
 
             // this.initMap();
+        },
+
+        // 获取地图模块
+        getMap() {
+            switch (this.areaLevel) { // 当前地区层级
+                // case 'country': // 国
+                //     this.map = require(`@/data/map/${this.areaCode}0000`);
+                //     break;
+                case 'province': // 省
+                    this.map = require(`@/data/map/${this.areaCode}0000`);
+                    break;
+                default: // 市/区
+                    this.map = require(`@/data/map/${this.areaCode.slice(0, 4)}00`);
+                    break;
+            }
         },
 
         // 返回键
