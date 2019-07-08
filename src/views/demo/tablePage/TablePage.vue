@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-07 16:48:54
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 15:27:09
+ * @Last Modified time: 2019-07-08 17:34:41
  */
 <!-- 模板-表格页 (element-ui 2.9+) -->
 <template>
@@ -203,12 +203,14 @@
 
 <script>
 import Button from '@/components/common/Button';
+import {tablePageMixin} from '@/mixins/tablePageMixin';
 
 export default {
     name: 'TablePage',
     components: {
         Button
     },
+    mixins: [tablePageMixin],
     props: {},
     data() {
         // 自定义校验规则
@@ -314,16 +316,6 @@ export default {
     watch: {},
     created() {
         this.mockData();
-    },
-    mounted() {
-        this.setStyle();
-        window.onresize = () => {
-            this.setStyle();
-        };
-    },
-    beforeRouteLeave(to, from, next) {
-        window.removeEventListener('resize', this.setStyle());
-        next();
     },
     methods: {
         // 表单-重置 (所有表单都要加入校验规则, 否则无法重置)
@@ -541,18 +533,6 @@ export default {
                 this.$refs.dialogForm.resetFields(); // 清空表单
                 this.$refs.upload.clearFiles(); // 清空文件列表
             }
-        },
-
-        // 样式修改
-        setStyle() {
-            let tableSearch = this.$refs.tableSearch;
-            let tableContent = this.$refs.tableContent;
-            let tableContentBody = this.$refs.tableContentBody;
-
-            // 根据搜索区高度自适应
-            tableContent.style.height = `calc(100% - ${tableSearch.offsetHeight + 20}px)`;
-            // 表格宽度必须设置, 否则布局会出现问题
-            tableContentBody.style.width = `${tableContent.offsetWidth - 40}px`;
         },
 
         // mock 数据
