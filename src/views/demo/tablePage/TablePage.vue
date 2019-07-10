@@ -104,6 +104,7 @@
                 <!-- 表格-内容 -->
                 <div class="table-content-body" ref="tableContentBody">
                     <el-table
+                        id="el-table"
                         v-loading="isLoading"
                         :data="tableData"
                         stripe
@@ -203,6 +204,8 @@
 
 <script>
 import Button from '@/components/common/Button';
+import FileSaver from 'file-saver';
+import XLSX from 'xlsx';
 import {tablePageMixin} from '@/mixins/tablePageMixin';
 
 export default {
@@ -368,7 +371,7 @@ export default {
                 dialogVisible: true,
                 source: 'handleDownloadBatch',
                 title: '提示',
-                message: '是否下载已选内容?'
+                message: '是否下载当前内容?'
             };
 
             Object.assign(this.dialog, myDialog);
@@ -489,17 +492,20 @@ export default {
 
         // 弹出框-批量-下载
         submitDownloadBatch() {
-            if (!this.multipleSelection.length) {
-                this.$message.warning('请先勾选需要下载的内容');
+            if (this.isClick) {
+                this.$message.warning('请勿重复点击');
                 return;
             }
+
             this.isLoadingDialog = true;
+            this.isClick = true;
 
             setTimeout(() => { // 定时器用来测试效果, 开发时请删除
                 this.dialog.dialogVisible = false;
+                this.exportExcel();
                 this.$message.success('操作成功!');
 
-                this.mockData();
+                // this.mockData();
             }, 500);
         },
 
@@ -533,6 +539,31 @@ export default {
                 this.$refs.dialogForm.resetFields(); // 清空表单
                 this.$refs.upload.clearFiles(); // 清空文件列表
             }
+        },
+
+        // 导出表格
+        exportExcel() {
+            let time = new Date();
+            let wb = XLSX.utils.table_to_book(document.querySelector('#el-table'));
+            let wbout = XLSX.write(wb, {
+                bookType: 'xlsx',
+                bookSST: true,
+                type: 'array'
+            });
+
+            try {
+                FileSaver.saveAs(
+                    new Blob([wbout], { type: 'application/octet-stream' }),
+                    `名字-${time.getTime()}.xlsx` // 文件名
+                );
+            } catch (e) {
+                if (typeof console !== 'undefined') {
+                    this.$message.error('导出失败');
+                    console.log(e, wbout);
+                }
+            }
+
+            return wbout;
         },
 
         // mock 数据
