@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import AreaCode from '@/data/map/area-code';
+// import AreaCode from '@/data/map/area-code';
 import China from '@/data/map/100000';
 
 export default {
@@ -197,42 +197,60 @@ export default {
             myChart.setOption(this.option, true);
 
             // 触发图表行为
-            // if (this.areaLevel === 'area') {
-            //     myChart.dispatchAction({ // 选中指定的地图区域
-            //         type: 'geoSelect',
-            //         name: this.areaName[this.areaName.length - 1],
-            //         seriesIndex: 0
-            //     });
-            // }
+            if (this.areaLevel === 'area') {
+                myChart.dispatchAction({ // 选中指定的地图区域
+                    type: 'geoSelect',
+                    name: this.areaName[this.areaName.length - 1],
+                    seriesIndex: 0
+                });
+            }
 
             // 点击事件
             myChart.on('click', (e) => {
+                console.log(e);
                 this.areaCode = e.data.code;
                 switch (this.areaLevel) { // 当前地区层级
                     case 'country': // 国
                         this.areaLevel = 'province';
-                        this.areaName[1] = e.name;
-                        this.map = require(`@/data/map/${e.data.code}0000`);
+                        this.areaName[1] = e.data.name;
+                        this.map = require(`@/data/map/${e.data.code}`);
                         break;
                     case 'province': // 省
                         this.areaLevel = 'city';
-                        this.areaName[2] = e.name;
-                        this.map = require(`@/data/map/${e.data.code}00`);
+                        this.areaName[2] = e.data.name;
+                        this.map = require(`@/data/map/${e.data.code}`);
                         break;
                     default: // 市/区
                         this.areaLevel = 'area';
-                        this.areaName[3] = e.name;
-                        this.map = require(`@/data/map/${e.data.code.slice(0, 4)}00`);
+                        this.areaName[3] = e.data.name;
                         break;
                 }
 
-                if (this.areaLevel !== 'area') {
-                    this.mockData();
+                this.mockData();
 
-                    setTimeout(() => {
-                        this.initMap();
-                    }, 10);
+                // 选中模式
+                if (this.areaLevel === 'area') {
+                    if (e.data.selected) {
+                        this.areaLevel = 'city';
+                        --this.areaName.length;
+
+                        this.option.series[0].data.forEach(item => {
+                            Object.assign(item, {selected: false, itemStyle: {opacity: 1}});
+                        });
+                    } else {
+                        this.option.series[0].data.forEach(item => {
+                            if (e.data.code === item.code) {
+                                Object.assign(item, {selected: true, itemStyle: {opacity: 1}});
+                            } else {
+                                Object.assign(item, {selected: false, itemStyle: {opacity: 0.2}});
+                            }
+                        });
+                    }
                 }
+
+                setTimeout(() => {
+                    this.initMap();
+                }, 0);
             });
         },
 
@@ -265,56 +283,15 @@ export default {
         mockData() {
             let areaList = [];
 
-            switch (this.areaLevel) {
-                case 'country':
-                    AreaCode.forEach(province => {
-                        let obj = {
-                            // 使之 name 与地图对应
-                            name: (province.name === '内蒙古自治区') || (province.name === '黑龙江省') ?
-                                province.name.slice(0, 3) :
-                                province.name.slice(0, 2),
-                            code: province.code,
-                            value: Math.round(Math.random() * 10000 + 5000)
-                        };
+            this.map.features.forEach(item => {
+                let obj = {
+                    name: item.properties.name,
+                    code: this.areaName.length < 3 ? item.id : String(item.properties.adcode),
+                    value: Math.round(Math.random() * 1000)
+                };
 
-                        areaList.push(obj);
-                    });
-                    break;
-                case 'province':
-                    AreaCode.forEach(province => {
-                        if (province.code === this.areaCode) {
-                            province.children.forEach(city => {
-                                let obj = {
-                                    name: city.name,
-                                    code: city.code,
-                                    value: Math.round(Math.random() * 1000 + 500)
-                                };
-
-                                areaList.push(obj);
-                            });
-                        }
-                    });
-                    break;
-                default:
-                    AreaCode.forEach(province => {
-                        if (province.code === this.areaCode.slice(0, 2)) {
-                            province.children.forEach(city => {
-                                if (city.code === this.areaCode.slice(0, 4)) {
-                                    city.children.forEach(area => {
-                                        let obj = {
-                                            name: area.name,
-                                            code: area.code,
-                                            value: Math.round(Math.random() * 100 + 50)
-                                        };
-
-                                        areaList.push(obj);
-                                    });
-                                }
-                            });
-                        }
-                    });
-                    break;
-            }
+                areaList.push(obj);
+            });
 
             areaList.sort((a, b) => b['value'] - a['value']); // 降序
             this.option.series[0].data = areaList;

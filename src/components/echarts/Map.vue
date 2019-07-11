@@ -181,6 +181,7 @@ export default {
         initMap() {
             this.setData();
             this.destroyChart();
+            this.getMap();
 
             let myChart = this.$echarts.init(document.getElementById('map'));
             let maxNum = 0;
@@ -225,21 +226,15 @@ export default {
             // 点击事件
             myChart.on('click', (e) => {
                 this.$emit('handleClick', e);
-
-                setTimeout(() => {
-                    this.getMap();
-                }, 20);
             });
-
-            // this.initMap();
         },
 
         // 获取地图模块
         getMap() {
             switch (this.areaLevel) { // 当前地区层级
-                // case 'country': // 国
-                //     this.map = require(`@/data/map/${this.areaCode}0000`);
-                //     break;
+                case 'country': // 国
+                    this.map = China;
+                    break;
                 case 'province': // 省
                     this.map = require(`@/data/map/${this.areaCode}0000`);
                     break;

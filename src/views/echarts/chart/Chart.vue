@@ -186,7 +186,7 @@ export default {
             // 解决图表数据没有及时更新BUG
             setTimeout(() => {
                 this.$refs['bar-line'].initChart();
-            }, 20);
+            }, 0);
         },
 
         // 柱状图-点击
@@ -226,6 +226,7 @@ export default {
 
             this.mockData();
 
+            // 选中模式
             if (this.mapOption.areaLevel === 'area') {
                 if (e.data.selected) {
                     this.mapOption.areaLevel = 'city';
@@ -247,11 +248,10 @@ export default {
             }
 
             setTimeout(() => {
-                this.$refs['map'].getMap();
                 this.$refs['map'].initMap();
                 this.$refs['pie'].initChart();
                 this.$refs['bar-line'].initChart();
-            }, 40);
+            }, 30);
         },
 
         // 地图-返回
@@ -279,7 +279,7 @@ export default {
                 this.$refs['map'].initMap();
                 this.$refs['bar-line'].initChart();
                 this.$refs['pie'].initChart();
-            }, 40);
+            }, 0);
         },
 
         // 模拟数据
@@ -337,7 +337,7 @@ export default {
                     break;
             }
 
-            areaList.sort((a, b) => b['value'] - a['value']); // 降序
+            // areaList.sort((a, b) => b['value'] - a['value']); // 降序
             this.mapData = areaList;
         }
     }
