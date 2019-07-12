@@ -43,8 +43,8 @@ export default {
     },
     computed: {},
     watch: {},
-    mounted() {},
-    created() {},
+    // mounted() {},
+    // created() {},
     methods: {}
 };
 </script>

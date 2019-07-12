@@ -46,14 +46,7 @@ export default {
             option: {
                 backgroundColor: '#154e90',
                 tooltip: {
-                    // formatter: `{b}: {c}`
-                    formatter(params) {
-                        if (typeof (params.value)[2] === 'undefined') { // 改变气泡提示框内容
-                            return params.name + ' : ' + (params.value || 0);
-                        } else {
-                            return params.name + ' : ' + params.value[2];
-                        }
-                    }
+                    formatter: `{b}: {c}`
                 },
                 visualMap: { // 视觉映射
                     show: true,
@@ -134,10 +127,8 @@ export default {
                         zlevel: 1,
                         label: {
                             show: true,
-                            textStyle: {
-                                color: '#00E0FF',
-                                fontSize: 14
-                            },
+                            color: '#00E0FF',
+                            fontSize: 14,
                             formatter(value) {
                                 return value.data.value[2];
                             }
@@ -146,12 +137,7 @@ export default {
                             color: '#fff',
                             opacity: 1
                         },
-                        data: [
-                            // {
-                            //     name: '杭州市',
-                            //     value: [120.21, 30.25, 666] // [经度, 纬度, value]
-                            // }
-                        ]
+                        data: []
                     }
                 ]
             }
@@ -202,11 +188,6 @@ export default {
                 maxNum = Math.ceil(maxNum / powNum) * powNum;
             }
             this.option.visualMap.max = maxNum;
-
-            // 气泡设置 (根据地图 json 文件, 把对应坐标写到气泡对应的 data 中)
-            // this.map.features.forEach(province => {
-            //     console.log(province);
-            // });
 
             // 事件解绑
             myChart.off('click');

@@ -29,7 +29,6 @@ export default {
             option: {
                 backgroundColor: '#154e90',
                 tooltip: {
-                    // formatter: `{b}: {c}`
                     formatter(params) {
                         if (typeof (params.value)[2] === 'undefined') { // 改变气泡提示框内容
                             return params.name + ' : ' + (params.value || 0);
@@ -112,29 +111,23 @@ export default {
                     {
                         type: 'scatter',
                         coordinateSystem: 'geo',
+                        silent: true, // 不响应和触发鼠标事件
                         symbol: 'pin',
                         symbolSize: [70, 60],
                         zlevel: 1,
                         label: {
                             show: true,
-                            textStyle: {
-                                color: '#00E0FF',
-                                fontSize: 14
-                            },
-                            formatter(value) {
-                                return value.data.value[2];
+                            color: '#00E0FF',
+                            fontSize: 14,
+                            formatter(v) {
+                                return v.data.value[2];
                             }
                         },
                         itemStyle: {
                             color: '#fff', // 标志颜色
                             opacity: 1
                         },
-                        data: [
-                            {
-                                name: '杭州市',
-                                value: [120.21, 30.25, 666]
-                            }
-                        ]
+                        data: []
                     }
                 ]
             }
@@ -185,11 +178,6 @@ export default {
             }
             this.option.visualMap.max = maxNum;
 
-            // 气泡设置 (根据地图 json 文件, 把对应坐标写到气泡对应的 data 中)
-            // this.map.features.forEach(province => {
-            //     console.log(province);
-            // });
-
             // 事件解绑
             myChart.off('click');
 
@@ -207,7 +195,6 @@ export default {
 
             // 点击事件
             myChart.on('click', (e) => {
-                console.log(e);
                 this.areaCode = e.data.code;
                 switch (this.areaLevel) { // 当前地区层级
                     case 'country': // 国
@@ -256,6 +243,7 @@ export default {
 
         // 返回键
         back() {
+            console.log(this.areaCode);
             --this.areaName.length;
             switch (this.areaLevel) { // 当前地区层级
                 case 'province': // 省
@@ -281,20 +269,32 @@ export default {
 
         // 模拟数据
         mockData() {
-            let areaList = [];
+            let mapDataList = [];
+            let scatterDataList = [];
 
             this.map.features.forEach(item => {
-                let obj = {
+                let mapData = {
                     name: item.properties.name,
                     code: this.areaName.length < 3 ? item.id : String(item.properties.adcode),
-                    value: Math.round(Math.random() * 1000)
+                    value: Math.round(Math.random() * 500 + 500)
                 };
+                let scatterData = {
+                    name: item.properties.name,
+                    value: this.areaName.length < 3 ? item.properties.cp : item.properties.center,
+                    label: {
+                        color: mapData.value >= 900 ? '#FE5B5B' : '#00E0FF'
+                    }
+                };
+                scatterData.value[2] = mapData.value;
 
-                areaList.push(obj);
+                mapDataList.push(mapData);
+                scatterDataList.push(scatterData);
             });
 
-            areaList.sort((a, b) => b['value'] - a['value']); // 降序
-            this.option.series[0].data = areaList;
+            mapDataList.sort((a, b) => b['value'] - a['value']); // 降序
+
+            this.option.series[0].data = mapDataList;
+            this.option.series[1].data = scatterDataList;
         }
     }
 };
