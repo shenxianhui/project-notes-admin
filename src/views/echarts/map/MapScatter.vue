@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-05 10:54:25
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-07-02 16:24:51
+ * @Last Modified time: 2019-07-15 15:55:44
  */
 <!-- 地图-散点&映射 -->
 <template>
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-// import AreaCode from '@/data/map/area-code';
 import China from '@/data/map/100000';
 
 export default {
@@ -29,11 +28,14 @@ export default {
             option: {
                 backgroundColor: '#154e90',
                 tooltip: {
-                    formatter(params) {
-                        if (typeof (params.value)[2] === 'undefined') { // 改变气泡提示框内容
-                            return params.name + ' : ' + (params.value || 0);
+                    // formatter: '{b}: {c}'
+                    formatter: (params) => {
+                        if (this.areaLevel === 'area') {
+                            if (params.data.code === this.areaCode) {
+                                return `${params.name}: ${params.value}`;
+                            }
                         } else {
-                            return params.name + ' : ' + params.value[2];
+                            return `${params.name}: ${params.value}`;
                         }
                     }
                 },
@@ -99,7 +101,8 @@ export default {
                         itemStyle: {
                             areaColor: '#389BB7'
                         }
-                    }
+                    },
+                    regions: [] // 在地图中对特定的区域配置样式
                 },
                 series: [
                     {
@@ -217,22 +220,57 @@ export default {
 
                 // 选中模式
                 if (this.areaLevel === 'area') {
+                    let regions = [];
+
                     if (e.data.selected) {
                         this.areaLevel = 'city';
                         --this.areaName.length;
 
                         this.option.series[0].data.forEach(item => {
-                            Object.assign(item, {selected: false, itemStyle: {opacity: 1}});
+                            Object.assign(item, {
+                                selected: false,
+                                itemStyle: {opacity: 1}
+                            });
+                            regions.push({
+                                name: item.name,
+                                itemStyle: {opacity: 1}
+                            });
+                        });
+                        this.option.series[1].data.forEach(item => {
+                            Object.assign(item, {itemStyle: {opacity: 1}});
                         });
                     } else {
                         this.option.series[0].data.forEach(item => {
                             if (e.data.code === item.code) {
-                                Object.assign(item, {selected: true, itemStyle: {opacity: 1}});
+                                Object.assign(item, {
+                                    selected: true,
+                                    itemStyle: {opacity: 1}
+                                });
+                                regions.push({
+                                    name: item.name,
+                                    itemStyle: {opacity: 1}
+                                });
                             } else {
-                                Object.assign(item, {selected: false, itemStyle: {opacity: 0.2}});
+                                Object.assign(item, {
+                                    selected: false,
+                                    itemStyle: {opacity: 0.2}
+                                });
+                                regions.push({
+                                    name: item.name,
+                                    itemStyle: {opacity: 0.2}
+                                });
+                            }
+                        });
+                        this.option.series[1].data.forEach(item => {
+                            if (e.data.code === item.code) {
+                                Object.assign(item, {itemStyle: {opacity: 1}});
+                            } else {
+                                Object.assign(item, {itemStyle: {opacity: 0}});
                             }
                         });
                     }
+
+                    this.option.geo.regions = regions;
                 }
 
                 setTimeout(() => {
@@ -243,8 +281,8 @@ export default {
 
         // 返回键
         back() {
-            console.log(this.areaCode);
             --this.areaName.length;
+            this.option.geo.regions = []; // 清空样式
             switch (this.areaLevel) { // 当前地区层级
                 case 'province': // 省
                     this.map = China;
@@ -280,6 +318,7 @@ export default {
                 };
                 let scatterData = {
                     name: item.properties.name,
+                    code: this.areaName.length < 3 ? item.id : String(item.properties.adcode),
                     value: this.areaName.length < 3 ? item.properties.cp : item.properties.center,
                     label: {
                         color: mapData.value >= 900 ? '#FE5B5B' : '#00E0FF'

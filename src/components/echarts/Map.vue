@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-19 08:20:07
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-07-02 17:22:04
+ * @Last Modified time: 2019-07-15 15:42:51
  */
 <!-- 地图 -->
 <template>
@@ -38,6 +38,10 @@ export default {
         mapData: { // 地图数据
             type: Array,
             default: () => []
+        },
+        geoRegions: { // geo 自定义区域样式
+            type: Array,
+            default: () => []
         }
     },
     data() {
@@ -46,7 +50,7 @@ export default {
             option: {
                 backgroundColor: '#154e90',
                 tooltip: {
-                    formatter: `{b}: {c}`
+                    formatter: '{b}: {c}'
                 },
                 visualMap: { // 视觉映射
                     show: true,
@@ -110,7 +114,8 @@ export default {
                         itemStyle: {
                             areaColor: '#389BB7'
                         }
-                    }
+                    },
+                    regions: [] // 在地图中对特定的区域配置样式
                 },
                 series: [
                     {
@@ -188,6 +193,9 @@ export default {
                 maxNum = Math.ceil(maxNum / powNum) * powNum;
             }
             this.option.visualMap.max = maxNum;
+
+            // 在地图中对特定的区域配置样式
+            this.option.geo.regions = this.geoRegions;
 
             // 事件解绑
             myChart.off('click');

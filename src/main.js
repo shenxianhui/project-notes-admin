@@ -21,25 +21,8 @@ Vue.prototype.$myStore = myStore;
 
 Vue.config.productionTip = false;
 
-const vm = new Vue({
+new Vue({
     router,
     store,
     render: h => h(App)
 }).$mount('#app');
-
-router.beforeEach((to, from, next) => {
-    if (to.matched.length === 0) {
-        next({path: '/error'});
-    }
-    // 做登录拦截，可以参考如下写法, 不做的话把下面代码去掉
-    if (to.meta.hasOwnProperty('requiresLogin') && to.meta.requiresLogin && !vm.$store.state.isLogin) {
-        /* MessageBox.confirm('请先登录').then(action => {
-            next({path: '/login'});
-        }, res => {
-            next(false);
-        }); */
-        next();
-    } else {
-        next();
-    }
-});

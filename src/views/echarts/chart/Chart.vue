@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:34:37
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-07-02 17:23:59
+ * @Last Modified time: 2019-07-15 15:27:22
  */
 <!-- 图表 -->
 <template>
@@ -40,6 +40,7 @@
                 :areaCode="mapOption.areaCode"
                 :areaLevel="mapOption.areaLevel"
                 :areaName="mapOption.areaName"
+                :geoRegions="geoRegions"
                 :mapData="mapData"
                 @handleClick="handleClickMap"
                 @handleBack="handleBackMap">
@@ -124,6 +125,7 @@ export default {
                 areaCode: '0', // 当前区域-编号
                 areaLevel: 'country' // 当前区域-层级
             },
+            geoRegions: [], // 在地图中对特定的区域配置样式
             mapData: [] // 地图数据
         };
     },
@@ -228,6 +230,8 @@ export default {
 
             // 选中模式
             if (this.mapOption.areaLevel === 'area') {
+                let regions = [];
+
                 if (e.data.selected) {
                     this.mapOption.areaLevel = 'city';
                     --this.mapOption.areaName.length;
@@ -235,16 +239,30 @@ export default {
 
                     this.mapData.forEach(item => {
                         Object.assign(item, {selected: false, itemStyle: {opacity: 1}});
+                        regions.push({
+                            name: item.name,
+                            itemStyle: {opacity: 1}
+                        });
                     });
                 } else {
                     this.mapData.forEach(item => {
                         if (e.name === item.name) {
                             Object.assign(item, {selected: true, itemStyle: {opacity: 1}});
+                            regions.push({
+                                name: item.name,
+                                itemStyle: {opacity: 1}
+                            });
                         } else {
                             Object.assign(item, {selected: false, itemStyle: {opacity: 0.2}});
+                            regions.push({
+                                name: item.name,
+                                itemStyle: {opacity: 0.2}
+                            });
                         }
                     });
                 }
+
+                this.geoRegions = regions;
             }
 
             setTimeout(() => {
@@ -257,6 +275,7 @@ export default {
         // 地图-返回
         handleBackMap() {
             --this.mapOption.areaName.length;
+            this.geoRegions = [];
             this.selectVal.name = this.mapOption.areaName[this.mapOption.areaName.length - 1];
 
             switch (this.mapOption.areaLevel) { // 当前地区层级
