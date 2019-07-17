@@ -52,7 +52,7 @@ export default new Router({
                 { // ECharts
                     path: 'echarts',
                     name: 'echarts',
-                    component: { render: f => f('router-view') },
+                    component: {render: f => f('router-view')},
                     redirect: 'echarts/chart', // 默认
                     children: [
                         { // 图表
@@ -90,7 +90,7 @@ export default new Router({
                 { // 动画
                     path: 'animation',
                     name: 'animation',
-                    component: { render: f => f('router-view') },
+                    component: {render: f => f('router-view')},
                     redirect: 'animation/galaxy', // 默认
                     children: [
                         { // 星系
@@ -103,7 +103,7 @@ export default new Router({
                 { // 游戏
                     path: 'game',
                     name: 'game',
-                    component: { render: f => f('router-view') },
+                    component: {render: f => f('router-view')},
                     redirect: 'game/snake', // 默认
                     children: [
                         { // 贪吃蛇
@@ -116,7 +116,7 @@ export default new Router({
                 { // 模板
                     path: 'demo',
                     name: 'demo',
-                    component: { render: f => f('router-view') },
+                    component: {render: f => f('router-view')},
                     redirect: 'demo/table-page', // 默认
                     children: [
                         { // 表格页
@@ -144,7 +144,7 @@ export default new Router({
                 { // 其他
                     path: 'other',
                     name: 'other',
-                    component: { render: f => f('router-view') },
+                    component: {render: f => f('router-view')},
                     redirect: 'other/table', // 默认
                     children: [
                         { // 表格
