@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @Date: 2019-03-21 15:35:31
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-07-02 09:36:01
+ * @Last Modified time: 2019-07-21 10:05:51
  */
 <!-- 导航菜单-顶部 -->
 <template>
@@ -78,6 +78,12 @@ export default {
                     value: 'echarts',
                     url: 'echarts',
                     list: 'echartsList'
+                },
+                {
+                    label: '地图',
+                    value: 'map',
+                    url: 'map',
+                    list: 'mapList'
                 },
                 {
                     label: '动画',
@@ -161,6 +167,20 @@ export default {
                                 label: '上海',
                                 value: 'lines3DShanghai',
                                 url: 'lines-3d-shanghai'
+                            }
+                        ]
+                    }
+                ],
+                mapList: [ // 地图
+                    {
+                        label: '高德',
+                        value: 'gaode',
+                        type: 'map',
+                        children: [
+                            {
+                                label: '高德',
+                                value: 'gaode',
+                                url: 'gaode'
                             }
                         ]
                     }

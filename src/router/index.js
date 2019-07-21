@@ -1,11 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-// 导航页
-const Main = () => import('@/views/main/Main');
-
-// 错误页面
+// 公共
 const Error = () => import('@/views/common/Error.vue');
+const Main = () => import('@/views/common/Main');
 
 // ECharts
 const Chart = () => import('@/views/echarts/chart/Chart.vue');
@@ -14,6 +12,9 @@ const LinesBeijing = () => import('@/views/echarts/lines/Beijing.vue');
 const LinesShanghai = () => import('@/views/echarts/lines/Shanghai.vue');
 const Lines3DChengdu = () => import('@/views/echarts/lines_3d/Chengdu.vue');
 const Lines3DShanghai = () => import('@/views/echarts/lines_3d/Shanghai.vue');
+
+// 地图
+const GaodeMap = () => import('@/views/map/GaodeMap.vue');
 
 // 动画
 const Galaxy = () => import('@/views/animation/trajectory/Galaxy.vue');
@@ -84,6 +85,19 @@ export default new Router({
                             path: 'lines-3d-shanghai',
                             name: 'lines3DShanghai',
                             component: Lines3DShanghai
+                        }
+                    ]
+                },
+                { // 地图
+                    path: 'map',
+                    name: 'map',
+                    component: {render: f => f('router-view')},
+                    redirect: 'map/gaode', // 默认
+                    children: [
+                        { // 高德
+                            path: 'gaode',
+                            name: 'gaode',
+                            component: GaodeMap
                         }
                     ]
                 },
