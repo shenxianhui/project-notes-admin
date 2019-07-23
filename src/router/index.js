@@ -14,7 +14,7 @@ const Lines3DChengdu = () => import('@/views/echarts/lines_3d/Chengdu.vue');
 const Lines3DShanghai = () => import('@/views/echarts/lines_3d/Shanghai.vue');
 
 // 地图
-const GaodeMap = () => import('@/views/map/GaodeMap.vue');
+const GDMap = () => import('@/views/map/GDMap.vue');
 
 // 动画
 const Galaxy = () => import('@/views/animation/trajectory/Galaxy.vue');
@@ -97,7 +97,7 @@ export default new Router({
                         { // 高德
                             path: 'gaode',
                             name: 'gaode',
-                            component: GaodeMap
+                            component: GDMap
                         }
                     ]
                 },

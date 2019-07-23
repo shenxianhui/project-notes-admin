@@ -2,11 +2,11 @@
  * @Author: Shen Xianhui
  * @Date: 2019-07-21 10:52:50
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-07-21 12:33:29
+ * @Last Modified time: 2019-07-22 08:58:19
  */
 <!-- 高德地图 -->
 <template>
-    <div class="gaode" id="gaode" v-loading="loading"></div>
+    <div class="gd-map" id="gd-map" v-loading="loading"></div>
 </template>
 
 <script>
@@ -39,7 +39,7 @@ export default {
     methods: {
         initMap() {
             GDMap(this.key, this.plugins).then(AMap => { // 成功
-                this.map = new AMap.Map('gaode', {
+                this.map = new AMap.Map('gd-map', {
                     zoom: 11,
                     center: [116.397428, 39.90923]
                 });
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style scoped lang='less'>
-.gaode {
+.gd-map {
     width: 100%;
     height: 100%;
 }

@@ -40,7 +40,7 @@ export default {
     },
     computed: {},
     watch: {},
-    created() {},
+    // created() {},
     mounted() {
         this.setMap();
         this.createSnake();

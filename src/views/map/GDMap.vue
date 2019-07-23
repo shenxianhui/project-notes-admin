@@ -2,22 +2,22 @@
  * @Author: Shen Xianhui
  * @Date: 2019-07-21 10:03:53
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-07-21 11:05:49
+ * @Last Modified time: 2019-07-22 08:39:51
  */
 <!-- 高德地图 -->
 <template>
     <div class="gaode-map">
-        <Gaode></Gaode>
+        <GaoDe></GaoDe>
     </div>
 </template>
 
 <script>
-import Gaode from '@/components/map/Gaode'
+import GaoDe from '@/components/map/GaoDe';
 
 export default {
     name: 'GaodeMap',
     components: {
-        Gaode
+        GaoDe
     },
     props: {},
     data() {
