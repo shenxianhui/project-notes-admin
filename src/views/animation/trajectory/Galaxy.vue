@@ -8,26 +8,26 @@
 <template>
     <div class="galaxy">
         <div class="trajectory">
-            <div class="earth">
-                <img src="@/assets/img/animation/globe_1.png" alt="地球">
+            <div class="sun">
+                <img src="@/assets/img/planet/sun.png" alt="太阳">
             </div>
-            <div class="globe globe1">
-                <img src="@/assets/img/animation/globe_2.png" alt="星球">
+            <div class="globe mercury">
+                <img src="@/assets/img/planet/Mercury.png" alt="水星">
             </div>
-            <div class="globe globe2">
-                <img src="@/assets/img/animation/globe_3.png" alt="星球">
+            <div class="globe venus">
+                <img src="@/assets/img/planet/Venus.png" alt="金星">
             </div>
-            <div class="globe globe3">
-                <img src="@/assets/img/animation/globe_4.png" alt="星球">
+            <div class="globe earth">
+                <img src="@/assets/img/planet/Earth.png" alt="地球">
             </div>
-            <div class="globe globe4">
-                <img src="@/assets/img/animation/globe_5.png" alt="星球">
+            <div class="globe mars">
+                <img src="@/assets/img/planet/Mars.png" alt="火星">
             </div>
-            <div class="globe globe5">
-                <img src="@/assets/img/animation/globe_6.png" alt="星球">
+            <div class="globe jupiter">
+                <img src="@/assets/img/planet/Jupiter.png" alt="木星">
             </div>
-            <div class="globe globe6">
-                <img src="@/assets/img/animation/globe_7.png" alt="星球">
+            <div class="globe saturn">
+                <img src="@/assets/img/planet/Saturn.png" alt="土星">
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@ export default {
     width: 100%;
     height: 100%;
     padding: 0 20px;
-    background: url('../../../assets/img/animation/globe_bg.png') no-repeat center center;
+    background: url('../../../assets/img/planet/globe_bg.png') no-repeat center center;
     background-size: cover;
     overflow: hidden;
     .trajectory {
@@ -62,9 +62,10 @@ export default {
 
         width: 100%;
         height: 95%;
-        background: url('../../../assets/img/animation/globe_trajectory.png') no-repeat center center;
+        background: url('../../../assets/img/planet/globe_trajectory.png') no-repeat center center;
         background-size: contain;
-        .earth {
+        /* 太阳 */
+        .sun {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -72,52 +73,13 @@ export default {
             width: 100%;
             height: 100%;
             img {
-                width: 25%;
+                width: 20%;
                 // height: 35%;
                 // margin-bottom: 7.3%;
                 z-index: 10;
             }
         }
-        /* 地球自传 */
-        // .earth {
-        //     position: absolute;
-        //     top: 20%;
-        //     left: 40%;
-        //     margin-left: -90px;
-        //     margin-top: -40px;
-
-        //     width: 450px;
-        //     height: 450px;
-        //     // height: 18vw; /* vw是相对于视口宽度百分比的单位，1vw = 1% viewport width */
-        //     background: url('../../../assets/img/animation/globe.jpg') repeat-x 0 0;
-        //     box-shadow:
-        //         -8px 0 25px rgba(256,256,256,0.3),
-        //         -1px -2px 14px rgba(256,256,256,0.5) inset;
-        //     border: 1px solid rgba(26,18,101,0.3);
-        //     border-radius: 50%;
-        //     transform: scale(0.5, 0.5);
-        //     z-index: 10;
-        //     &::before {
-        //         position: absolute;
-        //         top: 0;
-        //         left: 0;
-
-        //         width: 450px;
-        //         height: 450px;
-        //         border-radius: 50%;
-        //         content: "";
-        //         box-shadow:  -150px -6px 25px rgba(0,0,0,0.7) inset;
-        //     }
-        //     @keyframes revolve {
-        //         0% {
-        //             background-position: 0 0;
-        //         }
-        //         100% {
-        //             background-position: -900px 0;
-        //         }
-        //     }
-        //     animation: revolve 10s linear infinite;
-        // }
+        /* 所有行星 */
         .globe {
             position: absolute;
 
@@ -128,136 +90,21 @@ export default {
             width: 8%;
             height: 15%;
             img {
-                width: 80px;
-                height: 80px;
+                width: 50px;
+                height: 50px;
             }
         }
-        .globe1 {
-            @keyframes animX1 {
-                0% {left: -5%;}
-                100% {left: 96%;}
+        /* 水星 */
+        .mercury {
+            @keyframes mercuryL {
+                0% {left: 34.5%;}
+                100% {left: 57.5%;}
             }
-            @keyframes animY1 {
-                0% {top: 17%;}
-                100% {top: 68%;}
+            @keyframes mercuryT {
+                0% {top: 37%;}
+                100% {top: 48%;}
             }
-            @keyframes scale1 {
-                0% {
-                    transform: scale(1);
-                    z-index: 0;
-                }
-                50% {
-                    transform: scale(1.5);
-                    z-index: 20;
-                }
-                100% {
-                    transform: scale(1);
-                    z-index: 0;
-                }
-            }
-            animation:
-                /* 周期 速度曲线 延迟 播放次数 反向播放 */
-                animX1 15s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
-                animY1 15s cubic-bezier(0.36, 0, 0.64, 1) -7.5s infinite alternate,
-                scale1 30s cubic-bezier(0.36, 0, 0.64, 1) -7.5s infinite alternate;
-        }
-        .globe2 {
-            @keyframes animX2 {
-                0% {left: 5%;}
-                100% {left: 86%;}
-            }
-            @keyframes animY2 {
-                0% {top: 21%;}
-                100% {top: 63%;}
-            }
-            @keyframes scale2 {
-                0% {
-                    transform: scale(0.6);
-                    z-index: 1;
-                }
-                50% {
-                    transform: scale(0.8);
-                    z-index: 19;
-                }
-                100% {
-                    transform: scale(0.6);
-                    z-index: 1;
-                }
-            }
-            animation:
-                /* 周期 速度曲线 延迟 播放次数 反向播放 */
-                animX2 12s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
-                animY2 12s cubic-bezier(0.36, 0, 0.64, 1) -6s infinite alternate,
-                scale2 24s cubic-bezier(0.36, 0, 0.64, 1) -6s infinite alternate;
-        }
-        .globe3 {
-            @keyframes animX3 {
-                0% {left: 14%;}
-                100% {left: 78%;}
-            }
-            @keyframes animY3 {
-                0% {top: 26%;}
-                100% {top: 59%;}
-            }
-            @keyframes scale3 {
-                0% {
-                    transform: scale(0.5);
-                    z-index: 2;
-                }
-                50% {
-                    transform: scale(0.7);
-                    z-index: 18;
-                }
-                100% {
-                    transform: scale(0.5);
-                    z-index: 2;
-                }
-            }
-            animation:
-                /* 周期 速度曲线 延迟 播放次数 反向播放 */
-                animX3 10s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
-                animY3 10s cubic-bezier(0.36, 0, 0.64, 1) -5s infinite alternate,
-                scale3 20s cubic-bezier(0.36, 0, 0.64, 1) -5s infinite alternate;
-        }
-        .globe4 {
-            @keyframes animX4 {
-                0% {left: 22%;}
-                100% {left: 70%;}
-            }
-            @keyframes animY4 {
-                0% {top: 30%;}
-                100% {top: 55%;}
-            }
-            @keyframes scale4 {
-                0% {
-                    transform: scale(0.3);
-                    z-index: 3;
-                }
-                50% {
-                    transform: scale(0.5);
-                    z-index: 16;
-                }
-                100% {
-                    transform: scale(0.3);
-                    z-index: 3;
-                }
-            }
-            animation:
-                /* 周期 速度曲线 延迟 播放次数 反向播放 */
-                animX4 6s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
-                animY4 6s cubic-bezier(0.36, 0, 0.64, 1) -3s infinite alternate,
-                scale4 12s cubic-bezier(0.36, 0, 0.64, 1) -3s infinite alternate;
-        }
-        .globe5 {
-            @keyframes animX5 {
-                0% {left: 29%;}
-                100% {left: 62%;}
-            }
-            @keyframes animY5 {
-                0% {top: 34%;}
-                100% {top: 51%;}
-            }
-            @keyframes scale5 {
+            @keyframes mercuryS {
                 0% {
                     transform: scale(0.2);
                     z-index: 4;
@@ -273,38 +120,171 @@ export default {
             }
             animation:
                 /* 周期 速度曲线 延迟 播放次数 反向播放 */
-                animX5 3s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
-                animY5 3s cubic-bezier(0.36, 0, 0.64, 1) -1.5s infinite alternate,
-                scale5 6s cubic-bezier(0.36, 0, 0.64, 1) -1.5s infinite alternate;
+                mercuryL 2s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
+                mercuryT 2s cubic-bezier(0.36, 0, 0.64, 1) -1s infinite alternate,
+                mercuryS 4s cubic-bezier(0.36, 0, 0.64, 1) -1s infinite alternate;
         }
-        .globe6 {
-            @keyframes animX6 {
-                0% {left: 34.5%;}
-                100% {left: 57.5%;}
+        /* 金星 */
+        .venus {
+            @keyframes venusL {
+                0% {left: 29%;}
+                100% {left: 63%;}
             }
-            @keyframes animY6 {
-                0% {top: 36.5%;}
-                100% {top: 48.5%;}
+            @keyframes venusT {
+                0% {top: 34%;}
+                100% {top: 50%;}
             }
-            @keyframes scale6 {
+            @keyframes venusS {
+                // 0% {
+                //     transform: scale(0.5);
+                //     z-index: 2;
+                // }
+                // 50% {
+                //     transform: scale(0.7);
+                //     z-index: 18;
+                // }
+                // 100% {
+                //     transform: scale(0.5);
+                //     z-index: 2;
+                // }
                 0% {
-                    transform: scale(0.1);
-                    z-index: 5;
+                    transform: scale(0.3);
+                    z-index: 3;
                 }
                 50% {
-                    transform: scale(0.15);
-                    z-index: 14;
+                    transform: scale(0.5);
+                    z-index: 16;
                 }
                 100% {
-                    transform: scale(0.1);
-                    z-index: 5;
+                    transform: scale(0.3);
+                    z-index: 3;
                 }
             }
             animation:
                 /* 周期 速度曲线 延迟 播放次数 反向播放 */
-                animX6 2s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
-                animY6 2s cubic-bezier(0.36, 0, 0.64, 1) -1s infinite alternate,
-                scale6 4s cubic-bezier(0.36, 0, 0.64, 1) -1s infinite alternate;
+                venusL 3s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
+                venusT 3s cubic-bezier(0.36, 0, 0.64, 1) -1.5s infinite alternate,
+                venusS 6s cubic-bezier(0.36, 0, 0.64, 1) -1.5s infinite alternate;
+        }
+        /* 地球 */
+        .earth {
+            @keyframes earthL {
+                0% {left: 22%;}
+                100% {left: 70%;}
+            }
+            @keyframes earthT {
+                0% {top: 30%;}
+                100% {top: 54%;}
+            }
+            @keyframes earthS {
+                0% {
+                    transform: scale(0.3);
+                    z-index: 3;
+                }
+                50% {
+                    transform: scale(0.5);
+                    z-index: 16;
+                }
+                100% {
+                    transform: scale(0.3);
+                    z-index: 3;
+                }
+            }
+            animation:
+                /* 周期 速度曲线 延迟 播放次数 反向播放 */
+                earthL 6s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
+                earthT 6s cubic-bezier(0.36, 0, 0.64, 1) -3s infinite alternate,
+                earthS 12s cubic-bezier(0.36, 0, 0.64, 1) -3s infinite alternate;
+        }
+        /* 火星 */
+        .mars {
+            @keyframes marsL {
+                0% {left: 14%;}
+                100% {left: 78%;}
+            }
+            @keyframes marsT {
+                0% {top: 27%;}
+                100% {top: 58%;}
+            }
+            @keyframes marsS {
+                0% {
+                    transform: scale(0.2);
+                    z-index: 4;
+                }
+                50% {
+                    transform: scale(0.4);
+                    z-index: 15;
+                }
+                100% {
+                    transform: scale(0.2);
+                    z-index: 4;
+                }
+            }
+            animation:
+                /* 周期 速度曲线 延迟 播放次数 反向播放 */
+                marsL 10s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
+                marsT 10s cubic-bezier(0.36, 0, 0.64, 1) -5s infinite alternate,
+                marsS 20s cubic-bezier(0.36, 0, 0.64, 1) -5s infinite alternate;
+        }
+        /* 木星 */
+        .jupiter {
+            @keyframes jupiterL {
+                0% {left: 6%;}
+                100% {left: 86%;}
+            }
+            @keyframes jupiterT {
+                0% {top: 22%;}
+                100% {top: 62%;}
+            }
+            @keyframes jupiterS {
+                0% {
+                    transform: scale(1);
+                    z-index: 0;
+                }
+                50% {
+                    transform: scale(1.5);
+                    z-index: 20;
+                }
+                100% {
+                    transform: scale(1);
+                    z-index: 0;
+                }
+            }
+            animation:
+                /* 周期 速度曲线 延迟 播放次数 反向播放 */
+                jupiterL 12s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
+                jupiterT 12s cubic-bezier(0.36, 0, 0.64, 1) -6s infinite alternate,
+                jupiterS 24s cubic-bezier(0.36, 0, 0.64, 1) -6s infinite alternate;
+        }
+        /* 土星 */
+        .saturn {
+            @keyframes saturnL {
+                0% {left: -4%;}
+                100% {left: 96%;}
+            }
+            @keyframes saturnT {
+                0% {top: 19%;}
+                100% {top: 66%;}
+            }
+            @keyframes saturnS {
+                0% {
+                    transform: scale(1);
+                    z-index: 0;
+                }
+                50% {
+                    transform: scale(1.5);
+                    z-index: 20;
+                }
+                100% {
+                    transform: scale(1);
+                    z-index: 0;
+                }
+            }
+            animation:
+                /* 周期 速度曲线 延迟 播放次数 反向播放 */
+                saturnL 15s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
+                saturnT 15s cubic-bezier(0.36, 0, 0.64, 1) -7.5s infinite alternate,
+                saturnS 30s cubic-bezier(0.36, 0, 0.64, 1) -7.5s infinite alternate;
         }
     }
 }
