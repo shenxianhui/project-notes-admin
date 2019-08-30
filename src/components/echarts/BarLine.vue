@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-07-02 16:57:36
+ * @Last Modified time: 2019-08-30 14:40:49
  */
 <!-- 柱状折线图 -->
 <template>
@@ -92,59 +92,59 @@ export default {
         seriesDataBar: {
             type: Array,
             default: () => [
-                {
-                    name: 'X1',
-                    value: 6
-                },
-                {
-                    name: 'X2',
-                    value: 2
-                },
-                {
-                    name: 'X3',
-                    value: 9
-                }
+                // {
+                //     name: 'X1',
+                //     value: 6
+                // },
+                // {
+                //     name: 'X2',
+                //     value: 2
+                // },
+                // {
+                //     name: 'X3',
+                //     value: 9
+                // }
             ]
         },
         seriesDataLine: {
             type: Array,
             default: () => [
-                {
-                    name: 'X1',
-                    value: 5
-                },
-                {
-                    name: 'X2',
-                    value: 1
-                },
-                {
-                    name: 'X3',
-                    value: 8
-                }
+                // {
+                //     name: 'X1',
+                //     value: 5
+                // },
+                // {
+                //     name: 'X2',
+                //     value: 1
+                // },
+                // {
+                //     name: 'X3',
+                //     value: 8
+                // }
             ]
         },
         seriesDataLineA: {
             type: Array,
             default: () => [
-                {
-                    name: 'X1',
-                    value: 2
-                },
-                {
-                    name: 'X2',
-                    value: 0
-                },
-                {
-                    name: 'X3',
-                    value: 3
-                }
+                // {
+                //     name: 'X1',
+                //     value: 2
+                // },
+                // {
+                //     name: 'X2',
+                //     value: 0
+                // },
+                // {
+                //     name: 'X3',
+                //     value: 3
+                // }
             ]
         }
     },
     data() {
         return {
             option: {
-                grid: this.$myStore.grid,
+                grid: this.$params.grid,
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器
@@ -254,7 +254,7 @@ export default {
                     return;
                 }
 
-                this.$emit('handleClick', e);
+                this.$emit('click', e);
 
                 myChart.setOption(this.option, true);
             });
@@ -316,9 +316,15 @@ export default {
         setData() {
             let _xAxisData = [];
 
-            this.seriesDataBar.forEach(item => {
-                _xAxisData.push(item.name);
-            });
+            if (this.seriesDataBar && this.seriesDataBar.length) {
+                this.seriesDataBar.forEach(item => {
+                    _xAxisData.push(item.name);
+                });
+            } else if (this.seriesDataLine && this.seriesDataLine.length) {
+                this.seriesDataLine.forEach(item => {
+                    _xAxisData.push(item.name);
+                });
+            }
             this.option.xAxis.data = _xAxisData;
             this.option.legend.data = this.legendData;
             switch (this.seriesType) {

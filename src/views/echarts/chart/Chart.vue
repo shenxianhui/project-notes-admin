@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:34:37
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-07-15 15:27:22
+ * @Last Modified time: 2019-08-29 13:44:05
  */
 <!-- 图表 -->
 <template>
@@ -10,41 +10,41 @@
         <div class="wrap">
             <div class="chart-inner">
                 <!-- 柱状折线图 -->
-                <BarLine
+                <xx-bar-line
                     id="bar-line"
                     ref="bar-line"
-                    :legendData="barOption.legendData"
-                    :seriesColor="barOption.seriesColor"
-                    :seriesType="barOption.seriesType"
-                    :seriesDataBar="mapData"
-                    :seriesDataLine="mapData"
-                    :seriesDataLineA="mapData"
-                    @handleClick="handleClickBar">
-                </BarLine>
+                    :legend-data="barOption.legendData"
+                    :series-color="barOption.seriesColor"
+                    :series-type="barOption.seriesType"
+                    :series-data-bar="mapData"
+                    :series-data-line="mapData"
+                    :series-dataline-a="mapData"
+                    @click="handleClickBar">
+                </xx-bar-line>
             </div>
             <div class="chart-inner">
                 <!-- 饼图 -->
-                <Pie
+                <xx-pie
                     id="pie"
                     ref="pie"
-                    :seriesData="mapData"
-                    @handleClick="handleClickPie">
-                </Pie>
+                    :series-data="mapData"
+                    @click="handleClickPie">
+                </xx-pie>
             </div>
         </div>
         <div class="wrap">
             <!-- 地图 -->
-            <Map
+            <xx-map
                 id="map"
                 ref="map"
-                :areaCode="mapOption.areaCode"
-                :areaLevel="mapOption.areaLevel"
-                :areaName="mapOption.areaName"
-                :geoRegions="geoRegions"
-                :mapData="mapData"
-                @handleClick="handleClickMap"
-                @handleBack="handleBackMap">
-            </Map>
+                :area-code="mapOption.areaCode"
+                :area-level="mapOption.areaLevel"
+                :area-name="mapOption.areaName"
+                :geo-regions="geoRegions"
+                :map-data="mapData"
+                @click="handleClickMap"
+                @back="handleBackMap">
+            </xx-map>
         </div>
         <div class="select">
             <el-select
@@ -66,9 +66,9 @@
 
 <script>
 import AreaCode from '@/data/map/area-code';
-import BarLine from '@/components/echarts/BarLine';
-import Pie from '@/components/echarts/Pie';
-import Map from '@/components/echarts/Map';
+import XxBarLine from '@/components/echarts/BarLine';
+import XxPie from '@/components/echarts/Pie';
+import XxMap from '@/components/echarts/Map';
 
 let seriesColor = {
     bar: ['#00C1DE99', '#0080DE0D'],
@@ -79,9 +79,9 @@ let seriesColor = {
 export default {
     name: 'Chart',
     components: {
-        BarLine,
-        Pie,
-        Map
+        XxBarLine,
+        XxPie,
+        XxMap
     },
     props: {},
     data() {

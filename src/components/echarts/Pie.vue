@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-18 15:59:28
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-06-19 11:25:20
+ * @Last Modified time: 2019-08-29 13:43:47
  */
 <!-- 饼图 -->
 <template>
@@ -57,7 +57,7 @@ export default {
     data() {
         return {
             option: {
-                grid: this.$myStore.grid,
+                grid: this.$params.grid,
                 tooltip: {
                     trigger: 'item' // 触发类型
                 },
@@ -106,7 +106,7 @@ export default {
 
             // 点击事件
             myChart.on('click', (e) => {
-                this.$emit('handleClick', e);
+                this.$emit('click', e);
 
                 myChart.setOption(this.option, true);
             });

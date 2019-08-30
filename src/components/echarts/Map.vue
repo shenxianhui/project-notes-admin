@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-19 08:20:07
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-07-15 15:42:51
+ * @Last Modified time: 2019-08-29 13:43:55
  */
 <!-- 地图 -->
 <template>
@@ -214,7 +214,7 @@ export default {
 
             // 点击事件
             myChart.on('click', (e) => {
-                this.$emit('handleClick', e);
+                this.$emit('click', e);
             });
         },
 
@@ -247,7 +247,7 @@ export default {
                     break;
             }
 
-            this.$emit('handleBack');
+            this.$emit('back');
         },
 
         // 数据导入
