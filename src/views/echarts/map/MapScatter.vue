@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-05 10:54:25
  * @Last Modified by: Shen Xianhui
- * @Last Modified time: 2019-07-15 15:55:44
+ * @Last Modified time: 2019-09-04 17:02:29
  */
 <!-- 地图-散点&映射 -->
 <template>
@@ -319,7 +319,7 @@ export default {
                 let scatterData = {
                     name: item.properties.name,
                     code: this.areaName.length < 3 ? item.id : String(item.properties.adcode),
-                    value: this.areaName.length < 3 ? item.properties.cp : item.properties.center,
+                    value: this.areaName.length < 3 ? item.properties.cp || [0, 0, 0] : item.properties.center || [0, 0, 0],
                     label: {
                         color: mapData.value >= 900 ? '#FE5B5B' : '#00E0FF'
                     }
