@@ -17,7 +17,7 @@ const routes = [
   },
   // 错误
   {
-    path: 'error',
+    path: '*',
     name: 'error',
     component: Error
   },
