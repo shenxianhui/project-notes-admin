@@ -1,4 +1,5 @@
 // 区分 Android 和 iOS
+// 示例: platformName(); // 'ios'|'android'|''
 let platformName = () => {
   let platform = '';
   let u = navigator.userAgent;
@@ -13,6 +14,7 @@ let platformName = () => {
 };
 
 // 获取当前日期详细信息
+// 示例: getCurrentDate(); // { key: val, ... }
 let getCurrentDate = () => {
   let myDate = new Date();
   let year = myDate.getFullYear().toString();
@@ -47,60 +49,71 @@ let getCurrentDate = () => {
 };
 
 // 日期相互加减
+// 示例: DateMinus('2019-11-20', '2019-11-26'); // 6
 let DateMinus = (date1, date2) => {
-  // date1: 小日期(String), date2: 大日期(String)
+  // 日期(前): String, 日期(后): String
   let sdate = new Date(date1);
   let now = new Date(date2);
   let days = now.getTime() - sdate.getTime();
-  let day = parseInt(days / (1000 * 60 * 60 * 24), 10);
-  return day;
+  let _days = parseInt(days / (1000 * 60 * 60 * 24), 10);
+
+  return _days;
 };
 
 // 日期计算 (天)
+// 示例: computeDate('2019-11-26', -100); // '2019-08-18'
 let computeDate = (date, days) => {
-  // date: 日期(String), days: 加减的天数(Number)
+  // 日期: String, 天数: Number|String
   let myDate = new Date(date);
-  myDate.setDate(myDate.getDate() + days);
+  myDate.setDate(myDate.getDate() + Number(days));
   let _year = myDate.getFullYear();
   let _month = myDate.getMonth() < 9 ? `0${myDate.getMonth() + 1}` : (myDate.getMonth() + 1).toString();
   let _date = myDate.getDate() < 10 ? `0${myDate.getDate()}` : myDate.getDate().toString();
-  return `${_year}-${_month}-${_date}`;
+  let day = `${_year}-${_month}-${_date}`;
+
+  return day;
 };
 
-// 获取今天后一周日期
-let getAWeek = () => {
+// 获取过去/未来X天的日期 (含当天)
+// 示例: getAWeek(-2); // ['2019-11-25', '2019-11-26']
+let getAWeek = days => {
+  // 天数: Number|String
   let timestamp = new Date().getTime();
   let blanking = 24 * 60 * 60 * 1000;
   let dateArr = [];
-  let count = 8;
-  while (count--) {
-    let dateNew = new Date(timestamp);
-    let y = dateNew.getFullYear();
-    let m = dateNew.getMonth() + 1;
-    m = m < 10 ? '0' + m : m;
-    let d = dateNew.getDate();
-    d = d < 10 ? '0' + d : d;
-    dateArr.push(y + '/' + m + '/' + d);
-    timestamp += blanking;
+  let _days = Number(days);
+  if (_days >= 0) {
+    // 未来X天 (含当天)
+    while (_days--) {
+      let dateNew = new Date(timestamp);
+      let y = dateNew.getFullYear();
+      let m = dateNew.getMonth() + 1;
+      m = m < 10 ? '0' + m : m;
+      let d = dateNew.getDate();
+      d = d < 10 ? '0' + d : d;
+      dateArr.push(y + '-' + m + '-' + d);
+      timestamp += blanking;
+    }
+  } else {
+    // 过去X天 (含当天)
+    while (_days++) {
+      let dateNew = new Date(timestamp);
+      let y = dateNew.getFullYear();
+      let m = dateNew.getMonth() + 1;
+      m = m < 10 ? '0' + m : m;
+      let d = dateNew.getDate();
+      d = d < 10 ? '0' + d : d;
+      dateArr.unshift(y + '-' + m + '-' + d);
+      timestamp -= blanking;
+    }
   }
   return dateArr;
 };
 
 // 日期格式化
-let formatDate = date => {
-  // 日期转化成字符串兼容ios
-  let dateNew = new Date(String(date).replace(/-/g, '/'));
-  let y = dateNew.getFullYear();
-  let m = dateNew.getMonth() + 1;
-  m = m < 10 ? '0' + m : m;
-  let d = dateNew.getDate();
-  d = d < 10 ? '0' + d : d;
-  return y + '-' + m + '-' + d;
-};
-
-// 日期时间格式化
-let formatDateTime = date => {
-  // 日期转化成字符串兼容ios
+// 示例: formatDate('2019/11/26 11:12:13'); // '2019-11-26 11:12:13'
+let formatDate = (date, isTime = false) => {
+  // 日期: String, 是否包含时间: Boolean (默认false)
   let dateNew = new Date(String(date).replace(/-/g, '/'));
   let y = dateNew.getFullYear();
   let m = dateNew.getMonth() + 1;
@@ -111,32 +124,44 @@ let formatDateTime = date => {
   h = h < 10 ? '0' + h : h;
   let mi = dateNew.getMinutes();
   mi = mi < 10 ? '0' + mi : mi;
-  return y + '.' + m + '.' + d + ' ' + h + ':' + mi;
-};
-
-// 防抖 | 节流
-let debounce = (func, delay) => {
-  let timer;
-  return function(...args) {
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-    timer = setTimeout(() => {
-      func.apply(this, args);
-    }, delay);
-  };
-};
-
-// 清洗出url中的参数值
-let getQueryString = (href, name) => {
-  let hrefSearch = href.split('?')[1];
-  let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
-  let r = hrefSearch.match(reg);
-  if (r != null) {
-    return decodeURI(r[2]);
+  let se = dateNew.getSeconds();
+  se = se < 10 ? '0' + se : se;
+  let _date;
+  if (isTime) {
+    _date = y + '.' + m + '.' + d + ' ' + h + ':' + mi + ':' + se;
+  } else {
+    _date = y + '-' + m + '-' + d;
   }
-  return null;
+  return _date;
+};
+
+// 时间戳转日期
+// 示例: timestampToTime(1574756312123); // '2019-11-26 16:18:32'
+let timestampToTime = timestamp => {
+  // 时间戳: Number|String
+  let date = new Date(Number(timestamp)),
+    Y = date.getFullYear() + '-',
+    M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-',
+    D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ',
+    h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':',
+    m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':',
+    s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+
+  return Y + M + D + h + m + s;
+};
+
+// 日期转时间戳
+// 示例: timeToTimestamp('2019-11-26 16:18:32:123'); // 1574756312123
+let timeToTimestamp = time => {
+  // 日期: String
+  let date = new Date(time);
+  // 有四种方式获取
+  let _time = date.getTime(); // 通过原型方法直接获得当前时间的毫秒值
+  // let _time = date.valueOf(); // 返回指定对象的原始值获得准确的时间戳值
+  // let _time = Number(date); // 将时间转化为一个number类型的数值，即时间戳
+  // let _time = Date.parse(date); // 不推荐这种办法，毫秒级别的数值被转化为000
+
+  return _time;
 };
 
 /**
@@ -152,6 +177,36 @@ let getRangeTime = (startTime, endTime) => {
   }
   let date = tmpStart[0];
   return `${date} ${tmpStart[1]}-${tmpEnd[1]}`;
+};
+
+// 防抖 | 节流 (多用于搜索页表单延时提交)
+// 示例: debounce(val => { console.log(val) }, 1000);
+let debounce = (func, delay = 500) => {
+  // 回调函数: Function, 毫秒数: Number
+  let timer;
+  return function(...args) {
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+};
+
+// 清洗出 url 中的参数值
+// 示例: getQueryString('https://www.google.com?key=val', 'key'); // 'val'
+let getQueryString = (href, key) => {
+  // url: String, key: String
+  let hrefSearch = href.split('?')[1];
+  let reg = new RegExp('(^|&)' + key + '=([^&]*)(&|$)');
+  let r = hrefSearch.match(reg);
+  if (r) {
+    return decodeURI(r[2]);
+  } else {
+    return null;
+  }
 };
 
 /**
@@ -195,8 +250,10 @@ let calculateLineDistance = (start, end) => {
   return Math.asin(d14 / 2.0) * 12742001.579854401;
 };
 
-// rem值转化为px值
-let rem2px = rem => {
+// rem 值转化为 px 值
+// 示例: remToPx(0.1); // 转为对应的 px 值
+let remToPx = rem => {
+  // rem值: Number
   if (document.documentElement.style.fontSize) {
     return rem * document.documentElement.style.fontSize.replace('px', '');
   } else {
@@ -205,14 +262,16 @@ let rem2px = rem => {
 };
 
 // 手机号添加空格
+// 示例: getMoblieFormat(18812341234); // '153 1234 1234'
 let getMoblieFormat = val => {
-  val = val.replace(/\s*/g, '');
+  // 手机号码: Number|String
+  let _val = val.toString().replace(/\s*/g, '');
   let result = [];
-  for (let i = 0; i < val.length; i++) {
+  for (let i = 0; i < _val.length; i++) {
     if (i == 3 || i == 7) {
-      result.push(' ' + val.charAt(i));
+      result.push(' ' + _val.charAt(i));
     } else {
-      result.push(val.charAt(i));
+      result.push(_val.charAt(i));
     }
   }
   return result.join('');
@@ -225,11 +284,12 @@ export {
   computeDate,
   getAWeek,
   formatDate,
-  formatDateTime,
+  timestampToTime,
+  timeToTimestamp,
+  getRangeTime,
   debounce,
   getQueryString,
-  getRangeTime,
   calculateLineDistance,
-  rem2px,
+  remToPx,
   getMoblieFormat
 };

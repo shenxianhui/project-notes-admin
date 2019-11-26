@@ -16,28 +16,31 @@ module.exports = {
         axios: 'axios'
       })
     ];
-    if (process.env.NODE_ENV === 'production') { // 生产环境
+    if (process.env.NODE_ENV === 'production') {
+      // 生产环境
       const CompressionWebpackPlugin = require('compression-webpack-plugin');
       // 使用DefinePlugin暴露的全局变量，需要在eslintrc.js的globals里设置
       pluginsWebpack.push(
         new webpack.DefinePlugin({
-          '__PROJECTPATH__': JSON.stringify('')
+          __PROJECTPATH__: JSON.stringify('')
         })
       );
       // gzip压缩
       pluginsWebpack.push(
         new CompressionWebpackPlugin({
           asset: '[path].gz[query]', // 目标文件名
-          algorithm: 'gzip',// 使用gzip压缩
+          algorithm: 'gzip', // 使用gzip压缩
           test: /\.js$|\.html$|\.css/, // 压缩 js html css
           threshold: 10240, // 资源文件大于10240B=10kB时会被压缩
           minRatio: 0.8, // 最小压缩比达到0.8时才会被压缩
           deleteOriginalAssets: false // 删除原文件
-        }));
-    } else { // 开发环境
+        })
+      );
+    } else {
+      // 开发环境
       pluginsWebpack.push(
         new webpack.DefinePlugin({
-          '__PROJECTPATH__': JSON.stringify('/test')
+          __PROJECTPATH__: JSON.stringify('/test')
         })
       );
     }
