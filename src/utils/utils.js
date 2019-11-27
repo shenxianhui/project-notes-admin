@@ -50,8 +50,7 @@ let getCurrentDate = () => {
 
 // 日期相互加减
 // 示例: DateMinus('2019-11-20', '2019-11-26'); // 6
-let DateMinus = (date1, date2) => {
-  // 日期(前): String, 日期(后): String
+let DateMinus = (date1, date2) => { // 日期(前): String, 日期(后): String
   let sdate = new Date(date1);
   let now = new Date(date2);
   let days = now.getTime() - sdate.getTime();
@@ -62,8 +61,7 @@ let DateMinus = (date1, date2) => {
 
 // 日期计算 (天)
 // 示例: computeDate('2019-11-26', -100); // '2019-08-18'
-let computeDate = (date, days) => {
-  // 日期: String, 天数: Number|String
+let computeDate = (date, days) => { // 日期: String, 天数: Number|String
   let myDate = new Date(date);
   myDate.setDate(myDate.getDate() + Number(days));
   let _year = myDate.getFullYear();
@@ -76,8 +74,7 @@ let computeDate = (date, days) => {
 
 // 获取过去/未来X天的日期 (含当天)
 // 示例: getAWeek(-2); // ['2019-11-25', '2019-11-26']
-let getAWeek = days => {
-  // 天数: Number|String
+let getAWeek = days => { // 天数: Number|String
   let timestamp = new Date().getTime();
   let blanking = 24 * 60 * 60 * 1000;
   let dateArr = [];
@@ -112,8 +109,7 @@ let getAWeek = days => {
 
 // 日期格式化
 // 示例: formatDate('2019/11/26 11:12:13'); // '2019-11-26 11:12:13'
-let formatDate = (date, isTime = false) => {
-  // 日期: String, 是否包含时间: Boolean (默认false)
+let formatDate = (date, isTime = false) => { // 日期: String, 是否包含时间: Boolean (默认false)
   let dateNew = new Date(String(date).replace(/-/g, '/'));
   let y = dateNew.getFullYear();
   let m = dateNew.getMonth() + 1;
@@ -137,8 +133,7 @@ let formatDate = (date, isTime = false) => {
 
 // 时间戳转日期
 // 示例: timestampToTime(1574756312123); // '2019-11-26 16:18:32'
-let timestampToTime = timestamp => {
-  // 时间戳: Number|String
+let timestampToTime = timestamp => { // 时间戳: Number|String
   let date = new Date(Number(timestamp)),
     Y = date.getFullYear() + '-',
     M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-',
@@ -152,8 +147,7 @@ let timestampToTime = timestamp => {
 
 // 日期转时间戳
 // 示例: timeToTimestamp('2019-11-26 16:18:32:123'); // 1574756312123
-let timeToTimestamp = time => {
-  // 日期: String
+let timeToTimestamp = time => { // 日期: String
   let date = new Date(time);
   // 有四种方式获取
   let _time = date.getTime(); // 通过原型方法直接获得当前时间的毫秒值
@@ -181,8 +175,7 @@ let getRangeTime = (startTime, endTime) => {
 
 // 防抖 | 节流 (多用于搜索页表单延时提交)
 // 示例: debounce(val => { console.log(val) }, 1000);
-let debounce = (func, delay = 500) => {
-  // 回调函数: Function, 毫秒数: Number
+let debounce = (func, delay = 500) => { // 回调函数: Function, 毫秒数: Number
   let timer;
   return function(...args) {
     if (timer) {
@@ -197,8 +190,7 @@ let debounce = (func, delay = 500) => {
 
 // 清洗出 url 中的参数值
 // 示例: getQueryString('https://www.google.com?key=val', 'key'); // 'val'
-let getQueryString = (href, key) => {
-  // url: String, key: String
+let getQueryString = (href, key) => { // url: String, key: String
   let hrefSearch = href.split('?')[1];
   let reg = new RegExp('(^|&)' + key + '=([^&]*)(&|$)');
   let r = hrefSearch.match(reg);
@@ -252,8 +244,7 @@ let calculateLineDistance = (start, end) => {
 
 // rem 值转化为 px 值
 // 示例: remToPx(0.1); // 转为对应的 px 值
-let remToPx = rem => {
-  // rem值: Number
+let remToPx = rem => { // rem值: Number
   if (document.documentElement.style.fontSize) {
     return rem * document.documentElement.style.fontSize.replace('px', '');
   } else {
@@ -263,8 +254,7 @@ let remToPx = rem => {
 
 // 手机号添加空格
 // 示例: getMoblieFormat(18812341234); // '153 1234 1234'
-let getMoblieFormat = val => {
-  // 手机号码: Number|String
+let getMoblieFormat = val => { // 手机号码: Number|String
   let _val = val.toString().replace(/\s*/g, '');
   let result = [];
   for (let i = 0; i < _val.length; i++) {
