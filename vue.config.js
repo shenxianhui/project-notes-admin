@@ -1,6 +1,13 @@
 const webpack = require('webpack');
 
 module.exports = {
+  pages: {
+    index: {
+      entry: './src/main.js',
+      template: './public/index.html',
+      filename: 'index.html'
+    }
+  },
   // eslint-loader 是否在保存的时候检查
   lintOnSave: false,
   // 生产环境是否生成 sourceMap 文件，一般情况不建议打开
