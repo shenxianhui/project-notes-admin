@@ -4,28 +4,28 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    state: {
-        // userInfo: {},
-        // isLogin: false
-        menuType: '' // 菜单类型
-    },
-    mutations: {
-        // setUserInfo(state, payload) {
-        //     Object.assign(state.userInfo, payload);
-        // }
-        setMenuType(state, payload) {
-            state.menuType = payload;
-        }
-    },
-    actions: {
-        // async getUserInfo({commit}) {
-        //     let userInfo = await axios.get(`${__PROJECTPATH__}/api-account/account`);
-        //     commit('setUserInfo', userInfo.data.obj);
-        // },
-        // async getBannerList({commit}, payload) {
-        //     return axios.get(`${__PROJECTPATH__}/api-infos/home/banner`, {
-        //         params: payload
-        //     });
-        // }
+  state: {
+    // userInfo: {},
+    // isLogin: false
+    menuType: '' // 菜单类型
+  },
+  mutations: {
+    // setUserInfo(state, payload) {
+    //     Object.assign(state.userInfo, payload);
+    // }
+    setMenuType(state, payload) {
+      state.menuType = payload;
     }
+  },
+  actions: {
+    // async getUserInfo({commit}) {
+    //     let userInfo = await axios.get(`${__PROJECTPATH__}/api-account/account`);
+    //     commit('setUserInfo', userInfo.data.obj);
+    // },
+    // async getBannerList({commit}, payload) {
+    //     return axios.get(`${__PROJECTPATH__}/api-infos/home/banner`, {
+    //         params: payload
+    //     });
+    // }
+  }
 });

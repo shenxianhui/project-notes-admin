@@ -12,14 +12,14 @@ const result_107 = require('./result_107.json');
 
 // 导出
 export {
-    result_105,
-    result_106,
-    result_107
-    // result_109,
-    // result_113,
-    // result_116,
-    // result_117,
-    // result_126,
-    // result_127,
-    // result_129
+  result_105,
+  result_106,
+  result_107
+  // result_109,
+  // result_113,
+  // result_116,
+  // result_117,
+  // result_126,
+  // result_127,
+  // result_129
 };
