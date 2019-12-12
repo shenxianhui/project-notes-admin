@@ -49,7 +49,7 @@ let getCurrentDate = () => {
 };
 
 // 日期相互加减
-// 示例: DateMinus('2019-11-20', '2019-11-26'); // 6
+// 示例: DateMinus('2019-11-20 00:00:00', '2019-11-26 00:00:00'); // 6
 let DateMinus = (date1, date2) => {
   // 日期(前): String, 日期(后): String
   let sdate = new Date(date1);
