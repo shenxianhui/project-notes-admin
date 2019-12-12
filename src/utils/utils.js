@@ -26,7 +26,7 @@ let getCurrentDate = () => {
   let seconds = myDate.getSeconds() < 10 ? `0${myDate.getSeconds()}` : myDate.getSeconds().toString();
   // 获取当前完整日期
   let dateIntact = `${year}-${month}-${date}`;
-  let timeIntact = `${hour}:${minute}`;
+  let timeIntact = `${hour}:${minute}:${seconds}`;
   let dateTime = `${dateIntact} ${timeIntact}`;
   // 获取当月天数
   myDate.setMonth(myDate.getMonth() + 1);
