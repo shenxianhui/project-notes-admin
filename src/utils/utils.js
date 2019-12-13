@@ -23,10 +23,10 @@ let getCurrentDate = () => {
   let day = myDate.getDay() == 0 ? '7' : myDate.getDay().toString();
   let hour = myDate.getHours() < 10 ? `0${myDate.getHours()}` : myDate.getHours().toString();
   let minute = myDate.getMinutes() < 10 ? `0${myDate.getMinutes()}` : myDate.getMinutes().toString();
-  let seconds = myDate.getSeconds() < 10 ? `0${myDate.getSeconds()}` : myDate.getSeconds().toString();
+  let second = myDate.getSeconds() < 10 ? `0${myDate.getSeconds()}` : myDate.getSeconds().toString();
   // 获取当前完整日期
   let dateIntact = `${year}-${month}-${date}`;
-  let timeIntact = `${hour}:${minute}:${seconds}`;
+  let timeIntact = `${hour}:${minute}:${second}`;
   let dateTime = `${dateIntact} ${timeIntact}`;
   // 获取当月天数
   myDate.setMonth(myDate.getMonth() + 1);
@@ -34,30 +34,61 @@ let getCurrentDate = () => {
   let dateTotal = myDate.getDate().toString();
 
   return {
-    year: year, // 当前完整年份
-    month: month, // 当前月份 (补0)
-    date: date, // 当前日 (补0)
-    day: day, // 当前星期X
-    hour: hour, // 当前小时 (补0)
-    seconds: seconds, // 当前秒 (补0)
-    minute: minute, // 当前分钟 (补0)
-    dateIntact: dateIntact, // 当前日期
-    timeIntact: timeIntact, // 当前时间
-    dateTime: dateTime, // 当前日期与时间
-    dateTotal: dateTotal // 当月天数
+    dateTime, // 当前日期与时间
+    dateIntact, // 当前日期
+    timeIntact, // 当前时间
+    dateTotal, // 当月天数
+    year, // 当前完整年份
+    month, // 当前月份 (补0)
+    date, // 当前日 (补0)
+    day, // 当前星期X
+    hour, // 当前小时 (补0)
+    minute, // 当前分钟 (补0)
+    second // 当前秒 (补0)
   };
 };
 
 // 日期相互加减
 // 示例: DateMinus('2019-11-20 00:00:00', '2019-11-26 00:00:00'); // 6
-let DateMinus = (date1, date2) => {
-  // 日期(前): String, 日期(后): String
+let DateMinus = (date1, date2, type = 'date') => {
+  // 日期(前): String, 日期(后): String, 转换类型(year-年|month-月|date-日|hour-时|minute-分|second-秒|milliseconds-毫秒): String
   let sdate = new Date(date1);
   let now = new Date(date2);
-  let days = now.getTime() - sdate.getTime();
-  let _days = parseInt(days / (1000 * 60 * 60 * 24), 10);
+  let curYearDays = getCurrentDate().year % 4 === 0 ? 366 : 365; // 判断平年瑞年
 
-  return _days;
+  let _milliseconds = now.getTime() - sdate.getTime();
+  let _seconds = parseInt(_milliseconds / 1000, 10);
+  let _minutes = parseInt(_seconds / 60, 10);
+  let _hours = parseInt(_minutes / 60, 10);
+  let _days = parseInt(_hours / 24, 10);
+  let _months = parseInt(_days / 30, 10); // 一个月按30天计算
+  let _years = parseInt(_days / curYearDays, 10);
+  let data;
+  switch (type) {
+    case 'year':
+      data = _years;
+      break;
+    case 'month':
+      data = _months;
+      break;
+    case 'date':
+      data = _days;
+      break;
+    case 'hour':
+      data = _hours;
+      break;
+    case 'minute':
+      data = _minutes;
+      break;
+    case 'second':
+      data = _seconds;
+      break;
+    case 'milliseconds':
+      data = _milliseconds;
+      break;
+  }
+
+  return data;
 };
 
 // 日期计算 (天)
