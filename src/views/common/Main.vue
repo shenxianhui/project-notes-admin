@@ -6,8 +6,8 @@
     <!-- 顶部导航 -->
     <div class="header">
       <div class="logo">
-        <img src="@/assets/icon/logo.png" alt="logo" />
-        <h2 ref="logo" @click="setLogo()">小贤笔记</h2>
+        <img src="@/assets/img/common/logo.png" alt="logo" />
+        <h2 ref="logo" @click="setLogo()">xx-notes</h2>
       </div>
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
         <el-menu-item v-for="(item, index) in headerList" :key="item.value" :index="String(index)">

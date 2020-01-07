@@ -33,7 +33,7 @@ const Table = () => import(/* webpackChunkName: "table" */ '@/views/other/table/
 Vue.use(Router);
 
 export default new Router({
-  // mode: 'history',
+  mode: 'history',
   // base: process.env.BASE_URL,
   routes: [
     {
@@ -43,7 +43,7 @@ export default new Router({
     },
     {
       // 错误页
-      path: '/error',
+      path: '*',
       name: 'error',
       component: Error
     },

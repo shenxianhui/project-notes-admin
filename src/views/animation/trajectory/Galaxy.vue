@@ -5,25 +5,25 @@
   <div class="galaxy">
     <div class="trajectory">
       <div class="sun">
-        <img src="@/assets/img/planet/sun.png" alt="太阳" />
+        <img src="@/assets/img/galaxy/sun.png" alt="太阳" />
       </div>
       <div class="globe mercury">
-        <img src="@/assets/img/planet/Mercury.png" alt="水星" />
+        <img src="@/assets/img/galaxy/mercury.png" alt="水星" />
       </div>
       <div class="globe venus">
-        <img src="@/assets/img/planet/Venus.png" alt="金星" />
+        <img src="@/assets/img/galaxy/venus.png" alt="金星" />
       </div>
       <div class="globe earth">
-        <img src="@/assets/img/planet/Earth.png" alt="地球" />
+        <img src="@/assets/img/galaxy/earth.png" alt="地球" />
       </div>
       <div class="globe mars">
-        <img src="@/assets/img/planet/Mars.png" alt="火星" />
+        <img src="@/assets/img/galaxy/mars.png" alt="火星" />
       </div>
       <div class="globe jupiter">
-        <img src="@/assets/img/planet/Jupiter.png" alt="木星" />
+        <img src="@/assets/img/galaxy/jupiter.png" alt="木星" />
       </div>
       <div class="globe saturn">
-        <img src="@/assets/img/planet/Saturn.png" alt="土星" />
+        <img src="@/assets/img/galaxy/saturn.png" alt="土星" />
       </div>
     </div>
   </div>
@@ -50,7 +50,7 @@ export default {
   width: 100%;
   height: 100%;
   padding: 0 20px;
-  background: url('../../../assets/img/planet/globe_bg.png') no-repeat center center;
+  background: url('~/assets/img/galaxy/globe_bg.png') no-repeat center center;
   background-size: cover;
   overflow: hidden;
   .trajectory {
@@ -58,7 +58,7 @@ export default {
 
     width: 100%;
     height: 95%;
-    background: url('../../../assets/img/planet/globe_trajectory.png') no-repeat center center;
+    background: url('~/assets/img/galaxy/globe_trajectory.png') no-repeat center center;
     background-size: contain;
     /* 太阳 */
     .sun {
