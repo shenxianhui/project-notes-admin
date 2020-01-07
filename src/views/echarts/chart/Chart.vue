@@ -1,6 +1,10 @@
-/* * @Author: Shen Xianhui * @Date: 2019-06-14 09:34:37 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-08-29 13:44:05 */
-<!-- 图表 -->
+<!--
+ * @Author: Shen Xianhui
+ * @Date: 2019-06-14 09:34:37
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-07 21:24:12
+ * @Description: 图表
+ -->
 <template>
   <div class="chart">
     <div class="wrap">
@@ -70,13 +74,13 @@ export default {
   props: {},
   data() {
     return {
+      // 选择框
       selectVal: {
-        // 选择框
         name: 'China',
         seriesType: 'bar'
       },
+      // 选择框列表
       dateOptions: [
-        // 选择框列表
         {
           label: 'bar',
           value: 'bar'
@@ -98,8 +102,8 @@ export default {
           value: 'barLines'
         }
       ],
+      // 柱状折线图
       barOption: {
-        // 柱状折线图
         legendData: [],
         seriesColor: seriesColor,
         seriesType: 'bar',
@@ -107,8 +111,8 @@ export default {
         seriesDataLine: [],
         seriesDataLineA: []
       },
+      // 地图
       mapOption: {
-        // 地图
         areaName: ['China'], // 当前区域-名称
         areaCode: '0', // 当前区域-编号
         areaLevel: 'country' // 当前区域-层级
@@ -199,19 +203,26 @@ export default {
       this.selectVal.name = e.name;
       this.mapOption.areaCode = e.data.code;
 
-      switch (
-        this.mapOption.areaLevel // 当前地区层级
-      ) {
-        case 'country': // 国
+      // 当前地区层级
+      switch (this.mapOption.areaLevel) {
+        // 国
+        case 'country':
           this.mapOption.areaName[1] = e.name;
           this.mapOption.areaLevel = 'province';
           break;
-        case 'province': // 省
+        // 省
+        case 'province':
+          // 只允许加载浙江省
+          if (e.data.code.slice(0, 2) !== '33') {
+            this.$message.warning('对不起, 仅开放浙江省区域~');
+            return;
+          }
+
           this.mapOption.areaName[2] = e.name;
           this.mapOption.areaLevel = 'city';
           break;
+        // 市/区
         default:
-          // 市/区
           this.mapOption.areaName[3] = e.name;
           this.mapOption.areaLevel = 'area';
           break;
@@ -269,9 +280,8 @@ export default {
       this.geoRegions = [];
       this.selectVal.name = this.mapOption.areaName[this.mapOption.areaName.length - 1];
 
-      switch (
-        this.mapOption.areaLevel // 当前地区层级
-      ) {
+      // 当前地区层级
+      switch (this.mapOption.areaLevel) {
         case 'province': // 省
           this.mapOption.areaLevel = 'country';
           this.mapOption.areaCode = '1';
@@ -301,8 +311,8 @@ export default {
       switch (this.mapOption.areaLevel) {
         case 'country':
           AreaCode.forEach(province => {
+            // 使之 name 与地图对应
             let obj = {
-              // 使之 name 与地图对应
               name:
                 province.name === '内蒙古自治区' || province.name === '黑龙江省'
                   ? province.name.slice(0, 3)

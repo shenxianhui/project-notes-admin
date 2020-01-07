@@ -1,6 +1,10 @@
-/* * @Author: Shen Xianhui * @Date: 2019-06-19 08:20:07 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-08-29 13:43:55 */
-<!-- 地图 -->
+<!--
+ * @Author: Shen Xianhui
+ * @Date: 2019-06-19 08:20:07
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-07 21:24:45
+ * @Description: 地图
+ -->
 <template>
   <div class="container">
     <span v-show="areaLevel !== 'country'" @click="back()">返回上级</span>
@@ -19,28 +23,28 @@ export default {
       type: String,
       default: 'map'
     },
+    // 当前区域-编号
     areaCode: {
-      // 当前区域-编号
       type: String,
       default: ''
     },
+    // 当前区域-层级
     areaLevel: {
-      // 当前区域-层级
       type: String,
       default: 'country'
     },
+    // 当前区域-名称
     areaName: {
-      // 当前区域-名称
       type: Array,
       default: () => ['China']
     },
+    // 地图数据
     mapData: {
-      // 地图数据
       type: Array,
       default: () => []
     },
+    // geo 自定义区域样式
     geoRegions: {
-      // geo 自定义区域样式
       type: Array,
       default: () => []
     }
@@ -53,8 +57,8 @@ export default {
         tooltip: {
           formatter: '{b}: {c}'
         },
+        // 视觉映射
         visualMap: {
-          // 视觉映射
           show: true,
           right: 0,
           min: 0,
@@ -92,13 +96,13 @@ export default {
               y: 0.5,
               r: 0.8,
               colorStops: [
+                // 0% 处的颜色
                 {
-                  // 0% 处的颜色
                   offset: 0,
                   color: 'rgba(147, 235, 248, 0)'
                 },
+                // 100% 处的颜色
                 {
-                  // 100% 处的颜色
                   offset: 1,
                   color: 'rgba(147, 235, 248, .2)'
                 }
@@ -111,8 +115,8 @@ export default {
             shadowOffsetX: -2,
             shadowOffsetY: 2
           },
+          // 高亮状态
           emphasis: {
-            // 高亮状态
             label: {
               color: '#fff'
             },
@@ -129,8 +133,8 @@ export default {
             geoIndex: 0, // 共享 geo 样式
             data: []
           },
+          // 气泡
           {
-            // 气泡
             type: 'scatter',
             coordinateSystem: 'geo',
             symbol: 'pin',
@@ -227,17 +231,21 @@ export default {
 
     // 获取地图模块
     getMap() {
-      switch (
-        this.areaLevel // 当前地区层级
-      ) {
-        case 'country': // 国
+      // 当前地区层级
+      switch (this.areaLevel) {
+        // 国
+        case 'country':
           this.map = China;
           break;
-        case 'province': // 省
+        // 省
+        case 'province':
           this.map = require(`@/data/map/${this.areaCode}0000`);
           break;
+        // 市/区
         default:
-          // 市/区
+          // 只允许加载浙江省
+          if (this.areaCode.slice(0, 2) !== '33') return;
+
           this.map = require(`@/data/map/${this.areaCode.slice(0, 4)}00`);
           break;
       }
@@ -245,16 +253,18 @@ export default {
 
     // 返回键
     back() {
-      switch (
-        this.areaLevel // 当前地区层级
-      ) {
-        case 'province': // 省
+      // 当前地区层级
+      switch (this.areaLevel) {
+        // 省
+        case 'province':
           this.map = China;
           break;
-        case 'city': // 市
+        // 市
+        case 'city':
           this.map = require(`@/data/map/${this.areaCode.slice(0, 2)}0000`);
           break;
-        case 'area': // 区
+        // 区
+        case 'area':
           this.map = require(`@/data/map/${this.areaCode.slice(0, 4)}00`);
           break;
       }
