@@ -96,9 +96,9 @@ export default {
         },
         {
           label: '模板',
-          value: 'demo',
-          url: 'demo',
-          list: 'demoList'
+          value: 'template',
+          url: 'template',
+          list: 'templateList'
         },
         {
           label: '其他',
@@ -215,12 +215,12 @@ export default {
             ]
           }
         ],
-        demoList: [
+        templateList: [
           // 模板
           {
             label: '表格页',
             value: 'tablePage',
-            type: 'demo',
+            type: 'template',
             children: [
               {
                 label: '表格页',
@@ -232,10 +232,10 @@ export default {
           {
             label: '编辑页',
             value: 'editPage',
-            type: 'demo',
+            type: 'template',
             children: [
               {
-                label: '详情页',
+                label: '编辑页',
                 value: 'editPage',
                 url: 'edit-page/0'
               }
@@ -244,7 +244,7 @@ export default {
           {
             label: '详情页',
             value: 'detailsPage',
-            type: 'demo',
+            type: 'template',
             children: [
               {
                 label: '详情页',

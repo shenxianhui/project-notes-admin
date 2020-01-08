@@ -1,197 +1,25 @@
 import Vue from 'vue';
-import Router from 'vue-router';
+import VueRouter from 'vue-router';
+import Modules from './modules'; // 引入业务逻辑模块
+import Common from './common'; // 引入通用模块
 
-// 公共
-const Error = () => import(/* webpackChunkName: "error" */ '@/views/common/Error.vue');
-const Main = () => import(/* webpackChunkName: "main" */ '@/views/common/Main');
+Vue.use(VueRouter);
 
-// ECharts
-const Chart = () => import(/* webpackChunkName: "chart" */ '@/views/echarts/chart/Chart.vue');
-const MapScatter = () => import(/* webpackChunkName: "map-scatter" */ '@/views/echarts/map/MapScatter.vue');
-const LinesBeijing = () => import(/* webpackChunkName: "beijing" */ '@/views/echarts/lines/Beijing.vue');
-const LinesShanghai = () => import(/* webpackChunkName: "shanghai" */ '@/views/echarts/lines/Shanghai.vue');
-const Lines3DChengdu = () => import(/* webpackChunkName: "chengdu" */ '@/views/echarts/lines_3d/Chengdu.vue');
-const Lines3DShanghai = () => import(/* webpackChunkName: "shanghai-3d" */ '@/views/echarts/lines_3d/Shanghai.vue');
-
-// 地图
-const GDMap = () => import(/* webpackChunkName: "gaode" */ '@/views/map/GDMap.vue');
-
-// 动画
-const Galaxy = () => import(/* webpackChunkName: "galaxy" */ '@/views/animation/trajectory/Galaxy.vue');
-
-// 游戏
-const Snake = () => import(/* webpackChunkName: "snake" */ '@/views/game/snake/Snake.vue');
-
-// 模板
-const TablePage = () => import(/* webpackChunkName: "table-page" */ '@/views/demo/tablePage/TablePage.vue');
-const EditPage = () => import(/* webpackChunkName: "edit-page" */ '@/views/demo/editPage/EditPage.vue');
-const DetailsPage = () => import(/* webpackChunkName: "details-page" */ '@/views/demo/detailsPage/DetailsPage.vue');
-
-// 其他
-const Table = () => import(/* webpackChunkName: "table" */ '@/views/other/table/Table.vue');
-
-Vue.use(Router);
-
-export default new Router({
+export default new VueRouter({
   mode: 'history',
-  // base: process.env.BASE_URL,
+  base: process.env.BASE_URL,
+  // routes: Modules.concat(Common)
   routes: [
+    // 主路由
     {
-      // 默认
-      path: '/',
-      redirect: '/echarts/chart'
-    },
-    {
-      // 错误页
-      path: '*',
-      name: 'error',
-      component: Error
-    },
-    {
-      // 主路由
       path: '/',
       name: 'main',
-      component: Main,
-      children: [
-        {
-          // ECharts
-          path: 'echarts',
-          name: 'echarts',
-          component: { render: f => f('router-view') },
-          redirect: 'echarts/chart', // 默认
-          children: [
-            {
-              // 图表
-              path: 'chart',
-              name: 'chart',
-              component: Chart
-            },
-            {
-              // 地图-散点&映射
-              path: 'map-scatter',
-              name: 'mapScatter',
-              component: MapScatter
-            },
-            {
-              // 路线图-北京出租车
-              path: 'lines-beijing',
-              name: 'linesBeijing',
-              component: LinesBeijing
-            },
-            {
-              // 路线图-上海出租车
-              path: 'lines-shanghai',
-              name: 'linesShanghai',
-              component: LinesShanghai
-            },
-            {
-              // 3D路线图-成都出租车
-              path: 'lines-3d-chengdu',
-              name: 'lines3DChengdu',
-              component: Lines3DChengdu
-            },
-            {
-              // 3D路线图-上海出租车
-              path: 'lines-3d-shanghai',
-              name: 'lines3DShanghai',
-              component: Lines3DShanghai
-            }
-          ]
-        },
-        {
-          // 地图
-          path: 'map',
-          name: 'map',
-          component: { render: f => f('router-view') },
-          redirect: 'map/gaode', // 默认
-          children: [
-            {
-              // 高德
-              path: 'gaode',
-              name: 'gaode',
-              component: GDMap
-            }
-          ]
-        },
-        {
-          // 动画
-          path: 'animation',
-          name: 'animation',
-          component: { render: f => f('router-view') },
-          redirect: 'animation/galaxy', // 默认
-          children: [
-            {
-              // 星系
-              path: 'galaxy',
-              name: 'galaxy',
-              component: Galaxy
-            }
-          ]
-        },
-        {
-          // 游戏
-          path: 'game',
-          name: 'game',
-          component: { render: f => f('router-view') },
-          redirect: 'game/snake', // 默认
-          children: [
-            {
-              // 贪吃蛇
-              path: 'snake',
-              name: 'snake',
-              component: Snake
-            }
-          ]
-        },
-        {
-          // 模板
-          path: 'demo',
-          name: 'demo',
-          component: { render: f => f('router-view') },
-          redirect: 'demo/table-page', // 默认
-          children: [
-            {
-              // 表格页
-              path: 'table-page',
-              name: 'tablePage',
-              component: TablePage
-            },
-            {
-              // 表格页-添加
-              path: 'add-page',
-              name: 'addPage',
-              component: DetailsPage
-            },
-            {
-              // 表格页-编辑
-              path: 'details-page/:id',
-              name: 'detailsPage',
-              component: DetailsPage
-            },
-            {
-              // 表格页-详情
-              path: 'edit-page/:id',
-              name: 'editPage',
-              component: EditPage
-            }
-          ]
-        },
-        {
-          // 其他
-          path: 'other',
-          name: 'other',
-          component: { render: f => f('router-view') },
-          redirect: 'other/table', // 默认
-          children: [
-            {
-              // 表格
-              path: 'table',
-              name: 'table',
-              component: Table
-            }
-          ]
-        }
-      ]
+      component: loadView('Main'),
+      children: Modules.concat(Common)
     }
   ]
 });
+
+function loadView(path) {
+  return () => import(/* webpackChunkName: "view-[request]" */ `@/views/common/${path || ''}`);
+}
