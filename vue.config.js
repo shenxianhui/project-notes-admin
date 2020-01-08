@@ -36,7 +36,7 @@ module.exports = {
       // gzip压缩
       pluginsWebpack.push(
         new CompressionWebpackPlugin({
-          asset: '[path].gz[query]', // 目标文件名
+          filename: '[path].gz[query]', // 目标文件名
           algorithm: 'gzip', // 使用gzip压缩
           test: /\.js$|\.html$|\.css/, // 压缩 js html css
           threshold: 10240, // 资源文件大于10240B=10kB时会被压缩
