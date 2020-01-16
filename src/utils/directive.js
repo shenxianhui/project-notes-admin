@@ -7,16 +7,3 @@ Vue.directive('focus', {
     el.focus();
   }
 });
-
-// Element-UI Table 滚动加载 `v-loadmore`
-Vue.directive('loadmore', {
-  bind(el, binding) {
-    const table = el.querySelector('.el-table__body-wrapper');
-    table.addEventListener('scroll', function() {
-      // 距离底部 100px 时触发
-      if (this.scrollHeight - this.scrollTop <= this.clientHeight + 100) {
-        binding.value();
-      }
-    });
-  }
-});
