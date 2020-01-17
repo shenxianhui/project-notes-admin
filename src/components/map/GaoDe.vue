@@ -1,6 +1,10 @@
-/* * @Author: Shen Xianhui * @Date: 2019-07-21 10:52:50 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-07-22 08:58:19 */
-<!-- 高德地图 -->
+<!--
+ * @Author: Shen Xianhui
+ * @Date: 2019-07-21 10:52:50
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-17 09:52:30
+ * @Description: 高德地图
+ -->
 <template>
   <div class="gd-map" id="gd-map" v-loading="loading"></div>
 </template>

@@ -1,11 +1,17 @@
-/* * @Author: Shen Xianhui * @Date: 2019-06-14 09:41:52 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-08-30 14:40:49 */
-<!-- 柱状折线图 -->
+<!--
+ * @Author: Shen Xianhui
+ * @Date: 2019-06-14 09:41:52
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-17 09:50:51
+ * @Description: 柱状折线图
+ -->
 <template>
   <div class="bar-line" :id="id"></div>
 </template>
 
 <script>
+import { grid } from '@/data/common/params';
+
 let axisLineColor = '#666';
 let lineColor = '#00C1DE';
 let linearColor = {
@@ -143,7 +149,7 @@ export default {
   data() {
     return {
       option: {
-        grid: this.$params.grid,
+        grid,
         tooltip: {
           trigger: 'axis',
           axisPointer: {

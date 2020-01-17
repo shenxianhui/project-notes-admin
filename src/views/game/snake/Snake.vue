@@ -1,10 +1,10 @@
 <!--
  * @Author: ShenXianhui
- * @LastEditors: Shen Xianhui
  * @Date: 2019-04-25 08:30:57
- * @LastEditTime: 2019-06-07 09:48:54
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-17 09:34:43
+ * @Description: 贪吃蛇
  -->
-<!-- 贪吃蛇 -->
 <template>
   <div class="snake" ref="snake">
     <div class="map" ref="map"></div>

@@ -213,8 +213,14 @@ export default {
             this.areaName[2] = e.data.name;
             this.map = require(`@/data/map/${e.data.code}`);
             break;
+          // 市/区
           default:
-            // 市/区
+            // 只允许加载浙江省
+            if (e.data.code.slice(0, 2) !== '33') {
+              this.$message.warning('对不起, 仅开放浙江省区域~');
+              return;
+            }
+
             this.areaLevel = 'area';
             this.areaName[3] = e.data.name;
             break;

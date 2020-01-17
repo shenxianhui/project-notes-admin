@@ -2,7 +2,7 @@ export default [
   {
     // 默认
     path: '/',
-    redirect: '/login'
+    redirect: '/echarts/chart'
   },
   {
     // 错误

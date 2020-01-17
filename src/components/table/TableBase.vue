@@ -1,6 +1,10 @@
-/* * @Author: ShenXianhui * @Date: 2019-04-02 08:22:47 * @Last Modified by: ShenXianhui * @Last Modified time:
-2019-04-02 09:07:20 */
-<!-- 表格-首行固定 -->
+<!--
+ * @Author: ShenXianhui
+ * @Date: 2019-04-02 08:22:47
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-17 09:52:56
+ * @Description: 表格-首行固定
+ -->
 <template>
   <div class="table-base">
     <table>

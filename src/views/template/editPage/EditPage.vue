@@ -1,6 +1,10 @@
-/* * @Author: Shen Xianhui * @Date: 2019-06-10 10:49:31 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-07-02 13:37:04 */
-<!-- 模板-编辑页 (element-ui 2.9+) -->
+<!--
+ * @Author: Shen Xianhui
+ * @Date: 2019-06-10 10:49:31
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-17 09:33:09
+ * @Description: 模板-编辑页 (element-ui 2.9+)
+ -->
 <template>
   <div class="edit-page">
     <div class="edit-page-inner">

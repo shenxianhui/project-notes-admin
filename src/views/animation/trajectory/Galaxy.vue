@@ -50,7 +50,7 @@ export default {
   width: 100%;
   height: 100%;
   padding: 0 20px;
-  background: url('~/assets/img/galaxy/globe_bg.png') no-repeat center center;
+  background: url('../../../assets/img/galaxy/globe_bg.png') no-repeat center center;
   background-size: cover;
   overflow: hidden;
   .trajectory {
@@ -58,7 +58,7 @@ export default {
 
     width: 100%;
     height: 95%;
-    background: url('~/assets/img/galaxy/globe_trajectory.png') no-repeat center center;
+    background: url('../../../assets/img/galaxy/globe_trajectory.png') no-repeat center center;
     background-size: contain;
     /* 太阳 */
     .sun {

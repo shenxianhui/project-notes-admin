@@ -1,6 +1,10 @@
-/* * @Author: ShenXianhui * @Date: 2019-03-21 15:35:31 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-07-21 10:05:51 */
-<!-- 导航菜单-顶部 -->
+<!--
+ * @Author: ShenXianhui
+ * @Date: 2019-03-21 15:35:31
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-17 09:35:05
+ * @Description: 导航菜单-顶部
+ -->
 <template>
   <div class="main">
     <!-- 顶部导航 -->

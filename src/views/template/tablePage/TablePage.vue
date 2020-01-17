@@ -1,6 +1,10 @@
-/* * @Author: Shen Xianhui * @Date: 2019-06-07 16:48:54 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-07-08 17:34:41 */
-<!-- 模板-表格页 (element-ui 2.9+) -->
+<!--
+ * @Author: Shen Xianhui
+ * @Date: 2019-06-07 16:48:54
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-17 09:32:52
+ * @Description: 模板-表格页 (element-ui 2.9+)
+ -->
 <template>
   <div class="table-page">
     <div class="table-page-inner">

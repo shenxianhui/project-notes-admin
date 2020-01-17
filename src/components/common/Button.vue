@@ -1,6 +1,10 @@
-/* * @Author: Shen Xianhui * @Date: 2019-06-08 08:35:09 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-06-19 15:26:20 */
-<!-- 按钮公共组件 -->
+<!--
+ * @Author: Shen Xianhui
+ * @Date: 2019-06-08 08:35:09
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-17 09:35:25
+ * @Description: 按钮公共组件
+ -->
 <template>
   <div class="button">
     <!-- 普通按钮 -->

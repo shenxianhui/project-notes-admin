@@ -1,13 +1,16 @@
-/* * @Author: Shen Xianhui * @Date: 2019-07-02 09:34:11 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-07-02 13:46:38 */
-<!-- 模板-详情页 -->
+<!--
+ * @Author: Shen Xianhui
+ * @Date: 2019-07-02 09:34:11
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-17 09:33:30
+ * @Description: 模板-详情页
+ -->
 <template>
   <div class="details-page">
     <!-- 头部 -->
     <div class="det-header">
       <Button label="返回" color="primary-plain" @click="$router.go(-1)"></Button>
     </div>
-
     <!-- 内容 -->
     <div class="det-body">
       <div class="det-body-inner">

@@ -1,11 +1,17 @@
-/* * @Author: Shen Xianhui * @Date: 2019-06-18 15:59:28 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-08-29 13:43:47 */
-<!-- 饼图 -->
+<!--
+ * @Author: Shen Xianhui
+ * @Date: 2019-06-18 15:59:28
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-17 09:52:13
+ * @Description: 饼图
+ -->
 <template>
   <div class="pie" :id="id"></div>
 </template>
 
 <script>
+import { grid } from '@/data/common/params';
+
 export default {
   name: 'Pie',
   components: {},
@@ -49,7 +55,7 @@ export default {
   data() {
     return {
       option: {
-        grid: this.$params.grid,
+        grid,
         tooltip: {
           trigger: 'item' // 触发类型
         },

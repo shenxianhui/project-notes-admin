@@ -1,6 +1,10 @@
-/* * @Author: Shen Xianhui * @Date: 2019-07-21 10:03:53 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-07-22 08:39:51 */
-<!-- 高德地图 -->
+<!--
+ * @Author: Shen Xianhui
+ * @Date: 2019-07-21 10:03:53
+ * @LastEditors  : Wells
+ * @LastEditTime : 2020-01-17 09:34:05
+ * @Description: 高德地图
+ -->
 <template>
   <div class="gaode-map">
     <GaoDe></GaoDe>
