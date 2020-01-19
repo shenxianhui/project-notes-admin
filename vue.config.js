@@ -19,6 +19,18 @@ module.exports = {
           __PROJECTPATH__: JSON.stringify('')
         })
       );
+      // gzip压缩
+      const CompressionWebpackPlugin = require('compression-webpack-plugin');
+      pluginsWebpack.push(
+        new CompressionWebpackPlugin({
+          filename: '[path].gz[query]', // 目标文件名
+          algorithm: 'gzip', // 使用gzip压缩
+          test: /\.js$|\.html$|\.css/, // 压缩 js html css
+          threshold: 10240, // 资源文件大于10240B=10kB时会被压缩
+          minRatio: 0.8, // 最小压缩比达到0.8时才会被压缩
+          deleteOriginalAssets: false // 删除原文件
+        })
+      );
     } else {
       // 为开发环境修改配置...
       pluginsWebpack.push(

@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @Date: 2019-03-21 15:35:31
  * @LastEditors  : Wells
- * @LastEditTime : 2020-01-17 09:35:05
+ * @LastEditTime : 2020-01-19 16:57:45
  * @Description: 导航菜单-顶部
  -->
 <template>
@@ -67,7 +67,7 @@ export default {
   props: {},
   data() {
     return {
-      activeIndex: '0', // 当前选中-顶栏
+      // activeIndex: '0', // 当前选中-顶栏
       isCollapse: false, // 折叠
       activeHeaderMenu: 'echarts', // 顶部选中菜单
       menuList: [], // 菜单
@@ -279,6 +279,15 @@ export default {
   computed: {
     asideActive() {
       return this.$route.path.split('/').pop();
+    },
+    activeIndex() {
+      let num = '0';
+      this.headerList.forEach((item, index) => {
+        if (item.value === this.$route.path.split('/')[1]) {
+          num = index + '';
+        }
+      })
+      return num;
     }
   },
   watch: {},
