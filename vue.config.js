@@ -26,7 +26,6 @@ module.exports = {
     ];
     if (process.env.NODE_ENV === 'production') {
       // 生产环境
-      const CompressionWebpackPlugin = require('compression-webpack-plugin');
       // 使用DefinePlugin暴露的全局变量，需要在eslintrc.js的globals里设置
       pluginsWebpack.push(
         new webpack.DefinePlugin({
@@ -34,6 +33,7 @@ module.exports = {
         })
       );
       // gzip压缩
+      const CompressionWebpackPlugin = require('compression-webpack-plugin');
       pluginsWebpack.push(
         new CompressionWebpackPlugin({
           filename: '[path].gz[query]', // 目标文件名
