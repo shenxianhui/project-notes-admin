@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @Date: 2019-04-25 08:30:57
  * @LastEditors  : Wells
- * @LastEditTime : 2020-02-01 12:31:18
+ * @LastEditTime : 2020-02-01 17:46:07
  * @Description: 贪吃蛇
  -->
 <template>
@@ -60,17 +60,7 @@ export default {
     window.removeEventListener('keydown', this.keyboard);
   },
   methods: {
-    // 设置地图大小
-    setMap() {
-      let map = this.$refs.map;
-      let snakeW = this.snakeParts.width;
-      let snakeH = this.snakeParts.height;
-      let borderX = (map.clientWidth - Math.floor(map.clientWidth / snakeW) * snakeW) / 2 + 'px';
-      let borderY = (map.clientHeight - Math.floor(map.clientHeight / snakeH) * snakeH) / 2 + 'px';
-
-      this.$refs.snake.style.padding = borderY + ' ' + borderX;
-    },
-
+    // 游戏初始化
     initGame() {
       if (this.timer) {
         clearInterval(this.timer);
@@ -86,6 +76,17 @@ export default {
       this.setMap();
       this.createSnake();
       this.createFood();
+    },
+
+    // 设置地图大小
+    setMap() {
+      let map = this.$refs.map;
+      let snakeW = this.snakeParts.width;
+      let snakeH = this.snakeParts.height;
+      let borderX = (map.clientWidth - Math.floor(map.clientWidth / snakeW) * snakeW) / 2 + 'px';
+      let borderY = (map.clientHeight - Math.floor(map.clientHeight / snakeH) * snakeH) / 2 + 'px';
+
+      this.$refs.snake.style.padding = borderY + ' ' + borderX;
     },
 
     // 创建🐍
@@ -122,16 +123,16 @@ export default {
       this.snakeList = [];
       for (let i = this.snake.length - 1; i > 0; i--) {
         // 先让数组末位等于前一位
-        // 记录蛇的区域, 避免食物位置与蛇重合
+        this.snake[i].style.left = this.snake[i - 1].offsetLeft + 'px';
+        this.snake[i].style.top = this.snake[i - 1].offsetTop + 'px';
+        // 记录蛇的区域
         let snakePosition = {
           left: this.snake[i].offsetLeft,
           top: this.snake[i].offsetTop
         };
         this.snakeList.push(snakePosition);
-
-        this.snake[i].style.left = this.snake[i - 1].offsetLeft + 'px';
-        this.snake[i].style.top = this.snake[i - 1].offsetTop + 'px';
       }
+      // 添加蛇头
       this.snakeList.push(this.initialPosition);
 
       // 蛇头(数组首项)移动
@@ -141,6 +142,7 @@ export default {
         case 37: // ←
           if (this.initialPosition.left === 0) {
             alert('游戏结束');
+            this.keyNumber = 0;
             this.initGame();
             return;
           }
@@ -150,6 +152,7 @@ export default {
         case 38: // ↑
           if (this.initialPosition.top === 0) {
             alert('游戏结束');
+            this.keyNumber = 0;
             this.initGame();
             return;
           }
@@ -159,6 +162,7 @@ export default {
         case 39: // →
           if (this.initialPosition.left + this.snakeParts.width >= mapWidth) {
             alert('游戏结束');
+            this.keyNumber = 0;
             this.initGame();
             return;
           }
@@ -168,6 +172,7 @@ export default {
         case 40: // ↓
           if (this.initialPosition.top + this.snakeParts.height >= mapHeight) {
             alert('游戏结束');
+            this.keyNumber = 0;
             this.initGame();
             return;
           }
@@ -175,6 +180,22 @@ export default {
           this.snake[0].style.top = this.initialPosition.top + 'px';
           break;
       }
+
+      // 判断蛇头是否撞到蛇身
+      let isCollision = false;
+      this.snakeList.forEach(item => {
+        if (JSON.stringify(item) === JSON.stringify(this.initialPosition)) {
+          // 判断蛇头与蛇身的坐标是否有一样的
+          if (!isCollision) {
+            isCollision = true;
+          } else {
+            alert('游戏结束1');
+            this.keyNumber = 0;
+            this.initGame();
+            return;
+          }
+        }
+      });
     },
 
     // 创建食物
@@ -199,27 +220,31 @@ export default {
       item.style.backgroundColor = str;
       this.foodPosition.left = randomL;
       this.foodPosition.top = randomT;
-
       this.food = item;
       this.$refs.map.appendChild(item);
     },
 
     // 键盘事件
     keyboard(e) {
+      if (e.keyCode !== 37 && e.keyCode !== 38 && e.keyCode !== 39 && e.keyCode !== 40) return;
       let _keyNumber = this.keyNumber;
-
+      // 禁止直上直下, 直左直右
+      if (_keyNumber === 37 && e.keyCode === 39) return;
+      if (_keyNumber === 38 && e.keyCode === 40) return;
+      if (_keyNumber === 39 && e.keyCode === 37) return;
+      if (_keyNumber === 40 && e.keyCode === 38) return;
       this.keyNumber = e.keyCode;
       // 防止重复点击
-      if (this.keyNumber !== _keyNumber) {
-        if (this.timer) {
-          clearInterval(this.timer);
-          this.timer = null;
-        }
-        this.snakeMove(); // 立即执行
-        this.timer = setInterval(() => {
-          this.snakeMove();
-        }, 100);
+      if (this.keyNumber === _keyNumber) return;
+
+      if (this.timer) {
+        clearInterval(this.timer);
+        this.timer = null;
       }
+      this.snakeMove(); // 立即执行
+      this.timer = setInterval(() => {
+        this.snakeMove();
+      }, 100);
     }
   }
 };
