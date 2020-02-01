@@ -2,7 +2,7 @@
  * @Author: ShenXianhui
  * @Date: 2019-03-21 15:35:31
  * @LastEditors  : Wells
- * @LastEditTime : 2020-01-19 16:57:45
+ * @LastEditTime : 2020-02-01 11:27:17
  * @Description: 导航菜单-顶部
  -->
 <template>
@@ -322,8 +322,8 @@ export default {
     setLogo() {
       let str = '#';
 
-      for (let i = 0; i < 3; i++) {
-        let num = Math.floor(Math.random() * 16);
+      for (let i = 0; i < 6; i++) {
+        let num = Math.floor(Math.random() * 10);
         str += num;
       }
       this.$refs.logo.style.color = str;
