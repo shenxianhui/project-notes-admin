@@ -1,10 +1,18 @@
 const webpack = require('webpack');
 
 module.exports = {
+  pages: {
+    index: {
+      entry: './src/main.js',
+      template: './public/index.html',
+      filename: 'index.html'
+    }
+  },
   // eslint-loader 是否在保存的时候检查
   lintOnSave: false,
   // 生产环境是否生成 sourceMap 文件，一般情况不建议打开
   productionSourceMap: false,
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   chainWebpack: config => {
     // [移除 prefetch 插件](https://cli.vuejs.org/zh/guide/html-and-static-assets.html#prefetch)
     config.plugins.delete('prefetch');
@@ -18,7 +26,6 @@ module.exports = {
     ];
     if (process.env.NODE_ENV === 'production') {
       // 生产环境
-      const CompressionWebpackPlugin = require('compression-webpack-plugin');
       // 使用DefinePlugin暴露的全局变量，需要在eslintrc.js的globals里设置
       pluginsWebpack.push(
         new webpack.DefinePlugin({
@@ -26,9 +33,10 @@ module.exports = {
         })
       );
       // gzip压缩
+      const CompressionWebpackPlugin = require('compression-webpack-plugin');
       pluginsWebpack.push(
         new CompressionWebpackPlugin({
-          asset: '[path].gz[query]', // 目标文件名
+          filename: '[path].gz[query]', // 目标文件名
           algorithm: 'gzip', // 使用gzip压缩
           test: /\.js$|\.html$|\.css/, // 压缩 js html css
           threshold: 10240, // 资源文件大于10240B=10kB时会被压缩
