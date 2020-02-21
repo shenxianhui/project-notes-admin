@@ -1,8 +1,8 @@
 <!--
  * @Author: ShenXianhui
  * @Date: 2019-04-25 08:30:57
- * @LastEditors  : Wells
- * @LastEditTime : 2020-02-01 17:46:07
+ * @LastEditors: Wells
+ * @LastEditTime: 2020-02-21 17:41:18
  * @Description: 贪吃蛇
  -->
 <template>
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { debounce } from '@/utils/utils.js';
+
 export default {
   name: 'Snake',
   components: {},
@@ -51,6 +53,7 @@ export default {
     // this.createFood();
     this.initGame();
     window.addEventListener('keydown', this.keyboard);
+    window.addEventListener('resize', debounce(this.initGame));
   },
   destroyed() {
     if (this.timer) {
@@ -58,6 +61,7 @@ export default {
       this.timer = null;
     }
     window.removeEventListener('keydown', this.keyboard);
+    window.removeEventListener('resize', this.initGame);
   },
   methods: {
     // 游戏初始化
@@ -107,7 +111,7 @@ export default {
     },
 
     // 移动
-    snakeMove() {
+    snakeMove(isAlert) {
       // 判断蛇头是否能吃到食物
       if (JSON.stringify(this.initialPosition) === JSON.stringify(this.foodPosition)) {
         // 将食物放到蛇尾位置
@@ -141,7 +145,7 @@ export default {
       switch (this.keyNumber) {
         case 37: // ←
           if (this.initialPosition.left === 0) {
-            alert('游戏结束');
+            if (isAlert) alert('游戏结束');
             this.keyNumber = 0;
             this.initGame();
             return;
@@ -151,7 +155,7 @@ export default {
           break;
         case 38: // ↑
           if (this.initialPosition.top === 0) {
-            alert('游戏结束');
+            if (isAlert) alert('游戏结束');
             this.keyNumber = 0;
             this.initGame();
             return;
@@ -161,7 +165,7 @@ export default {
           break;
         case 39: // →
           if (this.initialPosition.left + this.snakeParts.width >= mapWidth) {
-            alert('游戏结束');
+            if (isAlert) alert('游戏结束');
             this.keyNumber = 0;
             this.initGame();
             return;
@@ -171,7 +175,7 @@ export default {
           break;
         case 40: // ↓
           if (this.initialPosition.top + this.snakeParts.height >= mapHeight) {
-            alert('游戏结束');
+            if (isAlert) alert('游戏结束');
             this.keyNumber = 0;
             this.initGame();
             return;
@@ -189,7 +193,7 @@ export default {
           if (!isCollision) {
             isCollision = true;
           } else {
-            alert('游戏结束1');
+            if (isAlert) alert('游戏结束');
             this.keyNumber = 0;
             this.initGame();
             return;
@@ -241,9 +245,9 @@ export default {
         clearInterval(this.timer);
         this.timer = null;
       }
-      this.snakeMove(); // 立即执行
+      this.snakeMove(false); // 立即执行
       this.timer = setInterval(() => {
-        this.snakeMove();
+        this.snakeMove(true);
       }, 100);
     }
   }

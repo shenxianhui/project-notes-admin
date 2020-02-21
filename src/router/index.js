@@ -14,12 +14,12 @@ export default new VueRouter({
     {
       path: '/',
       name: 'main',
-      component: loadView('Main'),
+      component: loadView('index'),
       children: Modules.concat(Common)
     }
   ]
 });
 
 function loadView(path) {
-  return () => import(/* webpackChunkName: "view-[request]" */ `@/views/common/${path || ''}`);
+  return () => import(/* webpackChunkName: "view-[request]" */ `@/views/layout/${path || ''}`);
 }

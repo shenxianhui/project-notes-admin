@@ -1,6 +1,11 @@
-/* * @Author: Shen Xianhui * @Date: 2019-04-23 15:02:52 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-06-07 16:52:03 */
-<!-- 星系 -->
+<!--
+ * @Author: Shen Xianhui
+ * @Date: 2019-04-23 15:02:52
+ * @LastEditors: Wells
+ * @LastEditTime: 2020-02-21 16:30:41
+ * @Description: 星系
+ -->
+
 <template>
   <div class="galaxy">
     <div class="trajectory">

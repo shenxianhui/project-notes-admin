@@ -1,16 +1,18 @@
 <!--
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
- * @LastEditors  : Wells
- * @LastEditTime : 2020-01-17 09:50:51
+ * @LastEditors: Wells
+ * @LastEditTime: 2020-02-21 16:31:24
  * @Description: 柱状折线图
  -->
+
 <template>
   <div class="bar-line" :id="id"></div>
 </template>
 
 <script>
 import { grid } from '@/data/common/params';
+import { debounce } from '@/utils/utils.js';
 
 let axisLineColor = '#666';
 let lineColor = '#00C1DE';
@@ -230,6 +232,10 @@ export default {
   watch: {},
   mounted() {
     this.initChart();
+    window.addEventListener('resize', debounce(this.initChart));
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.initChart);
   },
   methods: {
     // 销毁图表实例, 防止内存泄漏

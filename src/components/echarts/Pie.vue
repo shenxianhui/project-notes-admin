@@ -1,8 +1,8 @@
 <!--
  * @Author: Shen Xianhui
  * @Date: 2019-06-18 15:59:28
- * @LastEditors  : Wells
- * @LastEditTime : 2020-01-17 09:52:13
+ * @LastEditors: Wells
+ * @LastEditTime: 2020-02-21 16:26:44
  * @Description: 饼图
  -->
 <template>
@@ -11,6 +11,7 @@
 
 <script>
 import { grid } from '@/data/common/params';
+import { debounce } from '@/utils/utils.js';
 
 export default {
   name: 'Pie',
@@ -77,6 +78,10 @@ export default {
   watch: {},
   mounted() {
     this.initChart();
+    window.addEventListener('resize', debounce(this.initChart));
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.initChart);
   },
   methods: {
     // 销毁图表实例, 防止内存泄漏

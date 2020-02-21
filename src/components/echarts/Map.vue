@@ -1,8 +1,8 @@
 <!--
  * @Author: Shen Xianhui
  * @Date: 2019-06-19 08:20:07
- * @LastEditors  : Wells
- * @LastEditTime : 2020-01-07 21:24:45
+ * @LastEditors: Wells
+ * @LastEditTime: 2020-02-21 16:26:23
  * @Description: 地图
  -->
 <template>
@@ -14,6 +14,7 @@
 
 <script>
 import China from '@/data/map/100000';
+import { debounce } from '@/utils/utils.js';
 
 export default {
   name: 'Map',
@@ -166,6 +167,10 @@ export default {
   },
   mounted() {
     this.initMap();
+    window.addEventListener('resize', debounce(this.initMap));
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.initMap);
   },
   methods: {
     // 销毁图表实例, 防止内存泄漏
