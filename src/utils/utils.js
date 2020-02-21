@@ -212,7 +212,7 @@ let getRangeTime = (startTime, endTime) => {
 
 // 防抖 | 节流 (多用于搜索页表单延时提交)
 // 示例: debounce(val => { console.log(val) }, 1000);
-let debounce = (func, delay = 500) => {
+let debounce = (fn, time = 500) => {
   // 回调函数: Function, 毫秒数: Number
   let timer;
   return function(...args) {
@@ -221,8 +221,8 @@ let debounce = (func, delay = 500) => {
       timer = null;
     }
     timer = setTimeout(() => {
-      func.apply(this, args);
-    }, delay);
+      fn.apply(this, args);
+    }, time);
   };
 };
 
