@@ -2,7 +2,7 @@
  * @Author: Wells
  * @Date: 2020-02-21 11:01:43
  * @LastEditors: Wells
- * @LastEditTime: 2020-02-21 17:03:38
+ * @LastEditTime: 2020-02-24 16:07:06
  * @Description: 导航列表
  */
 
@@ -37,13 +37,13 @@ const menus = [
     value: 'template',
     url: 'template',
     list: 'templateList'
-  },
-  {
-    label: '算法',
-    value: 'algorithm',
-    url: 'algorithm',
-    list: 'algorithmList'
   }
+  // {
+  //   label: '算法',
+  //   value: 'algorithm',
+  //   url: 'algorithm',
+  //   list: 'algorithmList'
+  // }
 ];
 
 // 侧边导航列表

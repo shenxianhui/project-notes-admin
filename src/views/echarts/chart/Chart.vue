@@ -1,8 +1,8 @@
 <!--
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:34:37
- * @LastEditors  : Wells
- * @LastEditTime : 2020-01-07 21:24:12
+ * @LastEditors: Wells
+ * @LastEditTime: 2020-02-23 10:11:50
  * @Description: 图表
  -->
 <template>
@@ -18,7 +18,7 @@
           :series-type="barOption.seriesType"
           :series-data-bar="mapData"
           :series-data-line="mapData"
-          :series-dataline-a="mapData"
+          :series-data-line-a="mapData"
           @click="handleClickBar"
         >
         </xx-bar-line>
