@@ -1,8 +1,8 @@
 <!--
  * @Author: Shen Xianhui
  * @Date: 2019-06-07 16:48:54
- * @LastEditors  : Wells
- * @LastEditTime : 2020-01-17 09:32:52
+ * @LastEditors: 慕言
+ * @LastEditTime: 2020-03-24 09:22:16
  * @Description: 模板-表格页 (element-ui 2.9+)
  -->
 <template>
@@ -16,7 +16,7 @@
               <el-input v-model="form.text" clearable placeholder="请输入"></el-input>
             </el-form-item>
             <el-form-item label="选择下拉框" prop="select">
-              <el-select v-model="form.select" clearable placeholder="请输入">
+              <el-select v-model="form.select" clearable placeholder="请选择">
                 <el-option label="选项一" value="1"></el-option>
                 <el-option label="选项二" value="2"></el-option>
                 <el-option label="选项三" value="3"></el-option>
@@ -66,16 +66,16 @@
             </el-form-item>
             <el-form-item label="单选" prop="radio">
               <el-radio-group v-model="form.radio">
-                <el-radio label="1">选项一</el-radio>
-                <el-radio label="2">选项二</el-radio>
-                <el-radio label="3">选项三</el-radio>
+                <el-radio label="选项一"></el-radio>
+                <el-radio label="选项二"></el-radio>
+                <el-radio label="选项三"></el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="多选" prop="checkbox">
               <el-checkbox-group v-model="form.checkbox">
-                <el-checkbox label="1">选项一</el-checkbox>
-                <el-checkbox label="2">选项二</el-checkbox>
-                <el-checkbox label="3">选项三</el-checkbox>
+                <el-checkbox label="选项一"></el-checkbox>
+                <el-checkbox label="选项二"></el-checkbox>
+                <el-checkbox label="选项三"></el-checkbox>
               </el-checkbox-group>
             </el-form-item>
             <div class="table-search-buttons">
