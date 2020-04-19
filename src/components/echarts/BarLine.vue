@@ -1,8 +1,8 @@
 <!--
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
- * @LastEditors: Wells
- * @LastEditTime: 2020-02-21 16:31:24
+ * @LastEditors: shenxh
+ * @LastEditTime: 2020-04-12 10:46:22
  * @Description: 柱状折线图
  -->
 
@@ -278,6 +278,7 @@ export default {
     setChart() {
       let seriesData = [];
 
+      /* 深拷贝 */
       let _seriesBar = JSON.parse(JSON.stringify(seriesBar));
       let _seriesLine = JSON.parse(JSON.stringify(seriesLine));
       let _seriesLine1 = JSON.parse(JSON.stringify(seriesLine));
