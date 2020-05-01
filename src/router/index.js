@@ -1,41 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import RouterConfig from './modules';
+import CommonRouters from './common';
 
 Vue.use(VueRouter);
 
 export default new VueRouter({
-  mode: 'history',
-  routes: [
-    // 默认
-    {
-      path: '/',
-      redirect: '/main/home'
-    },
-    // 错误
-    {
-      path: '*',
-      name: 'error',
-      component: loadView('Error')
-    },
-    {
-      path: '/main',
-      component: { render: f => f('router-view') },
-      children: [
-        {
-          path: 'home',
-          name: 'home',
-          component: loadView('Home')
-        },
-        {
-          path: 'about',
-          name: 'about',
-          component: loadView('About')
-        }
-      ]
-    }
-  ]
+  mode: 'history', // 需要服务端支持
+  // scrollBehavior: () => ({ y: 0 }),
+  routes: RouterConfig.concat(CommonRouters)
 });
-
-function loadView(path) {
-  return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`);
-}
