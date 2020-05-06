@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-06-14 09:41:52
  * @LastEditors: shenxh
- * @LastEditTime: 2020-04-12 10:46:22
+ * @LastEditTime: 2020-04-25 10:56:29
  * @Description: 柱状折线图
  -->
 
@@ -100,16 +100,16 @@ export default {
       type: Array,
       default: () => [
         // {
-        //     name: 'X1',
-        //     value: 6
+        //   name: 'X1',
+        //   value: 6
         // },
         // {
-        //     name: 'X2',
-        //     value: 2
+        //   name: 'X2',
+        //   value: 2
         // },
         // {
-        //     name: 'X3',
-        //     value: 9
+        //   name: 'X3',
+        //   value: 9
         // }
       ]
     },
@@ -117,16 +117,16 @@ export default {
       type: Array,
       default: () => [
         // {
-        //     name: 'X1',
-        //     value: 5
+        //   name: 'X1',
+        //   value: 5
         // },
         // {
-        //     name: 'X2',
-        //     value: 1
+        //   name: 'X2',
+        //   value: 1
         // },
         // {
-        //     name: 'X3',
-        //     value: 8
+        //   name: 'X3',
+        //   value: 8
         // }
       ]
     },
@@ -134,16 +134,16 @@ export default {
       type: Array,
       default: () => [
         // {
-        //     name: 'X1',
-        //     value: 2
+        //   name: 'X1',
+        //   value: 2
         // },
         // {
-        //     name: 'X2',
-        //     value: 0
+        //   name: 'X2',
+        //   value: 0
         // },
         // {
-        //     name: 'X3',
-        //     value: 3
+        //   name: 'X3',
+        //   value: 3
         // }
       ]
     }

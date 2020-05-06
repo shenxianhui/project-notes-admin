@@ -1,6 +1,11 @@
-/* * @Author: Shen Xianhui * @Date: 2019-06-05 10:54:25 * @Last Modified by: Shen Xianhui * @Last Modified time:
-2019-09-04 17:02:29 */
-<!-- 地图-散点&映射 -->
+<!--
+ * @Author: shenxh
+ * @Date: 2019-06-05 10:54:25
+ * @LastEditors: shenxh
+ * @LastEditTime: 2020-05-06 15:44:06
+ * @Description: 地图-散点&映射
+ -->
+
 <template>
   <div class="container">
     <span v-show="areaLevel !== 'country'" @click="back()">返回上级</span>
@@ -58,7 +63,7 @@ export default {
         },
         geo: {
           show: true,
-          map: 'China', // 要与 `registerMap()` 的第一个参数对应
+          map: 'china', // 要与 `registerMap()` 的第一个参数对应 'china' 会显示南海诸岛
           roam: true, // 鼠标缩放+平移
           selectedMode: 'single', // 选中
           label: {
@@ -107,7 +112,7 @@ export default {
         series: [
           {
             type: 'map',
-            map: 'China', // 要与 `registerMap()` 的第一个参数对应
+            // map: 'china', // 要与 `registerMap()` 的第一个参数对应
             geoIndex: 0, // 共享 geo 样式
             data: []
           },
@@ -165,7 +170,8 @@ export default {
       let maxNum = 0;
 
       // 注册地图
-      this.$echarts.registerMap(this.option.series[0].map, this.map);
+      // this.$echarts.registerMap(this.option.series[0].map, this.map);
+      this.$echarts.registerMap(this.option.geo.map, this.map);
 
       // 计算视觉映射 max
       this.option.series[0].data.forEach(item => {

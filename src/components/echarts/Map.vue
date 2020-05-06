@@ -1,8 +1,8 @@
 <!--
  * @Author: Shen Xianhui
  * @Date: 2019-06-19 08:20:07
- * @LastEditors: Wells
- * @LastEditTime: 2020-02-21 16:26:23
+ * @LastEditors: shenxh
+ * @LastEditTime: 2020-05-06 15:35:48
  * @Description: 地图
  -->
 <template>
@@ -81,7 +81,7 @@ export default {
         },
         geo: {
           show: true,
-          map: 'China', // 要与 `registerMap()` 的第一个参数对应
+          map: 'china', // 要与 `registerMap()` 的第一个参数对应 'china' 会显示南海诸岛
           roam: true, // 鼠标缩放+平移
           selectedMode: 'single', // 选中
           label: {
@@ -130,7 +130,7 @@ export default {
         series: [
           {
             type: 'map',
-            map: 'China', // 要与 `registerMap()` 的第一个参数对应
+            // map: 'china',
             geoIndex: 0, // 共享 geo 样式
             data: []
           },
@@ -175,7 +175,7 @@ export default {
   methods: {
     // 销毁图表实例, 防止内存泄漏
     destroyChart() {
-      let chart = this.$echarts.getInstanceByDom(document.getElementById('map'));
+      let chart = this.$echarts.getInstanceByDom(document.getElementById(this.id));
 
       if (chart) {
         chart.clear(); // 释放图形资源
@@ -189,11 +189,12 @@ export default {
       this.destroyChart();
       this.getMap();
 
-      let myChart = this.$echarts.init(document.getElementById('map'));
+      let myChart = this.$echarts.init(document.getElementById(this.id));
       let maxNum = 0;
 
       // 注册地图
-      this.$echarts.registerMap(this.option.series[0].map, this.map);
+      // this.$echarts.registerMap(this.option.series[0].map, this.map);
+      this.$echarts.registerMap(this.option.geo.map, this.map);
 
       // 计算视觉映射 max
       this.option.series[0].data.forEach(item => {

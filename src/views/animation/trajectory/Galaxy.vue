@@ -1,8 +1,8 @@
 <!--
  * @Author: Shen Xianhui
  * @Date: 2019-04-23 15:02:52
- * @LastEditors: Wells
- * @LastEditTime: 2020-02-21 16:30:41
+ * @LastEditors: shenxh
+ * @LastEditTime: 2020-04-19 17:18:46
  * @Description: 星系
  -->
 
@@ -95,6 +95,7 @@ export default {
         height: 50px;
       }
     }
+    /* 注: 如果调整初始位置的话, 只需将 animation 延迟同时减相同秒数即可 */
     /* 水星 */
     .mercury {
       @keyframes mercuryL {
@@ -127,9 +128,8 @@ export default {
           z-index: 4;
         }
       }
-      animation:
-                /* 周期 速度曲线 延迟 播放次数 反向播放 */ mercuryL 2s cubic-bezier(0.36, 0, 0.64, 1) 0s
-          infinite alternate,
+      /* 周期 速度曲线 延迟 播放次数 反向播放 */
+      animation: mercuryL 2s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
         mercuryT 2s cubic-bezier(0.36, 0, 0.64, 1) -1s infinite alternate,
         mercuryS 4s cubic-bezier(0.36, 0, 0.64, 1) -1s infinite alternate;
     }
@@ -177,9 +177,8 @@ export default {
           z-index: 3;
         }
       }
-      animation:
-                /* 周期 速度曲线 延迟 播放次数 反向播放 */ venusL 3s cubic-bezier(0.36, 0, 0.64, 1) 0s
-          infinite alternate,
+      /* 周期 速度曲线 延迟 播放次数 反向播放 */
+      animation: venusL 3s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
         venusT 3s cubic-bezier(0.36, 0, 0.64, 1) -1.5s infinite alternate,
         venusS 6s cubic-bezier(0.36, 0, 0.64, 1) -1.5s infinite alternate;
     }
@@ -215,9 +214,8 @@ export default {
           z-index: 3;
         }
       }
-      animation:
-                /* 周期 速度曲线 延迟 播放次数 反向播放 */ earthL 6s cubic-bezier(0.36, 0, 0.64, 1) 0s
-          infinite alternate,
+      /* 周期 速度曲线 延迟 播放次数 反向播放 */
+      animation: earthL 6s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
         earthT 6s cubic-bezier(0.36, 0, 0.64, 1) -3s infinite alternate,
         earthS 12s cubic-bezier(0.36, 0, 0.64, 1) -3s infinite alternate;
     }
@@ -253,9 +251,8 @@ export default {
           z-index: 4;
         }
       }
-      animation:
-                /* 周期 速度曲线 延迟 播放次数 反向播放 */ marsL 10s cubic-bezier(0.36, 0, 0.64, 1) 0s
-          infinite alternate,
+      /* 周期 速度曲线 延迟 播放次数 反向播放 */
+      animation: marsL 10s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
         marsT 10s cubic-bezier(0.36, 0, 0.64, 1) -5s infinite alternate,
         marsS 20s cubic-bezier(0.36, 0, 0.64, 1) -5s infinite alternate;
     }
@@ -291,9 +288,8 @@ export default {
           z-index: 0;
         }
       }
-      animation:
-                /* 周期 速度曲线 延迟 播放次数 反向播放 */ jupiterL 12s cubic-bezier(0.36, 0, 0.64, 1)
-          0s infinite alternate,
+      /* 周期 速度曲线 延迟 播放次数 反向播放 */
+      animation: jupiterL 12s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
         jupiterT 12s cubic-bezier(0.36, 0, 0.64, 1) -6s infinite alternate,
         jupiterS 24s cubic-bezier(0.36, 0, 0.64, 1) -6s infinite alternate;
     }
@@ -329,9 +325,8 @@ export default {
           z-index: 0;
         }
       }
-      animation:
-                /* 周期 速度曲线 延迟 播放次数 反向播放 */ saturnL 15s cubic-bezier(0.36, 0, 0.64, 1) 0s
-          infinite alternate,
+      /* 周期 速度曲线 延迟 播放次数 反向播放 */
+      animation: saturnL 15s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
         saturnT 15s cubic-bezier(0.36, 0, 0.64, 1) -7.5s infinite alternate,
         saturnS 30s cubic-bezier(0.36, 0, 0.64, 1) -7.5s infinite alternate;
     }
