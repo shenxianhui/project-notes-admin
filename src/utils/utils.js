@@ -215,7 +215,7 @@ let getRangeTime = (startTime, endTime) => {
 let debounce = (fn, time = 500) => {
   // 回调函数: Function, 毫秒数: Number
   let timer;
-  return function(...args) {
+  return function (...args) {
     if (timer) {
       clearTimeout(timer);
       timer = null;
@@ -274,8 +274,8 @@ let calculateLineDistance = (start, end) => {
   arrayOfDouble2.push(d11);
   let d14 = Math.sqrt(
     (arrayOfDouble1[0] - arrayOfDouble2[0]) * (arrayOfDouble1[0] - arrayOfDouble2[0]) +
-      (arrayOfDouble1[1] - arrayOfDouble2[1]) * (arrayOfDouble1[1] - arrayOfDouble2[1]) +
-      (arrayOfDouble1[2] - arrayOfDouble2[2]) * (arrayOfDouble1[2] - arrayOfDouble2[2])
+    (arrayOfDouble1[1] - arrayOfDouble2[1]) * (arrayOfDouble1[1] - arrayOfDouble2[1]) +
+    (arrayOfDouble1[2] - arrayOfDouble2[2]) * (arrayOfDouble1[2] - arrayOfDouble2[2])
   );
 
   return Math.asin(d14 / 2.0) * 12742001.579854401;
@@ -308,6 +308,32 @@ let getMoblieFormat = val => {
   return result.join('');
 };
 
+/**
+ * @description: Echarts 数据处理: 将数组里每个对象的 key 和 value 分开展示
+ * @param {Object} data {2020: 100, 2021: 200}
+ * @param {Array} keysName 指定对象的 key
+ * @return: [{name: 2020, value: 100}, {name: 2021, value: 200}]
+ */
+const chartData = (data, isSort = true, keysName = ['name', 'value']) => {
+  let arr = Object.entries(data);
+  let list = arr.map(item => {
+    let param = {};
+    param[keysName[0]] = item[0];
+    param[keysName[1]] = item[1];
+    return param;
+  });
+  if (isSort) {
+    let sortList = list.sort((a, b) => {
+      let _a = timeToTimestamp(a['name']);
+      let _b = timeToTimestamp(b['name']);
+      return _a - _b;
+    });
+    return sortList;
+  } else {
+    return list;
+  }
+};
+
 export {
   platformName,
   getCurrentDate,
@@ -322,5 +348,6 @@ export {
   getQueryString,
   calculateLineDistance,
   remToPx,
-  getMoblieFormat
+  getMoblieFormat,
+  chartData
 };
