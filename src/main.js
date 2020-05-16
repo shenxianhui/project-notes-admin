@@ -3,7 +3,6 @@ import App from './App.vue';
 import Router from './router';
 import Store from './store';
 import './style/common.less';
-// import '@/config/rem'; // 移动端引入
 
 Vue.config.productionTip = false;
 
