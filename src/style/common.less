@@ -2,7 +2,7 @@
  * @Author: Wells
  * @Date: 2019-11-18 10:06:42
  * @LastEditors: shenxh
- * @LastEditTime: 2020-05-16 18:15:21
+ * @LastEditTime: 2020-05-24 13:25:22
  * @Description: 通用样式
  */
 /* 引入处理兼容性的公共样式 */
@@ -14,19 +14,9 @@
 html {
   width: 100vw;
   height: 100vh;
-  // font-size: 100 / 750 * 2 * 100vw; // 根字体(通常750px设计稿为100px) / 设计稿尺寸 * 2(计算时就不需要再除以2了) * 100vw
-}
-body {
-  width: 100vw;
-  height: 100vh;
-  padding: 0;
-  margin: 0;
-	// font-size: 0.14rem;
-	font-size: 14px;
-	color: #000;
-  background: #fff;
+  // font-size: 100 / 750 * 2 * 100vw; // 根字体(通常750px设计稿为100px) / 设计稿尺寸 * 2 * 100vw
   user-select: none; // 禁用页面内容选中和复制操作
-	-webkit-overflow-scrolling: touch; /* Safari 平滑滚动 */
+  -webkit-overflow-scrolling: touch; /* Safari 平滑滚动 */
   /* 滚动条样式 */
   ::-webkit-scrollbar {
     width: 5px;
@@ -46,6 +36,16 @@ body {
   ::-webkit-scrollbar-thumb:horizontal:hover {
     background: #555555;
   }
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  // font-size: 0.14rem;
+  font-size: 14px;
+  color: #000;
+  background: #fff;
 }
 ul,
 li {
