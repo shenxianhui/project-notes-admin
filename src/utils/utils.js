@@ -1,6 +1,6 @@
 // 区分 Android 和 iOS
 // 示例: platformName(); // 'ios'|'android'|''
-let platformName = () => {
+const platformName = () => {
   let platform = '';
   let u = navigator.userAgent;
   let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
@@ -15,7 +15,7 @@ let platformName = () => {
 
 // 获取当前日期详细信息
 // 示例: getCurrentDate(); // { key: val, ... }
-let getCurrentDate = () => {
+const getCurrentDate = () => {
   let myDate = new Date();
   let year = myDate.getFullYear().toString();
   let month = myDate.getMonth() < 9 ? `0${myDate.getMonth() + 1}` : (myDate.getMonth() + 1).toString();
@@ -50,7 +50,7 @@ let getCurrentDate = () => {
 
 // 日期相互加减
 // 示例: DateMinus('2019-11-20 00:00:00', '2019-11-26 00:00:00'); // 6
-let DateMinus = (date1, date2, type = 'date') => {
+const DateMinus = (date1, date2, type = 'date') => {
   // 日期(前): String, 日期(后): String, 转换类型(year-年|month-月|date-日|hour-时|minute-分|second-秒|milliseconds-毫秒): String
   let sdate = new Date(date1);
   let now = new Date(date2);
@@ -93,7 +93,7 @@ let DateMinus = (date1, date2, type = 'date') => {
 
 // 日期计算 (天)
 // 示例: computeDate('2019-11-26', -100); // '2019-08-18'
-let computeDate = (date, days) => {
+const computeDate = (date, days) => {
   // 日期: String, 天数: Number|String
   let myDate = new Date(date);
   myDate.setDate(myDate.getDate() + Number(days));
@@ -141,58 +141,110 @@ let getAWeek = days => {
   return dateArr;
 };
 
-// 日期格式化
-// 示例: formatDate('2019/11/26 11:12:13'); // '2019-11-26 11:12:13'
-let formatDate = (date, isTime = false) => {
-  // 日期: String, 是否包含时间: Boolean (默认false)
-  let dateNew = new Date(String(date).replace(/-/g, '/'));
-  let y = dateNew.getFullYear();
-  let m = dateNew.getMonth() + 1;
-  m = m < 10 ? '0' + m : m;
-  let d = dateNew.getDate();
-  d = d < 10 ? '0' + d : d;
-  let h = dateNew.getHours();
-  h = h < 10 ? '0' + h : h;
-  let mi = dateNew.getMinutes();
-  mi = mi < 10 ? '0' + mi : mi;
-  let se = dateNew.getSeconds();
-  se = se < 10 ? '0' + se : se;
-  let _date;
-  if (isTime) {
-    _date = y + '.' + m + '.' + d + ' ' + h + ':' + mi + ':' + se;
-  } else {
-    _date = y + '-' + m + '-' + d;
+/**
+ * @description: 日期格式化
+ * @param {String} date 要格式化的时间
+ * @param {String} startFormat 初始日期格式 (时间戳用 'timestamp')
+ * @param {String} endFormat 结束日期格式 (时间戳用 'timestamp')
+ * @return: 格式化后的日期
+ */
+const formatDate = (date, startFormat, endFormat = 'yyyy-MM-dd') => {
+  // if (typeof date !== 'string') {
+  //   console.error('date 必须为字符串');
+  //   return;
+  // }
+  let time = '00:00:00';
+  date = String(date).replace(/(^\s+)|(\s+$)/g, ''); // 去除首尾空格
+
+  // 转化前-先将传入日期统一转为 'yyyyMMdd HH:mm:ss' 格式
+  // yyyyMMdd
+  if (startFormat.slice(0, 8) === 'yyyyMMdd') {
+    // 不做处理
   }
-  return _date;
-};
+  // yyyy-MM-dd
+  if (startFormat.slice(0, 10) === 'yyyy-MM-dd') {
+    date = date.replace(/-/g, '');
+  }
+  // yyyy/MM/dd
+  if (startFormat.slice(0, 10) === 'yyyy/MM/dd') {
+    date = date.replace(/\//g, '');
+  }
+  // yyyy.MM.dd
+  if (startFormat.slice(0, 10) === 'yyyy.MM.dd') {
+    date = date.replace(/\./g, '');
+  }
+  // yyyy年MM月dd日
+  if (startFormat.slice(0, 11) === 'yyyy年MM月dd日') {
+    date = `${date.slice(0, 4)}${date.slice(5, 7)}${date.slice(8, 10)}`;
+  }
+  // 时间戳 timestamp
+  if (startFormat === 'timestamp') {
+    let _date = new Date(Number(date)),
+      Y = _date.getFullYear(),
+      M = _date.getMonth() + 1 < 10 ? '0' + (_date.getMonth() + 1) : _date.getMonth() + 1,
+      D = _date.getDate() < 10 ? '0' + _date.getDate() : _date.getDate(),
+      h = _date.getHours() < 10 ? '0' + _date.getHours() : _date.getHours(),
+      m = _date.getMinutes() < 10 ? '0' + _date.getMinutes() : _date.getMinutes(),
+      s = _date.getSeconds() < 10 ? '0' + _date.getSeconds() : _date.getSeconds();
 
-// 时间戳转日期
-// 示例: timestampToTime(1574756312123); // '2019-11-26 16:18:32'
-let timestampToTime = timestamp => {
-  // 时间戳: Number|String
-  let date = new Date(Number(timestamp)),
-    Y = date.getFullYear() + '-',
-    M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-',
-    D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ',
-    h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':',
-    m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':',
-    s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    // return Y + M + D + h + m + s;
+    date = `${Y}${M}${D}`;
+    time = `${h}:${m}:${s}`;
+  }
 
-  return Y + M + D + h + m + s;
-};
+  // 转化后-将 'yyyyMMdd' 格式的日期转为需要的格式
+  // yyyyMMdd
+  if (endFormat.slice(0, 8) === 'yyyyMMdd') {
+    if (endFormat.includes(':')) {
+      date = `${date.slice(0, 4)}${date.slice(4, 6)}${date.slice(6, 8)} ${time}`;
+    } else {
+      date = `${date.slice(0, 4)}${date.slice(4, 6)}${date.slice(6, 8)}`;
+    }
+  }
+  // yyyy-MM-dd
+  if (endFormat.slice(0, 10) === 'yyyy-MM-dd') {
+    if (endFormat.includes(':')) {
+      date = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)} ${time}`;
+    } else {
+      date = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}`;
+    }
+  }
+  // yyyy/MM/dd
+  if (endFormat.slice(0, 10) === 'yyyy/MM/dd') {
+    if (endFormat.includes(':')) {
+      date = `${date.slice(0, 4)}/${date.slice(4, 6)}/${date.slice(6, 8)} ${time}`;
+    } else {
+      date = `${date.slice(0, 4)}/${date.slice(4, 6)}/${date.slice(6, 8)}`;
+    }
+  }
+  // yyyy.MM.dd
+  if (endFormat.slice(0, 10) === 'yyyy.MM.dd') {
+    if (endFormat.includes(':')) {
+      date = `${date.slice(0, 4)}.${date.slice(4, 6)}.${date.slice(6, 8)} ${time}`;
+    } else {
+      date = `${date.slice(0, 4)}.${date.slice(4, 6)}.${date.slice(6, 8)}`;
+    }
+  }
+  // yyyy年MM月dd日
+  if (endFormat.slice(0, 11) === 'yyyy年MM月dd日') {
+    if (endFormat.includes(':')) {
+      date = `${date.slice(0, 4)}年${date.slice(4, 6)}月${date.slice(6, 8)}日 ${time}`;
+    } else {
+      date = `${date.slice(0, 4)}年${date.slice(4, 6)}月${date.slice(6, 8)}日`;
+    }
+  }
+  // 时间戳 timestamp
+  if (endFormat === 'timestamp') {
+    let _date = new Date(`${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)} ${time}`);
 
-// 日期转时间戳
-// 示例: timeToTimestamp('2019-11-26 16:18:32:123'); // 1574756312123
-let timeToTimestamp = time => {
-  // 日期: String
-  let date = new Date(time);
-  // 有四种方式获取
-  let _time = date.getTime(); // 通过原型方法直接获得当前时间的毫秒值
-  // let _time = date.valueOf(); // 返回指定对象的原始值获得准确的时间戳值
-  // let _time = Number(date); // 将时间转化为一个number类型的数值，即时间戳
-  // let _time = Date.parse(date); // 不推荐这种办法，毫秒级别的数值被转化为000
+    // 有四种方式获取
+    date = _date.getTime(); // 通过原型方法直接获得当前时间的毫秒值
+    // date = date.valueOf(); // 返回指定对象的原始值获得准确的时间戳值
+    // date = Number(date); // 将时间转化为一个number类型的数值，即时间戳
+    // date = Date.parse(date); // 不推荐这种办法，毫秒级别的数值被转化为000
+  }
 
-  return _time;
+  return date;
 };
 
 /**
@@ -200,7 +252,7 @@ let timeToTimestamp = time => {
  * @param {String} startTime  2019-05-19 10:00
  * @param {String} endTime  2019-05-19 15:00
  */
-let getRangeTime = (startTime, endTime) => {
+const getRangeTime = (startTime, endTime) => {
   let tmpStart = startTime.split(' ');
   let tmpEnd = endTime.split(' ');
   if (tmpStart.length < 2 || tmpEnd.length < 2) {
@@ -228,7 +280,7 @@ let debounce = (fn, time = 500) => {
 
 // 清洗出 url 中的参数值
 // 示例: getQueryString('https://www.google.com?key=val', 'key'); // 'val'
-let getQueryString = (href, key) => {
+const getQueryString = (href, key) => {
   // url: String, key: String
   let hrefSearch = href.split('?')[1];
   let reg = new RegExp('(^|&)' + key + '=([^&]*)(&|$)');
@@ -246,7 +298,7 @@ let getQueryString = (href, key) => {
  * @param {Object} end  {longitude: 123, latitude: 80}
  * @return {} 单位 米
  */
-let calculateLineDistance = (start, end) => {
+const calculateLineDistance = (start, end) => {
   let d1 = 0.01745329251994329;
   let d2 = start.longitude;
   let d3 = start.latitude;
@@ -283,7 +335,7 @@ let calculateLineDistance = (start, end) => {
 
 // rem 值转化为 px 值
 // 示例: remToPx(0.1); // 转为对应的 px 值
-let remToPx = rem => {
+const remToPx = rem => {
   // rem值: Number
   if (document.documentElement.style.fontSize) {
     return rem * document.documentElement.style.fontSize.replace('px', '');
@@ -294,7 +346,7 @@ let remToPx = rem => {
 
 // 手机号添加空格
 // 示例: getMoblieFormat(18812341234); // '153 1234 1234'
-let getMoblieFormat = val => {
+const getMoblieFormat = val => {
   // 手机号码: Number|String
   let _val = val.toString().replace(/\s*/g, '');
   let result = [];
@@ -324,9 +376,7 @@ const chartData = (data, isSort = true, keysName = ['name', 'value']) => {
   });
   if (isSort) {
     let sortList = list.sort((a, b) => {
-      let _a = timeToTimestamp(a['name']);
-      let _b = timeToTimestamp(b['name']);
-      return _a - _b;
+      return a['name'] - b['name'];
     });
     return sortList;
   } else {
@@ -341,8 +391,6 @@ export {
   computeDate,
   getAWeek,
   formatDate,
-  timestampToTime,
-  timeToTimestamp,
   getRangeTime,
   debounce,
   getQueryString,
