@@ -1,8 +1,8 @@
 /*
  * @Author: Wells
  * @Date: 2020-02-21 11:01:43
- * @LastEditors: Wells
- * @LastEditTime: 2020-02-24 16:07:06
+ * @LastEditors: shenxh
+ * @LastEditTime: 2020-07-10 16:17:56
  * @Description: 导航列表
  */
 
@@ -37,6 +37,12 @@ const menus = [
     value: 'template',
     url: 'template',
     list: 'templateList'
+  },
+  {
+    label: 'Swiper',
+    value: 'swiper',
+    url: 'swiper',
+    list: 'swiperList'
   }
   // {
   //   label: '算法',
@@ -193,24 +199,36 @@ const submenus = {
       ]
     }
   ],
-  // 算法
-  algorithmList: [
+  // Swiper
+  swiperList: [
     {
-      label: '算法',
-      value: 'algorithm',
-      type: 'algorithm',
+      label: 'Progress',
+      value: 'progress',
+      type: 'swiper',
       children: [
         {
-          label: '排序',
-          value: 'sort',
-          url: 'sort'
+          label: '缩放',
+          value: 'scale',
+          url: 'scale'
         }
       ]
     }
   ]
+  // 算法
+  // algorithmList: [
+  //   {
+  //     label: '算法',
+  //     value: 'algorithm',
+  //     type: 'algorithm',
+  //     children: [
+  //       {
+  //         label: '排序',
+  //         value: 'sort',
+  //         url: 'sort'
+  //       }
+  //     ]
+  //   }
+  // ]
 };
 
-export {
-  menus,
-  submenus
-}
+export { menus, submenus };
