@@ -2,7 +2,7 @@
  * @Author: Wells
  * @Date: 2020-02-21 11:01:43
  * @LastEditors: shenxh
- * @LastEditTime: 2020-07-10 16:17:56
+ * @LastEditTime: 2020-07-10 16:49:15
  * @Description: 导航列表
  */
 
@@ -43,13 +43,13 @@ const menus = [
     value: 'swiper',
     url: 'swiper',
     list: 'swiperList'
-  }
-  // {
-  //   label: '算法',
-  //   value: 'algorithm',
-  //   url: 'algorithm',
-  //   list: 'algorithmList'
-  // }
+  },
+  {
+    label: '功能',
+    value: 'function',
+    url: 'function',
+    list: 'functionList'
+  },
 ];
 
 // 侧边导航列表
@@ -213,22 +213,22 @@ const submenus = {
         }
       ]
     }
-  ]
-  // 算法
-  // algorithmList: [
-  //   {
-  //     label: '算法',
-  //     value: 'algorithm',
-  //     type: 'algorithm',
-  //     children: [
-  //       {
-  //         label: '排序',
-  //         value: 'sort',
-  //         url: 'sort'
-  //       }
-  //     ]
-  //   }
-  // ]
+  ],
+  // 功能
+  functionList: [
+    {
+      label: '常用',
+      value: 'common',
+      type: 'function',
+      children: [
+        {
+          label: '鼠标跟随',
+          value: 'mouse-follow',
+          url: 'mouse-follow'
+        }
+      ]
+    }
+  ],
 };
 
 export { menus, submenus };
