@@ -13,7 +13,7 @@
     "echarts-gl": "^1.1.1",
     "element-ui": "^2.9.1",
     "file-saver": "^2.0.2",
-    "swiper": "^6.0.0",
+    "swiper": "^5.4.0",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
     "vue-router": "^3.0.1",

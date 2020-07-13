@@ -2,74 +2,70 @@
  * @Author: shenxh
  * @Date: 2020-06-30 17:43:11
  * @LastEditors: shenxh
- * @LastEditTime: 2020-07-10 16:27:48
+ * @LastEditTime: 2020-07-13 16:17:26
  * @Description: swiper-scale
 -->
 
 <template>
   <div class="swiper-scale">
-    <swiper class="swiper" ref="mySwiper" :options="swiperOptions">
-      <swiper-slide v-for="item in 10" :key="item" ref="swiper-slide">
-        <div class="content">{{ item }}</div>
-      </swiper-slide>
-    </swiper>
-    <div class="button prev" slot="button-prev" @click="prev()">上一页</div>
-    <div class="button next" slot="button-next" @click="next()">下一页</div>
+    <div class="xx-swiper" ref="xx-swiper">
+      <swiper class="swiper" ref="swiper" :options="swiperOptions">
+        <swiper-slide v-for="item in 10" :key="item" ref="swiper-slide">
+          <div class="content">
+            <div class="content-wrap">
+              {{ item }}
+            </div>
+          </div>
+        </swiper-slide>
+      </swiper>
+    </div>
+    <div class="button prev" slot="button-prev">上一页</div>
+    <div class="button next" slot="button-next">下一页</div>
   </div>
 </template>
 
 <script>
-import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
-import 'swiper/swiper-bundle.css';
-
 export default {
   name: 'swiper-scale',
-  components: {
-    Swiper,
-    SwiperSlide
-  },
-  directives: {
-    swiper: directive,
-    currentIdx: 0
-  },
   props: {},
   data() {
     return {
       swiperOptions: {
+        navigation: {
+          nextEl: '.next',
+          prevEl: '.prev'
+        },
         slidesPerView: 5,
         centeredSlides: true,
         watchSlidesProgress: true,
         loop: true, // 循环
         autoplay: {
-          delay: 1000,
+          delay: 200000,
           stopOnLastSlide: false,
           disableOnInteraction: false
         },
-        speed: 1000, // 滑动速度
+        speed: 1500, // 滑动速度
         grabCursor: true // 鼠标拖动
       }
     };
   },
   computed: {
     swiper() {
-      return this.$refs.mySwiper.$swiper;
+      return this.$refs.swiper.$swiper;
     }
   },
   watch: {},
   created() {},
   mounted() {
-    // this.swiper.slideTo(2, 1000, false);
+    this.$refs['xx-swiper'].addEventListener('mouseover', () => {
+      this.swiper.autoplay.stop();
+    });
+    this.$refs['xx-swiper'].addEventListener('mouseout', () => {
+      this.swiper.autoplay.start();
+    });
   },
   beforeDestroy() {},
-  methods: {
-    // 手动实现左右按钮切换功能
-    prev() {
-      this.swiper.slidePrev();
-    },
-    next() {
-      this.swiper.slideNext();
-    }
-  }
+  methods: {}
 };
 </script>
 
@@ -78,29 +74,79 @@ export default {
   position: relative;
   width: 100%;
   height: 300px;
-  .swiper {
+  .xx-swiper {
+    margin: 0 auto;
     width: 1000px;
     height: 100%;
-    .swiper-wrapper {
-      .swiper-slide {
-        transition: all 0.8s;
-        transform: scale(0.6);
-        &.swiper-slide-active {
-          transform: scale(1);
-          margin: 0 20px;
-        }
-        &.swiper-slide-prev {
-          transform: scale(0.8);
-          margin-left: -20px;
-        }
-        &.swiper-slide-next {
-          transform: scale(0.8);
-          margin-right: -20px;
-        }
-        .content {
-          height: 100%;
-          background-color: lightblue;
-          border: 1px solid #999;
+    .swiper {
+      width: 100%;
+      height: 100%;
+      .swiper-wrapper {
+        .swiper-slide {
+          /* 中间 */
+          &.swiper-slide-active {
+            .content {
+              transform: scale(0.9);
+              .content-wrap {
+                transform: none;
+                width: 100%;
+                margin: 0;
+              }
+            }
+          }
+          /* 左一 */
+          &.swiper-slide-prev {
+            .content {
+              transform: scale(0.9);
+              .content-wrap {
+                transform: rotateY(-40deg);
+                transform-origin: right;
+                width: 120%;
+              }
+            }
+          }
+          /* 右一 */
+          &.swiper-slide-next {
+            .content {
+              transform: scale(0.9);
+              .content-wrap {
+                transform: rotateY(40deg);
+                transform-origin: left;
+                width: 120%;
+                margin: 0;
+                margin-left: 15%;
+              }
+            }
+            /* 右二 */
+            & + .swiper-slide {
+              .content {
+                transform: scale(0.75);
+                .content-wrap {
+                  transform: rotateY(40deg);
+                  transform-origin: left;
+                  width: 120%;
+                  margin-left: 15%;
+                }
+              }
+            }
+          }
+          /* 左二 */
+          .content {
+            transition: all 0.8s;
+            transform: scale(0.75);
+            height: 100%;
+            perspective: 1000px; // 设置从何处查看一个元素的角度
+            .content-wrap {
+              transition: all 0.8s;
+              transform: rotateY(-40deg);
+              transform-origin: right;
+              height: 100%;
+              background-color: lightblue;
+              border: 1px solid #999;
+              width: 120%;
+              margin-left: -35%;
+            }
+          }
         }
       }
     }
