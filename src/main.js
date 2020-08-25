@@ -1,28 +1,32 @@
 import Vue from 'vue';
 import App from './App.vue';
-import Router from './router';
-import Store from './store';
+import router from './router';
+import store from './store';
 import './style/common.less';
 
 Vue.config.productionTip = false;
 
 const vm = new Vue({
-  router: Router,
-  store: Store,
+  router,
+  store,
   render: h => h(App)
 }).$mount('#app');
 
-Router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   if (to.matched.length === 0) {
     next({ path: '/error' });
   }
   // 做登录拦截，可以参考如下写法, 不做的话把下面代码去掉
-  if (to.meta.hasOwnProperty('requiresLogin') && to.meta.requiresLogin && !vm.$store.state.isLogin) {
+  if (
+    to.meta.hasOwnProperty('requiresLogin') &&
+    to.meta.requiresLogin &&
+    !vm.$store.state.isLogin
+  ) {
     // MessageBox.confirm('请先登录').then(
-    //   action => {
+    //   (action) => {
     //     next({ path: '/login' });
     //   },
-    //   res => {
+    //   (res) => {
     //     next(false);
     //   }
     // );

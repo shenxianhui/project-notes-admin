@@ -18,12 +18,15 @@ const platformName = () => {
 const getCurrentDate = () => {
   let myDate = new Date();
   let year = myDate.getFullYear().toString();
-  let month = myDate.getMonth() < 9 ? `0${myDate.getMonth() + 1}` : (myDate.getMonth() + 1).toString();
+  let month =
+    myDate.getMonth() < 9 ? `0${myDate.getMonth() + 1}` : (myDate.getMonth() + 1).toString();
   let date = myDate.getDate() < 10 ? `0${myDate.getDate()}` : myDate.getDate().toString();
   let day = myDate.getDay() == 0 ? '7' : myDate.getDay().toString();
   let hour = myDate.getHours() < 10 ? `0${myDate.getHours()}` : myDate.getHours().toString();
-  let minute = myDate.getMinutes() < 10 ? `0${myDate.getMinutes()}` : myDate.getMinutes().toString();
-  let second = myDate.getSeconds() < 10 ? `0${myDate.getSeconds()}` : myDate.getSeconds().toString();
+  let minute =
+    myDate.getMinutes() < 10 ? `0${myDate.getMinutes()}` : myDate.getMinutes().toString();
+  let second =
+    myDate.getSeconds() < 10 ? `0${myDate.getSeconds()}` : myDate.getSeconds().toString();
   // 获取当前完整日期
   let dateIntact = `${year}-${month}-${date}`;
   let timeIntact = `${hour}:${minute}:${second}`;
@@ -98,7 +101,8 @@ const computeDate = (date, days) => {
   let myDate = new Date(date);
   myDate.setDate(myDate.getDate() + Number(days));
   let _year = myDate.getFullYear();
-  let _month = myDate.getMonth() < 9 ? `0${myDate.getMonth() + 1}` : (myDate.getMonth() + 1).toString();
+  let _month =
+    myDate.getMonth() < 9 ? `0${myDate.getMonth() + 1}` : (myDate.getMonth() + 1).toString();
   let _date = myDate.getDate() < 10 ? `0${myDate.getDate()}` : myDate.getDate().toString();
   let day = `${_year}-${_month}-${_date}`;
 
@@ -148,7 +152,7 @@ let getAWeek = days => {
  * @param {String} endFormat 结束日期格式 (时间戳用 'timestamp')
  * @return: 格式化后的日期
  */
-const formatDate = (date, startFormat, endFormat = 'yyyy-MM-dd') => {
+const formatDate = (date, startFormat = 'timestamp', endFormat = 'yyyy-MM-dd') => {
   // if (typeof date !== 'string') {
   //   console.error('date 必须为字符串');
   //   return;
@@ -267,7 +271,7 @@ const getRangeTime = (startTime, endTime) => {
 let debounce = (fn, time = 500) => {
   // 回调函数: Function, 毫秒数: Number
   let timer;
-  return function (...args) {
+  return function(...args) {
     if (timer) {
       clearTimeout(timer);
       timer = null;
@@ -326,8 +330,8 @@ const calculateLineDistance = (start, end) => {
   arrayOfDouble2.push(d11);
   let d14 = Math.sqrt(
     (arrayOfDouble1[0] - arrayOfDouble2[0]) * (arrayOfDouble1[0] - arrayOfDouble2[0]) +
-    (arrayOfDouble1[1] - arrayOfDouble2[1]) * (arrayOfDouble1[1] - arrayOfDouble2[1]) +
-    (arrayOfDouble1[2] - arrayOfDouble2[2]) * (arrayOfDouble1[2] - arrayOfDouble2[2])
+      (arrayOfDouble1[1] - arrayOfDouble2[1]) * (arrayOfDouble1[1] - arrayOfDouble2[1]) +
+      (arrayOfDouble1[2] - arrayOfDouble2[2]) * (arrayOfDouble1[2] - arrayOfDouble2[2])
   );
 
   return Math.asin(d14 / 2.0) * 12742001.579854401;
