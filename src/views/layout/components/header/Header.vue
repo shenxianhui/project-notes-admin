@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:58:52
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-25 11:06:55
+ * @LastEditTime: 2020-08-25 18:46:12
  * @Description: 顶部导航
 -->
 
@@ -28,7 +28,7 @@
 import Router from '@/router/modules';
 
 export default {
-  name: 'header',
+  name: 'main-header',
   components: {},
   props: {},
   data() {
@@ -49,8 +49,10 @@ export default {
 @import '~@/style/admin.less';
 
 .header {
+  position: relative;
   display: flex;
   height: 60px;
+  background-color: #fff;
   box-shadow: 0 2px 8px #f0f1f2;
   z-index: 1;
   .header-title {

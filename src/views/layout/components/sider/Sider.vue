@@ -2,28 +2,33 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:58:52
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-25 11:51:18
+ * @LastEditTime: 2020-08-25 18:49:21
  * @Description: 侧边栏
 -->
 
 <template>
   <div class="sider">
-    <el-menu :default-active="$route.name" unique-opened text-color="#fff" active-text-color="#fff">
+    <el-menu
+      :default-active="$route.path"
+      unique-opened
+      text-color="#000"
+      active-text-color="#1890ff"
+    >
       <div v-for="(item, index) in currentRoute.children" :key="index" class="menu-wrap">
         <div v-if="item.children" class="menu-item">
-          <el-submenu :index="item.name">
+          <el-submenu :index="`${currentRoute.path}/${item.path}`">
             <template slot="title">
               <span>{{ item.meta.label }}</span>
             </template>
             <div v-for="(item1, index1) in item.children" :key="index1" class="menu-wrap">
               <div v-if="item1.children" class="menu-item">
-                <el-submenu :index="item1.name">
+                <el-submenu :index="`${currentRoute.path}/${item.path}/${item1.path}`">
                   <template slot="title">
                     <span>{{ item1.meta.label }}</span>
                   </template>
                   <div v-for="(item2, index2) in item1.children" :key="index2" class="menu-wrap">
                     <el-menu-item
-                      :index="item2.name"
+                      :index="`${currentRoute.path}/${item.path}/${item1.path}/${item2.path}`"
                       @click="
                         handleMenu(`${currentRoute.path}/${item.path}/${item1.path}/${item2.path}`)
                       "
@@ -35,7 +40,7 @@
               </div>
               <div v-else class="menu-item">
                 <el-menu-item
-                  :index="item1.name"
+                  :index="`${currentRoute.path}/${item.path}/${item1.path}`"
                   @click="handleMenu(`${currentRoute.path}/${item.path}/${item1.path}`)"
                 >
                   <span slot="title">{{ item1.meta.label }}</span>
@@ -45,7 +50,10 @@
           </el-submenu>
         </div>
         <div v-else class="menu-item">
-          <el-menu-item :index="item.name" @click="handleMenu(`${currentRoute.path}/${item.path}`)">
+          <el-menu-item
+            :index="`${currentRoute.path}/${item.path}`"
+            @click="handleMenu(`${currentRoute.path}/${item.path}`)"
+          >
             <span slot="title">{{ item.meta.label }}</span>
           </el-menu-item>
         </div>
@@ -56,8 +64,6 @@
 
 <script>
 import Router from '@/router/modules';
-
-console.log(Router);
 
 export default {
   name: 'sider',
@@ -85,6 +91,7 @@ export default {
   beforeDestroy() {},
   methods: {
     handleMenu(path) {
+      this.$emit('handle-menu', path);
       if (this.$route.path === path) return;
       this.$router.push(path);
     }
@@ -103,12 +110,10 @@ export default {
     width: 100%;
     min-height: 100%;
     border: none;
-    background-color: rgb(37, 37, 48);
     .menu-wrap {
       width: 100%;
       .menu-item {
         width: 100%;
-        background-color: rgb(37, 37, 48);
         .el-submenu {
           .el-submenu__title {
             &:hover {
@@ -118,10 +123,10 @@ export default {
         }
         .el-menu-item {
           &.is-active {
-            background-color: rgb(63, 142, 187);
+            background-color: #a1c4fd33;
           }
           &:hover {
-            background-color: rgb(63, 142, 187);
+            background-color: #a1c4fd33;
           }
         }
       }

@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:51:16
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-25 11:49:24
+ * @LastEditTime: 2020-08-25 18:27:13
  * @Description: ECharts
  */
 export default [
@@ -29,7 +29,25 @@ export default [
             meta: {
               label: '普通'
             },
-            component: loadView('e-charts/ECharts')
+            component: loadView('e-charts/bar/Bar')
+          }
+        ]
+      },
+      {
+        path: 'line',
+        name: 'line',
+        meta: {
+          label: '折线图'
+        },
+        component: { render: f => f('router-view') },
+        children: [
+          {
+            path: 'base',
+            name: 'base',
+            meta: {
+              label: '普通'
+            },
+            component: loadView('e-charts/line/Line')
           }
         ]
       }
