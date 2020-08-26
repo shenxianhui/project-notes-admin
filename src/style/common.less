@@ -2,7 +2,7 @@
  * @Author: Wells
  * @Date: 2019-11-18 10:06:42
  * @LastEditors: shenxh
- * @LastEditTime: 2020-07-13 17:26:19
+ * @LastEditTime: 2020-08-26 10:48:43
  * @Description: 通用样式
  */
 /* 引入处理兼容性的公共样式 */
@@ -106,4 +106,35 @@ table {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.admin-content {
+  height: calc(100% - 20px);
+  padding: 20px;
+  margin: 0 20px 20px;
+  border-radius: 6px;
+  overflow: auto;
+  border: 1px solid #eee;
+  box-shadow: 5px 5px 10px 5px #dfdfdf;
+  background-color: #fff;
+}
+.admin-table {
+  user-select: text; /* 禁用页面内容选中和复制操作 */
+  /deep/ table {
+    thead {
+      tr {
+        th {
+          padding: 10px 0;
+          background-color: #fafafa;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          padding: 5px 0;
+        }
+      }
+    }
+  }
 }

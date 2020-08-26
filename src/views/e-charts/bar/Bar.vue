@@ -2,12 +2,12 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-25 18:24:48
+ * @LastEditTime: 2020-08-26 10:45:10
  * @Description: 柱状图
 -->
 
 <template>
-  <div class="chart-bar">
+  <div class="chart-bar admin-content">
     New page
   </div>
 </template>

@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:27:47
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-26 09:40:06
+ * @LastEditTime: 2020-08-26 10:49:10
  * @Description: 布局
 -->
 
@@ -13,6 +13,13 @@
       <xx-sider></xx-sider>
       <div class="layout-body-wrap">
         <xx-tags :before-route-update="routeInfo"></xx-tags>
+        <div class="breadcrumb">
+          <el-breadcrumb>
+            <el-breadcrumb-item v-for="(item, index) in breadcrumbList" :key="index">
+              {{ item.meta.label }}
+            </el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
         <div class="layout-body-content">
           <router-view></router-view>
         </div>
@@ -39,7 +46,17 @@ export default {
       routeInfo: {}
     };
   },
-  computed: {},
+  computed: {
+    breadcrumbList() {
+      let list = [];
+      this.$route.matched.map(item => {
+        if (item.meta.label) {
+          list.push(item);
+        }
+      });
+      return list;
+    }
+  },
   watch: {},
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -77,7 +94,16 @@ export default {
     height: calc(100% - 60px);
     .layout-body-wrap {
       width: 100%;
-      overflow: auto;
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        height: 50px;
+      }
+      .layout-body-content {
+        height: calc(100% - 90px);
+        overflow: hidden;
+      }
     }
   }
 }
