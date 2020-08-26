@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:58:52
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-25 18:49:21
+ * @LastEditTime: 2020-08-26 09:30:28
  * @Description: 侧边栏
 -->
 
@@ -91,7 +91,6 @@ export default {
   beforeDestroy() {},
   methods: {
     handleMenu(path) {
-      this.$emit('handle-menu', path);
       if (this.$route.path === path) return;
       this.$router.push(path);
     }
