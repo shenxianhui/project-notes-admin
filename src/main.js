@@ -2,42 +2,36 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import './style/common.less';
+// Element
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import './style/common.less';
+// ECharts
+import * as Echarts from 'echarts';
+// 进度条
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
 
-const vm = new Vue({
+// 挂载
+Vue.prototype.$echarts = Echarts;
+
+new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app');
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.length === 0) {
-    next({ path: '/error' });
-  }
-  // 做登录拦截，可以参考如下写法, 不做的话把下面代码去掉
-  if (
-    to.meta.hasOwnProperty('requiresLogin') &&
-    to.meta.requiresLogin &&
-    !vm.$store.state.isLogin
-  ) {
-    // MessageBox.confirm('请先登录').then(
-    //   (action) => {
-    //     next({ path: '/login' });
-    //   },
-    //   (res) => {
-    //     next(false);
-    //   }
-    // );
-    next();
-  } else {
-    next();
-  }
+  NProgress.start();
+  next();
+});
+
+router.afterEach(() => {
+  NProgress.done();
 });
 
 // 添加请求拦截器

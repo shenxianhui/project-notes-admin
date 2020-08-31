@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:27:47
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-26 10:49:10
+ * @LastEditTime: 2020-08-26 11:03:23
  * @Description: 布局
 -->
 
@@ -97,11 +97,11 @@ export default {
       .breadcrumb {
         display: flex;
         align-items: center;
-        padding: 0 20px;
-        height: 50px;
+        padding: 10px 20px 0;
+        height: 40px;
       }
       .layout-body-content {
-        height: calc(100% - 90px);
+        height: calc(100% - 80px);
         overflow: hidden;
       }
     }
