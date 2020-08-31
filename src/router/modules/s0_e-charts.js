@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:51:16
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-31 16:01:44
+ * @LastEditTime: 2020-08-31 16:59:53
  * @Description: ECharts
  */
 export default [
@@ -12,7 +12,7 @@ export default [
     meta: {
       label: 'ECharts'
     },
-    redirect: '/e-charts/bar-line/base',
+    redirect: '/e-charts/bar-line',
     component: loadView('layout/Layout'),
     children: [
       {
@@ -21,35 +21,15 @@ export default [
         meta: {
           label: '柱线图'
         },
-        component: { render: f => f('router-view') },
-        children: [
-          {
-            path: 'base',
-            name: 'base',
-            meta: {
-              label: '普通'
-            },
-            component: loadView('e-charts/bar-line/BarLine')
-          }
-        ]
+        component: loadView('e-charts/bar-line/BarLine')
       },
       {
-        path: 'line',
-        name: 'line',
+        path: 'pie',
+        name: 'pie',
         meta: {
-          label: '折线图'
+          label: '饼图'
         },
-        component: { render: f => f('router-view') },
-        children: [
-          {
-            path: 'base',
-            name: 'base',
-            meta: {
-              label: '普通'
-            },
-            component: loadView('e-charts/line/Line')
-          }
-        ]
+        component: loadView('e-charts/pie/Pie')
       }
     ]
   }

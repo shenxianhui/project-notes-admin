@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-31 16:00:03
+ * @LastEditTime: 2020-08-31 17:34:39
  * @Description: 柱线图
 -->
 
@@ -11,23 +11,27 @@
     <div class="chart-bar-line-wrap">
       <!-- 柱形图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line ref="xx-bar-line" :series-data="chartData"></xx-bar-line>
+        <xx-bar-line ref="chart-bar" :series-data="chartData"></xx-bar-line>
       </div>
       <!-- 多柱图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line ref="xx-bar-line1" :series="seriesBars" :series-data="chartData"></xx-bar-line>
+        <xx-bar-line ref="chart-bars" :series="seriesBars" :series-data="chartData"></xx-bar-line>
       </div>
       <!-- 折线图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line ref="xx-bar-line2" series-type="line" :series-data="chartData"></xx-bar-line>
+        <xx-bar-line ref="chart-line" series-type="line" :series-data="chartData"></xx-bar-line>
       </div>
       <!-- 柱线图 -->
       <div class="chart-bar-line-item">
         <xx-bar-line
-          ref="xx-bar-line3"
+          ref="chart-bar-line"
           :series="seriesBarLine"
           :series-data="chartData"
         ></xx-bar-line>
+      </div>
+      <!-- 立体图 -->
+      <div class="chart-bar-line-item">
+        <xx-cuboid ref="chart-cuboid" :series="seriesCuboid" :series-data="chartData"></xx-cuboid>
       </div>
     </div>
   </div>
@@ -35,13 +39,15 @@
 
 <script>
 import XxBarLine from '@/components/e-charts/bar-line/BarLine';
+import XxCuboid from '@/components/e-charts/cuboid/Cuboid';
 
 let timer;
 
 export default {
   name: 'chart-bar-line',
   components: {
-    XxBarLine
+    XxBarLine,
+    XxCuboid
   },
   props: {},
   data() {
@@ -103,14 +109,28 @@ export default {
           data: this.chartData
         }
       ];
+    },
+    seriesCuboid() {
+      return [
+        {
+          type: 'line',
+          data: this.chartData,
+          smooth: true,
+          lineStyle: {
+            color: '#FF9C00',
+            type: 'dashed'
+          }
+        }
+      ];
     }
   },
   watch: {
     chartData() {
-      this.$refs['xx-bar-line'].initChart();
-      this.$refs['xx-bar-line1'].initChart();
-      this.$refs['xx-bar-line2'].initChart();
-      this.$refs['xx-bar-line3'].initChart();
+      this.$refs['chart-bar'].initChart();
+      this.$refs['chart-bars'].initChart();
+      this.$refs['chart-line'].initChart();
+      this.$refs['chart-bar-line'].initChart();
+      this.$refs['chart-cuboid'].initChart();
     }
   },
   created() {

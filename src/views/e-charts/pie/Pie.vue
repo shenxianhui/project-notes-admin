@@ -2,19 +2,19 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-25 18:25:15
- * @Description: 折线图
+ * @LastEditTime: 2020-08-31 16:58:19
+ * @Description: 饼图
 -->
 
 <template>
-  <div class="chart-line">
+  <div class="chart-pie">
     New page
   </div>
 </template>
 
 <script>
 export default {
-  name: 'chart-line',
+  name: 'chart-pie',
   components: {},
   props: {},
   data() {

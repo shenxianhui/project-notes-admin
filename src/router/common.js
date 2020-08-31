@@ -2,7 +2,7 @@ export default [
   // 默认
   {
     path: '/',
-    redirect: '/e-charts/bar-line/base'
+    redirect: '/e-charts/bar-line'
   },
   // 错误
   {
