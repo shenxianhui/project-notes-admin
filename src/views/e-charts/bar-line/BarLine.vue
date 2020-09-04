@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-31 17:34:39
+ * @LastEditTime: 2020-08-31 18:41:02
  * @Description: 柱线图
 -->
 
@@ -32,6 +32,14 @@
       <!-- 立体图 -->
       <div class="chart-bar-line-item">
         <xx-cuboid ref="chart-cuboid" :series="seriesCuboid" :series-data="chartData"></xx-cuboid>
+      </div>
+      <!-- 象形图 -->
+      <div class="chart-bar-line-item">
+        <xx-bar-line
+          ref="chart-pictorial-bar"
+          :series="seriesPictorialBars"
+          :series-data="chartData"
+        ></xx-bar-line>
       </div>
     </div>
   </div>
@@ -117,9 +125,36 @@ export default {
           data: this.chartData,
           smooth: true,
           lineStyle: {
-            color: '#FF9C00',
-            type: 'dashed'
+            type: 'dashed',
+            color: '#FF9C00'
           }
+        }
+      ];
+    },
+    seriesPictorialBars() {
+      return [
+        {
+          name: '',
+          type: 'pictorialBar',
+          barCategoryGap: '-60%',
+          symbol: 'path://M0,10 L10,10 C5.5,10 5.5,5 5,0 C4.5,5 4.5,10 0,10 z',
+          itemStyle: {
+            normal: {
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: 'rgba(0, 255, 255, 0.4)'
+                },
+                {
+                  offset: 1,
+                  color: 'rgba(0, 255, 255, 0.4)'
+                }
+              ])
+            }
+          },
+          barMaxWidth: '100%',
+          data: this.seriesData,
+          z: 10
         }
       ];
     }
@@ -131,6 +166,7 @@ export default {
       this.$refs['chart-line'].initChart();
       this.$refs['chart-bar-line'].initChart();
       this.$refs['chart-cuboid'].initChart();
+      this.$refs['chart-pictorial-bar'].initChart();
     }
   },
   created() {

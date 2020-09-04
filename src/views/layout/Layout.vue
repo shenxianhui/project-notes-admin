@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:27:47
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-26 11:03:23
+ * @LastEditTime: 2020-09-04 18:28:52
  * @Description: 布局
 -->
 
@@ -93,7 +93,7 @@ export default {
     display: flex;
     height: calc(100% - 60px);
     .layout-body-wrap {
-      width: 100%;
+      width: calc(100% - 180px);
       .breadcrumb {
         display: flex;
         align-items: center;
