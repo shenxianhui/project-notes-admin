@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-27 16:24:15
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-31 15:57:24
+ * @LastEditTime: 2020-09-06 11:22:22
  * @Description: 组件-柱线图
 -->
 
@@ -182,7 +182,11 @@ export default {
       };
     }
   },
-  watch: {},
+  watch: {
+    seriesData() {
+      this.initChart();
+    }
+  },
   created() {},
   mounted() {
     if (this.seriesData && this.seriesData.length) {
@@ -191,7 +195,6 @@ export default {
   },
   beforeDestroy() {},
   methods: {
-    // 图表初始化 (建议通过父组件调用, 避免重复加载)
     initChart() {
       this.destroyChart();
 

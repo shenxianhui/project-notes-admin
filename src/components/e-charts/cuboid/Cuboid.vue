@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-31 16:51:26
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-31 17:54:23
+ * @LastEditTime: 2020-09-06 11:24:14
  * @Description: 长方体柱状图
 -->
 
@@ -163,7 +163,11 @@ export default {
       return data;
     }
   },
-  watch: {},
+  watch: {
+    seriesData() {
+      this.initChart();
+    }
+  },
   created() {},
   mounted() {
     this.initChart();

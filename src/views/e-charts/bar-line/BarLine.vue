@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-31 18:41:02
+ * @LastEditTime: 2020-09-06 11:26:54
  * @Description: 柱线图
 -->
 
@@ -11,35 +11,27 @@
     <div class="chart-bar-line-wrap">
       <!-- 柱形图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line ref="chart-bar" :series-data="chartData"></xx-bar-line>
+        <xx-bar-line :series-data="chartData"></xx-bar-line>
       </div>
       <!-- 多柱图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line ref="chart-bars" :series="seriesBars" :series-data="chartData"></xx-bar-line>
+        <xx-bar-line :series="seriesBars" :series-data="chartData"></xx-bar-line>
       </div>
       <!-- 折线图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line ref="chart-line" series-type="line" :series-data="chartData"></xx-bar-line>
+        <xx-bar-line series-type="line" :series-data="chartData"></xx-bar-line>
       </div>
       <!-- 柱线图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line
-          ref="chart-bar-line"
-          :series="seriesBarLine"
-          :series-data="chartData"
-        ></xx-bar-line>
+        <xx-bar-line :series="seriesBarLine" :series-data="chartData"></xx-bar-line>
       </div>
       <!-- 立体图 -->
       <div class="chart-bar-line-item">
-        <xx-cuboid ref="chart-cuboid" :series="seriesCuboid" :series-data="chartData"></xx-cuboid>
+        <xx-cuboid :series="seriesCuboid" :series-data="chartData"></xx-cuboid>
       </div>
       <!-- 象形图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line
-          ref="chart-pictorial-bar"
-          :series="seriesPictorialBars"
-          :series-data="chartData"
-        ></xx-bar-line>
+        <xx-bar-line :series="seriesPictorialBars" :series-data="chartData"></xx-bar-line>
       </div>
     </div>
   </div>
@@ -159,16 +151,7 @@ export default {
       ];
     }
   },
-  watch: {
-    chartData() {
-      this.$refs['chart-bar'].initChart();
-      this.$refs['chart-bars'].initChart();
-      this.$refs['chart-line'].initChart();
-      this.$refs['chart-bar-line'].initChart();
-      this.$refs['chart-cuboid'].initChart();
-      this.$refs['chart-pictorial-bar'].initChart();
-    }
-  },
+  watch: {},
   created() {
     this._clearTimer();
     this._getChartData();
