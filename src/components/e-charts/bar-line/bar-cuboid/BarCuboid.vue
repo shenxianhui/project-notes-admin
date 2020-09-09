@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-31 16:51:26
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-09 17:37:04
+ * @LastEditTime: 2020-09-09 18:57:37
  * @Description: 长方体柱状图
 -->
 
@@ -13,6 +13,7 @@
       :id="id"
       :width="width"
       :height="height"
+      :horizontal="horizontal"
       :seriesType="seriesType"
       :grid="grid"
       :legend="legend"
@@ -57,6 +58,8 @@ export default {
         return ['#00FFF6', '#00CCFF', '#006CFF']; // 左 右 上
       }
     },
+    horizontal: Boolean, // 横向展示(XY轴交换)
+
     grid: Object,
     legend: Object,
     tooltip: Object,
@@ -73,7 +76,7 @@ export default {
             let html = `
               <div>
                 <div>${params[0].name || ''}</div>
-                <div>${params[0].value || 0}次</div>
+                <div>${params[0].value || 0}</div>
               </div>
             `;
             return html;
@@ -163,21 +166,11 @@ export default {
       return data;
     }
   },
-  watch: {
-    seriesData() {
-      this.initChart();
-    }
-  },
+  watch: {},
   created() {},
-  mounted() {
-    this.initChart();
-  },
+  mounted() {},
   beforeDestroy() {},
-  methods: {
-    initChart() {
-      this.$refs['chart-bar'].initChart();
-    }
-  }
+  methods: {}
 };
 </script>
 

@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-27 16:24:15
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-06 11:22:22
+ * @LastEditTime: 2020-09-09 18:56:42
  * @Description: 组件-柱线图
 -->
 
@@ -30,6 +30,8 @@ export default {
       type: String,
       default: 'bar'
     },
+    horizontal: Boolean, // 横向展示(XY轴交换)
+
     grid: Object,
     legend: Object,
     tooltip: Object,
@@ -196,6 +198,7 @@ export default {
   beforeDestroy() {},
   methods: {
     initChart() {
+      this.setOption();
       this.destroyChart();
 
       let id = this.id || this.myId;
@@ -215,6 +218,17 @@ export default {
       if (chart) {
         chart.clear(); // 释放图形资源
         chart.dispose(); // 销毁实例对象
+      }
+    },
+    // 数据处理
+    setOption() {
+      // 横向
+      if (this.horizontal) {
+        let _xAxis = this.option.xAxis;
+        let _yAxis = this.option.yAxis;
+
+        this.option.xAxis = _yAxis;
+        this.option.yAxis = _xAxis;
       }
     }
   }

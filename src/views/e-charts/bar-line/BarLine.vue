@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-09 17:37:28
+ * @LastEditTime: 2020-09-09 18:56:04
  * @Description: 柱线图
 -->
 
@@ -11,7 +11,7 @@
     <div class="chart-bar-line-wrap">
       <!-- 柱形图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line :series-data="chartData"></xx-bar-line>
+        <xx-bar-line horizontal :series-data="chartData"></xx-bar-line>
       </div>
       <!-- 多柱图 -->
       <div class="chart-bar-line-item">
@@ -131,21 +131,10 @@ export default {
           barCategoryGap: '-60%',
           symbol: 'path://M0,10 L10,10 C5.5,10 5.5,5 5,0 C4.5,5 4.5,10 0,10 z',
           itemStyle: {
-            normal: {
-              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: 'rgba(0, 255, 255, 0.4)'
-                },
-                {
-                  offset: 1,
-                  color: 'rgba(0, 255, 255, 0.4)'
-                }
-              ])
-            }
+            color: '#ffa0a0'
           },
           barMaxWidth: '100%',
-          data: this.seriesData,
+          data: this.chartData,
           z: 10
         }
       ];
