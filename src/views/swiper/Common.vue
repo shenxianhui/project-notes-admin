@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:53:50
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-04 18:30:38
+ * @LastEditTime: 2020-09-09 17:39:02
  * @Description: Swiper-普通
 -->
 
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import XxSwiper from '@/components/swiper/Swiper';
+import XxSwiper from '@/components/swiper';
 
 export default {
   name: 'swiper',

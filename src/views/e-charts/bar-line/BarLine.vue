@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-06 11:26:54
+ * @LastEditTime: 2020-09-09 17:37:28
  * @Description: 柱线图
 -->
 
@@ -27,7 +27,7 @@
       </div>
       <!-- 立体图 -->
       <div class="chart-bar-line-item">
-        <xx-cuboid :series="seriesCuboid" :series-data="chartData"></xx-cuboid>
+        <xx-bar-cuboid :series="seriesCuboid" :series-data="chartData"></xx-bar-cuboid>
       </div>
       <!-- 象形图 -->
       <div class="chart-bar-line-item">
@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import XxBarLine from '@/components/e-charts/bar-line/BarLine';
-import XxCuboid from '@/components/e-charts/cuboid/Cuboid';
+import XxBarLine from '@/components/e-charts/bar-line';
+import XxBarCuboid from '@/components/e-charts/bar-line/bar-cuboid';
 
 let timer;
 
@@ -47,7 +47,7 @@ export default {
   name: 'chart-bar-line',
   components: {
     XxBarLine,
-    XxCuboid
+    XxBarCuboid
   },
   props: {},
   data() {

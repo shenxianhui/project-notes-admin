@@ -2,12 +2,12 @@
  * @Author: shenxh
  * @Date: 2020-08-31 16:51:26
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-06 11:24:14
+ * @LastEditTime: 2020-09-09 17:37:04
  * @Description: 长方体柱状图
 -->
 
 <template>
-  <div class="xx-cuboid" :style="{ width, height }">
+  <div class="xx-bar-cuboid" :style="{ width, height }">
     <xx-bar-line
       ref="chart-bar"
       :id="id"
@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import XxBarLine from '@/components/e-charts/bar-line/BarLine';
+import XxBarLine from '@/components/e-charts/bar-line';
 
 export default {
-  name: 'xx-cuboid',
+  name: 'xx-bar-cuboid',
   components: {
     XxBarLine
   },

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import XxSwiper from '@/components/swiper/Swiper';
+import XxSwiper from '@/components/swiper';
 
 export default {
   name: 'swiper',
