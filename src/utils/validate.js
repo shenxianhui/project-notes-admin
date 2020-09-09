@@ -1,5 +1,5 @@
 // 默认mint-ui，根据项目情况自行修改
-import { Toast } from 'mint-ui';
+// import { Toast } from 'mint-ui';
 let tipPosition = 'middle';
 let tipDuration = 2000;
 
@@ -103,7 +103,13 @@ let validatePassword2 = (item1, item2, required = true, msg = '密码') => {
  */
 let validatePassword = (item, required = true, msg = '密码') => {
   let reg = regList.validatePassword;
-  return validateComFn(item, required, msg, !reg.test(item), `${msg}长度须为6-20位，可输入英文（大小写）/数字/-/_/@`);
+  return validateComFn(
+    item,
+    required,
+    msg,
+    !reg.test(item),
+    `${msg}长度须为6-20位，可输入英文（大小写）/数字/-/_/@`
+  );
 };
 
 /* 方法说明
