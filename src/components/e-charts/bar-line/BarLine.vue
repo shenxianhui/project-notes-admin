@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-27 16:24:15
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-09 18:56:42
+ * @LastEditTime: 2020-09-10 10:49:00
  * @Description: 组件-柱线图
 -->
 
@@ -32,12 +32,16 @@ export default {
     },
     horizontal: Boolean, // 横向展示(XY轴交换)
 
+    title: Object,
+    titleText: String,
     grid: Object,
     legend: Object,
     tooltip: Object,
     xAxis: Object,
+    xAxis1: [Object, Boolean],
     yAxis: Object,
-    series: Array,
+    yAxis1: [Object, Boolean],
+    series: [Array, Object],
     seriesData: Array
   },
   data() {
@@ -47,6 +51,14 @@ export default {
   },
   computed: {
     option() {
+      let title = Object.assign(
+        {
+          show: this.titleText ? true : false,
+          text: this.titleText
+        },
+        this.title
+      );
+
       let legend = Object.assign(
         {
           show: this.series && this.series.length > 1 ? true : false,
@@ -65,6 +77,7 @@ export default {
         },
         this.legend
       );
+
       let grid = Object.assign(
         {
           left: '2%',
@@ -75,6 +88,7 @@ export default {
         },
         this.grid
       );
+
       let tooltip = Object.assign(
         {
           trigger: 'axis',
@@ -84,60 +98,73 @@ export default {
         },
         this.tooltip
       );
-      let xAxis = [
-        Object.assign(
-          {
-            name: '',
-            axisTick: {
-              show: false
-            },
-            axisLine: {
-              lineStyle: {
-                color: '#000'
-              }
-            },
-            axisLabel: {
-              color: '#000',
-              fontSize: 12
-              // rotate: 20
-            },
-            boundaryGap: this.seriesType === 'bar',
-            data: (() => {
-              let data = this.seriesData.map(item => {
-                return item.name;
-              });
-              return data;
-            })()
-          },
-          this.xAxis
-        )
-      ];
-      let yAxis = [
-        Object.assign(
-          {
-            name: '',
-            axisTick: {
-              show: false
-            },
-            axisLine: {
-              lineStyle: {
-                color: '#000'
-              }
-            },
-            axisLabel: {
-              color: '#000',
-              fontSize: 12
-            },
-            splitLine: {
-              color: '#eee',
-              lineStyle: {
-                opacity: 0.2
-              }
-            }
-          },
-          this.yAxis
-        )
-      ];
+
+      let xAxisData = {
+        name: '',
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#000'
+          }
+        },
+        axisLabel: {
+          color: '#000',
+          fontSize: 12
+          // rotate: 20
+        },
+        boundaryGap: this.seriesType === 'bar',
+        data: (() => {
+          let data = this.seriesData.map(item => {
+            return item.name;
+          });
+          return data;
+        })()
+      };
+      let xAxis = [Object.assign(xAxisData, this.xAxis)];
+      if (this.xAxis1) {
+        let _xAxisData = JSON.parse(JSON.stringify(xAxisData));
+        xAxis.push(
+          Object.assign(
+            _xAxisData,
+            this.xAxis1 && typeof this.xAxis1 === 'object' ? this.xAxis1 : {}
+          )
+        );
+      }
+
+      let yAxisData = {
+        name: '',
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#000'
+          }
+        },
+        axisLabel: {
+          color: '#000',
+          fontSize: 12
+        },
+        splitLine: {
+          color: '#eee',
+          lineStyle: {
+            opacity: 0.2
+          }
+        }
+      };
+      let yAxis = [Object.assign(yAxisData, this.yAxis)];
+      if (this.yAxis1) {
+        let _yAxisData = JSON.parse(JSON.stringify(yAxisData));
+        yAxis.push(
+          Object.assign(
+            _yAxisData,
+            this.yAxis1 && typeof this.yAxis1 === 'object' ? this.yAxis1 : {}
+          )
+        );
+      }
+
       let series = this.series
         ? this.series
         : [
@@ -175,6 +202,7 @@ export default {
           ];
 
       return {
+        title,
         grid,
         legend,
         tooltip,
@@ -195,7 +223,9 @@ export default {
       this.initChart();
     }
   },
-  beforeDestroy() {},
+  beforeDestroy() {
+    this.destroyChart();
+  },
   methods: {
     initChart() {
       this.setOption();
@@ -204,11 +234,16 @@ export default {
       let id = this.id || this.myId;
       let myChart = this.$echarts.init(document.getElementById(id));
 
-      // 事件解绑
-      myChart.off('click');
-
       // 设置配置项, 刷新图表
       myChart.setOption(this.option, true);
+
+      // 点击事件
+      myChart.off('click');
+      myChart.on('click', evt => {
+        this.$emit('click', evt);
+
+        myChart.setOption(this.option, true);
+      });
     },
     // 销毁图表实例
     destroyChart() {

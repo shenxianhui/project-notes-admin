@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-09 18:56:04
+ * @LastEditTime: 2020-09-10 10:46:21
  * @Description: 柱线图
 -->
 
@@ -11,27 +11,82 @@
     <div class="chart-bar-line-wrap">
       <!-- 柱形图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line horizontal :series-data="chartData"></xx-bar-line>
+        <xx-bar-line
+          title-text="柱形图"
+          horizontal
+          :series-data="chartData"
+          @click="handleBar"
+        ></xx-bar-line>
       </div>
       <!-- 多柱图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line :series="seriesBars" :series-data="chartData"></xx-bar-line>
+        <xx-bar-line
+          title-text="多柱图"
+          :series="seriesBars"
+          :series-data="chartData"
+        ></xx-bar-line>
       </div>
-      <!-- 折线图 -->
+      <!-- 堆叠柱形图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line series-type="line" :series-data="chartData"></xx-bar-line>
+        <xx-bar-line
+          title-text="堆叠柱形图"
+          :series="seriesBarsStack"
+          :series-data="chartData"
+        ></xx-bar-line>
+      </div>
+      <!-- 双Y柱形图 -->
+      <div class="chart-bar-line-item">
+        <xx-bar-line
+          title-text="双Y柱形图"
+          y-axis1
+          :series="seriesBarsDoubleY"
+          :series-data="chartData"
+        ></xx-bar-line>
       </div>
       <!-- 柱线图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line :series="seriesBarLine" :series-data="chartData"></xx-bar-line>
+        <xx-bar-line
+          title-text="柱线图"
+          :series="seriesBarLine"
+          :series-data="chartData"
+        ></xx-bar-line>
       </div>
       <!-- 立体图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-cuboid :series="seriesCuboid" :series-data="chartData"></xx-bar-cuboid>
+        <xx-bar-cuboid
+          title-text="立体图"
+          :series="seriesCuboid"
+          :series-data="chartData"
+        ></xx-bar-cuboid>
       </div>
       <!-- 象形图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line :series="seriesPictorialBars" :series-data="chartData"></xx-bar-line>
+        <xx-bar-line
+          title-text="象形图"
+          :grid="{ top: '15%' }"
+          :series="seriesPictorialBars"
+          :series-data="chartData"
+        ></xx-bar-line>
+      </div>
+      <!-- 折线图 -->
+      <div class="chart-bar-line-item">
+        <xx-bar-line title-text="折线图" series-type="line" :series-data="chartData"></xx-bar-line>
+      </div>
+      <!-- 多线图 -->
+      <div class="chart-bar-line-item">
+        <xx-bar-line
+          title-text="多线图"
+          :series="seriesLines"
+          :series-data="chartData"
+        ></xx-bar-line>
+      </div>
+      <!-- 堆叠折线图 -->
+      <div class="chart-bar-line-item">
+        <xx-bar-line
+          title-text="堆叠折线图"
+          :series="seriesLinesStack"
+          :series-data="chartData"
+        ></xx-bar-line>
       </div>
     </div>
   </div>
@@ -52,7 +107,9 @@ export default {
   props: {},
   data() {
     return {
-      chartData: []
+      chartData: [],
+      chartData1: [],
+      chartData2: []
     };
   },
   computed: {
@@ -74,7 +131,7 @@ export default {
           itemStyle: {
             color: '#ffd599'
           },
-          data: this.chartData
+          data: this.chartData1
         },
         {
           name: '数据3',
@@ -83,9 +140,50 @@ export default {
           itemStyle: {
             color: '#a1c4fd'
           },
-          data: this.chartData
+          data: this.chartData2
         }
       ];
+    },
+    seriesBarsStack() {
+      let seriesBars = JSON.parse(JSON.stringify(this.seriesBars));
+
+      return seriesBars.map(item => {
+        return Object.assign(item, {
+          barWidth: null,
+          stack: 'A'
+        });
+      });
+    },
+    seriesBarsDoubleY() {
+      let seriesBars = JSON.parse(JSON.stringify(this.seriesBars)).slice(0, 2);
+
+      seriesBars.forEach((item, index) => {
+        if (index === 1) {
+          item.yAxisIndex = 1;
+        }
+      });
+
+      return seriesBars;
+    },
+    seriesLines() {
+      let seriesBars = JSON.parse(JSON.stringify(this.seriesBars));
+
+      return seriesBars.map(item => {
+        return Object.assign(item, {
+          type: 'line'
+        });
+      });
+    },
+    seriesLinesStack() {
+      let seriesBars = JSON.parse(JSON.stringify(this.seriesBars));
+
+      return seriesBars.map(item => {
+        return Object.assign(item, {
+          type: 'line',
+          smooth: true,
+          stack: 'A'
+        });
+      });
     },
     seriesBarLine() {
       return [
@@ -153,16 +251,33 @@ export default {
     this._clearTimer();
   },
   methods: {
+    handleBar(evt) {
+      const data = evt.data;
+
+      this.$message.success(data.name + ': ' + data.value);
+    },
     _getChartData() {
       let list = [];
+      let list1 = [];
+      let list2 = [];
       for (let i = 0; i < 10; i++) {
         list.push({
+          name: 'X' + i,
+          value: Math.round(Math.random() * 1000)
+        });
+        list1.push({
+          name: 'X' + i,
+          value: Math.round(Math.random() * 1000)
+        });
+        list2.push({
           name: 'X' + i,
           value: Math.round(Math.random() * 1000)
         });
       }
 
       this.chartData = list;
+      this.chartData1 = list1;
+      this.chartData2 = list2;
     },
     _clearTimer() {
       if (timer) {

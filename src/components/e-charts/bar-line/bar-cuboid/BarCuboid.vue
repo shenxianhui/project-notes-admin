@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-31 16:51:26
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-09 18:57:37
+ * @LastEditTime: 2020-09-10 10:02:56
  * @Description: 长方体柱状图
 -->
 
@@ -15,6 +15,8 @@
       :height="height"
       :horizontal="horizontal"
       :seriesType="seriesType"
+      :title-text="titleText"
+      :title="title"
       :grid="grid"
       :legend="legend"
       :tooltip="setTooltip"
@@ -22,6 +24,7 @@
       :yAxis="yAxis"
       :series="getSeries"
       :series-data="seriesData"
+      @click="$emit('click', $event)"
     ></xx-bar-line>
   </div>
 </template>
@@ -59,13 +62,15 @@ export default {
       }
     },
     horizontal: Boolean, // 横向展示(XY轴交换)
+    titleText: String,
 
+    title: String,
     grid: Object,
     legend: Object,
     tooltip: Object,
     xAxis: Object,
     yAxis: Object,
-    series: Array,
+    series: [Array, Object],
     seriesData: Array
   },
   data() {
