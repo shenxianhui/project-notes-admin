@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-27 16:24:15
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-10 10:49:00
+ * @LastEditTime: 2020-09-10 11:19:32
  * @Description: 组件-柱线图
 -->
 
@@ -51,6 +51,17 @@ export default {
   },
   computed: {
     option() {
+      return {
+        title: this._title,
+        grid: this._grid,
+        legend: this._legend,
+        tooltip: this._tooltip,
+        xAxis: this._xAxis,
+        yAxis: this._yAxis,
+        series: this._series
+      };
+    },
+    _title() {
       let title = Object.assign(
         {
           show: this.titleText ? true : false,
@@ -59,6 +70,23 @@ export default {
         this.title
       );
 
+      return title;
+    },
+    _grid() {
+      let grid = Object.assign(
+        {
+          left: '2%',
+          top: this._legend.show ? '15%' : '10%',
+          right: '2%',
+          bottom: '5%',
+          containLabel: true // 包含坐标轴的刻度标签
+        },
+        this.grid
+      );
+
+      return grid;
+    },
+    _legend() {
       let legend = Object.assign(
         {
           show: this.series && this.series.length > 1 ? true : false,
@@ -78,17 +106,9 @@ export default {
         this.legend
       );
 
-      let grid = Object.assign(
-        {
-          left: '2%',
-          top: legend.show ? '15%' : '10%',
-          right: '2%',
-          bottom: '5%',
-          containLabel: true // 包含坐标轴的刻度标签
-        },
-        this.grid
-      );
-
+      return legend;
+    },
+    _tooltip() {
       let tooltip = Object.assign(
         {
           trigger: 'axis',
@@ -99,6 +119,9 @@ export default {
         this.tooltip
       );
 
+      return tooltip;
+    },
+    _xAxis() {
       let xAxisData = {
         name: '',
         axisTick: {
@@ -133,6 +156,9 @@ export default {
         );
       }
 
+      return xAxis;
+    },
+    _yAxis() {
       let yAxisData = {
         name: '',
         axisTick: {
@@ -165,6 +191,9 @@ export default {
         );
       }
 
+      return yAxis;
+    },
+    _series() {
       let series = this.series
         ? this.series
         : [
@@ -201,15 +230,7 @@ export default {
             }
           ];
 
-      return {
-        title,
-        grid,
-        legend,
-        tooltip,
-        xAxis,
-        yAxis,
-        series
-      };
+      return series;
     }
   },
   watch: {
@@ -223,9 +244,7 @@ export default {
       this.initChart();
     }
   },
-  beforeDestroy() {
-    this.destroyChart();
-  },
+  beforeDestroy() {},
   methods: {
     initChart() {
       this.setOption();
