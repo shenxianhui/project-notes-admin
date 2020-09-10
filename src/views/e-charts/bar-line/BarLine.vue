@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-10 11:08:00
+ * @LastEditTime: 2020-09-10 15:18:00
  * @Description: 柱线图
 -->
 
@@ -42,6 +42,14 @@
           :series="seriesBarsDoubleY"
           :series-data="chartData"
         ></xx-bar-line>
+      </div>
+      <!-- 双图表 -->
+      <div class="chart-bar-line-item">
+        <xx-double-chart
+          title-text="双图表"
+          :series="seriesBars"
+          :series-data="chartData"
+        ></xx-double-chart>
       </div>
       <!-- 柱线图 -->
       <div class="chart-bar-line-item">
@@ -100,6 +108,7 @@
 <script>
 import XxBarLine from '@/components/e-charts/bar-line';
 import XxBarCuboid from '@/components/e-charts/bar-line/bar-cuboid';
+import XxDoubleChart from '@/components/e-charts/bar-line/double-chart';
 
 let timer;
 
@@ -107,7 +116,8 @@ export default {
   name: 'chart-bar-line',
   components: {
     XxBarLine,
-    XxBarCuboid
+    XxBarCuboid,
+    XxDoubleChart
   },
   props: {},
   data() {
