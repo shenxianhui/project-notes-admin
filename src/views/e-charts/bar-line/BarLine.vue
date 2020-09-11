@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-10 15:18:00
+ * @LastEditTime: 2020-09-11 09:18:43
  * @Description: 柱线图
 -->
 
@@ -43,10 +43,19 @@
           :series-data="chartData"
         ></xx-bar-line>
       </div>
-      <!-- 双图表 -->
+      <!-- 上下双图表 -->
       <div class="chart-bar-line-item">
         <xx-double-chart
-          title-text="双图表"
+          title-text="上下双图表"
+          type="vertical"
+          :series="seriesBars"
+          :series-data="chartData"
+        ></xx-double-chart>
+      </div>
+      <!-- 左右双图表 -->
+      <div class="chart-bar-line-item">
+        <xx-double-chart
+          title-text="左右双图表"
           :series="seriesBars"
           :series-data="chartData"
         ></xx-double-chart>
@@ -71,19 +80,13 @@
       <div class="chart-bar-line-item">
         <xx-bar-line
           title-text="象形图"
-          :grid="{ top: '15%' }"
           :series="seriesPictorialBars"
           :series-data="chartData"
         ></xx-bar-line>
       </div>
       <!-- 折线图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line
-          title-text="折线图"
-          :grid="{ top: '15%' }"
-          series-type="line"
-          :series-data="chartData"
-        ></xx-bar-line>
+        <xx-bar-line title-text="折线图" series-type="line" :series-data="chartData"></xx-bar-line>
       </div>
       <!-- 多线图 -->
       <div class="chart-bar-line-item">

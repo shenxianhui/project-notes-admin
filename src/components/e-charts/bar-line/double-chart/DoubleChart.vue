@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-10 15:12:31
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-10 18:54:51
+ * @LastEditTime: 2020-09-11 09:15:09
  * @Description: 组件-双图表
 -->
 
@@ -52,10 +52,14 @@ export default {
       type: String,
       default: 'bar'
     },
-    // horizontal: Boolean, // 横向展示(XY轴交换)
-    titleText: String,
+    // 展示类型
+    type: {
+      type: String,
+      default: 'horizontal' // horizontal: 左右; vertical: 上下
+    },
 
     title: String,
+    titleText: String,
     grid: Object,
     legend: Object,
     tooltip: Object,
@@ -71,25 +75,46 @@ export default {
   },
   computed: {
     horizontal() {
-      return true;
+      return this.type === 'horizontal';
     },
     getGrid() {
-      let grid = this.grid || [
-        {
-          left: '2%',
-          top: '10%',
-          // right: '2%',
-          bottom: '5%',
-          width: '44%'
-        },
-        {
-          // left: '2%',
-          top: '10%',
-          right: '2%',
-          bottom: '5%',
-          width: '44%'
+      let grid;
+
+      if (this.grid) {
+        grid = this.grid;
+      } else {
+        if (this.type === 'horizontal') {
+          grid = [
+            {
+              left: '10%',
+              top: '15%',
+              bottom: '12%',
+              width: '36%'
+            },
+            {
+              top: '15%',
+              right: '10%',
+              bottom: '12%',
+              width: '36%'
+            }
+          ];
+        } else {
+          grid = [
+            {
+              left: '15%',
+              top: '15%',
+              right: '5%',
+              height: '32%'
+            },
+            {
+              left: '15%',
+              right: '5%',
+              bottom: '10%',
+              height: '32%'
+            }
+          ];
         }
-      ];
+      }
 
       return grid;
     },
@@ -97,7 +122,7 @@ export default {
       let xAxis = Object.assign(
         {
           axisLabel: {
-            show: false
+            show: this.type === 'vertical'
           }
         },
         this.xAxis || {}
@@ -110,7 +135,7 @@ export default {
         {
           gridIndex: 1,
           axisLabel: {
-            show: true
+            show: this.type === 'horizontal'
           }
         },
         this.xAxis1 || {}
@@ -121,9 +146,9 @@ export default {
     getYAxis() {
       let yAxis = Object.assign(
         {
-          inverse: true,
+          inverse: this.type === 'horizontal',
           axisLabel: {
-            show: false
+            show: true
           }
         },
         this.yAxis || {}
@@ -134,7 +159,7 @@ export default {
     getYAxis1() {
       let yAxis1 = Object.assign(
         {
-          inverse: false,
+          inverse: this.type === 'vertical',
           gridIndex: 1
         },
         this.yAxis1 || {}

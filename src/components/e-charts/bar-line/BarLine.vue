@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-27 16:24:15
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-10 18:52:44
+ * @LastEditTime: 2020-09-11 09:12:52
  * @Description: 组件-柱线图
 -->
 
@@ -78,10 +78,10 @@ export default {
           ? this.grid
           : Object.assign(
               {
-                left: '2%',
-                top: this._legend.show ? '15%' : '10%',
-                right: '2%',
-                bottom: '5%',
+                left: '5%',
+                top: this._legend.show ? '20%' : '15%',
+                right: '5%',
+                bottom: '10%',
                 containLabel: true // 包含坐标轴的刻度标签
               },
               this.grid
