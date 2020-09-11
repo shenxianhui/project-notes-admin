@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-27 16:24:15
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 15:37:38
+ * @LastEditTime: 2020-09-11 18:34:50
  * @Description: 组件-柱线图
 -->
 
@@ -117,7 +117,8 @@ export default {
           trigger: 'axis',
           axisPointer: {
             type: 'line' // line shadow
-          }
+          },
+          confine: true
         },
         this.tooltip
       );
@@ -203,7 +204,6 @@ export default {
           : [
               Object.assign(
                 {
-                  name: '',
                   type: this.seriesType,
                   smooth: true,
                   itemStyle: {

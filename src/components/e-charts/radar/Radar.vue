@@ -2,19 +2,19 @@
  * @Author: shenxh
  * @Date: 2020-09-11 11:36:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 18:34:33
- * @Description: 组件-饼图
+ * @LastEditTime: 2020-09-11 18:37:39
+ * @Description: 组件-雷达图
 -->
 
 <template>
-  <div :id="id || myId" class="xx-pie" :style="{ width, height }"></div>
+  <div :id="id || myId" class="xx-radar" :style="{ width, height }"></div>
 </template>
 
 <script>
 import { uuid } from '@/utils/utils';
 
 export default {
-  name: 'xx-pie',
+  name: 'xx-radar',
   components: {},
   props: {
     id: [String, Number],
@@ -31,6 +31,8 @@ export default {
     titleText: String,
     legend: Object,
     tooltip: Object,
+    radar: Object,
+    radarIndicator: Array, // 雷达图的指示器，用来指定雷达图中的多个变量（维度）
     series: [Array, Object],
     seriesData: Array
   },
@@ -45,6 +47,7 @@ export default {
         title: this._title,
         legend: this._legend,
         tooltip: this._tooltip,
+        radar: this._radar,
         series: this._series
       };
     },
@@ -91,6 +94,16 @@ export default {
 
       return tooltip;
     },
+    _radar() {
+      let radar = Object.assign(
+        {
+          indicator: this.radarIndicator
+        },
+        this.radar
+      );
+
+      return radar;
+    },
     _series() {
       let series =
         this.series && Array.isArray(this.series)
@@ -98,8 +111,17 @@ export default {
           : [
               Object.assign(
                 {
-                  type: 'pie',
-                  radius: '75%',
+                  type: 'radar',
+                  itemStyle: {
+                    opacity: 0
+                  },
+                  lineStyle: {
+                    opacity: 0
+                  },
+                  areaStyle: {
+                    color: '#c00',
+                    opacity: 0.5
+                  },
                   data: this.seriesData
                 },
                 this.series
