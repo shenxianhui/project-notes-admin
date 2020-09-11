@@ -2,32 +2,83 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 10:36:20
+ * @LastEditTime: 2020-09-11 16:15:36
  * @Description: 饼图
 -->
 
 <template>
   <div class="chart-pie admin-content">
     <div class="chart-pie-wrap">
-      <div class="chart-pie-item"></div>
+      <!-- 饼图 -->
+      <div class="chart-pie-item">
+        <xx-pie title-text="饼图" :series-data="chartData"></xx-pie>
+      </div>
+      <!-- 环形图 -->
+      <div class="chart-pie-item">
+        <xx-pie
+          title-text="环形图"
+          :series="{ radius: ['50%', '75%'] }"
+          :series-data="chartData"
+        ></xx-pie>
+      </div>
+      <!-- 玫瑰图 -->
+      <div class="chart-pie-item">
+        <xx-pie title-text="玫瑰图" :series="{ roseType: true }" :series-data="chartData"></xx-pie>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import XxPie from '@/components/e-charts/pie';
+
+let timer;
+
 export default {
   name: 'chart-pie',
-  components: {},
+  components: {
+    XxPie
+  },
   props: {},
   data() {
-    return {};
+    return {
+      chartData: []
+    };
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+    this._clearTimer();
+    this._getChartData();
+    timer = setInterval(() => {
+      this._getChartData();
+    }, 5000);
+  },
   mounted() {},
-  beforeDestroy() {},
-  methods: {}
+  beforeDestroy() {
+    this._clearTimer();
+  },
+  methods: {
+    _getChartData() {
+      let list = [];
+      for (let i = 0; i < 10; i++) {
+        list.push({
+          name: 'X' + i,
+          value: Math.round(Math.random() * 1000)
+        });
+      }
+
+      this.chartData = list.sort((a, b) => {
+        return a.value - b.value;
+      });
+    },
+    _clearTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+  }
 };
 </script>
 

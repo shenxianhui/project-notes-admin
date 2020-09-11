@@ -2,19 +2,19 @@
  * @Author: shenxh
  * @Date: 2020-09-11 11:31:30
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 11:31:43
+ * @LastEditTime: 2020-09-11 11:37:44
  * @Description: 地图
 -->
 
 <template>
-  <div class="xx-map">
+  <div class="chart-map">
     New page
   </div>
 </template>
 
 <script>
 export default {
-  name: 'xx-map',
+  name: 'chart-map',
   components: {},
   props: {},
   data() {

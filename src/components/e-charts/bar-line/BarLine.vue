@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-27 16:24:15
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 09:12:52
+ * @LastEditTime: 2020-09-11 15:37:38
  * @Description: 组件-柱线图
 -->
 
@@ -201,37 +201,40 @@ export default {
         this.series && Array.isArray(this.series)
           ? this.series
           : [
-              {
-                name: '',
-                type: this.seriesType,
-                smooth: true,
-                itemStyle: {
-                  color: '#a1c4fd'
+              Object.assign(
+                {
+                  name: '',
+                  type: this.seriesType,
+                  smooth: true,
+                  itemStyle: {
+                    color: '#a1c4fd'
+                  },
+                  lineStyle: {
+                    color: '#a1c4fd'
+                  },
+                  areaStyle: {
+                    color: {
+                      type: 'linear',
+                      x: 0,
+                      y: 0,
+                      x2: 0,
+                      y2: 1,
+                      colorStops: [
+                        {
+                          offset: 0,
+                          color: '#00C1DE99'
+                        },
+                        {
+                          offset: 1,
+                          color: '#0080DE0D'
+                        }
+                      ]
+                    }
+                  },
+                  data: this.seriesData
                 },
-                lineStyle: {
-                  color: '#a1c4fd'
-                },
-                areaStyle: {
-                  color: {
-                    type: 'linear',
-                    x: 0,
-                    y: 0,
-                    x2: 0,
-                    y2: 1,
-                    colorStops: [
-                      {
-                        offset: 0,
-                        color: '#00C1DE99'
-                      },
-                      {
-                        offset: 1,
-                        color: '#0080DE0D'
-                      }
-                    ]
-                  }
-                },
-                data: this.seriesData
-              }
+                this.series
+              )
             ];
 
       return series;
