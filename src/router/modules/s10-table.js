@@ -17,7 +17,7 @@ export default [
     children: [
       {
         path: 'common',
-        name: 'common',
+        name: 'table-common',
         meta: {
           label: '普通'
         },

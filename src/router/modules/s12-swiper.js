@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:56:08
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-04 18:22:02
+ * @LastEditTime: 2020-09-11 10:12:45
  * @Description: Swiper
  */
 export default [
@@ -17,7 +17,7 @@ export default [
     children: [
       {
         path: 'common',
-        name: 'common',
+        name: 'swiper-common',
         meta: {
           label: '普通'
         },
@@ -25,7 +25,7 @@ export default [
       },
       {
         path: 'scale',
-        name: 'scale',
+        name: 'swiper-scale',
         meta: {
           label: '缩放'
         },

@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:51:16
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-31 16:59:53
+ * @LastEditTime: 2020-09-11 11:33:45
  * @Description: ECharts
  */
 export default [
@@ -30,7 +30,23 @@ export default [
           label: '饼图'
         },
         component: loadView('e-charts/pie/Pie')
-      }
+      },
+      {
+        path: 'radar',
+        name: 'radar',
+        meta: {
+          label: '雷达图'
+        },
+        component: loadView('e-charts/radar/Radar')
+      },
+      {
+        path: 'map',
+        name: 'map',
+        meta: {
+          label: '地图'
+        },
+        component: loadView('e-charts/map/Map')
+      },
     ]
   }
 ];
