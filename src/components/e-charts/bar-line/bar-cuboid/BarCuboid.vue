@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-31 16:51:26
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-10 15:28:55
+ * @LastEditTime: 2020-09-12 08:11:14
  * @Description: 长方体柱状图
 -->
 
@@ -71,7 +71,10 @@ export default {
     xAxis: Object,
     yAxis: Object,
     series: [Array, Object],
-    seriesData: Array
+    seriesData: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {

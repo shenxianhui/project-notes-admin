@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-10 15:12:31
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 09:15:09
+ * @LastEditTime: 2020-09-12 08:11:07
  * @Description: 组件-双图表
 -->
 
@@ -68,7 +68,10 @@ export default {
     yAxis: Object,
     yAxis1: Object,
     series: Array,
-    seriesData: Array
+    seriesData: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {};

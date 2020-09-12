@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-27 16:24:15
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 18:34:50
+ * @LastEditTime: 2020-09-12 08:22:07
  * @Description: 组件-柱线图
 -->
 
@@ -42,7 +42,10 @@ export default {
     yAxis: Object,
     yAxis1: [Object, Boolean],
     series: [Array, Object],
-    seriesData: Array
+    seriesData: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {
@@ -247,11 +250,14 @@ export default {
   },
   created() {},
   mounted() {
+    window.addEventListener('resize', this.initChart);
     if (this.seriesData && this.seriesData.length) {
       this.initChart();
     }
   },
-  beforeDestroy() {},
+  beforeDestroy() {
+    window.removeEventListener('resize', this.initChart);
+  },
   methods: {
     initChart() {
       this.setOption();

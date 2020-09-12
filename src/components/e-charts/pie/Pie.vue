@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-11 11:36:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 18:34:33
+ * @LastEditTime: 2020-09-12 08:24:38
  * @Description: 组件-饼图
 -->
 
@@ -32,7 +32,10 @@ export default {
     legend: Object,
     tooltip: Object,
     series: [Array, Object],
-    seriesData: Array
+    seriesData: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {
@@ -116,11 +119,14 @@ export default {
   },
   created() {},
   mounted() {
+    window.addEventListener('resize', this.initChart);
     if (this.seriesData && this.seriesData.length) {
       this.initChart();
     }
   },
-  beforeDestroy() {},
+  beforeDestroy() {
+    window.removeEventListener('resize', this.initChart);
+  },
   methods: {
     initChart() {
       this.destroyChart();

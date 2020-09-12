@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-11 11:36:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 18:37:39
+ * @LastEditTime: 2020-09-12 08:24:26
  * @Description: 组件-雷达图
 -->
 
@@ -32,9 +32,16 @@ export default {
     legend: Object,
     tooltip: Object,
     radar: Object,
-    radarIndicator: Array, // 雷达图的指示器，用来指定雷达图中的多个变量（维度）
+    // 雷达图的指示器，用来指定雷达图中的多个变量（维度）
+    radarIndicator: {
+      type: Array,
+      required: true
+    },
     series: [Array, Object],
-    seriesData: Array
+    seriesData: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {
@@ -138,11 +145,19 @@ export default {
   },
   created() {},
   mounted() {
-    if (this.seriesData && this.seriesData.length) {
+    window.addEventListener('resize', this.initChart);
+    if (
+      this.seriesData &&
+      this.seriesData.length &&
+      this.radarIndicator &&
+      this.radarIndicator.length
+    ) {
       this.initChart();
     }
   },
-  beforeDestroy() {},
+  beforeDestroy() {
+    window.removeEventListener('resize', this.initChart);
+  },
   methods: {
     initChart() {
       this.destroyChart();
