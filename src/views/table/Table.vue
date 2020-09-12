@@ -2,12 +2,12 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-25 10:52:18
+ * @LastEditTime: 2020-09-12 08:31:23
  * @Description: 表格
 -->
 
 <template>
-  <div class="base-table">
+  <div class="base-table admin-content">
     New page1
   </div>
 </template>

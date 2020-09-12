@@ -2,12 +2,12 @@
  * @Author: shenxh
  * @Date: 2020-09-11 11:31:30
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 11:37:44
+ * @LastEditTime: 2020-09-12 08:35:31
  * @Description: 地图
 -->
 
 <template>
-  <div class="chart-map">
+  <div class="chart-map admin-content">
     New page
   </div>
 </template>

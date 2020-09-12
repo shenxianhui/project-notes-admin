@@ -3,7 +3,7 @@ export default [
   {
     path: '/',
     // redirect: '/table/common'
-    redirect: '/e-charts/pie'
+    redirect: '/e-charts/map'
   },
   // 错误
   {
