@@ -16,4 +16,25 @@ const formatAreaCode = (() => {
   return areaList;
 })();
 
-export { formatAreaCode };
+// 根据区域 name 获取 code
+const getAreaCode = (areaName, defCode = '100000') => {
+  let code = defCode;
+
+  if (areaName) {
+    formatAreaCode.forEach(item => {
+      if (item.name.includes(areaName.slice(0, 2))) {
+        code = item.code;
+      }
+    });
+
+    for (let i = 0; i < 6; i++) {
+      if (code && code.length < 6) {
+        code += '0';
+      }
+    }
+  }
+
+  return code;
+};
+
+export { formatAreaCode, getAreaCode };

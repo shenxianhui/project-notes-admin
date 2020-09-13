@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-12 08:52:18
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-12 19:48:49
+ * @LastEditTime: 2020-09-13 10:15:57
  * @Description: 组件-地图
 -->
 
@@ -12,7 +12,7 @@
 
 <script>
 import { uuid } from '@/utils/utils';
-import { formatAreaCode } from '@/utils/map';
+import { getAreaCode } from '@/utils/map';
 
 export default {
   name: 'xx-map',
@@ -27,10 +27,14 @@ export default {
       type: String,
       default: '100%'
     },
-    // 当前区域-编号
-    areaCode: {
-      type: String,
-      default: '100000'
+    // 当前区域 (父组件只需传入编号 code 即可)
+    area: {
+      type: Object,
+      default() {
+        return {
+          code: '100000'
+        };
+      }
     },
 
     tooltip: Object,
@@ -48,7 +52,7 @@ export default {
   computed: {
     getMap() {
       let mapData;
-      let areaCode = this.getAreaCode(this.currentArea.name);
+      let areaCode = getAreaCode(this.currentArea.name, '100000');
 
       if (this.currentArea.name === 'China') {
         mapData = require('./data/100000');
@@ -69,7 +73,22 @@ export default {
     _tooltip() {
       let tooltip = Object.assign(
         {
-          formatter: '{b}: {c}'
+          formatter(data) {
+            if (!data) return;
+
+            let str = '';
+
+            if (data.seriesType === 'map') {
+              str = `${data.name || data.data.name}: ${
+                data.value || data.data ? data.data.value : '无数据'
+              }`;
+            }
+            if (data.seriesType === 'scatter') {
+              str = `${data.name || data.data.name}: ${data.value ? data.value[2] : '无数据'}`;
+            }
+
+            return str;
+          }
         },
         this.tooltip
       );
@@ -107,7 +126,7 @@ export default {
       let geo = Object.assign(
         {
           show: true,
-          map: this.areaCode === '100000' ? 'china' : '',
+          map: this.area.code === '100000' ? 'china' : '',
           roam: true, // 鼠标缩放+平移
           selectedMode: 'single', // 选中
           label: {
@@ -118,7 +137,7 @@ export default {
           },
           itemStyle: {
             areaColor: {
-              type: 'radial', // 径向渐变
+              type: 'radial',
               x: 0.5,
               y: 0.5,
               r: 0.8,
@@ -142,7 +161,6 @@ export default {
             shadowOffsetX: -2,
             shadowOffsetY: 2
           },
-          // 高亮状态
           emphasis: {
             label: {
               color: '#fff'
@@ -166,12 +184,19 @@ export default {
               {
                 type: 'map',
                 // map: 'china',
-                geoIndex: 0, // 共享 geo 样式
-                data: this.mapData
+                geoIndex: 0,
+                data: this.seriesData.map(item => {
+                  return {
+                    caode: item.id,
+                    name: item.properties ? item.properties.name : item.name || '', // 优先显示地图 name
+                    value: item.value
+                  };
+                })
               },
               // 气泡
               {
                 type: 'scatter',
+                geoIndex: 0,
                 coordinateSystem: 'geo',
                 symbol: 'pin',
                 symbolSize: [70, 60],
@@ -180,15 +205,24 @@ export default {
                   show: true,
                   color: '#00E0FF',
                   fontSize: 14,
-                  formatter(value) {
-                    return value.data.value[2];
+                  formatter(data) {
+                    return data.data.value[2];
                   }
                 },
                 itemStyle: {
                   color: '#fff',
                   opacity: 1
                 },
-                data: this.seriesData
+                data: this.seriesData.map(item => {
+                  return {
+                    caode: item.id,
+                    name: item.properties ? item.properties.name : item.name || '', // 优先显示地图 name
+                    value: item.properties ? [...item.properties.cp, item.value] : [0, 0, 0]
+                    // label: {
+                    //   color: mapData.value >= 900 ? '#FE5B5B' : '#00E0FF'
+                    // }
+                  };
+                })
               }
             ];
 
@@ -225,16 +259,19 @@ export default {
       // 点击事件
       myChart.off('click');
       myChart.on('click', evt => {
-        console.log(evt);
-        let areaCode = this.getAreaCode(evt.name);
+        let areaCode = getAreaCode(evt.name);
+        // this.area.code = areaCode;
         this.currentArea = evt;
 
+        Object.assign(this.area, {
+          code: areaCode,
+          name: evt.name,
+          data: evt.data || null
+        });
+
+        this.$emit('handle-area', { evt, areaCode });
+
         this.initChart();
-
-        this.$emit('handle-area', evt);
-        this.$emit('set-area-code', areaCode);
-
-        console.log(this.areaCode);
       });
     },
     // 销毁图表实例
@@ -249,27 +286,14 @@ export default {
     },
     // 数据处理
     setOption() {
-      // 123
-    },
-    // 根据区域 name 获取 code
-    getAreaCode(areaName) {
-      let code = this.areaCode;
-
-      if (areaName) {
-        formatAreaCode.forEach(item => {
-          if (item.name.includes(areaName.slice(0, 2))) {
-            code = item.code;
+      // 把地图数据坐标导入至 seriesData
+      this.getMap.features.forEach(item => {
+        this.seriesData.map(item1 => {
+          if (item.id === getAreaCode(item1.name)) {
+            return Object.assign(item1, item);
           }
         });
-
-        for (let i = 0; i < 6; i++) {
-          if (code && code.length < 6) {
-            code += '0';
-          }
-        }
-      }
-
-      return code;
+      });
     }
   }
 };

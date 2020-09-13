@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-11 11:31:30
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-12 19:36:03
+ * @LastEditTime: 2020-09-13 10:33:13
  * @Description: 地图
 -->
 
@@ -10,7 +10,7 @@
   <div class="chart-map admin-content">
     <div class="chart-map-wrap">
       <div class="chart-map-item">
-        <xx-map v-model="mapCode" :series-data="getSeriesData"></xx-map>
+        <xx-map :area="area" :series-data="getSeriesData"></xx-map>
       </div>
     </div>
   </div>
@@ -28,28 +28,59 @@ export default {
   props: {},
   data() {
     return {
-      mapCode: '100000'
+      area: {
+        code: '100000'
+      }
     };
   },
   computed: {
     getSeriesData() {
       const mockData = list => {
         return list.map(item => {
+          // 不够6位的末尾补0
+          for (let i = 0; i < 6; i++) {
+            if (item.code && item.code.length < 6) {
+              item.code += '0';
+            }
+          }
           return Object.assign(item, {
             value: Math.round(Math.random() * 1000),
             children: item.children && item.children.length ? mockData(item.children) : null
           });
         });
       };
-
       return mockData(AreaCode);
     }
   },
-  watch: {},
+  watch: {
+    area: {
+      handler(val) {
+        console.log(val);
+        console.log(this.getSeriesData);
+      },
+      deep: true
+    }
+  },
   created() {},
   mounted() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {
+    // _getSeriesData(code) {
+    //   let list = [];
+    //   if (!code) {
+    //     AreaCode.forEach(item => {
+    //       list.push(
+    //         Object.assign(item, {
+    //           value: Math.round(Math.random() * 1000)
+    //         })
+    //       );
+    //     });
+    //   } else {
+    //   }
+    //   this.seriesData = list;
+    //   return mockData(AreaCode);
+    // }
+  }
 };
 </script>
 
