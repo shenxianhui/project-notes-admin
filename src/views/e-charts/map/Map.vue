@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-11 11:31:30
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-13 10:33:13
+ * @LastEditTime: 2020-09-13 17:33:03
  * @Description: 地图
 -->
 
@@ -10,7 +10,7 @@
   <div class="chart-map admin-content">
     <div class="chart-map-wrap">
       <div class="chart-map-item">
-        <xx-map :area="area" :series-data="getSeriesData"></xx-map>
+        <xx-map :area="area" :series-data="seriesData || mockSeriesData"></xx-map>
       </div>
     </div>
   </div>
@@ -30,11 +30,12 @@ export default {
     return {
       area: {
         code: '100000'
-      }
+      },
+      seriesData: null
     };
   },
   computed: {
-    getSeriesData() {
+    mockSeriesData() {
       const mockData = list => {
         return list.map(item => {
           // 不够6位的末尾补0
@@ -49,14 +50,14 @@ export default {
           });
         });
       };
+
       return mockData(AreaCode);
     }
   },
   watch: {
     area: {
-      handler(val) {
-        console.log(val);
-        console.log(this.getSeriesData);
+      handler() {
+        this._getSeriesData();
       },
       deep: true
     }
@@ -65,21 +66,35 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {
-    // _getSeriesData(code) {
-    //   let list = [];
-    //   if (!code) {
-    //     AreaCode.forEach(item => {
-    //       list.push(
-    //         Object.assign(item, {
-    //           value: Math.round(Math.random() * 1000)
-    //         })
-    //       );
-    //     });
-    //   } else {
-    //   }
-    //   this.seriesData = list;
-    //   return mockData(AreaCode);
-    // }
+    _getSeriesData() {
+      let level;
+      let areaCode = this.area.code;
+
+      if (areaCode / 10000 === parseInt(areaCode / 10000)) {
+        level = 1; // 省
+      } else if (areaCode / 100 === parseInt(areaCode / 100)) {
+        level = 2; // 市
+      } else {
+        level = 3; // 区
+      }
+
+      if (areaCode === '100000') {
+        this.seriesData = this.mockSeriesData;
+      } else {
+        this.mockSeriesData.forEach(item => {
+          if (level === 1 && item.code === areaCode) {
+            this.seriesData = item.children;
+          }
+          if (level === 2 && item.code.slice(0, 2) === areaCode.slice(0, 2) && item.children) {
+            item.children.forEach(item1 => {
+              if (item1.code === areaCode) {
+                this.seriesData = item1.children;
+              }
+            });
+          }
+        });
+      }
+    }
   }
 };
 </script>

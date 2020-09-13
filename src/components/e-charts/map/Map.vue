@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-12 08:52:18
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-13 10:15:57
+ * @LastEditTime: 2020-09-13 18:04:10
  * @Description: 组件-地图
 -->
 
@@ -62,6 +62,24 @@ export default {
 
       return mapData;
     },
+    getMaxVisualMap() {
+      let maxNum = 0;
+
+      this.seriesData.forEach(item => {
+        if (maxNum < item.value) {
+          maxNum = item.value;
+        }
+      });
+      if (String(maxNum).length <= 1) {
+        maxNum = 10;
+      } else {
+        let powNum = Math.pow(10, String(maxNum).length - 2);
+        maxNum = Math.ceil(maxNum / powNum) * powNum;
+      }
+
+      return maxNum;
+    },
+
     option() {
       return {
         tooltip: this._tooltip,
@@ -101,7 +119,7 @@ export default {
           show: true,
           right: 0,
           min: 0,
-          max: 100,
+          max: this.getMaxVisualMap,
           itemWidth: 10,
           itemHeight: 70,
           align: 'left',
@@ -216,11 +234,11 @@ export default {
                 data: this.seriesData.map(item => {
                   return {
                     caode: item.id,
-                    name: item.properties ? item.properties.name : item.name || '', // 优先显示地图 name
-                    value: item.properties ? [...item.properties.cp, item.value] : [0, 0, 0]
-                    // label: {
-                    //   color: mapData.value >= 900 ? '#FE5B5B' : '#00E0FF'
-                    // }
+                    name: item.name || '', // 优先显示地图 name
+                    value: item.cp ? [...item.cp, item.value] : [0, 0, 0],
+                    label: {
+                      color: item.value >= 500 ? '#FE5B5B' : '#00E0FF'
+                    }
                   };
                 })
               }
@@ -244,7 +262,7 @@ export default {
   },
   methods: {
     initChart() {
-      this.setOption();
+      this._setOption();
       this.destroyChart();
 
       let id = this.id || this.myId;
@@ -285,12 +303,18 @@ export default {
       }
     },
     // 数据处理
-    setOption() {
+    _setOption() {
       // 把地图数据坐标导入至 seriesData
       this.getMap.features.forEach(item => {
         this.seriesData.map(item1 => {
-          if (item.id === getAreaCode(item1.name)) {
-            return Object.assign(item1, item);
+          if (
+            item.id == getAreaCode(item1.name) ||
+            item.properties.adcode == getAreaCode(item1.name)
+          ) {
+            return Object.assign(item1, {
+              cp: item.properties.cp || item.properties.center,
+              name: item.properties ? item.properties.name : item.name // 注: seriesData 的 name 必须与 地图中的 name 保持一致才会显示数据
+            });
           }
         });
       });
