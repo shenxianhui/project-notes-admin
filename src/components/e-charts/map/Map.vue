@@ -2,12 +2,15 @@
  * @Author: shenxh
  * @Date: 2020-09-12 08:52:18
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-13 18:04:10
+ * @LastEditTime: 2020-09-14 09:51:04
  * @Description: 组件-地图
 -->
 
 <template>
-  <div :id="id || myId" class="xx-map" :style="{ width, height }"></div>
+  <div class="xx-map" :style="{ width, height }">
+    <div :id="id || myId" class="xx-map-wrap" :style="{ width, height }"></div>
+    <div class="xx-map-back" @click="handleBack()">返回上级</div>
+  </div>
 </template>
 
 <script>
@@ -32,7 +35,10 @@ export default {
       type: Object,
       default() {
         return {
-          code: '100000'
+          code: '100000', // 区域编码-必填
+          level: 1, // 0世界 1中国 2省 3市 4区
+          name: 'China',
+          data: null
         };
       }
     },
@@ -45,22 +51,12 @@ export default {
   },
   data() {
     return {
-      myId: uuid(),
-      currentArea: {}
+      myId: uuid()
     };
   },
   computed: {
     getMap() {
-      let mapData;
-      let areaCode = getAreaCode(this.currentArea.name, '100000');
-
-      if (this.currentArea.name === 'China') {
-        mapData = require('./data/100000');
-      } else {
-        mapData = require(`./data/${areaCode}`);
-      }
-
-      return mapData;
+      return require(`./data/${this.area.code}`);
     },
     getMaxVisualMap() {
       let maxNum = 0;
@@ -277,12 +273,24 @@ export default {
       // 点击事件
       myChart.off('click');
       myChart.on('click', evt => {
+        let level = this.area.level;
         let areaCode = getAreaCode(evt.name);
-        // this.area.code = areaCode;
-        this.currentArea = evt;
+
+        if (evt.name === 'China') {
+          level = 1;
+        } else {
+          if (areaCode / 10000 === parseInt(areaCode / 10000)) {
+            level = 2; // 省
+          } else if (areaCode / 100 === parseInt(areaCode / 100)) {
+            level = 3; // 市
+          } else {
+            level = 4; // 区
+          }
+        }
 
         Object.assign(this.area, {
           code: areaCode,
+          level,
           name: evt.name,
           data: evt.data || null
         });
@@ -301,6 +309,28 @@ export default {
         chart.clear(); // 释放图形资源
         chart.dispose(); // 销毁实例对象
       }
+    },
+    handleBack() {
+      const { level } = this.area;
+
+      if (level === 0) return;
+      switch (level) {
+        case 1:
+          this.area.code = '000000';
+          break;
+        case 2:
+          this.area.code = '100000';
+          break;
+        case 3:
+          this.area.code = this.area.code.slice(0, 2) + '0000';
+          break;
+        case 4:
+          this.area.code = this.area.code.slice(0, 4) + '00';
+          break;
+      }
+      this.area.level--;
+
+      this.initChart();
     },
     // 数据处理
     _setOption() {
@@ -323,4 +353,16 @@ export default {
 };
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.xx-map {
+  position: relative;
+  .xx-map-back {
+    position: absolute;
+    top: 50px;
+    right: 80px;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+</style>

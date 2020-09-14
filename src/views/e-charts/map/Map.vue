@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-11 11:31:30
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-13 17:33:03
+ * @LastEditTime: 2020-09-14 09:51:13
  * @Description: 地图
 -->
 
@@ -29,9 +29,9 @@ export default {
   data() {
     return {
       area: {
-        code: '100000'
+        code: '000000'
       },
-      seriesData: null
+      seriesData: []
     };
   },
   computed: {
@@ -62,32 +62,27 @@ export default {
       deep: true
     }
   },
-  created() {},
+  created() {
+    this._getSeriesData();
+  },
   mounted() {},
   beforeDestroy() {},
   methods: {
     _getSeriesData() {
-      let level;
-      let areaCode = this.area.code;
+      // level: 0世界 1中国 2省 3市 4区
+      const { code, level } = this.area;
 
-      if (areaCode / 10000 === parseInt(areaCode / 10000)) {
-        level = 1; // 省
-      } else if (areaCode / 100 === parseInt(areaCode / 100)) {
-        level = 2; // 市
-      } else {
-        level = 3; // 区
-      }
-
-      if (areaCode === '100000') {
+      if (level === 0) return;
+      if (level === 1) {
         this.seriesData = this.mockSeriesData;
       } else {
         this.mockSeriesData.forEach(item => {
-          if (level === 1 && item.code === areaCode) {
+          if (level === 2 && item.code === code) {
             this.seriesData = item.children;
           }
-          if (level === 2 && item.code.slice(0, 2) === areaCode.slice(0, 2) && item.children) {
+          if (level === 3 && item.code.slice(0, 2) === code.slice(0, 2) && item.children) {
             item.children.forEach(item1 => {
-              if (item1.code === areaCode) {
+              if (item1.code === code) {
                 this.seriesData = item1.children;
               }
             });
