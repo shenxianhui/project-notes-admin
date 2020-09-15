@@ -2,20 +2,19 @@
  * @Author: shenxh
  * @Date: 2020-09-12 08:52:18
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-14 09:51:04
+ * @LastEditTime: 2020-09-15 10:50:47
  * @Description: 组件-地图
 -->
 
 <template>
   <div class="xx-map" :style="{ width, height }">
     <div :id="id || myId" class="xx-map-wrap" :style="{ width, height }"></div>
-    <div class="xx-map-back" @click="handleBack()">返回上级</div>
+    <div v-if="area.code != '000000'" class="xx-map-back" @click="handleBack()">返回上级</div>
   </div>
 </template>
 
 <script>
 import { uuid } from '@/utils/utils';
-import { getAreaCode } from '@/utils/map';
 
 export default {
   name: 'xx-map',
@@ -35,10 +34,8 @@ export default {
       type: Object,
       default() {
         return {
-          code: '100000', // 区域编码-必填
-          level: 1, // 0世界 1中国 2省 3市 4区
-          name: 'China',
-          data: null
+          code: '000000' // 区域编码
+          // level: 1 // 0世界 1中国 2省 3市 4区
         };
       }
     },
@@ -51,14 +48,16 @@ export default {
   },
   data() {
     return {
-      myId: uuid()
+      myId: uuid(),
+      areaLevel: 0, // 0世界 1中国 2省 3市 4区
+      areaPath: []
     };
   },
   computed: {
-    getMap() {
+    mapModule() {
       return require(`./data/${this.area.code}`);
     },
-    getMaxVisualMap() {
+    visualMapMax() {
       let maxNum = 0;
 
       this.seriesData.forEach(item => {
@@ -115,7 +114,7 @@ export default {
           show: true,
           right: 0,
           min: 0,
-          max: this.getMaxVisualMap,
+          max: this.visualMapMax,
           itemWidth: 10,
           itemHeight: 70,
           align: 'left',
@@ -201,8 +200,8 @@ export default {
                 geoIndex: 0,
                 data: this.seriesData.map(item => {
                   return {
-                    caode: item.id,
-                    name: item.properties ? item.properties.name : item.name || '', // 优先显示地图 name
+                    code: item.id,
+                    name: item.name,
                     value: item.value
                   };
                 })
@@ -213,12 +212,12 @@ export default {
                 geoIndex: 0,
                 coordinateSystem: 'geo',
                 symbol: 'pin',
-                symbolSize: [70, 60],
+                symbolSize: [50, 50],
                 zlevel: 1,
                 label: {
                   show: true,
                   color: '#00E0FF',
-                  fontSize: 14,
+                  fontSize: 10,
                   formatter(data) {
                     return data.data.value[2];
                   }
@@ -229,9 +228,9 @@ export default {
                 },
                 data: this.seriesData.map(item => {
                   return {
-                    caode: item.id,
-                    name: item.name || '', // 优先显示地图 name
-                    value: item.cp ? [...item.cp, item.value] : [0, 0, 0],
+                    code: item.id,
+                    name: item.name,
+                    value: [...item.cp, item.value],
                     label: {
                       color: item.value >= 500 ? '#FE5B5B' : '#00E0FF'
                     }
@@ -246,9 +245,17 @@ export default {
   watch: {
     seriesData() {
       this.initChart();
+    },
+    area: {
+      handler(val) {
+        this._setAreaLevel(val.code);
+      },
+      deep: true
     }
   },
-  created() {},
+  created() {
+    this._setAreaLevel(this.area.code);
+  },
   mounted() {
     window.addEventListener('resize', this.initChart);
     this.initChart();
@@ -265,7 +272,7 @@ export default {
       let myChart = this.$echarts.init(document.getElementById(id));
 
       // 注册地图
-      this.$echarts.registerMap(this._geo.map, this.getMap);
+      this.$echarts.registerMap(this._geo.map, this.mapModule);
 
       // 设置配置项, 刷新图表
       myChart.setOption(this.option, true);
@@ -273,31 +280,7 @@ export default {
       // 点击事件
       myChart.off('click');
       myChart.on('click', evt => {
-        let level = this.area.level;
-        let areaCode = getAreaCode(evt.name);
-
-        if (evt.name === 'China') {
-          level = 1;
-        } else {
-          if (areaCode / 10000 === parseInt(areaCode / 10000)) {
-            level = 2; // 省
-          } else if (areaCode / 100 === parseInt(areaCode / 100)) {
-            level = 3; // 市
-          } else {
-            level = 4; // 区
-          }
-        }
-
-        Object.assign(this.area, {
-          code: areaCode,
-          level,
-          name: evt.name,
-          data: evt.data || null
-        });
-
-        this.$emit('handle-area', { evt, areaCode });
-
-        this.initChart();
+        this._handleArea(evt);
       });
     },
     // 销毁图表实例
@@ -311,10 +294,7 @@ export default {
       }
     },
     handleBack() {
-      const { level } = this.area;
-
-      if (level === 0) return;
-      switch (level) {
+      switch (this.areaLevel) {
         case 1:
           this.area.code = '000000';
           break;
@@ -328,27 +308,86 @@ export default {
           this.area.code = this.area.code.slice(0, 4) + '00';
           break;
       }
-      this.area.level--;
 
       this.initChart();
     },
-    // 数据处理
-    _setOption() {
-      // 把地图数据坐标导入至 seriesData
-      this.getMap.features.forEach(item => {
-        this.seriesData.map(item1 => {
-          if (
-            item.id == getAreaCode(item1.name) ||
-            item.properties.adcode == getAreaCode(item1.name)
-          ) {
-            return Object.assign(item1, {
-              cp: item.properties.cp || item.properties.center,
-              name: item.properties ? item.properties.name : item.name // 注: seriesData 的 name 必须与 地图中的 name 保持一致才会显示数据
-            });
+    _handleArea(evt) {
+      let areaCode = this.area.code;
+      let areaLevel = this.areaLevel;
+
+      if (evt.name === 'China') {
+        areaCode = '100000';
+      } else {
+        this.mapModule.features.forEach(item => {
+          if (item.properties.name.slice(0, 2) === evt.name.slice(0, 2)) {
+            areaCode = item.id || item.properties.adcode + '';
           }
         });
-      });
-    }
+      }
+      this.area.code = areaCode;
+
+      if (this.area.code) {
+        this.initChart();
+      }
+
+      this.$emit('handle-area', { evt, areaLevel });
+    },
+    _setAreaLevel(code) {
+      if (code == '000000') {
+        this.areaLevel = 0;
+      } else if (code == '100000') {
+        this.areaLevel = 1;
+      } else {
+        if (code / 10000 === parseInt(code / 10000)) {
+          this.areaLevel = 2; // 省
+        } else if (code / 100 === parseInt(code / 100)) {
+          this.areaLevel = 3; // 市
+        } else {
+          this.areaLevel = 4; // 区
+        }
+      }
+
+      this._setAreaPath();
+    },
+    _setAreaPath() {
+      let areaCode = this.area.code;
+      let areaLevel = this.areaLevel;
+      let data = [];
+
+      switch (areaLevel) {
+        // 世界
+        case 0:
+          data = ['000000'];
+          break;
+        // 中国
+        case 1:
+          data = ['000000', '100000'];
+          break;
+        // 省
+        case 2:
+          data = ['000000', '100000', areaCode];
+          break;
+        // 市
+        case 3:
+          data = ['000000', '100000', areaCode.slice(0, 2) + '0000', areaCode];
+          break;
+        // 区
+        case 4:
+          data = [
+            '000000',
+            '100000',
+            areaCode.slice(0, 2) + '0000',
+            areaCode.slice(0, 4) + '00',
+            areaCode
+          ];
+          break;
+      }
+
+      console.log(data);
+      this.areaPath = data;
+    },
+    // 数据处理
+    _setOption() {}
   }
 };
 </script>
