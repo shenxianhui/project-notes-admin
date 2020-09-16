@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-11 11:31:30
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-15 10:54:15
+ * @LastEditTime: 2020-09-16 10:03:34
  * @Description: 地图
 -->
 
@@ -28,13 +28,19 @@ export default {
   data() {
     return {
       area: {
-        code: '000000' // 区域编码-必填
+        code: '000000' // 区域编码
       }
     };
   },
   computed: {
     mapModule() {
-      return require(`@/components/e-charts/map/data/${this.area.code}`);
+      let areaCode = this.area.code;
+
+      if (areaCode / 100 !== parseInt(areaCode / 100)) {
+        areaCode = areaCode.slice(0, 4) + '00';
+      }
+
+      return require(`@/components/e-charts/map/data/${areaCode}`);
     },
     seriesData() {
       let areaCode = this.area.code;

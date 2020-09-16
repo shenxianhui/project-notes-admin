@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-12 08:52:18
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-15 10:50:47
+ * @LastEditTime: 2020-09-16 10:41:00
  * @Description: 组件-地图
 -->
 
@@ -35,7 +35,6 @@ export default {
       default() {
         return {
           code: '000000' // 区域编码
-          // level: 1 // 0世界 1中国 2省 3市 4区
         };
       }
     },
@@ -54,9 +53,30 @@ export default {
     };
   },
   computed: {
-    mapModule() {
-      return require(`./data/${this.area.code}`);
+    // 是否为最小区域
+    isMinArea() {
+      let areaCode = this.area.code;
+      let isMin;
+
+      if (areaCode / 100 !== parseInt(areaCode / 100)) {
+        isMin = true;
+      } else {
+        isMin = false;
+      }
+
+      return isMin;
     },
+    // 获取地图模块
+    mapModule() {
+      let areaCode = this.area.code;
+
+      if (this.isMinArea) {
+        areaCode = areaCode.slice(0, 4) + '00';
+      }
+
+      return require(`./data/${areaCode}`);
+    },
+    // 获取视觉映射最大值
     visualMapMax() {
       let maxNum = 0;
 
@@ -75,6 +95,7 @@ export default {
       return maxNum;
     },
 
+    // ECharts 参数
     option() {
       return {
         tooltip: this._tooltip,
@@ -251,6 +272,9 @@ export default {
         this._setAreaLevel(val.code);
       },
       deep: true
+    },
+    areaPath(val) {
+      this.$emit('area-path', val);
     }
   },
   created() {
@@ -265,7 +289,8 @@ export default {
   },
   methods: {
     initChart() {
-      this._setOption();
+      if (this.isMinArea) return;
+
       this.destroyChart();
 
       let id = this.id || this.myId;
@@ -324,11 +349,13 @@ export default {
           }
         });
       }
+      if (areaLevel > 1 && areaCode.slice(0, 2) != '33') {
+        this.$message.warning('区级地域只对浙江省开放~');
+        return;
+      }
       this.area.code = areaCode;
 
-      if (this.area.code) {
-        this.initChart();
-      }
+      this.initChart();
 
       this.$emit('handle-area', { evt, areaLevel });
     },
@@ -352,28 +379,28 @@ export default {
     _setAreaPath() {
       let areaCode = this.area.code;
       let areaLevel = this.areaLevel;
-      let data = [];
+      let areaPath = [];
 
       switch (areaLevel) {
         // 世界
         case 0:
-          data = ['000000'];
+          areaPath = ['000000'];
           break;
         // 中国
         case 1:
-          data = ['000000', '100000'];
+          areaPath = ['000000', '100000'];
           break;
         // 省
         case 2:
-          data = ['000000', '100000', areaCode];
+          areaPath = ['000000', '100000', areaCode];
           break;
         // 市
         case 3:
-          data = ['000000', '100000', areaCode.slice(0, 2) + '0000', areaCode];
+          areaPath = ['000000', '100000', areaCode.slice(0, 2) + '0000', areaCode];
           break;
         // 区
         case 4:
-          data = [
+          areaPath = [
             '000000',
             '100000',
             areaCode.slice(0, 2) + '0000',
@@ -383,11 +410,8 @@ export default {
           break;
       }
 
-      console.log(data);
-      this.areaPath = data;
-    },
-    // 数据处理
-    _setOption() {}
+      this.areaPath = areaPath;
+    }
   }
 };
 </script>
