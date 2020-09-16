@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-12 08:52:18
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-16 10:41:00
+ * @LastEditTime: 2020-09-16 15:42:39
  * @Description: 组件-地图
 -->
 
@@ -227,9 +227,8 @@ export default {
                   };
                 })
               },
-              // 气泡
               {
-                type: 'scatter',
+                type: 'scatter', // 气泡
                 geoIndex: 0,
                 coordinateSystem: 'geo',
                 symbol: 'pin',
@@ -340,6 +339,13 @@ export default {
       let areaCode = this.area.code;
       let areaLevel = this.areaLevel;
 
+      // 世界地图中只能点击中国
+      if (areaCode == '000000' && evt.name !== 'China') {
+        this.$message.warning('请点击中国~');
+        return;
+      }
+
+      // 获取 areaCode
       if (evt.name === 'China') {
         areaCode = '100000';
       } else {
@@ -349,10 +355,13 @@ export default {
           }
         });
       }
+
+      // 区级地域权限
       if (areaLevel > 1 && areaCode.slice(0, 2) != '33') {
         this.$message.warning('区级地域只对浙江省开放~');
         return;
       }
+
       this.area.code = areaCode;
 
       this.initChart();

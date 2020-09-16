@@ -2,8 +2,7 @@ export default [
   // 默认
   {
     path: '/',
-    // redirect: '/table/common'
-    redirect: '/e-charts/map'
+    redirect: '/table/common'
   },
   // 错误
   {
