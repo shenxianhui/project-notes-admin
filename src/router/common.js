@@ -2,7 +2,8 @@ export default [
   // 默认
   {
     path: '/',
-    redirect: '/table/base'
+    // redirect: '/table/base'
+    redirect: '/swiper/base'
   },
   // 错误
   {

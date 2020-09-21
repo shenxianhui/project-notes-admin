@@ -2,54 +2,52 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:54:51
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-04 18:32:42
+ * @LastEditTime: 2020-09-21 17:40:06
  * @Description: 组件-Swiper
 -->
 
 <template>
-  <div class="xx-swiper" :style="{ width: width, height: height }">
-    <div class="swiper-scale" ref="xx-swiper">
-      <swiper class="swiper" ref="swiper" :options="swiperOptions">
-        <swiper-slide v-for="item in 10" :key="item" ref="swiper-slide">
-          <div class="content">
-            <div class="content-wrap">
-              {{ item }}
-            </div>
-          </div>
-        </swiper-slide>
-      </swiper>
-    </div>
-    <div class="button prev" slot="button-prev">上一页</div>
-    <div class="button next" slot="button-next">下一页</div>
+  <div class="xx-swiper" :style="{ width, height }">
+    <swiper class="xx-swiper-wrap" ref="swiper" :style="{ width, height }" :options="options">
+      <swiper-slide v-for="(item, index) in swiperData" :key="index">
+        <slot :data="item"></slot>
+      </swiper-slide>
+    </swiper>
+    <slot name="prev"></slot>
+    <slot name="next"></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'swiper-scale',
+  name: 'xx-swiper',
   props: {
     width: {
       type: String,
-      default: '500px'
+      default: '100%'
     },
     height: {
       type: String,
-      default: '100px'
+      default: '100%'
+    },
+    swiperData: {
+      type: Array,
+      required: true
     }
   },
   data() {
     return {
-      swiperOptions: {
+      options: {
         navigation: {
-          nextEl: '.next',
-          prevEl: '.prev'
+          nextEl: '.xx-swiper-next',
+          prevEl: '.xx-swiper-prev'
         },
         slidesPerView: 5,
         centeredSlides: true,
         watchSlidesProgress: true,
         loop: true, // 循环
         autoplay: {
-          delay: 200000,
+          delay: 3000,
           stopOnLastSlide: false,
           disableOnInteraction: false
         },
@@ -65,14 +63,7 @@ export default {
   },
   watch: {},
   created() {},
-  mounted() {
-    this.$refs['xx-swiper'].addEventListener('mouseover', () => {
-      this.swiper.autoplay.stop();
-    });
-    this.$refs['xx-swiper'].addEventListener('mouseout', () => {
-      this.swiper.autoplay.start();
-    });
-  },
+  mounted() {},
   beforeDestroy() {},
   methods: {}
 };
@@ -80,28 +71,6 @@ export default {
 
 <style scoped lang="less">
 .xx-swiper {
-  display: inline-block;
   position: relative;
-  .swiper-scale {
-    margin: 0 auto;
-    width: 100%;
-    height: 100%;
-    .swiper {
-      width: 100%;
-      height: 100%;
-    }
-  }
-  .button {
-    position: absolute;
-    top: 50%;
-    transform: translate(0 -50%);
-    cursor: pointer;
-    &.prev {
-      left: 80px;
-    }
-    &.next {
-      right: 80px;
-    }
-  }
 }
 </style>

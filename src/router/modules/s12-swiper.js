@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:56:08
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 10:12:45
+ * @LastEditTime: 2020-09-21 16:24:38
  * @Description: Swiper
  */
 export default [
@@ -12,16 +12,16 @@ export default [
     meta: {
       label: 'Swiper'
     },
-    redirect: '/swiper/common',
+    redirect: '/swiper/base',
     component: loadView('layout/Layout'),
     children: [
       {
-        path: 'common',
-        name: 'swiper-common',
+        path: 'base',
+        name: 'swiper-base',
         meta: {
-          label: '普通'
+          label: '基础'
         },
-        component: loadView('swiper/Common')
+        component: loadView('swiper/Base')
       },
       {
         path: 'scale',
