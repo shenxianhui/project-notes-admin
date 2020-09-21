@@ -2,8 +2,8 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-21 11:30:39
- * @Description: 表格
+ * @LastEditTime: 2020-09-21 15:39:55
+ * @Description: 表格-基础
 -->
 
 <template>
@@ -26,9 +26,13 @@
       </template>
       <template v-slot:money="{ row }">￥{{ row.money.toLocaleString() }}</template>
       <template v-slot:set="{ row }">
-        <el-popconfirm title="是否确认删除？" @onConfirm="handleDel(row)">
+        <el-popconfirm title="确认删除？" @onConfirm="handleDel(row)">
           <el-button slot="reference" type="text">删除</el-button>
         </el-popconfirm>
+      </template>
+
+      <template v-slot="{ row }">
+        {{ row.name }}
       </template>
     </xx-table>
   </div>
@@ -50,6 +54,17 @@ export default {
       loading: false,
       currentPage: 1,
       columns: [
+        {
+          type: 'expand'
+        },
+        {
+          type: 'selection'
+        },
+        {
+          label: '序号',
+          type: 'index',
+          width: 60
+        },
         {
           label: '姓名',
           prop: 'name'
@@ -99,6 +114,7 @@ export default {
     handleDel(data) {
       console.log(data);
       this.$message.success('删除成功');
+      this._getTableData();
     },
     handleSizeChange(data) {
       this.tableForm.pageSize = data;
@@ -114,6 +130,7 @@ export default {
 
       for (let i = 1; i <= this.tableForm.pageSize; i++) {
         arr.push({
+          id: (this.tableForm.pageNo - 1) * this.tableForm.pageSize + i,
           name: `用户${(this.tableForm.pageNo - 1) * this.tableForm.pageSize + i}`,
           sex: Math.round(Math.random() * 10) % 2,
           birthday: Math.round(Math.random() * 1000000000000 + 600000000000),

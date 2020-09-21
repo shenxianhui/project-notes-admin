@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-05-01 18:28:06
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-25 11:54:01
+ * @LastEditTime: 2020-09-21 14:51:23
  * @Description: Table
  */
 export default [
@@ -12,16 +12,16 @@ export default [
     meta: {
       label: '表格'
     },
-    redirect: '/table/common',
+    redirect: '/table/base',
     component: loadView('layout/Layout'),
     children: [
       {
-        path: 'common',
-        name: 'table-common',
+        path: 'base',
+        name: 'base-table',
         meta: {
-          label: '普通'
+          label: '基础'
         },
-        component: loadView('table/Table')
+        component: loadView('table/Base')
       }
     ]
   }
