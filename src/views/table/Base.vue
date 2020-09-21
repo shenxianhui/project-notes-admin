@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-21 15:39:55
+ * @LastEditTime: 2020-09-21 15:43:20
  * @Description: 表格-基础
 -->
 
@@ -77,6 +77,7 @@ export default {
         {
           label: '生日',
           prop: 'birthday',
+          sortable: true,
           slot: true
         },
         {

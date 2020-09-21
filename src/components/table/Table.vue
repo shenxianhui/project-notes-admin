@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-16 17:35:09
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-21 15:38:53
+ * @LastEditTime: 2020-09-21 15:57:48
  * @Description: 组件-表格
 -->
 
@@ -25,6 +25,7 @@
       :highlight-current-row="highlightCurrentRow"
       :current-row-key="currentRowKey"
       @selection-change="handleSelectionChange"
+      @sort-change="sortChange"
     >
       <el-table-column
         v-for="(item, index) in columns"
@@ -38,6 +39,7 @@
         :align="item.align || 'center'"
         :header-align="item.headerAlign || 'center'"
         :reserve-selection="reserveSelection"
+        :sortable="item.sortable"
       >
         <template v-if="item.type !== 'selection' && item.type !== 'index'" v-slot="{ row }">
           <slot v-if="item.slot" :name="item.prop" :row="row"></slot>
@@ -148,6 +150,10 @@ export default {
     // 用于多选表格，清空用户的选择
     clearSelection() {
       this.$refs['el-table'].clearSelection();
+    },
+    // 当表格的排序条件发生变化的时候触发
+    sortChange({ column, prop, order }) {
+      this.$emit('sort-change', { column, prop, order });
     }
   }
 };
