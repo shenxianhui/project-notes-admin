@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:54:51
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-22 14:50:32
+ * @LastEditTime: 2020-09-22 17:58:25
  * @Description: 组件-Swiper (中文文档: https://www.swiper.com.cn/api/index.html)
 -->
 
@@ -35,12 +35,11 @@ export default {
     options: Object
   },
   data() {
-    return {};
+    return {
+      swiper: null
+    };
   },
   computed: {
-    swiper() {
-      return this.$refs['swiper'].$swiper;
-    },
     _options() {
       return Object.assign(
         {
@@ -48,7 +47,6 @@ export default {
           initialSlide: 0,
           direction: 'horizontal',
           speed: 1000,
-          grabCursor: true,
 
           /* Slides grid */
           centeredSlides: true,
@@ -67,103 +65,203 @@ export default {
             },
             // 点击 Swiper 后执行
             click: evt => {
-              this.$emit('click', evt);
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('click', { swiper, evt });
+              });
             },
             // 当碰触到 slider 时执行
             touchStart: evt => {
-              this.$emit('touch-start', evt);
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('touch-start', { swiper, evt });
+              });
             },
             // 手指触碰 Swiper 并滑动 (手指) 时执行
             touchMove: evt => {
-              this.$emit('touch-move', evt);
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('touch-move', { swiper, evt });
+              });
             },
             // 触摸释放时执行
             touchEnd: evt => {
-              this.$emit('touch-end', evt);
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('touch-end', { swiper, evt });
+              });
             },
-            // 在当前 Slide 切换到另一个 Slide 时执行(activeIndex发生改变)，一般是在点击控制组件、释放滑动的时间点。
+            // 在当前 Slide 切换到另一个 Slide 时执行(activeIndex 发生改变)，一般是在点击控制组件、释放滑动的时间点。
             slideChange: () => {
-              this.$emit('slide-change');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('slide-change', swiper);
+              });
             },
             // swiper 从当前 slide 开始过渡到另一个 slide 时执行
             slideChangeTransitionStart: () => {
-              this.$emit('slide-change-transition-start');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('slide-change-transition-start', swiper);
+              });
             },
             // swiper 从一个 slide 过渡到另一个 slide 结束时执行
             slideChangeTransitionEnd: () => {
-              this.$emit('slide-change-transition-end');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('slide-change-transition-end', swiper);
+              });
             },
             // slider 向前(右、下)切换开始时执行
             slideNextTransitionStart: () => {
-              this.$emit('slide-next-transition-start');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('slide-next-transition-start', swiper);
+              });
             },
             // slider 向前(右、下)切换结束时执行
             slideNextTransitionEnd: () => {
-              this.$emit('slide-next-transition-end');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('slide-next-transition-end', swiper);
+              });
             },
             // slider 向后(左、上)切换开始时执行
             slidePrevTransitionStart: () => {
-              this.$emit('slide-prev-transition-start');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('slide-prev-transition-start', swiper);
+              });
             },
             // slider 向后(左、上)切换结束时执行
             slidePrevTransitionEnd: () => {
-              this.$emit('slide-prev-transition-end');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('slide-prev-transition-end', swiper);
+              });
             },
             // 所有内置图像加载完成后执行, 同时 `updateOnImagesReady` 需设置为 `true`
             imagesReady: () => {
-              this.$emit('images-ready');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('images-ready', swiper);
+              });
             },
             // 手指触碰 Swiper 并拖动 slide 的过程中不断触发 sliderMove 函数
             sliderMove: evt => {
-              this.$emit('slider-move', evt);
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('slider-move', { swiper, evt });
+              });
             },
             // 轻触 Swiper 后执行 (移动端)
             tap: evt => {
-              this.$emit('tap', evt);
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('tap', { swiper, evt });
+              });
             },
             // 两次轻触(双击) Swiper 时执行
             doubleTap: evt => {
-              this.$emit('double-tap', evt);
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('double-tap', { swiper, evt });
+              });
             },
             // 当 Swiper 的 progress 被改变时执行
             progress: progress => {
-              this.$emit('progress', progress);
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('progress', { swiper, progress });
+              });
             },
             // Swiper 切换到初始化位置时执行
             reachBeginning: () => {
-              this.$emit('reach-beginning');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('reach-beginning', swiper);
+              });
             },
             // Swiper 切换到最后一个 Slide 时执行
             reachEnd: () => {
-              this.$emit('reach-end');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('reach-end', swiper);
+              });
             },
             // 当 Swiper 是从第一个或最后一个 Slide 切换时执行
             fromEdge: () => {
-              this.$emit('from-edge');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('from-edge', swiper);
+              });
             },
             // 当 Swiper 要切换到第一个或最后一个 Slide 时执行
             toEdge: () => {
-              this.$emit('to-edge');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('to-edge', swiper);
+              });
             },
             // 在 slide 自动切换开始时执行
             autoplay: () => {
-              this.$emit('autoplay');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('autoplay', swiper);
+              });
             },
             // 自动切换开始时执行 (由不自动切换进入到自动切换)
             autoplayStart: () => {
-              this.$emit('autoplay-start');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('autoplay-start', swiper);
+              });
             },
             // 自动切换结束时执行 (由自动切换进入到不自动切换)
             autoplayStop: () => {
-              this.$emit('autoplay-stop');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('autoplay-stop', swiper);
+              });
             },
             // 浏览器尺寸发生变化时执行
             resize: () => {
-              this.$emit('resize');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('resize', swiper);
+              });
             },
             // 销毁 Swiper 时执行
             beforeDestroy: () => {
-              this.$emit('before-destroy');
+              this.$nextTick(() => {
+                const swiper = this.swiper;
+
+                this.$emit('before-destroy', swiper);
+              });
             }
           },
 
@@ -171,10 +269,7 @@ export default {
           autoplay: true,
           delay: 3000,
           stopOnLastSlide: false,
-          disableOnInteraction: false,
-
-          /* Effects */
-          effect: 'slide'
+          disableOnInteraction: false
         },
         this.options
       );
@@ -183,6 +278,8 @@ export default {
   watch: {},
   created() {},
   mounted() {
+    this.swiper = this.$refs.swiper.$swiper;
+
     // 鼠标移入停止轮播
     this.$refs['xx-swiper'].addEventListener('mouseover', () => {
       this.swiper.autoplay.stop();
@@ -303,7 +400,7 @@ export default {
     changeDirection(direction) {
       this.swiper.changeDirection(direction);
     },
-    // 对Swiper 的Wrapper 进行自定义的CSS3位移动画
+    // 对Swiper 的Wrapper 进行自定义的 CSS3 位移动画
     translateTo(translate, speed, runCallbacks, translateBounds) {
       this.swiper.translateTo(translate, speed, runCallbacks, translateBounds);
     }

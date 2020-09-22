@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:53:50
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-22 14:04:27
+ * @LastEditTime: 2020-09-22 17:56:51
  * @Description: Swiper-基础
 -->
 
@@ -11,7 +11,11 @@
     <div class="swiper-wrap">
       <!-- 横向滚动 -->
       <div class="swiper-item">
-        <xx-swiper ref="swiper" :swiper-data="swiperData">
+        <xx-swiper
+          ref="swiper"
+          :swiper-data="swiperData"
+          @slide-change="realIndex = $event.realIndex"
+        >
           <template v-slot="{ data }">
             <div
               class="swiper-item-content"
@@ -23,6 +27,14 @@
         </xx-swiper>
         <i class="swiper-btn prev el-icon-arrow-left" @click="$refs.swiper.slidePrev()"></i>
         <i class="swiper-btn next el-icon-arrow-right" @click="$refs.swiper.slideNext()"></i>
+        <ul class="pagination">
+          <li
+            v-for="(item, index) in swiperData"
+            :key="index"
+            :class="{ active: index === realIndex }"
+            @click="handlePage(item, index)"
+          ></li>
+        </ul>
       </div>
       <!-- 纵向滚动 -->
       <div class="swiper-item">
@@ -54,7 +66,10 @@ export default {
   },
   props: {},
   data() {
-    return {};
+    return {
+      realIndex: 0,
+      currentSwiper: {}
+    };
   },
   computed: {
     swiperData() {
@@ -74,7 +89,12 @@ export default {
   created() {},
   mounted() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {
+    handlePage(item, index) {
+      this.$refs.swiper.slideToLoop(index, 500);
+      this.currentSwiper = item;
+    }
+  }
 };
 </script>
 
@@ -123,6 +143,30 @@ export default {
         }
         &.next {
           right: 20px;
+        }
+      }
+      .pagination {
+        position: absolute;
+        display: flex;
+        left: 50%;
+        bottom: 20px;
+        transform: translate(-50%, 0);
+        z-index: 9;
+        li {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: rgba(0, 0, 0, 0.3);
+          cursor: pointer;
+          &:not(:last-child) {
+            margin-right: 5px;
+          }
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+          }
+          &.active {
+            background-color: rgb(255, 255, 255, 0.3);
+          }
         }
       }
     }
