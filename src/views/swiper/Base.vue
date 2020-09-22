@@ -2,13 +2,14 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:53:50
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-21 17:55:05
+ * @LastEditTime: 2020-09-22 09:06:58
  * @Description: Swiper-基础
 -->
 
 <template>
   <div class="swiper admin-content">
     <div class="swiper-wrap">
+      <!-- 横向滚动 -->
       <div class="swiper-item">
         <xx-swiper :swiper-data="swiperData">
           <template v-slot="{ data }">
@@ -27,6 +28,19 @@
           </template>
         </xx-swiper>
       </div>
+      <!-- 纵向滚动 -->
+      <div class="swiper-item">
+        <xx-swiper :swiper-data="swiperData">
+          <template v-slot="{ data }">
+            <div
+              class="swiper-item-content"
+              :class="data.value % 2 === 0 ? 'bg-lightblue' : 'bg-lightcoral'"
+            >
+              <span>{{ data.label }}</span>
+            </div>
+          </template>
+        </xx-swiper>
+      </div>
     </div>
   </div>
 </template>
@@ -41,44 +55,22 @@ export default {
   },
   props: {},
   data() {
-    return {
-      swiperData: [
-        {
-          label: '第1个',
-          value: 1
-        },
-        {
-          label: '第2个',
-          value: 2
-        },
-        {
-          label: '第3个',
-          value: 3
-        },
-        {
-          label: '第4个',
-          value: 4
-        },
-        {
-          label: '第5个',
-          value: 5
-        },
-        {
-          label: '第6个',
-          value: 6
-        },
-        {
-          label: '第7个',
-          value: 7
-        },
-        {
-          label: '第8个',
-          value: 8
-        }
-      ]
-    };
+    return {};
   },
-  computed: {},
+  computed: {
+    swiperData() {
+      let arr = [];
+
+      for (let i = 1; i <= 20; i++) {
+        arr.push({
+          label: `slider${i}`,
+          value: i
+        });
+      }
+
+      return arr;
+    }
+  },
   watch: {},
   created() {},
   mounted() {},
@@ -96,8 +88,11 @@ export default {
     border: 1px solid #efefef;
     overflow: auto;
     .swiper-item {
-      height: 50%;
+      height: 49%;
       border-bottom: 1px solid #efefef;
+      &:not(:last-child) {
+        margin-bottom: 1%;
+      }
       .swiper-item-content {
         display: flex;
         align-items: center;

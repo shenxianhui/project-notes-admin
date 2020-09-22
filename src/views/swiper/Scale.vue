@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:53:50
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-21 17:58:49
+ * @LastEditTime: 2020-09-22 10:49:36
  * @Description: Swiper-缩放
 -->
 
@@ -32,44 +32,22 @@ export default {
   },
   props: {},
   data() {
-    return {
-      swiperData: [
-        {
-          label: '第1个',
-          value: 1
-        },
-        {
-          label: '第2个',
-          value: 2
-        },
-        {
-          label: '第3个',
-          value: 3
-        },
-        {
-          label: '第4个',
-          value: 4
-        },
-        {
-          label: '第5个',
-          value: 5
-        },
-        {
-          label: '第6个',
-          value: 6
-        },
-        {
-          label: '第7个',
-          value: 7
-        },
-        {
-          label: '第8个',
-          value: 8
-        }
-      ]
-    };
+    return {};
   },
-  computed: {},
+  computed: {
+    swiperData() {
+      let arr = [];
+
+      for (let i = 1; i <= 20; i++) {
+        arr.push({
+          label: `slider${i}`,
+          value: i
+        });
+      }
+
+      return arr;
+    }
+  },
   watch: {},
   created() {},
   mounted() {},
@@ -90,8 +68,8 @@ export default {
       height: 50%;
       padding: 20px;
       border-bottom: 1px solid #efefef;
-      /deep/ .xx-swiper {
-        .xx-swiper-wrap {
+      .xx-swiper {
+        /deep/ .swiper-container {
           .swiper-wrapper {
             .swiper-slide {
               /* 中间 */
