@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:53:50
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-22 09:06:58
+ * @LastEditTime: 2020-09-22 14:04:27
  * @Description: Swiper-基础
 -->
 
@@ -11,7 +11,7 @@
     <div class="swiper-wrap">
       <!-- 横向滚动 -->
       <div class="swiper-item">
-        <xx-swiper :swiper-data="swiperData">
+        <xx-swiper ref="swiper" :swiper-data="swiperData">
           <template v-slot="{ data }">
             <div
               class="swiper-item-content"
@@ -20,17 +20,16 @@
               <span>{{ data.label }}</span>
             </div>
           </template>
-          <template v-slot:prev>
-            <i class="xx-swiper-btn xx-swiper-prev el-icon-arrow-left"></i>
-          </template>
-          <template v-slot:next>
-            <i class="xx-swiper-btn xx-swiper-next el-icon-arrow-right"></i>
-          </template>
         </xx-swiper>
+        <i class="swiper-btn prev el-icon-arrow-left" @click="$refs.swiper.slidePrev()"></i>
+        <i class="swiper-btn next el-icon-arrow-right" @click="$refs.swiper.slideNext()"></i>
       </div>
       <!-- 纵向滚动 -->
       <div class="swiper-item">
-        <xx-swiper :swiper-data="swiperData">
+        <xx-swiper
+          :swiper-data="swiperData"
+          :options="{ centeredSlides: false, direction: 'vertical' }"
+        >
           <template v-slot="{ data }">
             <div
               class="swiper-item-content"
@@ -88,6 +87,7 @@ export default {
     border: 1px solid #efefef;
     overflow: auto;
     .swiper-item {
+      position: relative;
       height: 49%;
       border-bottom: 1px solid #efefef;
       &:not(:last-child) {
@@ -107,7 +107,7 @@ export default {
           background-color: lightcoral;
         }
       }
-      .xx-swiper-btn {
+      .swiper-btn {
         position: absolute;
         top: 50%;
         font-size: 50px;
@@ -118,10 +118,10 @@ export default {
         &:hover {
           color: #333;
         }
-        &.xx-swiper-prev {
+        &.prev {
           left: 20px;
         }
-        &.xx-swiper-next {
+        &.next {
           right: 20px;
         }
       }

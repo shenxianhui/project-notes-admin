@@ -2,19 +2,17 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:54:51
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-22 11:18:25
- * @Description: 组件-Swiper
+ * @LastEditTime: 2020-09-22 14:50:32
+ * @Description: 组件-Swiper (中文文档: https://www.swiper.com.cn/api/index.html)
 -->
 
 <template>
-  <div class="xx-swiper" :style="{ width, height }">
+  <div ref="xx-swiper" class="xx-swiper" :style="{ width, height }">
     <swiper ref="swiper" :style="{ width, height }" :options="_options">
       <swiper-slide v-for="(item, index) in swiperData" :key="index">
         <slot :data="item"></slot>
       </swiper-slide>
     </swiper>
-    <slot name="prev"></slot>
-    <slot name="next"></slot>
   </div>
 </template>
 
@@ -34,13 +32,15 @@ export default {
       type: Array,
       required: true
     },
-    /* Swiper 中文文档: https://www.swiper.com.cn/api/index.html */
     options: Object
   },
   data() {
     return {};
   },
   computed: {
+    swiper() {
+      return this.$refs['swiper'].$swiper;
+    },
     _options() {
       return Object.assign(
         {
@@ -51,7 +51,7 @@ export default {
           grabCursor: true,
 
           /* Slides grid */
-          centeredSlides: false,
+          centeredSlides: true,
           slidesPerView: 3,
           slidesPerGroup: 1,
           centerInsufficientSlides: true,
@@ -73,7 +73,7 @@ export default {
             touchStart: evt => {
               this.$emit('touch-start', evt);
             },
-            // 手指触碰 Swiper 并滑动（手指）时执行
+            // 手指触碰 Swiper 并滑动 (手指) 时执行
             touchMove: evt => {
               this.$emit('touch-move', evt);
             },
@@ -167,9 +167,6 @@ export default {
             }
           },
 
-          /* Methods */
-          Methods: {},
-
           /* 组件 */
           autoplay: true,
           delay: 3000,
@@ -177,13 +174,7 @@ export default {
           disableOnInteraction: false,
 
           /* Effects */
-          effect: 'slide',
-
-          /* Navigation Buttons */
-          navigation: {
-            nextEl: '.xx-swiper-next',
-            prevEl: '.xx-swiper-prev'
-          }
+          effect: 'slide'
         },
         this.options
       );
@@ -191,14 +182,133 @@ export default {
   },
   watch: {},
   created() {},
-  mounted() {},
+  mounted() {
+    // 鼠标移入停止轮播
+    this.$refs['xx-swiper'].addEventListener('mouseover', () => {
+      this.swiper.autoplay.stop();
+    });
+    // 鼠标移出恢复轮播
+    this.$refs['xx-swiper'].addEventListener('mouseout', () => {
+      this.swiper.autoplay.start();
+    });
+  },
   beforeDestroy() {},
-  methods: {}
+  methods: {
+    // 滑动到下一个滑块
+    slideNext(speed, runCallbacks) {
+      this.swiper.slideNext(speed, runCallbacks);
+    },
+    // 滑动到上一个滑块
+    slidePrev(speed, runCallbacks) {
+      this.swiper.slidePrev(speed, runCallbacks);
+    },
+    // 切换到指定 slide
+    slideTo(index, speed, runCallbacks) {
+      this.swiper.slideTo(index, speed, runCallbacks);
+    },
+    // 切换到指定 slide (loop模式)
+    slideToLoop(index, speed, runCallbacks) {
+      this.swiper.slideToLoop(index, speed, runCallbacks);
+    },
+    // 销毁 Swiper
+    destroy(deleteInstance, cleanupStyles) {
+      this.swiper.destroy(deleteInstance, cleanupStyles);
+    },
+    // 返回实时的 wrapper 位移
+    getTranslate() {
+      this.swiper.getTranslate();
+    },
+    // 设置 wrapper 的位移
+    setTranslate(translate) {
+      this.swiper.setTranslate(translate);
+    },
+    // 重新计算 Swiper 尺寸
+    updateSize() {
+      this.swiper.updateSize();
+    },
+    // 重新计算 Swiper 数量
+    updateSlides() {
+      this.swiper.updateSlides();
+    },
+    // 重新计算 Swiper 的 progress 值
+    updateProgress() {
+      this.swiper.updateProgress();
+    },
+    // 更新 slides 和 bullets 的 active/prev/next 类名
+    updateSlidesClasses() {
+      this.swiper.updateSlidesClasses();
+    },
+    // 更新Swiper，就像重新初始化一样
+    // 这个方法包含了 updateContainerSize, updateSlidesSize, updateProgress, updateClasses 方法
+    update(updateTranslate) {
+      this.swiper.update(updateTranslate);
+    },
+    // 移除所有监听事件
+    detachEvents() {
+      this.swiper.detachEvents();
+    },
+    // 重新绑定所有监听事件
+    attachEvents() {
+      this.swiper.attachEvents();
+    },
+    // 添加 slide 到 slides 的结尾
+    appendSlide(slides) {
+      this.swiper.appendSlide(slides);
+    },
+    // 添加 slide 到 slides 的开头
+    prependSlide(slides) {
+      this.swiper.prependSlide(slides);
+    },
+    // 在指定位置增加 slide
+    addSlide(index, slides) {
+      this.swiper.addSlide(index, slides);
+    },
+    // 移除索引为 index 的 slide
+    removeSlide(index) {
+      this.swiper.removeSlide(index);
+    },
+    // 移除所有 slides
+    removeAllSlides() {
+      this.swiper.removeAllSlides();
+    },
+    // 添加回调函数或者事件句柄
+    on(event, handler) {
+      this.swiper.on(event, handler);
+    },
+    // 添加回调函数或者事件句柄, 这些事件只会执行一次
+    once(event, handler) {
+      this.swiper.once(event, handler);
+    },
+    // 移除事件的所有句柄或某个回调/事件
+    off(event, handler) {
+      this.swiper.off(event, handler);
+    },
+    // 开启鼠标的抓手形状
+    setGrabCursor() {
+      this.swiper.setGrabCursor();
+    },
+    // 关闭鼠标的抓手形状
+    unsetGrabCursor() {
+      this.swiper.unsetGrabCursor();
+    },
+    // 当 autoHeight 为启用状态，设置更新 swiper 高度的时间
+    updateAutoHeight(speed) {
+      this.swiper.updateAutoHeight(speed);
+    },
+    // 使得 Swiper 贴合边缘
+    slideToClosest(speed, runCallbacks) {
+      this.swiper.slideToClosest(speed, runCallbacks);
+    },
+    // 动态改变切换方向
+    changeDirection(direction) {
+      this.swiper.changeDirection(direction);
+    },
+    // 对Swiper 的Wrapper 进行自定义的CSS3位移动画
+    translateTo(translate, speed, runCallbacks, translateBounds) {
+      this.swiper.translateTo(translate, speed, runCallbacks, translateBounds);
+    }
+  }
 };
 </script>
 
-<style scoped lang="less">
-.xx-swiper {
-  position: relative;
-}
-</style>
+<style scoped lang="less"></style>
