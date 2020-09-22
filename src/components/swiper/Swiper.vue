@@ -2,16 +2,19 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:54:51
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-22 17:58:25
+ * @LastEditTime: 2020-09-22 18:23:45
  * @Description: 组件-Swiper (中文文档: https://www.swiper.com.cn/api/index.html)
 -->
 
 <template>
-  <div ref="xx-swiper" class="xx-swiper" :style="{ width, height }">
+  <div ref="xx-swiper" class="xx-swiper swiper-container" :style="{ width, height }">
     <swiper ref="swiper" :style="{ width, height }" :options="_options">
       <swiper-slide v-for="(item, index) in swiperData" :key="index">
         <slot :data="item"></slot>
       </swiper-slide>
+
+      <!-- 分页 -->
+      <div v-show="showPagination" class="swiper-pagination" slot="pagination"></div>
     </swiper>
   </div>
 </template>
@@ -31,6 +34,11 @@ export default {
     swiperData: {
       type: Array,
       required: true
+    },
+    // 显示分页
+    showPagination: {
+      type: Boolean,
+      default: true
     },
     options: Object
   },
@@ -269,7 +277,13 @@ export default {
           autoplay: true,
           delay: 3000,
           stopOnLastSlide: false,
-          disableOnInteraction: false
+          disableOnInteraction: false,
+
+          pagination: {
+            el: '.swiper-pagination',
+            dynamicBullets: true,
+            clickable: true
+          }
         },
         this.options
       );
