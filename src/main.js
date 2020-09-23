@@ -11,14 +11,10 @@ import * as Echarts from 'echarts';
 // 进度条
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-// Swiper
-import VueAwesomeSwiper from 'vue-awesome-swiper';
-import 'swiper/css/swiper.css';
 
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
-Vue.use(VueAwesomeSwiper);
 
 // 挂载
 Vue.prototype.$echarts = Echarts;

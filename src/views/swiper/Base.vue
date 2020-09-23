@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:53:50
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-22 18:27:13
+ * @LastEditTime: 2020-09-23 09:03:42
  * @Description: Swiper-基础
 -->
 
@@ -25,6 +25,22 @@
         <i class="swiper-btn next el-icon-arrow-right" @click="$refs.swiper.slideNext()"></i>
       </div>
       <!-- 纵向滚动 -->
+      <div class="swiper-item">
+        <xx-swiper
+          :swiper-data="swiperData"
+          :options="{ centeredSlides: false, direction: 'vertical' }"
+        >
+          <template v-slot="{ data }">
+            <div
+              class="swiper-item-content"
+              :class="data.value % 2 === 0 ? 'bg-lightblue' : 'bg-lightcoral'"
+            >
+              <span>{{ data.label }}</span>
+            </div>
+          </template>
+        </xx-swiper>
+      </div>
+      <!-- 缩略图 -->
       <div class="swiper-item">
         <xx-swiper
           :swiper-data="swiperData"

@@ -2,12 +2,12 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:54:51
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-22 18:23:45
+ * @LastEditTime: 2020-09-23 09:21:13
  * @Description: 组件-Swiper (中文文档: https://www.swiper.com.cn/api/index.html)
 -->
 
 <template>
-  <div ref="xx-swiper" class="xx-swiper swiper-container" :style="{ width, height }">
+  <div ref="xx-swiper" class="xx-swiper" :style="{ width, height }">
     <swiper ref="swiper" :style="{ width, height }" :options="_options">
       <swiper-slide v-for="(item, index) in swiperData" :key="index">
         <slot :data="item"></slot>
@@ -20,8 +20,18 @@
 </template>
 
 <script>
+import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
+import 'swiper/css/swiper.css';
+
 export default {
   name: 'xx-swiper',
+  components: {
+    Swiper,
+    SwiperSlide
+  },
+  directives: {
+    swiper: directive
+  },
   props: {
     width: {
       type: String,
