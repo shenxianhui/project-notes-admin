@@ -2,15 +2,15 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:54:51
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-23 09:21:13
+ * @LastEditTime: 2020-09-23 11:45:02
  * @Description: 组件-Swiper (中文文档: https://www.swiper.com.cn/api/index.html)
 -->
 
 <template>
   <div ref="xx-swiper" class="xx-swiper" :style="{ width, height }">
-    <swiper ref="swiper" :style="{ width, height }" :options="_options">
+    <swiper ref="swiper" :options="_options">
       <swiper-slide v-for="(item, index) in swiperData" :key="index">
-        <slot :data="item"></slot>
+        <slot :item="item" :index="index"></slot>
       </swiper-slide>
 
       <!-- 分页 -->
@@ -304,14 +304,16 @@ export default {
   mounted() {
     this.swiper = this.$refs.swiper.$swiper;
 
-    // 鼠标移入停止轮播
-    this.$refs['xx-swiper'].addEventListener('mouseover', () => {
-      this.swiper.autoplay.stop();
-    });
-    // 鼠标移出恢复轮播
-    this.$refs['xx-swiper'].addEventListener('mouseout', () => {
-      this.swiper.autoplay.start();
-    });
+    if (this._options.autoplay) {
+      // 鼠标移入停止轮播
+      this.$refs['xx-swiper'].addEventListener('mouseover', () => {
+        this.swiper.autoplay.stop();
+      });
+      // 鼠标移出恢复轮播
+      this.$refs['xx-swiper'].addEventListener('mouseout', () => {
+        this.swiper.autoplay.start();
+      });
+    }
   },
   beforeDestroy() {},
   methods: {
@@ -432,4 +434,11 @@ export default {
 };
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.xx-swiper {
+  .swiper-container {
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>

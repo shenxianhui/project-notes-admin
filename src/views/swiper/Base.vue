@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:53:50
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-23 09:03:42
+ * @LastEditTime: 2020-09-23 11:50:25
  * @Description: Swiper-基础
 -->
 
@@ -11,50 +11,103 @@
     <div class="swiper-wrap">
       <!-- 横向滚动 -->
       <div class="swiper-item">
-        <xx-swiper ref="swiper" :swiper-data="swiperData" @slide-change="slideChange">
-          <template v-slot="{ data }">
+        <xx-swiper ref="swiper-horizontal" :swiper-data="swiperData" @slide-change="slideChangeHor">
+          <template v-slot="{ item, index }">
             <div
               class="swiper-item-content"
-              :class="data.value % 2 === 0 ? 'bg-lightblue' : 'bg-lightcoral'"
+              :class="item.value % 2 === 0 ? 'bg-lightblue' : 'bg-lightcoral'"
             >
-              <span>{{ data.label }}</span>
+              <span>{{ item.label }}</span>
             </div>
           </template>
         </xx-swiper>
-        <i class="swiper-btn prev el-icon-arrow-left" @click="$refs.swiper.slidePrev()"></i>
-        <i class="swiper-btn next el-icon-arrow-right" @click="$refs.swiper.slideNext()"></i>
+        <i
+          class="swiper-btn prev el-icon-arrow-left"
+          @click="$refs['swiper-horizontal'].slidePrev()"
+        ></i>
+        <i
+          class="swiper-btn next el-icon-arrow-right"
+          @click="$refs['swiper-horizontal'].slideNext()"
+        ></i>
       </div>
       <!-- 纵向滚动 -->
       <div class="swiper-item">
         <xx-swiper
+          ref="swiper-vertical"
           :swiper-data="swiperData"
           :options="{ centeredSlides: false, direction: 'vertical' }"
         >
-          <template v-slot="{ data }">
+          <template v-slot="{ item, index }">
             <div
               class="swiper-item-content"
-              :class="data.value % 2 === 0 ? 'bg-lightblue' : 'bg-lightcoral'"
+              :class="item.value % 2 === 0 ? 'bg-lightblue' : 'bg-lightcoral'"
             >
-              <span>{{ data.label }}</span>
+              <span>{{ item.label }}</span>
             </div>
           </template>
         </xx-swiper>
       </div>
       <!-- 缩略图 -->
       <div class="swiper-item">
-        <xx-swiper
-          :swiper-data="swiperData"
-          :options="{ centeredSlides: false, direction: 'vertical' }"
-        >
-          <template v-slot="{ data }">
-            <div
-              class="swiper-item-content"
-              :class="data.value % 2 === 0 ? 'bg-lightblue' : 'bg-lightcoral'"
-            >
-              <span>{{ data.label }}</span>
-            </div>
-          </template>
-        </xx-swiper>
+        <div class="swiper-main">
+          <xx-swiper
+            ref="swiper-thumbs"
+            :swiper-data="swiperData"
+            :show-pagination="false"
+            :options="{
+              slidesPerView: 1,
+              centeredSlides: false,
+              loop: false
+            }"
+            @slide-change="slideChangeThumbs"
+          >
+            <template v-slot="{ item, index }">
+              <div
+                class="swiper-item-content"
+                :class="item.value % 2 === 0 ? 'bg-lightblue' : 'bg-lightcoral'"
+              >
+                <span>{{ item.label }}</span>
+              </div>
+            </template>
+          </xx-swiper>
+          <i
+            class="swiper-btn prev el-icon-arrow-left"
+            @click="$refs['swiper-thumbs'].slidePrev()"
+          ></i>
+          <i
+            class="swiper-btn next el-icon-arrow-right"
+            @click="$refs['swiper-thumbs'].slideNext()"
+          ></i>
+        </div>
+        <div class="swiper-sider">
+          <xx-swiper
+            ref="swiper-sider"
+            :swiper-data="swiperData"
+            :show-pagination="false"
+            :options="{
+              centeredSlides: false,
+              direction: 'vertical',
+              autoplay: false,
+              loop: false,
+              mousewheel: true,
+              speed: 0
+            }"
+          >
+            <template v-slot="{ item, index }">
+              <div
+                class="swiper-item-content"
+                :class="{
+                  'bg-lightblue': item.value % 2 === 0,
+                  'bg-lightcoral': item.value % 2 === 1,
+                  'bg-lightyellow': index === thumbsMainIdx
+                }"
+                @click="handleSwiperSider(item, index)"
+              >
+                <span>{{ item.label }}</span>
+              </div>
+            </template>
+          </xx-swiper>
+        </div>
       </div>
     </div>
   </div>
@@ -71,7 +124,9 @@ export default {
   props: {},
   data() {
     return {
-      realIndex: 0
+      realIndex: 0,
+      thumbsMainIdx: 0,
+      thumbsSiderIdx: 0
     };
   },
   computed: {
@@ -93,8 +148,17 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {
-    slideChange(data) {
-      this.realIndex = data.realIndex;
+    slideChangeHor(swiper) {
+      this.realIndex = swiper.realIndex;
+    },
+    slideChangeThumbs(swiper) {
+      this.thumbsMainIdx = swiper.realIndex;
+      this.$refs['swiper-sider'].slideTo(swiper.realIndex - 1);
+    },
+    handleSwiperSider(item, index) {
+      this.thumbsSiderIdx = index;
+      this.$refs['swiper-thumbs'].slideTo(index);
+      this.$refs['swiper-sider'].slideTo(index - 1);
     }
   }
 };
@@ -110,10 +174,22 @@ export default {
     overflow: auto;
     .swiper-item {
       position: relative;
+      display: flex;
+      justify-content: space-between;
       height: 49%;
       border-bottom: 1px solid #efefef;
       &:not(:last-child) {
         margin-bottom: 1%;
+      }
+      .swiper-main {
+        position: relative;
+        width: 70%;
+      }
+      .swiper-sider {
+        width: 29%;
+        .swiper-item-content {
+          cursor: pointer;
+        }
       }
       .swiper-item-content {
         display: flex;
@@ -127,6 +203,9 @@ export default {
         }
         &.bg-lightcoral {
           background-color: lightcoral;
+        }
+        &.bg-lightyellow {
+          background-color: lightgreen;
         }
       }
       .swiper-btn {

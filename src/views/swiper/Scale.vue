@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:53:50
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-22 13:43:57
+ * @LastEditTime: 2020-09-23 11:53:52
  * @Description: Swiper-缩放
 -->
 
@@ -10,10 +10,10 @@
   <div class="swiper admin-content">
     <div class="swiper-wrap">
       <div class="swiper-item">
-        <xx-swiper :swiper-data="swiperData">
-          <template v-slot="{ data }">
+        <xx-swiper :swiper-data="swiperData" :options="{ slidesPerView: 5 }">
+          <template v-slot="{ item, index }">
             <div class="swiper-item-content">
-              <div class="swiper-item-content-wrap">{{ data.label }}</div>
+              <div class="swiper-item-content-wrap">{{ item.label }}</div>
             </div>
           </template>
         </xx-swiper>
