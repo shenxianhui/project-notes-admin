@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-04-23 15:02:52
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-24 09:11:47
+ * @LastEditTime: 2020-09-24 09:14:50
  * @Description: 星系
  -->
 
@@ -75,8 +75,6 @@ export default {
       height: 100%;
       img {
         width: 20%;
-        // height: 35%;
-        // margin-bottom: 7.3%;
         z-index: 10;
       }
     }
@@ -152,18 +150,6 @@ export default {
         }
       }
       @keyframes venusS {
-        // 0% {
-        //     transform: scale(0.5);
-        //     z-index: 2;
-        // }
-        // 50% {
-        //     transform: scale(0.7);
-        //     z-index: 18;
-        // }
-        // 100% {
-        //     transform: scale(0.5);
-        //     z-index: 2;
-        // }
         0% {
           transform: scale(0.3);
           z-index: 3;
