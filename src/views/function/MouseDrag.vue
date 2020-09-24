@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-07-10 16:40:30
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-24 09:28:39
+ * @LastEditTime: 2020-09-24 09:40:11
  * @Description: 鼠标拖动
 -->
 
@@ -45,9 +45,9 @@ export default {
     width: 100px;
     height: 100px;
     border: 1px solid #000;
-    cursor: pointer;
     background: url('~@/assets/logo.png') no-repeat;
     background-size: 100% 100%;
+    cursor: move;
   }
 }
 </style>
