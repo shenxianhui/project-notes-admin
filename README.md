@@ -1,25 +1,15 @@
-## 开发工具
-+ VS Code
+## 项目介绍
+个人工作和学习中遇到的知识点, 难题等总结, 以及常用组件的二次封装
 
-## VS Code 必装插件
-+ ESlint
-+ Prettier - Code formatter
+目前该项目尚在开发阶段, 功能还需不断完善
 
-## [使用脚手架创建 Vue 项目](https://www.jianshu.com/p/06b23fe69a73)
-+ 使用 `vue-cli` 创建项目时，请使用 `eslint + prettier` 选项。勾选 `fix on save` 和 `fix on commit`，避免手动配置 `git pre-commit hook`。
+喜欢技术的朋友可以一起交流分享
 
-+ `eslint` 默认使用 `vue/essential`。
+## 技术栈
+vue + less + element-ui + echarts + swiper
 
-+ `vue-cli` 不会自动添加 `prettier` 配置文件，所以需要手动添加。
+## 在线预览
+[👇猛戳这里](http://admin_w.ianki.cn/)
 
-`.prettierrc.js` 示例：
-```
-module.exports = {
-  trailingComma: 'es5',
-  tabWidth: 2,
-  printWidth: 120,
-  semi: false,
-  singleQuote: true,
-  htmlWhitespaceSensitivity: 'css'
-}
-```
+## 个人博客
+[简书](https://www.jianshu.com/u/195a91a868f5)
