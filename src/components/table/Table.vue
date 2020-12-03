@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-16 17:35:09
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-21 15:57:48
+ * @LastEditTime: 2020-12-03 20:04:08
  * @Description: 组件-表格
 -->
 
@@ -41,10 +41,22 @@
         :reserve-selection="reserveSelection"
         :sortable="item.sortable"
       >
-        <template v-if="item.type !== 'selection' && item.type !== 'index'" v-slot="{ row }">
-          <slot v-if="item.slot" :name="item.prop" :row="row"></slot>
-          <slot v-else-if="item.type === 'expand'" :row="row"></slot>
-          <span v-else>{{ row[item.prop] }}</span>
+        <template
+          v-if="item.type !== 'selection' && item.type !== 'index'"
+          v-slot="{ row, $index }"
+        >
+          <xx-slot
+            v-if="item.render"
+            :render="item.render"
+            :row="row"
+            :index="$index"
+            :column="item"
+          />
+          <div v-else class="slot-wrap">
+            <slot v-if="item.slot" :name="item.prop" :row="row"></slot>
+            <slot v-else-if="item.type === 'expand'" :row="row"></slot>
+            <span v-else>{{ row[item.prop] }}</span>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -67,9 +79,34 @@
 </template>
 
 <script>
+// 自定义组件
+let XxSlot = {
+  functional: true,
+  props: {
+    row: Object,
+    index: Number,
+    column: {
+      type: Object,
+      default: null
+    },
+    render: Function
+  },
+  render: (h, data) => {
+    let params = {
+      row: data.props.row,
+      index: data.props.index
+    };
+
+    if (data.props.column) {
+      params.column = data.props.column;
+    }
+
+    return data.props.render(h, params);
+  }
+};
 export default {
   name: 'xx-table',
-  components: {},
+  components: { XxSlot },
   props: {
     /* 表格: https://element.eleme.cn/#/zh-CN/component/table#table-attributes */
     columns: {
@@ -162,8 +199,12 @@ export default {
 <style scoped lang="less">
 .xx-table {
   height: 100%;
-  .el-table {
+  /deep/ .el-table {
     width: 100%;
+    .el-button--text {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
   }
   .xx-page {
     display: flex;

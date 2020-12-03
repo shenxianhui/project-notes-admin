@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-21 15:43:20
+ * @LastEditTime: 2020-12-03 20:27:42
  * @Description: 表格-基础
 -->
 
@@ -26,7 +26,7 @@
       </template>
       <template v-slot:money="{ row }">￥{{ row.money.toLocaleString() }}</template>
       <template v-slot:set="{ row }">
-        <el-popconfirm title="确认删除？" @onConfirm="handleDel(row)">
+        <el-popconfirm title="确认删除？" @confirm="handleDel(row)">
           <el-button slot="reference" type="text">删除</el-button>
         </el-popconfirm>
       </template>
@@ -90,10 +90,46 @@ export default {
           prop: 'address'
         },
         {
-          label: '操作',
+          label: '操作 (slot)',
           prop: 'set',
           width: 150,
           slot: true
+        },
+        {
+          label: '操作 (render)',
+          prop: 'set',
+          width: 150,
+          // slot: true,
+          render: (h, params) => {
+            return h(
+              'el-button',
+              {
+                class: {
+                  'btn-del': true
+                },
+                style: {
+                  color: '#f00',
+                  cursor: 'pointer'
+                },
+                props: {
+                  slot: 'reference',
+                  type: 'text'
+                },
+                on: {
+                  click: () => {
+                    this.$confirm('确认删除？', '提示', {
+                      confirmButtonText: '确定',
+                      cancelButtonText: '取消',
+                      type: 'warning'
+                    }).then(() => {
+                      this.handleDel(params.row);
+                    });
+                  }
+                }
+              },
+              '删除'
+            );
+          }
         }
       ],
       tableForm: {
@@ -113,26 +149,33 @@ export default {
   beforeDestroy() {},
   methods: {
     handleDel(data) {
-      console.log(data);
-      this.$message.success('删除成功');
+      this.$message.success(`"${data.name}" 删除成功`);
+      this.tableForm.pageNo = 1;
+
       this._getTableData();
     },
     handleSizeChange(data) {
       this.tableForm.pageSize = data;
+
       this._getTableData();
     },
     handleCurrentChange(data) {
       this.tableForm.pageNo = data;
+
       this._getTableData();
     },
 
     _getTableData() {
       let arr = [];
 
-      for (let i = 1; i <= this.tableForm.pageSize; i++) {
+      for (
+        let i = (this.tableForm.pageNo - 1) * this.tableForm.pageSize;
+        i < this.tableForm.pageNo * this.tableForm.pageSize;
+        ++i
+      ) {
         arr.push({
-          id: (this.tableForm.pageNo - 1) * this.tableForm.pageSize + i,
-          name: `用户${(this.tableForm.pageNo - 1) * this.tableForm.pageSize + i}`,
+          id: i,
+          name: `用户${i + 1}`,
           sex: Math.round(Math.random() * 10) % 2,
           birthday: Math.round(Math.random() * 1000000000000 + 600000000000),
           money: Math.round(Math.random() * 100000 + 5000),
