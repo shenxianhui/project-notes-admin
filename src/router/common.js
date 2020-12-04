@@ -2,7 +2,7 @@ export default [
   // 默认
   {
     path: '/',
-    redirect: '/table/base'
+    redirect: '/element/table'
   },
   // 错误
   {
