@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-08 15:00:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-10 16:15:40
+ * @LastEditTime: 2020-12-11 14:58:17
  * @Description: 组件-表单-项
 -->
 
@@ -14,15 +14,56 @@
         v-if="itemType === 'input'"
         v-model="vModel"
         :type="type"
-        :placeholder="placeholder || setPlaceholder('input')"
+        :disabled="disabled"
+        :clearable="clearable"
+        :show-password="showPassword"
+        :rows="rows"
+        :size="size"
+        :minlength="minlength"
+        :maxlength="maxlength"
+        :show-word-limit="showWordLimit"
+        :placeholder="placeholder || `请输入${label || ''}`"
         @input="handleInput"
-      ></el-input>
+      >
+        <!-- 输入框头部内容 -->
+        <template v-if="$slots.prefix" slot="prefix">
+          <slot name="prefix"> </slot>
+        </template>
+        <!-- 输入框尾部内容 -->
+        <template v-if="$slots.suffix" slot="suffix">
+          <slot name="suffix"> </slot>
+        </template>
+        <!-- 输入框前置内容 -->
+        <template v-if="$slots.prepend" slot="prepend">
+          <slot name="prepend"> </slot>
+        </template>
+        <!-- 输入框后置内容 -->
+        <template v-if="$slots.append" slot="append">
+          <slot name="append"> </slot>
+        </template>
+      </el-input>
+
+      <!-- 远程搜索 -->
+      <el-autocomplete
+        v-if="itemType === 'autocomplete'"
+        v-model="vModel"
+        :disabled="disabled"
+        :clearable="clearable"
+        :show-password="showPassword"
+        :rows="rows"
+        :size="size"
+        :fetch-suggestions="fetchSuggestions"
+        value-key="label"
+        :placeholder="placeholder || `请输入${label || ''}`"
+        @select="handleSelect"
+      >
+      </el-autocomplete>
 
       <!-- Select 选择器 -->
       <el-select
         v-if="itemType === 'select'"
         v-model="vModel"
-        :placeholder="placeholder || setPlaceholder('select')"
+        :placeholder="placeholder || `请选择${label || ''}`"
         @change="handleChange"
       >
         <el-option
@@ -41,11 +82,11 @@
         :options="options"
         :props="props"
         :show-all-levels="showAllLevels"
+        :placeholder="placeholder || `请选择${label || ''}`"
         @change="handleChange"
       ></el-cascader>
 
       <!-- DateTimePicker 日期时间选择器 -->
-
       <el-date-picker
         v-if="itemType === 'date-picker'"
         v-model="vModel"
@@ -53,6 +94,7 @@
         :start-placeholder="startPlaceholder"
         :end-placeholder="endPlaceholder"
         :default-time="defaultTime"
+        :placeholder="placeholder || `请选择${label || ''}`"
       >
       </el-date-picker>
 
@@ -157,11 +199,36 @@ export default {
     prop: String,
     placeholder: String,
     type: String,
+    // 禁用状态
+    disabled: Boolean,
+    // 可清空
+    clearable: {
+      type: Boolean,
+      default: true
+    },
+    // 输入框尺寸，只在 type!="textarea" 时有效
+    size: {
+      type: String,
+      default: 'small' // large/medium/small/mini
+    },
+
+    /* Input 输入框 */
+    // 显示切换密码图标
+    showPassword: Boolean,
+    // 输入框行数，只对 type="textarea" 有效
+    rows: Number,
+    // 最小输入长度
+    minlength: Number,
+    // 最大输入长度
+    maxlength: Number,
+    // 显示输入字数统计，只在 type = "text" 或 type = "textarea" 时有效
+    showWordLimit: Boolean,
 
     /* Checkbox 多选框 */
     // 开启全选功能
     showCheckAll: Boolean,
     checkAll: Boolean,
+    // 已选且非全选状态
     indeterminate: Boolean,
 
     /* Cascader 级联选择器 */
@@ -230,24 +297,23 @@ export default {
     },
     // input 事件
     handleInput(val) {
-      console.log(val);
+      this.$emit('input', val);
     },
-    // 选择器: 全选 change 事件
+
+    /* Input 输入框 */
+    // 模糊搜索 (节流)
+    fetchSuggestions(val, cb) {
+      this.$emit('fetch-suggestions', val, cb);
+    },
+    // 选中 input 中的文字
+    handleSelect(val) {
+      this.$emit('select', val);
+    },
+
+    /* Checkbox 多选框 */
+    // 全选
     handleCheckAllChange(val) {
       this.$emit('check-all', val);
-    },
-    // 自定义 placeholder
-    setPlaceholder(type) {
-      let str = '';
-
-      if (type === 'input') {
-        str = `请输入${this.label || ''}`;
-      }
-      if (type === 'select') {
-        str = `请选择${this.label || ''}`;
-      }
-
-      return str;
     }
   }
 };

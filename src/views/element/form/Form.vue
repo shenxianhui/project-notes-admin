@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-04 17:45:43
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-10 16:19:59
+ * @LastEditTime: 2020-12-11 14:53:59
  * @Description: 表单
 -->
 
@@ -59,6 +59,17 @@
       ></xx-form-item>
 
       <xx-form-item
+        item-type="autocomplete"
+        :model="form.autocompleteLabel"
+        type="textarea"
+        :col="8"
+        label="远程搜索"
+        @fetch-suggestions="fetchSuggestions"
+        @select="handleSelect"
+      >
+      </xx-form-item>
+
+      <xx-form-item
         item-type="select"
         :model="form.select"
         :col="8"
@@ -82,7 +93,7 @@
         item-type="date-picker"
         :model="form.datePicker"
         :col="8"
-        label="级联选择器"
+        label="日期选择器"
         :options="options"
         :props="{ checkStrictly: true }"
         :show-all-levels="false"
@@ -105,7 +116,7 @@
         label="多选框"
         :options="options"
         :show-check-all="true"
-        :check-all="checkAll"
+        :check-all="isCheckAll"
         :indeterminate="isIndeterminate"
         @check-all="handleCheckAll"
         @change="changeCheckbox"
@@ -153,6 +164,8 @@ export default {
     return {
       form: {
         input: '',
+        autocompleteLabel: '',
+        autocomplete: '',
         select: '',
         cascader: [],
         datePicker: [],
@@ -219,8 +232,8 @@ export default {
       ],
 
       /* checkbox */
-      checkAll: false,
-      isIndeterminate: true
+      isCheckAll: false,
+      isIndeterminate: false
     };
   },
   computed: {},
@@ -229,29 +242,72 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {
+    handleChange(val) {
+      console.log(val);
+    },
+    handleInput(val) {
+      console.log(val);
+    },
+
+    /* input */
+    // 远程搜索
+    fetchSuggestions(val, cb) {
+      this.getData(val).then(res => {
+        cb(res); // 数组中的 value 必须为字符串
+      });
+    },
+    // 选择事件
+    handleSelect({ label, value }) {
+      this.form.autocompleteLabel = label;
+      this.form.autocomplete = value;
+    },
+
+    /* checkbox */
     // 全选
-    handleCheckAll(val) {
-      if (val) {
+    handleCheckAll(isCheckAll) {
+      if (isCheckAll) {
         this.form.checkbox = this.options.map(item => {
           return item.value;
         });
       } else {
         this.form.checkbox = [];
       }
+      this.isCheckAll = isCheckAll;
       this.isIndeterminate = false;
     },
     changeCheckbox(val) {
       let checkedCount = val.length;
 
-      this.checkAll = checkedCount === this.options.length;
+      this.isCheckAll = checkedCount === this.options.length;
       this.isIndeterminate =
         checkedCount > 0 && checkedCount < this.options.length;
     },
-    handleChange(val) {
-      console.log(val);
-    },
-    handleInput(val) {
-      console.log(val);
+
+    // 获取 mock 数据 (支持模糊搜索)
+    getData(val) {
+      return new Promise(resolve => {
+        let data = [
+          {
+            label: '内容1',
+            value: '1'
+          },
+          {
+            label: '内容2',
+            value: '2'
+          },
+          {
+            label: '内容3',
+            value: '3'
+          }
+        ];
+        let arr = data.filter(item => {
+          return item.label.includes(val);
+        });
+
+        setTimeout(() => {
+          resolve(arr);
+        }, 200);
+      });
     }
   }
 };
