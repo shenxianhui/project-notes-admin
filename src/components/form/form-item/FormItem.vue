@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-08 15:00:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-15 11:19:49
+ * @LastEditTime: 2020-12-15 16:10:00
  * @Description: 组件-表单-项
 -->
 
@@ -97,6 +97,10 @@
         v-if="itemType === 'cascader'"
         popper-class="xx-cascader-popper"
         v-model="vModel"
+        :clearable="clearable"
+        :disabled="disabled"
+        :size="size"
+        :filterable="filterable"
         :options="options"
         :props="props"
         :show-all-levels="showAllLevels"
@@ -214,6 +218,7 @@ export default {
     options: Array,
 
     /* https://element.eleme.cn/#/zh-CN/component/form#form-item-attributes */
+    /* 公共 start */
     name: String,
     label: String,
     prop: String,
@@ -234,6 +239,12 @@ export default {
       type: String,
       default: 'small' // large/medium/small/mini
     },
+    // 可搜索
+    filterable: {
+      type: Boolean,
+      default: true
+    },
+    /* 公共 end */
 
     /* Input 输入框 start */
     // 显示切换密码图标
@@ -255,11 +266,6 @@ export default {
     multipleLimit: Number,
     // 多选时是否将选中值按文字的形式展示
     collapseTags: Boolean,
-    // 可搜索
-    filterable: {
-      type: Boolean,
-      default: true
-    },
     // 远程搜索
     remote: Boolean,
     /* Select 选择器 end */
