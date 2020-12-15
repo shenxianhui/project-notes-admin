@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-08 15:00:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-15 19:44:18
+ * @LastEditTime: 2020-12-15 21:27:18
  * @Description: 组件-表单-项
 -->
 
@@ -116,6 +116,7 @@
       <el-date-picker
         v-if="itemType === 'date-picker'"
         v-model="vModel"
+        :name="name"
         :type="type"
         :clearable="clearable"
         :disabled="disabled"
@@ -170,9 +171,16 @@
       <el-input-number
         v-if="itemType === 'input-number'"
         :value="value"
+        :name="name"
+        :label="label"
+        :disabled="disabled"
+        :size="size"
         :min="min"
         :max="max"
-        :label="label"
+        :step="step"
+        :step-strictly="stepStrictly"
+        :precision="precision"
+        :controls-position="controlsPosition"
         @change="handleChange"
       ></el-input-number>
 
@@ -180,6 +188,7 @@
       <el-switch
         v-if="itemType === 'switch'"
         :value="value"
+        :name="name"
         :active-color="activeColor"
         :inactive-color="inactiveColor"
         @change="handleChange"
@@ -320,8 +329,18 @@ export default {
     /* DateTimePicker 日期时间选择器 end */
 
     /* InputNumber 计数器 start */
+    // 计数器允许的最小值
     min: Number,
+    // 计数器允许的最大值
     max: Number,
+    // 计数器步长
+    step: Number,
+    // 只能输入 step 的倍数
+    stepStrictly: Number,
+    // 数值精度
+    precision: Number,
+    // 	控制按钮位置
+    controlsPosition: String,
     /* InputNumber 计数器 end */
 
     /* Switch 开关 start */
