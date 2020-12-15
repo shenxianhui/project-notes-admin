@@ -2,13 +2,17 @@
  * @Author: shenxh
  * @Date: 2020-12-08 15:00:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-15 16:10:00
+ * @LastEditTime: 2020-12-15 17:53:25
  * @Description: 组件-表单-项
 -->
 
 <template>
   <div class="xx-form-item" :style="{ width }">
-    <el-form-item :label="label" :prop="prop" :style="{ width: setItemWidth }">
+    <el-form-item
+      :label="label"
+      :prop="prop"
+      :style="{ maxWidth: setItemWidth }"
+    >
       <!-- Input 输入框 -->
       <el-input
         v-if="itemType === 'input'"
@@ -113,10 +117,15 @@
         v-if="itemType === 'date-picker'"
         v-model="vModel"
         :type="type"
+        :clearable="clearable"
+        :disabled="disabled"
+        :size="size"
         :start-placeholder="startPlaceholder"
         :end-placeholder="endPlaceholder"
         :default-time="defaultTime"
+        :value-format="valueFormat"
         :placeholder="placeholder || `请选择${label || ''}`"
+        @change="handleChange"
       >
       </el-date-picker>
 
@@ -226,6 +235,7 @@ export default {
     loading: Boolean,
     // 占位符
     placeholder: String,
+    // 类型
     type: String,
     // 禁用状态
     disabled: Boolean,
@@ -296,11 +306,12 @@ export default {
       default: '结束日期'
     },
     // 选中日期后的默认具体时刻
-    defaultTime: {
-      type: Array,
-      default() {
-        return ['00:00:00', '23:59:59'];
-      }
+    defaultTime: [Array, String],
+    // 绑定值的格式
+    // https://element.eleme.cn/#/zh-CN/component/date-picker#ri-qi-ge-shi
+    valueFormat: {
+      type: String,
+      default: 'timestamp'
     },
     /* DateTimePicker 日期时间选择器 end */
 
@@ -389,6 +400,12 @@ export default {
     flex-wrap: wrap;
     .xx-select-all {
       margin-right: 30px;
+    }
+  }
+  /* 日期 */
+  .el-form-item__content {
+    .el-date-editor {
+      width: 100%;
     }
   }
 }

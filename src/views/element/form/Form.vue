@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-04 17:45:43
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-15 11:19:34
+ * @LastEditTime: 2020-12-15 18:00:59
  * @Description: 表单
 -->
 
@@ -108,6 +108,21 @@
         :model="form.datePicker"
         :col="8"
         label="日期选择器"
+        type="datetime"
+        :options="options"
+        :props="{ checkStrictly: true }"
+        :show-all-levels="false"
+        @change="handleChange"
+      ></xx-form-item>
+
+      <xx-form-item
+        item-type="date-picker"
+        :model="form.datePickerRange"
+        :col="16"
+        item-width="450px"
+        label="日期范围选择"
+        type="datetimerange"
+        :default-time="['00:00:00', '23:59:59']"
         :options="options"
         :props="{ checkStrictly: true }"
         :show-all-levels="false"
@@ -186,7 +201,8 @@ export default {
         select: '',
         selectSearch: '',
         cascader: [],
-        datePicker: [],
+        datePicker: '',
+        datePickerRange: '',
         radio: '',
         checkbox: [],
         inputNumber: '',
