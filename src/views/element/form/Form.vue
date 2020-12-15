@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-04 17:45:43
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-15 18:00:59
+ * @LastEditTime: 2020-12-15 18:48:53
  * @Description: 表单
 -->
 
@@ -11,31 +11,31 @@
     <xx-form :model="form" :rules="rules" ref="xx-form" class="xx-form" inline>
       <xx-form-item
         item-type="input"
-        :model="form.input"
+        v-model="form.input"
         label="姓名"
         inline
       ></xx-form-item>
       <xx-form-item
         item-type="input"
-        :model="form.input"
+        v-model="form.input"
         label="姓名"
         inline
       ></xx-form-item>
       <xx-form-item
         item-type="input"
-        :model="form.input"
+        v-model="form.input"
         label="姓名"
         inline
       ></xx-form-item>
       <xx-form-item
         item-type="input"
-        :model="form.input"
+        v-model="form.input"
         label="姓名"
         inline
       ></xx-form-item>
       <xx-form-item
         item-type="input"
-        :model="form.input"
+        v-model="form.input"
         label="姓名"
         inline
       ></xx-form-item>
@@ -52,7 +52,7 @@
     >
       <xx-form-item
         item-type="input"
-        :model="form.input"
+        v-model="form.input"
         :col="8"
         label="输入框"
         @input="handleInput"
@@ -60,7 +60,7 @@
 
       <xx-form-item
         item-type="autocomplete"
-        :model="form.autocompleteLabel"
+        v-model="form.autocompleteLabel"
         type="textarea"
         :col="8"
         label="远程搜索"
@@ -71,7 +71,7 @@
 
       <xx-form-item
         item-type="select"
-        :model="form.select"
+        v-model="form.select"
         :col="8"
         label="选择器"
         :options="options"
@@ -81,7 +81,7 @@
 
       <xx-form-item
         item-type="select"
-        :model="form.selectSearch"
+        v-model="form.selectSearch"
         :col="8"
         label="远程搜索"
         :options="selectOptions"
@@ -94,7 +94,7 @@
 
       <xx-form-item
         item-type="cascader"
-        :model="form.cascader"
+        v-model="form.cascader"
         :col="8"
         label="级联选择器"
         :options="options"
@@ -105,7 +105,7 @@
 
       <xx-form-item
         item-type="date-picker"
-        :model="form.datePicker"
+        v-model="form.datePicker"
         :col="8"
         label="日期选择器"
         type="datetime"
@@ -117,7 +117,7 @@
 
       <xx-form-item
         item-type="date-picker"
-        :model="form.datePickerRange"
+        v-model="form.datePickerRange"
         :col="16"
         item-width="450px"
         label="日期范围选择"
@@ -131,7 +131,7 @@
 
       <xx-form-item
         item-type="radio"
-        :model="form.radio"
+        v-model="form.radio"
         :col="8"
         label="单选框"
         :options="options"
@@ -141,7 +141,7 @@
 
       <xx-form-item
         item-type="checkbox"
-        :model="form.checkbox"
+        v-model="form.checkbox"
         :col="8"
         label="多选框"
         :options="options"
@@ -155,7 +155,7 @@
 
       <xx-form-item
         item-type="input-number"
-        :model="form.inputNumber"
+        v-model="form.inputNumber"
         :col="8"
         label="计数器"
         @change="handleChange"
@@ -163,7 +163,7 @@
 
       <xx-form-item
         item-type="switch"
-        :model="form.switch"
+        v-model="form.switch"
         :col="8"
         label="开关"
         @change="handleChange"
@@ -171,7 +171,7 @@
 
       <xx-form-item
         item-type="slider"
-        :model="form.slider"
+        v-model="form.slider"
         :col="8"
         label="滑块"
         @change="handleChange"
@@ -278,10 +278,10 @@ export default {
   beforeDestroy() {},
   methods: {
     handleChange(val) {
-      console.log(val);
+      console.log(val, this.form);
     },
     handleInput(val) {
-      console.log(val);
+      console.log(val, this.form);
     },
 
     /* input */

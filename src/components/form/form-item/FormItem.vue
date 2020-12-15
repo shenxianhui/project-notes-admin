@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-08 15:00:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-15 17:53:25
+ * @LastEditTime: 2020-12-15 19:44:18
  * @Description: 组件-表单-项
 -->
 
@@ -16,8 +16,8 @@
       <!-- Input 输入框 -->
       <el-input
         v-if="itemType === 'input'"
-        v-model="vModel"
         :name="name"
+        :value="value"
         :type="type"
         :disabled="disabled"
         :clearable="clearable"
@@ -51,7 +51,7 @@
       <!-- 远程搜索 -->
       <el-autocomplete
         v-if="itemType === 'autocomplete'"
-        v-model="vModel"
+        :value="value"
         :name="name"
         :disabled="disabled"
         :clearable="clearable"
@@ -68,7 +68,7 @@
       <!-- Select 选择器 -->
       <el-select
         v-if="itemType === 'select'"
-        v-model="vModel"
+        :value="value"
         :name="name"
         :loading="loading"
         :clearable="clearable"
@@ -100,7 +100,7 @@
       <el-cascader
         v-if="itemType === 'cascader'"
         popper-class="xx-cascader-popper"
-        v-model="vModel"
+        :value="value"
         :clearable="clearable"
         :disabled="disabled"
         :size="size"
@@ -169,17 +169,17 @@
       <!-- InputNumber 计数器 -->
       <el-input-number
         v-if="itemType === 'input-number'"
-        v-model="vModel"
-        @change="handleChange"
+        :value="value"
         :min="min"
         :max="max"
         :label="label"
+        @change="handleChange"
       ></el-input-number>
 
       <!-- Switch 开关 -->
       <el-switch
         v-if="itemType === 'switch'"
-        v-model="vModel"
+        :value="value"
         :active-color="activeColor"
         :inactive-color="inactiveColor"
         @change="handleChange"
@@ -189,7 +189,7 @@
       <!-- Slider 滑块 -->
       <el-slider
         v-if="itemType === 'slider'"
-        v-model="vModel"
+        :value="value"
         @input="handleInput"
         @change="handleChange"
       ></el-slider>
@@ -201,14 +201,18 @@
 export default {
   name: 'xx-form-item',
   components: {},
+  model: {
+    prop: 'value',
+    event: 'set-value'
+  },
   props: {
     // 指定类型
     itemType: {
       type: String,
       required: true
     },
-    // v-model
-    model: {
+    // 绑定值
+    value: {
       type: [String, Number, Boolean, Array, Object, Date, Function, Symbol]
     },
     // 栅格布局
@@ -327,7 +331,7 @@ export default {
   },
   data() {
     return {
-      vModel: this.model,
+      vModel: this.value,
       isCheckAll: this.checkAll
     };
   },
@@ -342,7 +346,7 @@ export default {
     }
   },
   watch: {
-    model(val) {
+    value(val) {
       this.vModel = val;
     },
     checkAll(val) {
@@ -353,13 +357,15 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {
-    // change 事件
-    handleChange(val) {
-      this.$emit('change', val);
-    },
     // input 事件
     handleInput(val) {
+      this.$emit('set-value', val);
       this.$emit('input', val);
+    },
+    // change 事件
+    handleChange(val) {
+      this.$emit('set-value', val);
+      this.$emit('change', val);
     },
 
     /* Input 输入框 */
