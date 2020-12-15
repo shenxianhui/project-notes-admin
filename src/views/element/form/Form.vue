@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-04 17:45:43
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-11 14:53:59
+ * @LastEditTime: 2020-12-15 11:19:34
  * @Description: 表单
 -->
 
@@ -75,6 +75,20 @@
         :col="8"
         label="选择器"
         :options="options"
+        @filter-method="filterMethod"
+        @change="handleChange"
+      ></xx-form-item>
+
+      <xx-form-item
+        item-type="select"
+        :model="form.selectSearch"
+        :col="8"
+        label="远程搜索"
+        :options="selectOptions"
+        :multiple="true"
+        :remote="true"
+        :loading="loading"
+        @remote-method="remoteMethod"
         @change="handleChange"
       ></xx-form-item>
 
@@ -106,6 +120,7 @@
         :col="8"
         label="单选框"
         :options="options"
+        item-width="100%"
         @change="handleChange"
       ></xx-form-item>
 
@@ -118,6 +133,7 @@
         :show-check-all="true"
         :check-all="isCheckAll"
         :indeterminate="isIndeterminate"
+        item-width="100%"
         @check-all="handleCheckAll"
         @change="changeCheckbox"
       ></xx-form-item>
@@ -162,11 +178,13 @@ export default {
   props: {},
   data() {
     return {
+      loading: false,
       form: {
         input: '',
         autocompleteLabel: '',
         autocomplete: '',
         select: '',
+        selectSearch: '',
         cascader: [],
         datePicker: [],
         radio: '',
@@ -176,6 +194,7 @@ export default {
         slider: 50
       },
       rules: {},
+      selectOptions: [],
       options: [
         {
           label: '选项1',
@@ -260,6 +279,20 @@ export default {
     handleSelect({ label, value }) {
       this.form.autocompleteLabel = label;
       this.form.autocomplete = value;
+    },
+
+    /* select */
+    // 搜索事件
+    filterMethod(val) {
+      console.log(val);
+    },
+    // 远程搜索
+    remoteMethod(val) {
+      this.loading = true;
+      this.getData(val).then(res => {
+        this.selectOptions = res;
+        this.loading = false;
+      });
     },
 
     /* checkbox */

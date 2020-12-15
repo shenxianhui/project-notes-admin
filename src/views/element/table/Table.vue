@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-04 15:39:31
+ * @LastEditTime: 2020-12-15 09:45:25
  * @Description: 表格
 -->
 
@@ -24,7 +24,9 @@
       <template v-slot:birthday="{ row }">
         {{ formatDate(row.birthday) }}
       </template>
-      <template v-slot:money="{ row }"> ￥{{ row.money.toLocaleString() }} </template>
+      <template v-slot:money="{ row }">
+        ￥{{ row.money.toLocaleString() }}
+      </template>
       <template v-slot:set="{ row }">
         <el-popconfirm title="确认删除？" @confirm="handleDel(row)">
           <el-button slot="reference" type="text">删除</el-button>

@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-08 15:00:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-11 14:58:17
+ * @LastEditTime: 2020-12-15 11:19:49
  * @Description: 组件-表单-项
 -->
 
@@ -13,6 +13,7 @@
       <el-input
         v-if="itemType === 'input'"
         v-model="vModel"
+        :name="name"
         :type="type"
         :disabled="disabled"
         :clearable="clearable"
@@ -47,6 +48,7 @@
       <el-autocomplete
         v-if="itemType === 'autocomplete'"
         v-model="vModel"
+        :name="name"
         :disabled="disabled"
         :clearable="clearable"
         :show-password="showPassword"
@@ -63,7 +65,19 @@
       <el-select
         v-if="itemType === 'select'"
         v-model="vModel"
+        :name="name"
+        :loading="loading"
+        :clearable="clearable"
+        :disabled="disabled"
+        :size="size"
+        :multiple="multiple"
+        :multiple-limit="multipleLimit"
+        :collapse-tags="collapseTags"
+        :filterable="filterable"
+        :remote="remote"
         :placeholder="placeholder || `请选择${label || ''}`"
+        :filter-method="filterMethod"
+        :remote-method="remoteMethod"
         @change="handleChange"
       >
         <el-option
@@ -71,7 +85,11 @@
           :key="index"
           :label="item.label"
           :value="item.value"
-        ></el-option>
+        >
+          <template>
+            <slot :item="item" :index="index"></slot>
+          </template>
+        </el-option>
       </el-select>
 
       <!-- Cascader 级联选择器 -->
@@ -188,15 +206,20 @@ export default {
     // 宽度
     itemWidth: {
       type: String,
-      default: '100%'
+      // default: '100%'
+      default: '300px'
     },
     // 行内模式, 打开时 col/itemWidth 会失效
     inline: Boolean,
     options: Array,
 
     /* https://element.eleme.cn/#/zh-CN/component/form#form-item-attributes */
+    name: String,
     label: String,
     prop: String,
+    // 加载中
+    loading: Boolean,
+    // 占位符
     placeholder: String,
     type: String,
     // 禁用状态
@@ -212,7 +235,7 @@ export default {
       default: 'small' // large/medium/small/mini
     },
 
-    /* Input 输入框 */
+    /* Input 输入框 start */
     // 显示切换密码图标
     showPassword: Boolean,
     // 输入框行数，只对 type="textarea" 有效
@@ -223,20 +246,39 @@ export default {
     maxlength: Number,
     // 显示输入字数统计，只在 type = "text" 或 type = "textarea" 时有效
     showWordLimit: Boolean,
+    /* Input 输入框 end */
 
-    /* Checkbox 多选框 */
+    /* Select 选择器 start */
+    // 多选
+    multiple: Boolean,
+    // 多选时用户最多可以选择的项目数，为 0 则不限制
+    multipleLimit: Number,
+    // 多选时是否将选中值按文字的形式展示
+    collapseTags: Boolean,
+    // 可搜索
+    filterable: {
+      type: Boolean,
+      default: true
+    },
+    // 远程搜索
+    remote: Boolean,
+    /* Select 选择器 end */
+
+    /* Checkbox 多选框 start */
     // 开启全选功能
     showCheckAll: Boolean,
     checkAll: Boolean,
     // 已选且非全选状态
     indeterminate: Boolean,
+    /* Checkbox 多选框 end */
 
-    /* Cascader 级联选择器 */
+    /* Cascader 级联选择器 start */
     props: Object,
     // 仅显示最后一级
     showAllLevels: Boolean,
+    /* Cascader 级联选择器 end */
 
-    /* DateTimePicker 日期时间选择器 */
+    /* DateTimePicker 日期时间选择器 start */
     // 范围选择时开始日期的占位内容
     startPlaceholder: {
       type: String,
@@ -254,14 +296,17 @@ export default {
         return ['00:00:00', '23:59:59'];
       }
     },
+    /* DateTimePicker 日期时间选择器 end */
 
-    /* InputNumber 计数器 */
+    /* InputNumber 计数器 start */
     min: Number,
     max: Number,
+    /* InputNumber 计数器 end */
 
-    /* Switch 开关 */
+    /* Switch 开关 start */
     activeColor: String,
     inactiveColor: String
+    /* Switch 开关 end */
   },
   data() {
     return {
@@ -308,6 +353,16 @@ export default {
     // 选中 input 中的文字
     handleSelect(val) {
       this.$emit('select', val);
+    },
+
+    /* Select 选择器 */
+    // 搜索事件
+    filterMethod(val) {
+      this.$emit('filter-method', val);
+    },
+    // 远程搜索
+    remoteMethod(val) {
+      this.$emit('remote-method', val);
     },
 
     /* Checkbox 多选框 */
