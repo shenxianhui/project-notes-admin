@@ -2,12 +2,12 @@
  * @Author: shenxh
  * @Date: 2020-12-08 15:00:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-15 21:27:18
+ * @LastEditTime: 2020-12-16 11:05:33
  * @Description: 组件-表单-项
 -->
 
 <template>
-  <div class="xx-form-item" :style="{ width }">
+  <div class="xx-form-item" :style="{ width: setWidth }">
     <el-form-item
       :label="label"
       :prop="prop"
@@ -189,8 +189,12 @@
         v-if="itemType === 'switch'"
         :value="value"
         :name="name"
+        :disabled="disabled"
+        :width="width"
         :active-color="activeColor"
         :inactive-color="inactiveColor"
+        :active-text="activeText"
+        :inactive-text="inactiveText"
         @change="handleChange"
       >
       </el-switch>
@@ -199,6 +203,15 @@
       <el-slider
         v-if="itemType === 'slider'"
         :value="value"
+        :disabled="disabled"
+        :step="step"
+        :range="range"
+        :vertical="vertical"
+        :height="height"
+        :marks="marks"
+        :show-stops="showStops"
+        :show-tooltip="showTooltip"
+        :format-tooltip="formatTooltip"
         @input="handleInput"
         @change="handleChange"
       ></el-slider>
@@ -267,6 +280,8 @@ export default {
       type: Boolean,
       default: true
     },
+    // 步长 (计数器/滑块)
+    step: Number,
     /* 公共 end */
 
     /* Input 输入框 start */
@@ -333,8 +348,6 @@ export default {
     min: Number,
     // 计数器允许的最大值
     max: Number,
-    // 计数器步长
-    step: Number,
     // 只能输入 step 的倍数
     stepStrictly: Number,
     // 数值精度
@@ -344,9 +357,37 @@ export default {
     /* InputNumber 计数器 end */
 
     /* Switch 开关 start */
+    // switch 的宽度（像素）
+    width: Number,
+    // switch 打开时的背景色
     activeColor: String,
-    inactiveColor: String
+    // switch 关闭时的背景色
+    inactiveColor: String,
+    // switch 打开时的文字描述
+    activeText: String,
+    // switch 关闭时的文字描述
+    inactiveText: String,
     /* Switch 开关 end */
+
+    /* Slider 滑块 start */
+    // 是否显示 tooltip
+    showTooltip: {
+      type: Boolean,
+      default: true
+    },
+    // 格式化 tooltip message
+    formatTooltip: Function,
+    // 显示间断点
+    showStops: Boolean,
+    // 范围选择
+    range: Boolean,
+    // 竖向模式 (需设置 height)
+    vertical: Boolean,
+    // Slider 高度，竖向模式时必填
+    height: String,
+    // 标记
+    marks: Object
+    /* Slider 滑块 end */
   },
   data() {
     return {
@@ -355,7 +396,7 @@ export default {
     };
   },
   computed: {
-    width() {
+    setWidth() {
       return this.inline
         ? 'inherit'
         : parseInt((this.col / 24) * 10000) / 100 + '%';
