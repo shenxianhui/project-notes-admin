@@ -55,7 +55,8 @@ module.exports = {
     config.plugins = [...config.plugins, ...pluginsWebpack];
   },
   devServer: {
-    open: true,
+    hot: true, // 页面实时预览
+    open: true, // 构建完成后自动打卡页面
     port: 8080,
     // 设置代理
     proxy: {

@@ -2,12 +2,12 @@
  * @Author: shenxh
  * @Date: 2020-12-08 15:00:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-16 11:05:33
+ * @LastEditTime: 2020-12-17 11:13:51
  * @Description: 组件-表单-项
 -->
 
 <template>
-  <div class="xx-form-item" :style="{ width: setWidth }">
+  <div class="xx-form-item" :class="{ inline }" :style="{ width: setWidth }">
     <el-form-item
       :label="label"
       :prop="prop"
@@ -460,6 +460,11 @@ export default {
 <style lang="less" scoped>
 .xx-form-item {
   flex-shrink: 0;
+  &.inline {
+    .el-form-item {
+      margin-bottom: 0;
+    }
+  }
   /* 多选框 */
   .xx-checkbox-wrap {
     display: flex;

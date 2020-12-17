@@ -2,12 +2,50 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-15 09:45:25
+ * @LastEditTime: 2020-12-17 11:21:22
  * @Description: 表格
 -->
 
 <template>
   <div class="base-table admin-content">
+    <xx-form :model="form" ref="xx-form" class="xx-form" inline>
+      <xx-form-item
+        item-type="input"
+        v-model="form.input"
+        label="姓名"
+        inline
+      ></xx-form-item>
+      <xx-form-item
+        item-type="input"
+        v-model="form.input"
+        label="姓名"
+        inline
+      ></xx-form-item>
+      <xx-form-item
+        item-type="input"
+        v-model="form.input"
+        label="姓名"
+        inline
+      ></xx-form-item>
+      <xx-form-item
+        item-type="input"
+        v-model="form.input"
+        label="姓名"
+        inline
+      ></xx-form-item>
+      <xx-form-item
+        item-type="input"
+        v-model="form.input"
+        label="姓名"
+        inline
+      ></xx-form-item>
+
+      <template v-slot:button-inline-right>
+        <el-button size="small">重置</el-button>
+        <el-button type="primary" size="small">查询</el-button>
+      </template>
+    </xx-form>
+
     <xx-table
       :loading="loading"
       :columns="columns"
@@ -42,12 +80,17 @@
 
 <script>
 import XxTable from '@/components/table';
+import XxForm from '@/components/form';
+import XxFormItem from '@/components/form/form-item';
+
 import { formatDate } from '@/utils/date';
 
 export default {
   name: 'base-table',
   components: {
-    XxTable
+    XxTable,
+    XxForm,
+    XxFormItem
   },
   props: {},
   data() {
@@ -55,6 +98,7 @@ export default {
       formatDate,
       loading: false,
       currentPage: 1,
+      form: {},
       columns: [
         {
           type: 'expand'

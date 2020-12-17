@@ -2,47 +2,12 @@
  * @Author: shenxh
  * @Date: 2020-12-04 17:45:43
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-15 18:48:53
+ * @LastEditTime: 2020-12-17 11:17:37
  * @Description: 表单
 -->
 
 <template>
   <div class="base-form admin-content">
-    <xx-form :model="form" :rules="rules" ref="xx-form" class="xx-form" inline>
-      <xx-form-item
-        item-type="input"
-        v-model="form.input"
-        label="姓名"
-        inline
-      ></xx-form-item>
-      <xx-form-item
-        item-type="input"
-        v-model="form.input"
-        label="姓名"
-        inline
-      ></xx-form-item>
-      <xx-form-item
-        item-type="input"
-        v-model="form.input"
-        label="姓名"
-        inline
-      ></xx-form-item>
-      <xx-form-item
-        item-type="input"
-        v-model="form.input"
-        label="姓名"
-        inline
-      ></xx-form-item>
-      <xx-form-item
-        item-type="input"
-        v-model="form.input"
-        label="姓名"
-        inline
-      ></xx-form-item>
-    </xx-form>
-    <br />
-    <br />
-    <br />
     <xx-form
       :model="form"
       class="xx-form"
@@ -176,6 +141,11 @@
         label="滑块"
         @change="handleChange"
       ></xx-form-item>
+
+      <template v-slot:button-center>
+        <el-button size="medium">重置</el-button>
+        <el-button type="primary" size="medium">提交</el-button>
+      </template>
     </xx-form>
   </div>
 </template>
