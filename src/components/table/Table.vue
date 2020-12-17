@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-16 17:35:09
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-03 20:04:08
+ * @LastEditTime: 2020-12-17 11:42:00
  * @Description: 组件-表格
 -->
 
@@ -121,6 +121,7 @@ export default {
     height: {
       type: [String, Number],
       default: 'calc(100% - 60px)'
+      // default: '100%'
     },
     maxHeight: [String, Number],
     stripe: {
@@ -201,6 +202,18 @@ export default {
   height: 100%;
   /deep/ .el-table {
     width: 100%;
+    .el-table__header-wrapper {
+      table {
+        thead {
+          tr {
+            th {
+              padding: 5px 0;
+              background-color: #f6f6f6;
+            }
+          }
+        }
+      }
+    }
     .el-button--text {
       padding-top: 0;
       padding-bottom: 0;

@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-17 11:21:22
+ * @LastEditTime: 2020-12-17 11:33:41
  * @Description: 表格
 -->
 
@@ -238,4 +238,12 @@ export default {
 };
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.base-table {
+  display: flex;
+  flex-direction: column;
+  .xx-form {
+    margin-bottom: 20px;
+  }
+}
+</style>
