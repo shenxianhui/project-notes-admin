@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-03 20:43:12
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-17 11:09:04
+ * @LastEditTime: 2020-12-17 13:43:02
  * @Description: 组件-表单
 -->
 
@@ -79,7 +79,25 @@ export default {
   created() {},
   mounted() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {
+    /* 表单内置方法 */
+    // 对整个表单进行校验
+    validate(callback) {
+      this.$refs['xx-form'].validate(valid => {
+        callback(valid);
+      });
+    },
+    // 对部分表单字段进行校验
+    validateField(props, callback) {
+      this.$refs['xx-form'].validateField(props, errorMessage => {
+        callback(errorMessage);
+      });
+    },
+    // 对整个表单进行重置，将所有字段值重置为初始值并移除校验结果
+    resetFields() {
+      this.$refs['xx-form'].resetFields();
+    }
+  }
 };
 </script>
 

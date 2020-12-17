@@ -2,47 +2,37 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-17 11:33:41
- * @Description: 表格
+ * @LastEditTime: 2020-12-17 14:28:55
+ * @Description: 表格-模板
 -->
 
 <template>
   <div class="base-table admin-content">
-    <xx-form :model="form" ref="xx-form" class="xx-form" inline>
+    <xx-form :model="form" ref="form" class="form" inline>
       <xx-form-item
         item-type="input"
-        v-model="form.input"
+        v-model="form.name"
+        prop="name"
         label="姓名"
         inline
+        @keydown.enter.native="submitForm()"
       ></xx-form-item>
       <xx-form-item
-        item-type="input"
-        v-model="form.input"
-        label="姓名"
+        item-type="select"
+        v-model="form.sex"
+        prop="sex"
+        :col="8"
+        label="性别"
+        :options="options"
         inline
-      ></xx-form-item>
-      <xx-form-item
-        item-type="input"
-        v-model="form.input"
-        label="姓名"
-        inline
-      ></xx-form-item>
-      <xx-form-item
-        item-type="input"
-        v-model="form.input"
-        label="姓名"
-        inline
-      ></xx-form-item>
-      <xx-form-item
-        item-type="input"
-        v-model="form.input"
-        label="姓名"
-        inline
+        @keydown.enter.native="submitForm()"
       ></xx-form-item>
 
       <template v-slot:button-inline-right>
-        <el-button size="small">重置</el-button>
-        <el-button type="primary" size="small">查询</el-button>
+        <el-button size="small" @click="resetForm('form')">重置</el-button>
+        <el-button type="primary" size="small" @click="submitForm()">
+          查询
+        </el-button>
       </template>
     </xx-form>
 
@@ -99,6 +89,16 @@ export default {
       loading: false,
       currentPage: 1,
       form: {},
+      options: [
+        {
+          label: '男',
+          value: 1
+        },
+        {
+          label: '女',
+          value: 2
+        }
+      ],
       columns: [
         {
           type: 'expand'
@@ -209,7 +209,19 @@ export default {
 
       this._getTableData();
     },
+    // 表单重置
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+      this.tableForm.pageNo = 1;
+      this._getTableData();
+    },
+    // 表单提交
+    submitForm() {
+      this.tableForm.pageNo = 1;
+      this._getTableData();
+    },
 
+    // 获取 mock 数据
     _getTableData() {
       let arr = [];
 
@@ -242,7 +254,7 @@ export default {
 .base-table {
   display: flex;
   flex-direction: column;
-  .xx-form {
+  .form {
     margin-bottom: 20px;
   }
 }

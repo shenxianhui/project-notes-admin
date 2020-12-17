@@ -2,13 +2,18 @@
  * @Author: shenxh
  * @Date: 2020-12-08 15:00:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-17 11:13:51
+ * @LastEditTime: 2020-12-17 14:14:14
  * @Description: 组件-表单-项
 -->
 
 <template>
-  <div class="xx-form-item" :class="{ inline }" :style="{ width: setWidth }">
+  <div
+    class="xx-form-item-wrap"
+    :class="{ inline }"
+    :style="{ width: setWidth }"
+  >
     <el-form-item
+      ref="xx-form-item"
       :label="label"
       :prop="prop"
       :style="{ maxWidth: setItemWidth }"
@@ -254,9 +259,11 @@ export default {
 
     /* https://element.eleme.cn/#/zh-CN/component/form#form-item-attributes */
     /* 公共 start */
-    name: String,
+    // 标签文本
     label: String,
+    // 表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的
     prop: String,
+    name: String,
     // 加载中
     loading: Boolean,
     // 占位符
@@ -452,13 +459,23 @@ export default {
     // 全选
     handleCheckAllChange(val) {
       this.$emit('check-all', val);
+    },
+
+    /* 表单项内置方法 */
+    // 对该表单项进行重置，将其值重置为初始值并移除校验结果
+    resetField() {
+      this.$refs['xx-form-item'].resetField();
+    },
+    // 移除该表单项的校验结果
+    clearValidate() {
+      this.$refs['xx-form-item'].clearValidate();
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.xx-form-item {
+.xx-form-item-wrap {
   flex-shrink: 0;
   &.inline {
     .el-form-item {

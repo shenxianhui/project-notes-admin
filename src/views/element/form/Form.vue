@@ -2,30 +2,32 @@
  * @Author: shenxh
  * @Date: 2020-12-04 17:45:43
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-17 11:17:37
- * @Description: 表单
+ * @LastEditTime: 2020-12-17 15:13:17
+ * @Description: 表单-模板
 -->
 
 <template>
   <div class="base-form admin-content">
     <xx-form
       :model="form"
-      class="xx-form"
-      ref="xx-form"
+      class="form"
+      ref="form"
       :rules="rules"
-      label-width="100px"
+      label-width="110px"
     >
       <xx-form-item
         item-type="input"
         v-model="form.input"
+        prop="input"
         :col="8"
         label="输入框"
-        @input="handleInput"
+        @input="handleInput($event, 'input')"
       ></xx-form-item>
 
       <xx-form-item
         item-type="autocomplete"
         v-model="form.autocompleteLabel"
+        prop="autocompleteLabel"
         type="textarea"
         :col="8"
         label="远程搜索"
@@ -37,52 +39,57 @@
       <xx-form-item
         item-type="select"
         v-model="form.select"
+        prop="select"
         :col="8"
         label="选择器"
         :options="options"
         @filter-method="filterMethod"
-        @change="handleChange"
+        @change="handleChange($event, 'select')"
       ></xx-form-item>
 
       <xx-form-item
         item-type="select"
         v-model="form.selectSearch"
+        prop="selectSearch"
         :col="8"
         label="远程搜索"
         :options="selectOptions"
         :multiple="true"
         :remote="true"
-        :loading="loading"
+        :loading="searchLoading"
         @remote-method="remoteMethod"
-        @change="handleChange"
+        @change="handleChange($event, 'selectSearch')"
       ></xx-form-item>
 
       <xx-form-item
         item-type="cascader"
         v-model="form.cascader"
+        prop="cascader"
         :col="8"
         label="级联选择器"
         :options="options"
         :props="{ checkStrictly: true }"
         :show-all-levels="false"
-        @change="handleChange"
+        @change="handleChange($event, 'cascader')"
       ></xx-form-item>
 
       <xx-form-item
         item-type="date-picker"
         v-model="form.datePicker"
+        prop="datePicker"
         :col="8"
         label="日期选择器"
         type="datetime"
         :options="options"
         :props="{ checkStrictly: true }"
         :show-all-levels="false"
-        @change="handleChange"
+        @change="handleChange($event, 'datePicker')"
       ></xx-form-item>
 
       <xx-form-item
         item-type="date-picker"
         v-model="form.datePickerRange"
+        prop="datePickerRange"
         :col="16"
         item-width="450px"
         label="日期范围选择"
@@ -91,22 +98,24 @@
         :options="options"
         :props="{ checkStrictly: true }"
         :show-all-levels="false"
-        @change="handleChange"
+        @change="handleChange($event, 'datePickerRange')"
       ></xx-form-item>
 
       <xx-form-item
         item-type="radio"
         v-model="form.radio"
+        prop="radio"
         :col="8"
         label="单选框"
         :options="options"
         item-width="100%"
-        @change="handleChange"
+        @change="handleChange($event, 'radio')"
       ></xx-form-item>
 
       <xx-form-item
         item-type="checkbox"
         v-model="form.checkbox"
+        prop="checkbox"
         :col="8"
         label="多选框"
         :options="options"
@@ -121,30 +130,40 @@
       <xx-form-item
         item-type="input-number"
         v-model="form.inputNumber"
+        prop="inputNumber"
         :col="8"
         label="计数器"
-        @change="handleChange"
+        @change="handleChange($event, 'inputNumber')"
       ></xx-form-item>
 
       <xx-form-item
         item-type="switch"
         v-model="form.switch"
+        prop="switch"
         :col="8"
         label="开关"
-        @change="handleChange"
+        @change="handleChange($event, 'switch')"
       ></xx-form-item>
 
       <xx-form-item
         item-type="slider"
         v-model="form.slider"
+        prop="slider"
         :col="8"
         label="滑块"
-        @change="handleChange"
+        @change="handleChange($event, 'slider')"
       ></xx-form-item>
 
       <template v-slot:button-center>
-        <el-button size="medium">重置</el-button>
-        <el-button type="primary" size="medium">提交</el-button>
+        <el-button size="medium" @click="resetForm('form')">重置</el-button>
+        <el-button
+          type="primary"
+          size="medium"
+          :loading="formLoading"
+          @click="submitForm('form')"
+        >
+          提交
+        </el-button>
       </template>
     </xx-form>
   </div>
@@ -163,13 +182,14 @@ export default {
   props: {},
   data() {
     return {
-      loading: false,
+      formLoading: false, // 表单数据加载 loading
+      searchLoading: false, // 远程搜索 loading
       form: {
         input: '',
         autocompleteLabel: '',
         autocomplete: '',
         select: '',
-        selectSearch: '',
+        selectSearch: [],
         cascader: [],
         datePicker: '',
         datePickerRange: '',
@@ -179,7 +199,21 @@ export default {
         switch: true,
         slider: 50
       },
-      rules: {},
+      rules: {
+        input: [
+          { required: true, message: '请输入', trigger: 'blur' },
+          { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
+        ],
+        select: [{ required: true, message: '请选择', trigger: 'change' }],
+        datePicker: [
+          {
+            // type: 'date',
+            required: true,
+            message: '请选择日期',
+            trigger: 'change'
+          }
+        ]
+      },
       selectOptions: [],
       options: [
         {
@@ -247,11 +281,33 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {
-    handleChange(val) {
-      console.log(val, this.form);
+    // 表单重置
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     },
-    handleInput(val) {
-      console.log(val, this.form);
+    // 表单提交
+    submitForm(formName) {
+      console.log(this.form);
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.formLoading = true;
+          setTimeout(() => {
+            this.formLoading = false;
+            this.$message.success('提交成功');
+          }, 500);
+        } else {
+          this.$message.warning('请按要求输入');
+        }
+      });
+    },
+
+    // change 事件
+    handleChange(val, name) {
+      console.log(val, name);
+    },
+    // input 事件
+    handleInput(val, name) {
+      console.log(val, name);
     },
 
     /* input */
@@ -274,10 +330,10 @@ export default {
     },
     // 远程搜索
     remoteMethod(val) {
-      this.loading = true;
+      this.searchLoading = true;
       this.getData(val).then(res => {
         this.selectOptions = res;
-        this.loading = false;
+        this.searchLoading = false;
       });
     },
 
