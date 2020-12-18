@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-04 17:45:43
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-18 09:38:30
+ * @LastEditTime: 2020-12-18 10:26:24
  * @Description: 表单-模板
 -->
 
@@ -181,6 +181,17 @@ export default {
   },
   props: {},
   data() {
+    const checkRadio = (rule, value, callback) => {
+      // 定时器为了使校验发生在赋值之后
+      setTimeout(() => {
+        const formVal = this.form.radio;
+
+        if (!formVal) {
+          return callback(new Error('请选择'));
+        }
+      }, 0);
+    };
+
     return {
       formLoading: false, // 表单数据加载 loading
       searchLoading: false, // 远程搜索 loading
@@ -213,15 +224,7 @@ export default {
             trigger: 'change'
           }
         ],
-        radio: [{ required: true, message: '请选择', trigger: 'change' }],
-        checkbox: [
-          {
-            // type: 'array',
-            required: true,
-            message: '请至少选择一个',
-            trigger: 'change'
-          }
-        ]
+        radio: [{ validator: checkRadio, required: true, trigger: 'change' }]
       },
       selectOptions: [],
       options: [
@@ -292,6 +295,7 @@ export default {
   methods: {
     // 表单重置
     resetForm(formName) {
+      this.isCheckAll = this.isIndeterminate = false;
       this.$refs[formName].resetFields();
     },
     // 表单提交
