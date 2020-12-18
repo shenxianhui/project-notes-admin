@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-04 17:45:43
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-17 15:13:17
+ * @LastEditTime: 2020-12-18 09:38:30
  * @Description: 表单-模板
 -->
 
@@ -210,6 +210,15 @@ export default {
             // type: 'date',
             required: true,
             message: '请选择日期',
+            trigger: 'change'
+          }
+        ],
+        radio: [{ required: true, message: '请选择', trigger: 'change' }],
+        checkbox: [
+          {
+            // type: 'array',
+            required: true,
+            message: '请至少选择一个',
             trigger: 'change'
           }
         ]

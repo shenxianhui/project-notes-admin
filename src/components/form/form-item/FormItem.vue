@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-08 15:00:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-17 14:14:14
+ * @LastEditTime: 2020-12-18 09:38:48
  * @Description: 组件-表单-项
 -->
 
@@ -239,9 +239,10 @@ export default {
       required: true
     },
     // 绑定值
-    value: {
-      type: [String, Number, Boolean, Array, Object, Date, Function, Symbol]
-    },
+    // value: {
+    //   type: [String, Number, Boolean, Array, Object, Date, Function, Symbol]
+    // },
+    value: {},
     // 栅格布局
     col: {
       type: Number,
