@@ -2,12 +2,12 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-17 14:28:55
+ * @LastEditTime: 2020-12-30 14:09:44
  * @Description: 表格-模板
 -->
 
 <template>
-  <div class="base-table admin-content">
+  <div class="base-table admin-content table-page">
     <xx-form :model="form" ref="form" class="form" inline>
       <xx-form-item
         item-type="input"
@@ -250,12 +250,4 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
-.base-table {
-  display: flex;
-  flex-direction: column;
-  .form {
-    margin-bottom: 20px;
-  }
-}
-</style>
+<style scoped lang="less"></style>
