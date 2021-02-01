@@ -4,14 +4,26 @@ const getCurrentDate = (() => {
   let myDate = new Date();
   let year = myDate.getFullYear().toString();
   let month =
-    myDate.getMonth() < 9 ? `0${myDate.getMonth() + 1}` : (myDate.getMonth() + 1).toString();
-  let date = myDate.getDate() < 10 ? `0${myDate.getDate()}` : myDate.getDate().toString();
+    myDate.getMonth() < 9
+      ? `0${myDate.getMonth() + 1}`
+      : (myDate.getMonth() + 1).toString();
+  let date =
+    myDate.getDate() < 10
+      ? `0${myDate.getDate()}`
+      : myDate.getDate().toString();
   let day = myDate.getDay() == 0 ? '7' : myDate.getDay().toString();
-  let hour = myDate.getHours() < 10 ? `0${myDate.getHours()}` : myDate.getHours().toString();
+  let hour =
+    myDate.getHours() < 10
+      ? `0${myDate.getHours()}`
+      : myDate.getHours().toString();
   let minute =
-    myDate.getMinutes() < 10 ? `0${myDate.getMinutes()}` : myDate.getMinutes().toString();
+    myDate.getMinutes() < 10
+      ? `0${myDate.getMinutes()}`
+      : myDate.getMinutes().toString();
   let second =
-    myDate.getSeconds() < 10 ? `0${myDate.getSeconds()}` : myDate.getSeconds().toString();
+    myDate.getSeconds() < 10
+      ? `0${myDate.getSeconds()}`
+      : myDate.getSeconds().toString();
   // 获取当前完整日期
   let dateIntact = `${year}-${month}-${date}`;
   let timeIntact = `${hour}:${minute}:${second}`;
@@ -37,8 +49,8 @@ const getCurrentDate = (() => {
 })();
 
 // 日期相互加减
-// 示例: DateMinus('2019-11-20 00:00:00', '2019-11-26 00:00:00'); // 6
-const DateMinus = (date1, date2, type = 'date') => {
+// 示例: dateInterval('2019-11-20 00:00:00', '2019-11-26 00:00:00'); // 6
+const dateInterval = (date1, date2, type = 'date') => {
   // 日期(前): String, 日期(后): String, 转换类型(year-年|month-月|date-日|hour-时|minute-分|second-秒|milliseconds-毫秒): String
   let sdate = new Date(date1);
   let now = new Date(date2);
@@ -87,8 +99,13 @@ const computeDate = (date, days) => {
   myDate.setDate(myDate.getDate() + Number(days));
   let _year = myDate.getFullYear();
   let _month =
-    myDate.getMonth() < 9 ? `0${myDate.getMonth() + 1}` : (myDate.getMonth() + 1).toString();
-  let _date = myDate.getDate() < 10 ? `0${myDate.getDate()}` : myDate.getDate().toString();
+    myDate.getMonth() < 9
+      ? `0${myDate.getMonth() + 1}`
+      : (myDate.getMonth() + 1).toString();
+  let _date =
+    myDate.getDate() < 10
+      ? `0${myDate.getDate()}`
+      : myDate.getDate().toString();
   let day = `${_year}-${_month}-${_date}`;
 
   return day;
@@ -137,7 +154,11 @@ let getAWeek = days => {
  * @param {String} endFormat 结束日期格式 (时间戳用 'timestamp')
  * @return: 格式化后的日期
  */
-const formatDate = (date, startFormat = 'timestamp', endFormat = 'yyyy-MM-dd') => {
+const formatDate = (
+  date,
+  startFormat = 'timestamp',
+  endFormat = 'yyyy-MM-dd'
+) => {
   // if (typeof date !== 'string') {
   //   console.error('date 必须为字符串');
   //   return;
@@ -170,11 +191,16 @@ const formatDate = (date, startFormat = 'timestamp', endFormat = 'yyyy-MM-dd') =
   if (startFormat === 'timestamp') {
     let _date = new Date(Number(date)),
       Y = _date.getFullYear(),
-      M = _date.getMonth() + 1 < 10 ? '0' + (_date.getMonth() + 1) : _date.getMonth() + 1,
+      M =
+        _date.getMonth() + 1 < 10
+          ? '0' + (_date.getMonth() + 1)
+          : _date.getMonth() + 1,
       D = _date.getDate() < 10 ? '0' + _date.getDate() : _date.getDate(),
       h = _date.getHours() < 10 ? '0' + _date.getHours() : _date.getHours(),
-      m = _date.getMinutes() < 10 ? '0' + _date.getMinutes() : _date.getMinutes(),
-      s = _date.getSeconds() < 10 ? '0' + _date.getSeconds() : _date.getSeconds();
+      m =
+        _date.getMinutes() < 10 ? '0' + _date.getMinutes() : _date.getMinutes(),
+      s =
+        _date.getSeconds() < 10 ? '0' + _date.getSeconds() : _date.getSeconds();
 
     // return Y + M + D + h + m + s;
     date = `${Y}${M}${D}`;
@@ -185,7 +211,10 @@ const formatDate = (date, startFormat = 'timestamp', endFormat = 'yyyy-MM-dd') =
   // yyyyMMdd
   if (endFormat.slice(0, 8) === 'yyyyMMdd') {
     if (endFormat.includes(':')) {
-      date = `${date.slice(0, 4)}${date.slice(4, 6)}${date.slice(6, 8)} ${time}`;
+      date = `${date.slice(0, 4)}${date.slice(4, 6)}${date.slice(
+        6,
+        8
+      )} ${time}`;
     } else {
       date = `${date.slice(0, 4)}${date.slice(4, 6)}${date.slice(6, 8)}`;
     }
@@ -193,7 +222,10 @@ const formatDate = (date, startFormat = 'timestamp', endFormat = 'yyyy-MM-dd') =
   // yyyy-MM-dd
   if (endFormat.slice(0, 10) === 'yyyy-MM-dd') {
     if (endFormat.includes(':')) {
-      date = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)} ${time}`;
+      date = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(
+        6,
+        8
+      )} ${time}`;
     } else {
       date = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}`;
     }
@@ -201,7 +233,10 @@ const formatDate = (date, startFormat = 'timestamp', endFormat = 'yyyy-MM-dd') =
   // yyyy/MM/dd
   if (endFormat.slice(0, 10) === 'yyyy/MM/dd') {
     if (endFormat.includes(':')) {
-      date = `${date.slice(0, 4)}/${date.slice(4, 6)}/${date.slice(6, 8)} ${time}`;
+      date = `${date.slice(0, 4)}/${date.slice(4, 6)}/${date.slice(
+        6,
+        8
+      )} ${time}`;
     } else {
       date = `${date.slice(0, 4)}/${date.slice(4, 6)}/${date.slice(6, 8)}`;
     }
@@ -209,7 +244,10 @@ const formatDate = (date, startFormat = 'timestamp', endFormat = 'yyyy-MM-dd') =
   // yyyy.MM.dd
   if (endFormat.slice(0, 10) === 'yyyy.MM.dd') {
     if (endFormat.includes(':')) {
-      date = `${date.slice(0, 4)}.${date.slice(4, 6)}.${date.slice(6, 8)} ${time}`;
+      date = `${date.slice(0, 4)}.${date.slice(4, 6)}.${date.slice(
+        6,
+        8
+      )} ${time}`;
     } else {
       date = `${date.slice(0, 4)}.${date.slice(4, 6)}.${date.slice(6, 8)}`;
     }
@@ -217,14 +255,19 @@ const formatDate = (date, startFormat = 'timestamp', endFormat = 'yyyy-MM-dd') =
   // yyyy年MM月dd日
   if (endFormat.slice(0, 11) === 'yyyy年MM月dd日') {
     if (endFormat.includes(':')) {
-      date = `${date.slice(0, 4)}年${date.slice(4, 6)}月${date.slice(6, 8)}日 ${time}`;
+      date = `${date.slice(0, 4)}年${date.slice(4, 6)}月${date.slice(
+        6,
+        8
+      )}日 ${time}`;
     } else {
       date = `${date.slice(0, 4)}年${date.slice(4, 6)}月${date.slice(6, 8)}日`;
     }
   }
   // 时间戳 timestamp
   if (endFormat === 'timestamp') {
-    let _date = new Date(`${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)} ${time}`);
+    let _date = new Date(
+      `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)} ${time}`
+    );
 
     // 有四种方式获取
     date = _date.getTime(); // 通过原型方法直接获得当前时间的毫秒值
@@ -251,4 +294,11 @@ const getRangeTime = (startTime, endTime) => {
   return `${date} ${tmpStart[1]}-${tmpEnd[1]}`;
 };
 
-export { getCurrentDate, DateMinus, computeDate, getAWeek, formatDate, getRangeTime };
+export {
+  getCurrentDate,
+  dateInterval,
+  computeDate,
+  getAWeek,
+  formatDate,
+  getRangeTime
+};
