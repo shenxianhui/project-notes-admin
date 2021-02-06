@@ -54,7 +54,7 @@ const dateInterval = (date1, date2, type = 'date') => {
   // 日期(前): String, 日期(后): String, 转换类型(year-年|month-月|date-日|hour-时|minute-分|second-秒|milliseconds-毫秒): String
   let sdate = new Date(date1);
   let now = new Date(date2);
-  let curYearDays = getCurrentDate().year % 4 === 0 ? 366 : 365; // 判断平年瑞年
+  let curYearDays = getCurrentDate.year % 4 === 0 ? 366 : 365; // 判断平年瑞年
 
   let _milliseconds = now.getTime() - sdate.getTime();
   let _seconds = parseInt(_milliseconds / 1000, 10);
