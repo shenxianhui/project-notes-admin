@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-08 15:00:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-18 09:38:48
+ * @LastEditTime: 2021-04-19 18:08:21
  * @Description: 组件-表单-项
 -->
 
@@ -239,9 +239,6 @@ export default {
       required: true
     },
     // 绑定值
-    // value: {
-    //   type: [String, Number, Boolean, Array, Object, Date, Function, Symbol]
-    // },
     value: {},
     // 栅格布局
     col: {
@@ -265,8 +262,6 @@ export default {
     // 表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的
     prop: String,
     name: String,
-    // 加载中
-    loading: Boolean,
     // 占位符
     placeholder: String,
     // 类型
@@ -282,11 +277,6 @@ export default {
     size: {
       type: String,
       default: 'small' // large/medium/small/mini
-    },
-    // 可搜索
-    filterable: {
-      type: Boolean,
-      default: true
     },
     // 步长 (计数器/滑块)
     step: Number,
@@ -306,6 +296,13 @@ export default {
     /* Input 输入框 end */
 
     /* Select 选择器 start */
+    // 加载中
+    loading: Boolean,
+    // 可搜索
+    filterable: {
+      type: Boolean,
+      default: true
+    },
     // 多选
     multiple: Boolean,
     // 多选时用户最多可以选择的项目数，为 0 则不限制
@@ -316,6 +313,12 @@ export default {
     remote: Boolean,
     /* Select 选择器 end */
 
+    /* Cascader 级联选择器 start */
+    props: Object,
+    // 输入框中是否显示选中值的完整路径
+    showAllLevels: Boolean,
+    /* Cascader 级联选择器 end */
+
     /* Checkbox 多选框 start */
     // 开启全选功能
     showCheckAll: Boolean,
@@ -323,12 +326,6 @@ export default {
     // 已选且非全选状态
     indeterminate: Boolean,
     /* Checkbox 多选框 end */
-
-    /* Cascader 级联选择器 start */
-    props: Object,
-    // 仅显示最后一级
-    showAllLevels: Boolean,
-    /* Cascader 级联选择器 end */
 
     /* DateTimePicker 日期时间选择器 start */
     // 范围选择时开始日期的占位内容
@@ -357,7 +354,7 @@ export default {
     // 计数器允许的最大值
     max: Number,
     // 只能输入 step 的倍数
-    stepStrictly: Number,
+    stepStrictly: Boolean,
     // 数值精度
     precision: Number,
     // 	控制按钮位置
