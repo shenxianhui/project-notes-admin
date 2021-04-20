@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2021-04-20 09:21:35
+ * @LastEditTime: 2021-04-20 11:38:05
  * @Description: 表格-模板
 -->
 
@@ -32,6 +32,20 @@
         <el-button size="small" @click="resetForm('form')">重置</el-button>
         <el-button type="primary" size="small" @click="submitForm()">
           查询
+        </el-button>
+      </template>
+      <template v-slot:button-bottom-right>
+        <el-button size="small" :style="{ 'margin-top': '20px' }">
+          按钮
+        </el-button>
+        <el-button size="small" :style="{ 'margin-top': '20px' }">
+          按钮
+        </el-button>
+        <el-button size="small" :style="{ 'margin-top': '20px' }">
+          按钮
+        </el-button>
+        <el-button size="small" :style="{ 'margin-top': '20px' }">
+          按钮
         </el-button>
       </template>
     </xx-form>

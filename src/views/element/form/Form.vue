@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-04 17:45:43
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-18 10:26:24
+ * @LastEditTime: 2021-04-20 14:00:28
  * @Description: 表单-模板
 -->
 
@@ -154,12 +154,28 @@
         @change="handleChange($event, 'slider')"
       ></xx-form-item>
 
-      <template v-slot:button-center>
-        <el-button size="medium" @click="resetForm('form')">重置</el-button>
+      <template v-slot:button-top-right>
+        <el-button
+          size="small"
+          :style="{ 'margin-bottom': '20px' }"
+          @click="$router.go(-1)"
+        >
+          返回
+        </el-button>
+      </template>
+      <template v-slot:button-bottom-center>
+        <el-button
+          size="small"
+          :style="{ 'margin-top': '20px' }"
+          @click="resetForm('form')"
+        >
+          重置
+        </el-button>
         <el-button
           type="primary"
-          size="medium"
+          size="small"
           :loading="formLoading"
+          :style="{ 'margin-top': '20px' }"
           @click="submitForm('form')"
         >
           提交
@@ -309,7 +325,7 @@ export default {
             this.$message.success('提交成功');
           }, 500);
         } else {
-          this.$message.warning('请按要求输入');
+          this.$message.warning('必填项不能为空哦~');
         }
       });
     },

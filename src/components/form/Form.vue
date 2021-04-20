@@ -2,12 +2,26 @@
  * @Author: shenxh
  * @Date: 2020-12-03 20:43:12
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-17 13:43:02
+ * @LastEditTime: 2021-04-20 13:59:15
  * @Description: 组件-表单
 -->
 
 <template>
   <div class="xx-form-wrap">
+    <!-- 按钮组-上 -->
+    <div class="xx-buttons xx-buttons-top">
+      <div class="xx-btn-left">
+        <slot name="button-top-left"></slot>
+      </div>
+      <div class="xx-btn-center">
+        <slot name="button-top-center"></slot>
+      </div>
+      <div class="xx-btn-right">
+        <slot name="button-top-right"></slot>
+      </div>
+    </div>
+
+    <!-- 表单 -->
     <el-form
       class="xx-form"
       ref="xx-form"
@@ -17,9 +31,11 @@
       :label-position="labelPosition"
       :label-width="labelWidth"
       :disabled="disabled"
+      @validate="getValidate"
     >
       <slot></slot>
 
+      <!-- 按钮组-行内 -->
       <div class="xx-buttons">
         <div class="xx-btn-left">
           <slot name="button-inline-left"></slot>
@@ -30,15 +46,16 @@
       </div>
     </el-form>
 
-    <div class="xx-buttons">
+    <!-- 按钮组-下 -->
+    <div class="xx-buttons xx-buttons-bottom">
       <div class="xx-btn-left">
-        <slot name="button-left"></slot>
+        <slot name="button-bottom-left"></slot>
       </div>
       <div class="xx-btn-center">
-        <slot name="button-center"></slot>
+        <slot name="button-bottom-center"></slot>
       </div>
       <div class="xx-btn-right">
-        <slot name="button-right"></slot>
+        <slot name="button-bottom-right"></slot>
       </div>
     </div>
   </div>
@@ -80,6 +97,10 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {
+    // 任一表单项被校验后触发
+    getValidate(name, checkPassed, errMsg) {
+      this.$emit('validate', name, checkPassed, errMsg);
+    },
     /* 表单内置方法 */
     // 对整个表单进行校验
     validate(callback) {
@@ -109,9 +130,16 @@ export default {
   }
   .xx-buttons {
     display: flex;
+    flex-wrap: wrap;
     flex-grow: 1;
     align-items: center;
     justify-content: space-between;
+    // &.xx-buttons-top {
+    //   margin-bottom: 20px;
+    // }
+    // &.xx-buttons-bottom {
+    //   margin-top: 20px;
+    // }
   }
 }
 </style>
