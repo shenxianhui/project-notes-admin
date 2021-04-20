@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2021-04-20 11:38:05
+ * @LastEditTime: 2021-04-20 16:49:57
  * @Description: 表格-模板
 -->
 
@@ -64,7 +64,7 @@
         {{ row.sex == 1 ? '男' : '女' }}
       </template>
       <template v-slot:birthday="{ row }">
-        {{ formatDate(row.birthday) }}
+        {{ $moment(row.birthday).format('YYYY-MM-DD') }}
       </template>
       <template v-slot:money="{ row }">
         ￥{{ row.money.toLocaleString() }}
@@ -87,8 +87,6 @@ import XxTable from '@/components/table';
 import XxForm from '@/components/form';
 import XxFormItem from '@/components/form/form-item';
 
-import { formatDate } from '@/utils/date';
-
 export default {
   name: 'base-table',
   components: {
@@ -99,7 +97,6 @@ export default {
   props: {},
   data() {
     return {
-      formatDate,
       loading: false,
       currentPage: 1,
       form: {},

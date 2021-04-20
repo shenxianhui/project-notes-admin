@@ -106,4 +106,12 @@ const uuid = () => {
   });
 };
 
-export { platformName, debounce, getQueryString, remToPx, getMoblieFormat, chartData, uuid };
+export {
+  platformName,
+  debounce,
+  getQueryString,
+  remToPx,
+  getMoblieFormat,
+  chartData,
+  uuid
+};

@@ -11,6 +11,8 @@ import * as Echarts from 'echarts';
 // 进度条
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+// 日期格式化 Moment
+import Moment from 'moment';
 
 Vue.config.productionTip = false;
 
@@ -18,6 +20,7 @@ Vue.use(ElementUI);
 
 // 挂载
 Vue.prototype.$echarts = Echarts;
+Vue.prototype.$moment = Moment;
 
 new Vue({
   router,
