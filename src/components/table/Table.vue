@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-16 17:35:09
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-17 11:42:00
+ * @LastEditTime: 2021-04-20 09:22:12
  * @Description: 组件-表格
 -->
 
@@ -37,7 +37,7 @@
         :fixed="item.fixed || false"
         :width="item.width + ''"
         :align="item.align || 'center'"
-        :header-align="item.headerAlign || 'center'"
+        :header-align="item.headerAlign || item.align || 'center'"
         :reserve-selection="reserveSelection"
         :sortable="item.sortable"
       >

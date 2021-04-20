@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-30 14:09:44
+ * @LastEditTime: 2021-04-20 09:21:35
  * @Description: 表格-模板
 -->
 
@@ -129,11 +129,13 @@ export default {
         {
           label: '资产',
           prop: 'money',
-          slot: true
+          slot: true,
+          align: 'right'
         },
         {
           label: '地址',
-          prop: 'address'
+          prop: 'address',
+          align: 'left'
         },
         {
           label: '操作 (slot)',

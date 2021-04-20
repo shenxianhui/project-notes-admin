@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-08 15:00:48
  * @LastEditors: shenxh
- * @LastEditTime: 2021-04-19 18:08:21
+ * @LastEditTime: 2021-04-20 09:52:58
  * @Description: 组件-表单-项
 -->
 
@@ -298,19 +298,23 @@ export default {
     /* Select 选择器 start */
     // 加载中
     loading: Boolean,
-    // 可搜索
-    filterable: {
-      type: Boolean,
-      default: true
-    },
     // 多选
     multiple: Boolean,
     // 多选时用户最多可以选择的项目数，为 0 则不限制
     multipleLimit: Number,
     // 多选时是否将选中值按文字的形式展示
     collapseTags: Boolean,
-    // 远程搜索
+    // 可搜索
+    filterable: {
+      type: Boolean,
+      default: true
+    },
+    // 自定义搜索方法
+    filterMethod: Function,
+    // 是否为远程搜索
     remote: Boolean,
+    // 远程搜索方法
+    remoteMethod: Function,
     /* Select 选择器 end */
 
     /* Cascader 级联选择器 start */
@@ -441,16 +445,6 @@ export default {
     // 选中 input 中的文字
     handleSelect(val) {
       this.$emit('select', val);
-    },
-
-    /* Select 选择器 */
-    // 搜索事件
-    filterMethod(val) {
-      this.$emit('filter-method', val);
-    },
-    // 远程搜索
-    remoteMethod(val) {
-      this.$emit('remote-method', val);
     },
 
     /* Checkbox 多选框 */

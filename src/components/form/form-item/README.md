@@ -40,6 +40,8 @@
 |multiple-limit|多选时用户最多可以选择的项目数，为 0 则不限制|Number|0|-|
 |collapse-tags|多选时是否将选中值按文字的形式展示|Boolean|false|true|
 |remote|是否为远程搜索|Boolean|false|true|
+|filter-method|自定义搜索方法|Function|-|-|
+|remote-method|远程搜索方法|Function|-|-|
 
 #### 级联选择器
 |参数|说明|类型|默认值|可选值|
@@ -94,17 +96,20 @@
 |active-text|switch 打开时的文字描述|String|-|-|
 |inactive-text|switch 关闭时的文字描述|String|-|-|
 
-### Slots
-|名称|说明|
-|:-|:-|
-
 ### Events
 |事件名|说明|参数|
 |:-|:-|:-|
+|input|在 Input 值改变时触发|改变后的值|
+|change|输入框失去焦点/用户按下回车/选中值发生变化时触发|当前值|
+|fetch-suggestions|模糊搜索|-|
+|select|点击选中建议项时触发|选中建议项|
+|check-all|点击多选框的全选按钮时触发|当前值|
 
 ### Methods
 |方法名|说明|参数|
 |:-|:-|:-|
+|resetField|对该表单项进行重置，将其值重置为初始值并移除校验结果|-|
+|clearValidate|移除该表单项的校验结果|-|
 
 #### <a id="itemType">itemType</a>
 |名称|说明|
