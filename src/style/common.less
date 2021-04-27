@@ -2,7 +2,7 @@
  * @Author: Wells
  * @Date: 2019-11-18 10:06:42
  * @LastEditors: shenxh
- * @LastEditTime: 2020-07-13 17:26:19
+ * @LastEditTime: 2021-04-27 20:53:55
  * @Description: 通用样式
  */
 /* 引入处理兼容性的公共样式 */
@@ -67,6 +67,17 @@ input {
   &:focus {
     color: #333;
   }
+
+  /* 隐藏数字输入框右侧箭头 start */
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+  &[type='number']::-webkit-inner-spin-button,
+  &[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* 隐藏数字输入框右侧箭头 end */
 }
 textarea {
   border: 0;
@@ -80,6 +91,7 @@ img {
 }
 i {
   font-style: normal;
+  outline: none;
 }
 a,
 a:active,
