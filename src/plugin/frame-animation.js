@@ -30,7 +30,9 @@
       onStart: null, // 加载开始回调函数，传入参数total
       onComplete: null, // 播放完毕回调
       loop: false, // 是否循环
-      frequency: 25 // 每秒帧数
+      frequency: 25, // 每秒帧数
+      startX: 0, // 起始X
+      startY: 0 // 起始Y
     };
     // 覆盖默认配置
     if (config) {
@@ -107,8 +109,8 @@
       this.showY,
       this.sourceWidth,
       this.sourceHeight,
-      0,
-      0,
+      this.option.startX,
+      this.option.startY,
       this.canvasWidth,
       this.canvasHeight
     );
@@ -249,8 +251,8 @@
         this.showY,
         this.sourceWidth,
         this.sourceHeight,
-        0,
-        0,
+        this.option.startX,
+        this.option.startY,
         this.canvasWidth,
         this.canvasHeight
       );

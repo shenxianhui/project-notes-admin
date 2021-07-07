@@ -2,16 +2,17 @@
  * @Author: shenxh
  * @Date: 2021-07-07 10:41:02
  * @LastEditors: shenxh
- * @LastEditTime: 2021-07-07 16:28:28
+ * @LastEditTime: 2021-07-07 17:12:44
  * @Description: 序列帧
 -->
 
 <template>
   <div class="serial-frame admin-content">
     <frame-animation
-      canvasTargetId="frames1"
+      canvas-target-id="frames1"
       :width="800"
       :height="800"
+      :zoom="0.5"
       :framesUrl="framesUrl1"
     ></frame-animation>
   </div>
