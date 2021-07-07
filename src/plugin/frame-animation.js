@@ -76,10 +76,12 @@
     this.currentIndex = 0; //当前正在加载的资源索引
 
     for (let i = 0, l = this.option.framesUrl.length; i < l; i++) {
-      // const url = this.option.framesUrl[i];
-      const url = require(`../${this.option.framesUrl[i]}`);
       const image = new Image();
+      // 注: require 路径里面包含变量时, webpack 静态分析并不能确切的知道打包 src 下的哪个文件, 此时会打包 src 下的所有文件
+      // const url = require(`../${this.option.framesUrl[i]}`);
+      const url = this.option.framesUrl[i];
 
+      image.src = url;
       image.onload = () => {
         this.loaded();
       };
@@ -87,7 +89,6 @@
         console.log('preload error.');
         this.loaded();
       };
-      image.src = url;
       this.frames.push(image);
     }
     // 回调一下启动函数
