@@ -2,7 +2,7 @@
  * @Author: Shen Xianhui
  * @Date: 2019-04-23 15:02:52
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-24 09:14:50
+ * @LastEditTime: 2021-07-07 10:41:59
  * @Description: 星系
  -->
 
@@ -55,7 +55,8 @@ export default {
   width: 100%;
   height: 100%;
   padding: 0 20px;
-  background: url('../../../assets/img/galaxy/globe_bg.png') no-repeat center center;
+  background: url('../../../assets/img/galaxy/globe_bg.png') no-repeat center
+    center;
   background-size: cover;
   overflow: hidden;
   .trajectory {
@@ -63,7 +64,8 @@ export default {
 
     width: 100%;
     height: 95%;
-    background: url('../../../assets/img/galaxy/globe_trajectory.png') no-repeat center center;
+    background: url('../../../assets/img/galaxy/globe_trajectory.png') no-repeat
+      center center;
     background-size: contain;
     /* 太阳 */
     .sun {
@@ -127,7 +129,8 @@ export default {
         }
       }
       /* 周期 速度曲线 延迟 播放次数 反向播放 */
-      animation: mercuryL 2s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
+      animation: mercuryL 2s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite
+          alternate,
         mercuryT 2s cubic-bezier(0.36, 0, 0.64, 1) -1s infinite alternate,
         mercuryS 4s cubic-bezier(0.36, 0, 0.64, 1) -1s infinite alternate;
     }
@@ -275,7 +278,8 @@ export default {
         }
       }
       /* 周期 速度曲线 延迟 播放次数 反向播放 */
-      animation: jupiterL 12s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
+      animation: jupiterL 12s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite
+          alternate,
         jupiterT 12s cubic-bezier(0.36, 0, 0.64, 1) -6s infinite alternate,
         jupiterS 24s cubic-bezier(0.36, 0, 0.64, 1) -6s infinite alternate;
     }
@@ -312,7 +316,8 @@ export default {
         }
       }
       /* 周期 速度曲线 延迟 播放次数 反向播放 */
-      animation: saturnL 15s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
+      animation: saturnL 15s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite
+          alternate,
         saturnT 15s cubic-bezier(0.36, 0, 0.64, 1) -7.5s infinite alternate,
         saturnS 30s cubic-bezier(0.36, 0, 0.64, 1) -7.5s infinite alternate;
     }

@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-05-01 18:28:06
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-24 09:00:44
+ * @LastEditTime: 2021-07-07 10:41:11
  * @Description: Animate
  */
 export default [
@@ -22,11 +22,20 @@ export default [
           label: '星系'
         },
         component: loadView('animate/galaxy/Galaxy')
+      },
+      {
+        path: 'serial-frame',
+        name: 'serial-frame',
+        meta: {
+          label: '序列帧'
+        },
+        component: loadView('animate/serial-frame/SerialFrame')
       }
     ]
   }
 ];
 
 function loadView(path) {
-  return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`);
+  return () =>
+    import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`);
 }
