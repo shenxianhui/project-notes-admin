@@ -15,7 +15,7 @@ export default new VueRouter({
     {
       path: '*',
       name: 'error',
-      component: loadView('Error')
+      component: loadView('common/Error')
     },
     {
       path: '/main',
