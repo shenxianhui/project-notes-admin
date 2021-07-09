@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-04 17:08:10
  * @LastEditors: shenxh
- * @LastEditTime: 2021-07-09 10:37:02
+ * @LastEditTime: 2021-07-09 10:53:28
  * @Description: 树形控件
 -->
 
@@ -84,6 +84,7 @@ export default {
   },
   computed: {},
   watch: {
+    // 数据筛选
     searchVal(val) {
       this.$refs['xx-tree'].filter(val);
     },
@@ -197,48 +198,19 @@ export default {
 <style scoped lang="less">
 .xx-tree {
   .xx-tree-search {
-    padding: 0 10px;
     margin-bottom: 10px;
-    /deep/ .el-input {
-      .el-input__inner {
-        width: 200px;
-        height: 30px;
-        border-radius: 2px;
-        border-color: #ccc;
-      }
-      .el-input__suffix {
-        .el-input__suffix-inner {
-          .el-input__icon {
-            line-height: 0;
-          }
-        }
-      }
-    }
   }
-  /deep/ .el-tree {
-    .el-tree-node {
-      .el-tree-node__content {
-        height: 50px;
-        margin-bottom: 4px;
-        background-color: #f5f7f9;
-        cursor: default;
-        .xx-tree-node {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100%;
-          font-size: 14px;
-          padding-right: 8px;
-          .xx-tree-node-left {
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-          }
-        }
-      }
-      &.is-current > .el-tree-node__content {
-        background-color: #efefef;
-      }
+  .xx-tree-node {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 14px;
+    padding-right: 8px;
+    .xx-tree-node-left {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
     }
   }
 }

@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2021-07-08 13:51:54
  * @LastEditors: shenxh
- * @LastEditTime: 2021-07-09 10:39:27
+ * @LastEditTime: 2021-07-09 10:53:38
  * @Description: 树形控件-模板
 -->
 
@@ -59,6 +59,7 @@
       ref="tree"
       :tree-data="treeData"
       draggable
+      show-search
       :indent="30"
       :default-expanded-keys="defaultExpandedKeys"
       :current-node-key="currentNodeKey"
@@ -248,13 +249,44 @@ export default {
       }
     }
   }
-  .xx-tree {
+  /deep/ .xx-tree {
     height: calc(100% - 50px);
-    overflow: auto;
-    .content-wrap {
-      margin-left: 10px;
-      .icon-vip {
-        width: 15px;
+    .xx-tree-search {
+      .el-input {
+        .el-input__inner {
+          width: 200px;
+          height: 30px;
+          border-radius: 2px;
+          border-color: #ccc;
+        }
+        .el-input__suffix {
+          .el-input__suffix-inner {
+            .el-input__icon {
+              line-height: 0;
+            }
+          }
+        }
+      }
+    }
+    .el-tree {
+      height: calc(100% - 40px);
+      overflow: auto;
+      .el-tree-node {
+        .el-tree-node__content {
+          height: 50px;
+          margin-bottom: 4px;
+          background-color: #f5f7f9;
+          cursor: default;
+        }
+        &.is-current > .el-tree-node__content {
+          background-color: #efefef;
+        }
+      }
+      .content-wrap {
+        margin-left: 10px;
+        .icon-vip {
+          width: 15px;
+        }
       }
     }
   }
