@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-05-01 18:28:06
  * @LastEditors: shenxh
- * @LastEditTime: 2020-12-04 17:50:28
+ * @LastEditTime: 2021-07-08 13:47:24
  * @Description: Element
  */
 export default [
@@ -30,11 +30,20 @@ export default [
           label: '表单'
         },
         component: loadView('element/form/Form')
+      },
+      {
+        path: 'tree',
+        name: 'element-tree',
+        meta: {
+          label: '树形控件'
+        },
+        component: loadView('element/tree/Tree')
       }
     ]
   }
 ];
 
 function loadView(path) {
-  return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`);
+  return () =>
+    import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`);
 }
