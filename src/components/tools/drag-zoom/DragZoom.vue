@@ -2,19 +2,19 @@
  * @Author: shenxh
  * @Date: 2020-07-10 16:40:30
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-24 09:24:48
- * @Description: 组件-鼠标拖动
+ * @LastEditTime: 2022-02-25 11:29:33
+ * @Description: 组件-拖动缩放
 -->
 
 <template>
-  <div ref="xx-mouse-drag" class="xx-mouse-drag">
+  <div ref="xx-drag-zoom" class="xx-drag-zoom">
     <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'xx-mouse-drag',
+  name: 'xx-drag-zoom',
   components: {},
   props: {},
   data() {
@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     mouseFollow() {
-      return this.$refs['xx-mouse-drag'];
+      return this.$refs['xx-drag-zoom'];
     }
   },
   watch: {},
@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.xx-mouse-drag {
+.xx-drag-zoom {
   position: absolute;
 }
 </style>

@@ -2,27 +2,27 @@
  * @Author: shenxh
  * @Date: 2020-07-10 16:40:30
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-24 09:40:11
+ * @LastEditTime: 2022-02-25 11:27:44
  * @Description: 鼠标拖动
 -->
 
 <template>
-  <div class="mouse-drag">
-    <xx-mouse-drag>
-      <div class="mouse-drag-content">
+  <div class="drag-zoom">
+    <xx-drag-zoom>
+      <div class="drag-zoom-content">
         鼠标拖动
       </div>
-    </xx-mouse-drag>
+    </xx-drag-zoom>
   </div>
 </template>
 
 <script>
-import XxMouseDrag from '@/components/function/mouse-drag';
+import XxDragZoom from '@/components/tools/drag-zoom';
 
 export default {
-  name: 'mouse-drag',
+  name: 'drag-zoom',
   components: {
-    XxMouseDrag
+    XxDragZoom
   },
   props: {},
   data() {
@@ -38,10 +38,10 @@ export default {
 </script>
 
 <style scoped lang="less">
-.mouse-drag {
+.drag-zoom {
   width: 100%;
   height: 100%;
-  .mouse-drag-content {
+  .drag-zoom-content {
     width: 100px;
     height: 100px;
     border: 1px solid #000;
