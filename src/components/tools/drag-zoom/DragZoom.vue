@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-07-10 16:40:30
  * @LastEditors: shenxh
- * @LastEditTime: 2022-02-25 17:29:44
+ * @LastEditTime: 2022-03-01 14:16:22
  * @Description: 组件-拖动缩放
 -->
 
@@ -32,6 +32,8 @@ export default {
 		width: Number,
 		// 高度
 		height: Number,
+		// 允许缩放
+		allowZoom: Boolean,
 		// 缩放比例
 		zoom: {
 			type: Number,
@@ -51,10 +53,6 @@ export default {
 		range: {
 			type: Number,
 			default: 0.1,
-		},
-		zoomSpeed: {
-			type: Number,
-			default: 0.5,
 		},
 		/* 被操作的元素 end */
 
@@ -120,8 +118,8 @@ export default {
 		dragZoomNodeStyle() {
 			return {
 				transform: `scale(${this.currentZoom})`,
-				left: `${-(20 / this.currentZoom)}%`,
-				top: `${-(20 / this.currentZoom)}%`,
+				left: `${this.left}px`,
+				top: `${this.top}px`,
 				width: this.width + 'px',
 				height: this.height + 'px',
 			};
@@ -230,7 +228,24 @@ export default {
 		// 鼠标滚轮事件
 		mousescroll(evt) {
 			const { deltaY } = evt;
+			const {
+				left: areaL,
+				top: areaT,
+				width: areaW,
+				height: areaH,
+			} = this.areaNodeData;
+			const {
+				offsetLeft: dragL,
+				offsetTop: dragT,
+				offsetWidth: dragW,
+				offsetHeight: dragH,
+			} = this.dragZoomNode;
 			let zoom = this.currentZoom;
+
+			// 不允许缩放
+			if (!this.allowZoom) {
+				return;
+			}
 
 			// 上滑
 			if (deltaY < 0) {
@@ -248,6 +263,55 @@ export default {
 			}
 
 			this.currentZoom = Number(zoom.toFixed(1));
+
+			/* 边界判定 */
+			const subtractW = (dragW * this.currentZoom - dragW) / 2;
+			const subtractH = (dragH * this.currentZoom - dragH) / 2;
+			const currentL = dragL - subtractW;
+			const currentT = dragT - subtractW;
+			const currentR = dragL + dragW + subtractW;
+			const currentB = dragT + dragH + subtractH;
+
+			// 当拖动元素宽度小于父元素时
+			if (dragW * zoom < areaW) {
+				// 左边界判定
+				if (currentL < areaL) {
+					this.dragZoomNode.style.left = areaL + subtractW + 'px';
+				}
+				// 右边界判定
+				if (currentR > areaW) {
+					this.dragZoomNode.style.left = areaW - dragW - subtractW + 'px';
+				}
+			} else {
+				// 左边界判定
+				if (currentL > areaL) {
+					this.dragZoomNode.style.left = areaL + subtractW + 'px';
+				}
+				// 右边界判定
+				if (currentR < areaW) {
+					this.dragZoomNode.style.left = areaW - dragW - subtractW + 'px';
+				}
+			}
+			// 当拖动元素高度小于父元素时
+			if (dragH * zoom < areaH) {
+				// 上边界判定
+				if (currentT < areaT) {
+					this.dragZoomNode.style.top = areaT + subtractH + 'px';
+				}
+				// 下边界判定
+				if (currentB > areaH) {
+					this.dragZoomNode.style.top = areaH - dragH - subtractH + 'px';
+				}
+			} else {
+				// 上边界判定
+				if (currentT > areaT) {
+					this.dragZoomNode.style.top = areaT + subtractH + 'px';
+				}
+				// 下边界判定
+				if (currentB < areaH) {
+					this.dragZoomNode.style.top = areaH - dragH - subtractH + 'px';
+				}
+			}
 		},
 	},
 };
