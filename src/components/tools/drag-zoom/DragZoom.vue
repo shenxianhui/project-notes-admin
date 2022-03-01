@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-07-10 16:40:30
  * @LastEditors: shenxh
- * @LastEditTime: 2022-03-01 14:16:22
+ * @LastEditTime: 2022-03-01 15:23:39
  * @Description: 组件-拖动缩放
 -->
 
@@ -132,8 +132,8 @@ export default {
 		this.dragZoomNode.addEventListener('wheel', this.mousescroll);
 	},
 	beforeDestroy() {
-		this.dragZoomNode.removeEventListener('mousedown');
-		this.dragZoomNode.removeEventListener('wheel');
+		this.dragZoomNode.removeEventListener('mousedown', null);
+		this.dragZoomNode.removeEventListener('wheel', null);
 	},
 	methods: {
 		// 鼠标点击事件

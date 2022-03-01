@@ -2,13 +2,13 @@
  * @Author: shenxh
  * @Date: 2020-07-10 16:40:30
  * @LastEditors: shenxh
- * @LastEditTime: 2022-03-01 14:13:41
+ * @LastEditTime: 2022-03-01 18:22:59
  * @Description: 鼠标拖动
 -->
 
 <template>
 	<div class="drag-zoom" ref="drag-zoom">
-		<xx-drag-zoom
+		<vue-drag-zoom
 			:area-node="node"
 			allow-zoom
 			:range="0.2"
@@ -32,17 +32,17 @@
 				<br />
 				该区域可随意拖动/缩放
 			</div>
-		</xx-drag-zoom>
+		</vue-drag-zoom>
 	</div>
 </template>
 
 <script>
-import XxDragZoom from '@/components/tools/drag-zoom';
+import VueDragZoom from 'vue-drag-zoom';
 
 export default {
 	name: 'drag-zoom',
 	components: {
-		XxDragZoom,
+		VueDragZoom,
 	},
 	props: {},
 	data() {
