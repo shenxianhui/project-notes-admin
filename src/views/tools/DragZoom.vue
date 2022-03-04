@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-07-10 16:40:30
  * @LastEditors: shenxh
- * @LastEditTime: 2022-03-01 18:22:59
+ * @LastEditTime: 2022-03-04 13:26:19
  * @Description: 鼠标拖动
 -->
 
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+// import VueDragZoom from '@/components/tools/drag-zoom';
 import VueDragZoom from 'vue-drag-zoom';
 
 export default {

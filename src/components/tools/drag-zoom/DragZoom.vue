@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-07-10 16:40:30
  * @LastEditors: shenxh
- * @LastEditTime: 2022-03-01 15:23:39
+ * @LastEditTime: 2022-03-04 13:28:06
  * @Description: 组件-拖动缩放
 -->
 
@@ -219,6 +219,8 @@ export default {
 
 				this.dragZoomNode.style.left = styleL + 'px';
 				this.dragZoomNode.style.top = styleT + 'px';
+
+				this.$emit('mousemove', evt);
 			};
 			document.onmouseup = () => {
 				document.onmousemove = null;
@@ -227,6 +229,13 @@ export default {
 
 		// 鼠标滚轮事件
 		mousescroll(evt) {
+			// 阻止默认行为
+			if (evt.preventDefault) {
+				evt.preventDefault();
+			} else {
+				evt.returnValue = false;
+			}
+
 			const { deltaY } = evt;
 			const {
 				left: areaL,
@@ -312,12 +321,14 @@ export default {
 					this.dragZoomNode.style.top = areaH - dragH - subtractH + 'px';
 				}
 			}
+
+			this.$emit('mousescroll', evt);
 		},
 	},
 };
 </script>
 
-<style scoped lang="less">
+<style scoped>
 .xx-drag-zoom {
 	position: absolute;
 	user-select: none;
