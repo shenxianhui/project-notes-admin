@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-07-10 16:40:30
  * @LastEditors: shenxh
- * @LastEditTime: 2022-03-04 13:26:19
+ * @LastEditTime: 2022-03-28 19:35:28
  * @Description: 鼠标拖动
 -->
 
@@ -12,6 +12,7 @@
 			:area-node="node"
 			allow-zoom
 			:range="0.2"
+			:zoom="0.5"
 			:max-zoom="10"
 			:min-zoom="0.2"
 		>
@@ -37,8 +38,8 @@
 </template>
 
 <script>
-// import VueDragZoom from '@/components/tools/drag-zoom';
-import VueDragZoom from 'vue-drag-zoom';
+import VueDragZoom from '@/components/tools/drag-zoom';
+// import VueDragZoom from 'vue-drag-zoom';
 
 export default {
 	name: 'drag-zoom',
