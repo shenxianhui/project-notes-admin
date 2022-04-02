@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2021-07-08 13:51:54
  * @LastEditors: shenxh
- * @LastEditTime: 2021-07-09 10:53:38
+ * @LastEditTime: 2022-04-02 09:56:02
  * @Description: 树形控件-模板
 -->
 
@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import XxTree from '@/components/tree/Tree';
+import XxTree from '@/components/element/tree/Tree';
 
 export default {
   name: 'tree-demo',

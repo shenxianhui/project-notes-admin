@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-12-04 17:45:43
  * @LastEditors: shenxh
- * @LastEditTime: 2021-04-20 14:00:28
+ * @LastEditTime: 2022-04-02 09:55:43
  * @Description: 表单-模板
 -->
 
@@ -186,8 +186,8 @@
 </template>
 
 <script>
-import XxForm from '@/components/form';
-import XxFormItem from '@/components/form/form-item';
+import XxForm from '@/components/element/form';
+import XxFormItem from '@/components/element/form/form-item';
 
 export default {
   name: 'base-form',

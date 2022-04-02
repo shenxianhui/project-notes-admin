@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:48:08
  * @LastEditors: shenxh
- * @LastEditTime: 2021-04-20 16:49:57
+ * @LastEditTime: 2022-04-02 09:55:55
  * @Description: 表格-模板
 -->
 
@@ -83,9 +83,9 @@
 </template>
 
 <script>
-import XxTable from '@/components/table';
-import XxForm from '@/components/form';
-import XxFormItem from '@/components/form/form-item';
+import XxTable from '@/components/element/table';
+import XxForm from '@/components/element/form';
+import XxFormItem from '@/components/element/form/form-item';
 
 export default {
   name: 'base-table',

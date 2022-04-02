@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2020-05-01 18:28:06
  * @LastEditors: shenxh
- * @LastEditTime: 2022-02-25 11:28:03
+ * @LastEditTime: 2022-04-02 08:54:36
  */
 export default [
 	{
@@ -19,7 +19,7 @@ export default [
 				path: 'drag-zoom',
 				name: 'drag-zoom',
 				meta: {
-					label: '拖动+缩放',
+					label: 'vue-drag-zoom',
 				},
 				component: loadView('tools/DragZoom'),
 			},
