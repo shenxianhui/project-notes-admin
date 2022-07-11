@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:58:52
  * @LastEditors: shenxh
- * @LastEditTime: 2020-08-26 11:09:26
+ * @LastEditTime: 2022-07-11 11:11:21
  * @Description: 顶部导航
 -->
 
@@ -14,7 +14,9 @@
         <li
           v-for="(item, index) in Router"
           :key="index"
-          :class="{ active: $route.path.includes(item.path) }"
+          :class="{
+            active: $route.path.split('/')[1] === item.path.split('/')[1],
+          }"
           @click="haneleMenu(item)"
         >
           {{ item.meta.label }}
@@ -33,7 +35,7 @@ export default {
   props: {},
   data() {
     return {
-      Router
+      Router,
     };
   },
   computed: {},
@@ -46,8 +48,8 @@ export default {
       if (this.$route.path.split('/')[1] === data.path.split('/')[1]) return;
 
       this.$router.push(data.path);
-    }
-  }
+    },
+  },
 };
 </script>
 

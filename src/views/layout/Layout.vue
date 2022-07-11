@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:27:47
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-04 18:28:52
+ * @LastEditTime: 2022-07-11 11:11:06
  * @Description: 布局
 -->
 
@@ -15,7 +15,10 @@
         <xx-tags :before-route-update="routeInfo"></xx-tags>
         <div class="breadcrumb">
           <el-breadcrumb>
-            <el-breadcrumb-item v-for="(item, index) in breadcrumbList" :key="index">
+            <el-breadcrumb-item
+              v-for="(item, index) in breadcrumbList"
+              :key="index"
+            >
               {{ item.meta.label }}
             </el-breadcrumb-item>
           </el-breadcrumb>
@@ -38,12 +41,12 @@ export default {
   components: {
     XxHeader,
     XxSider,
-    XxTags
+    XxTags,
   },
   props: {},
   data() {
     return {
-      routeInfo: {}
+      routeInfo: {},
     };
   },
   computed: {
@@ -55,21 +58,21 @@ export default {
         }
       });
       return list;
-    }
+    },
   },
   watch: {},
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.routeInfo = {
         to,
-        from
+        from,
       };
     });
   },
   beforeRouteUpdate(to, from, next) {
     this.routeInfo = {
       to,
-      from
+      from,
     };
     next();
   },
@@ -79,8 +82,8 @@ export default {
   methods: {
     handleSiderMenu(path) {
       this.currentRouterPath = path;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -16,8 +16,6 @@ module.exports = {
     parser: 'babel-eslint',
   },
   globals: {
-    axios: false,
-    __PROJECTPATH__: false,
+    // axios: false,
   },
-  indent: ['error', 'tab'], // 缩进
 };
