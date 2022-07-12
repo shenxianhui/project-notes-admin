@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-27 16:24:15
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-12 08:22:07
+ * @LastEditTime: 2022-07-11 11:17:19
  * @Description: 组件-柱线图
 -->
 
@@ -20,15 +20,15 @@ export default {
     id: [String, Number],
     width: {
       type: String,
-      default: '100%'
+      default: '100%',
     },
     height: {
       type: String,
-      default: '100%'
+      default: '100%',
     },
     seriesType: {
       type: String,
-      default: 'bar'
+      default: 'bar',
     },
     horizontal: Boolean, // 横向展示(XY轴交换)
 
@@ -44,12 +44,12 @@ export default {
     series: [Array, Object],
     seriesData: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      myId: uuid()
+      myId: uuid(),
     };
   },
   computed: {
@@ -61,16 +61,16 @@ export default {
         tooltip: this._tooltip,
         xAxis: this._xAxis,
         yAxis: this._yAxis,
-        series: this._series
+        series: this._series,
       };
     },
     _title() {
       let title = Object.assign(
         {
           show: this.titleText ? true : false,
-          text: this.titleText
+          text: this.titleText,
         },
-        this.title
+        this.title,
       );
 
       return title;
@@ -85,9 +85,9 @@ export default {
                 top: this._legend.show ? '20%' : '15%',
                 right: '5%',
                 bottom: '10%',
-                containLabel: true // 包含坐标轴的刻度标签
+                containLabel: true, // 包含坐标轴的刻度标签
               },
-              this.grid
+              this.grid,
             );
 
       return grid;
@@ -99,17 +99,17 @@ export default {
           top: '2%',
           textStyle: {
             fontSize: 14,
-            color: '#000'
+            color: '#000',
           },
           data: (() => {
             this.seriesData.map(item => {
               return {
-                name: item.name
+                name: item.name,
               };
             });
-          })()
+          })(),
         },
-        this.legend
+        this.legend,
       );
 
       return legend;
@@ -119,11 +119,11 @@ export default {
         {
           trigger: 'axis',
           axisPointer: {
-            type: 'line' // line shadow
+            type: 'line', // line shadow
           },
-          confine: true
+          confine: true,
         },
-        this.tooltip
+        this.tooltip,
       );
 
       return tooltip;
@@ -132,16 +132,16 @@ export default {
       let xAxisData = {
         name: '',
         axisTick: {
-          show: false
+          show: false,
         },
         axisLine: {
           lineStyle: {
-            color: '#000'
-          }
+            color: '#000',
+          },
         },
         axisLabel: {
           color: '#000',
-          fontSize: 12
+          fontSize: 12,
           // rotate: 20
         },
         boundaryGap: this.seriesType === 'bar',
@@ -150,7 +150,7 @@ export default {
             return item.name;
           });
           return data;
-        })()
+        })(),
       };
       let xAxis = [Object.assign(xAxisData, this.xAxis)];
       if (this.xAxis1) {
@@ -158,8 +158,8 @@ export default {
         xAxis.push(
           Object.assign(
             _xAxisData,
-            this.xAxis1 && typeof this.xAxis1 === 'object' ? this.xAxis1 : {}
-          )
+            this.xAxis1 && typeof this.xAxis1 === 'object' ? this.xAxis1 : {},
+          ),
         );
       }
 
@@ -169,23 +169,23 @@ export default {
       let yAxisData = {
         name: '',
         axisTick: {
-          show: false
+          show: false,
         },
         axisLine: {
           lineStyle: {
-            color: '#000'
-          }
+            color: '#000',
+          },
         },
         axisLabel: {
           color: '#000',
-          fontSize: 12
+          fontSize: 12,
         },
         splitLine: {
           color: '#eee',
           lineStyle: {
-            opacity: 0.2
-          }
-        }
+            opacity: 0.2,
+          },
+        },
       };
       let yAxis = [Object.assign(yAxisData, this.yAxis)];
       if (this.yAxis1) {
@@ -193,8 +193,8 @@ export default {
         yAxis.push(
           Object.assign(
             _yAxisData,
-            this.yAxis1 && typeof this.yAxis1 === 'object' ? this.yAxis1 : {}
-          )
+            this.yAxis1 && typeof this.yAxis1 === 'object' ? this.yAxis1 : {},
+          ),
         );
       }
 
@@ -210,10 +210,10 @@ export default {
                   type: this.seriesType,
                   smooth: true,
                   itemStyle: {
-                    color: '#a1c4fd'
+                    color: '#a1c4fd',
                   },
                   lineStyle: {
-                    color: '#a1c4fd'
+                    color: '#a1c4fd',
                   },
                   areaStyle: {
                     color: {
@@ -225,28 +225,28 @@ export default {
                       colorStops: [
                         {
                           offset: 0,
-                          color: '#00C1DE99'
+                          color: '#00C1DE99',
                         },
                         {
                           offset: 1,
-                          color: '#0080DE0D'
-                        }
-                      ]
-                    }
+                          color: '#0080DE0D',
+                        },
+                      ],
+                    },
                   },
-                  data: this.seriesData
+                  data: this.seriesData,
                 },
-                this.series
-              )
+                this.series,
+              ),
             ];
 
       return series;
-    }
+    },
   },
   watch: {
     seriesData() {
       this.initChart();
-    }
+    },
   },
   created() {},
   mounted() {
@@ -297,8 +297,8 @@ export default {
         this.option.xAxis = _yAxis;
         this.option.yAxis = _xAxis;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

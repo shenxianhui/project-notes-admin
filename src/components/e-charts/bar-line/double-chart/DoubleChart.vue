@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-10 15:12:31
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-12 08:11:07
+ * @LastEditTime: 2022-07-12 10:28:40
  * @Description: 组件-双图表
 -->
 
@@ -36,26 +36,26 @@ import XxBarLine from '@/components/e-charts/bar-line';
 export default {
   name: 'double-chart',
   components: {
-    XxBarLine
+    XxBarLine,
   },
   props: {
     id: [String, Number],
     width: {
       type: String,
-      default: '100%'
+      default: '100%',
     },
     height: {
       type: String,
-      default: '100%'
+      default: '100%',
     },
     seriesType: {
       type: String,
-      default: 'bar'
+      default: 'bar',
     },
     // 展示类型
     type: {
       type: String,
-      default: 'horizontal' // horizontal: 左右; vertical: 上下
+      default: 'horizontal', // horizontal: 左右; vertical: 上下
     },
 
     title: String,
@@ -70,8 +70,8 @@ export default {
     series: Array,
     seriesData: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {};
@@ -92,14 +92,14 @@ export default {
               left: '10%',
               top: '15%',
               bottom: '12%',
-              width: '36%'
+              width: '36%',
             },
             {
               top: '15%',
               right: '10%',
               bottom: '12%',
-              width: '36%'
-            }
+              width: '36%',
+            },
           ];
         } else {
           grid = [
@@ -107,14 +107,14 @@ export default {
               left: '15%',
               top: '15%',
               right: '5%',
-              height: '32%'
+              height: '32%',
             },
             {
               left: '15%',
               right: '5%',
               bottom: '10%',
-              height: '32%'
-            }
+              height: '32%',
+            },
           ];
         }
       }
@@ -125,10 +125,10 @@ export default {
       let xAxis = Object.assign(
         {
           axisLabel: {
-            show: this.type === 'vertical'
-          }
+            show: this.type === 'vertical',
+          },
         },
-        this.xAxis || {}
+        this.xAxis || {},
       );
 
       return xAxis;
@@ -138,10 +138,10 @@ export default {
         {
           gridIndex: 1,
           axisLabel: {
-            show: this.type === 'horizontal'
-          }
+            show: this.type === 'horizontal',
+          },
         },
-        this.xAxis1 || {}
+        this.xAxis1 || {},
       );
 
       return xAxis1;
@@ -151,10 +151,10 @@ export default {
         {
           inverse: this.type === 'horizontal',
           axisLabel: {
-            show: true
-          }
+            show: true,
+          },
         },
-        this.yAxis || {}
+        this.yAxis || {},
       );
 
       return yAxis;
@@ -163,9 +163,9 @@ export default {
       let yAxis1 = Object.assign(
         {
           inverse: this.type === 'vertical',
-          gridIndex: 1
+          gridIndex: 1,
         },
-        this.yAxis1 || {}
+        this.yAxis1 || {},
       );
 
       return yAxis1;
@@ -177,13 +177,13 @@ export default {
       series[1].yAxisIndex = 1;
 
       return series;
-    }
+    },
   },
   watch: {},
   created() {},
   mounted() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {},
 };
 </script>
 
