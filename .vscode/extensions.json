@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "donjayamanne.githistory",
+    "obkoro1.korofilehea",
+    "esbenp.prettier-vscode"
+  ]
+}
