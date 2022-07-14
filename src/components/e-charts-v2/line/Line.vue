@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-12 17:35:05
+ * @LastEditTime: 2022-07-14 17:32:12
 -->
 
 <template>
@@ -25,6 +25,7 @@ import {
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { uuid } from '@/utils/utils';
+import option from '../option';
 
 Echarts.use([
   TitleComponent,
@@ -91,49 +92,44 @@ export default {
   computed: {
     // 设置默认配置项
     optionData() {
-      console.log(this.xAxisData);
-      return {
-        legend: {
-          top: 10,
-          textStyle: {
-            fontSize: 16,
-            color: '#000',
-          },
-        },
+      // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>优化: 使用 Object.entries(option) 自动给设置配置项
+      const { title, legend, grid, xAxis, yAxis, tooltip, series } = option;
 
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross',
-            label: {
-              backgroundColor: '#6a7985',
-            },
+      return {
+        title: this.getOptionParam(title, 'title'),
+        legend: this.getOptionParam(legend, 'legend'),
+        grid: this.getOptionParam(grid, 'grid'),
+        xAxis: this.getOptionParam(
+          {
+            ...xAxis,
+            boundaryGap: false,
+            data: this.xAxisData,
           },
-        },
-        xAxis: {
-          type: 'category',
-          data: this.xAxisData,
-        },
-        yAxis: {
-          type: 'value',
-        },
-        series: this.option.series.map(item => {
-          return {
-            type: 'line',
-            data: item.data.map(item1 => {
-              return {
-                name: item1[this.nameKey],
-                value: item1[this.valueKey],
-              };
-            }),
-          };
-        }),
+          'xAxis',
+        ),
+        yAxis: this.getOptionParam(yAxis, 'yAxis'),
+        tooltip: this.getOptionParam(tooltip, 'tooltip'),
+        series: this.getOptionParam(
+          this.option.series.map(item => {
+            return {
+              ...series,
+              type: 'line',
+              data: item.data.map(item1 => {
+                return {
+                  name: item1[this.nameKey],
+                  value: item1[this.valueKey],
+                };
+              }),
+            };
+          }),
+          'series',
+        ),
       };
     },
 
     // xAxis.data
     xAxisData() {
-      let data = [];
+      let data;
 
       for (let i = 0; i < this.option.series.length; i++) {
         const seriesData = this.option.series[i].data;
@@ -154,11 +150,11 @@ export default {
   created() {},
   mounted() {
     this.init();
-    window.addEventListener('resize', this.init);
+    window.addEventListener('resize', this.resize);
   },
   beforeDestroy() {
     this.dispose();
-    window.removeEventListener('resize', this.init);
+    window.removeEventListener('resize', this.resize);
   },
   methods: {
     // 实例初始化
@@ -169,11 +165,11 @@ export default {
 
       this.chart = Echarts.init(document.getElementById(id));
 
-      // this.setOption(); // 开启后首次渲染 xAxisData 获取不到
+      // this.setOption();
       this.click();
     },
 
-    // 设置配置项, 刷新图表
+    // 设置配置项, 刷新图表 (需父组件主动调用)
     setOption() {
       Object.entries(this.optionData).forEach(item => {
         const isArray = Array.isArray(item[1]);
@@ -181,8 +177,9 @@ export default {
         if (isArray) {
           let arr = [];
 
-          item[1].forEach((item1, index1) => {
+          this.option[item[0]].forEach((item1, index1) => {
             arr[index1] = {
+              ...item[1][index1],
               ...item1,
             };
           });
@@ -191,12 +188,10 @@ export default {
         } else {
           this.option[item[0]] = {
             ...item[1],
-            ...(this.option[item[0]] || {}),
+            ...this.option[item[0]],
           };
         }
       });
-
-      console.log(this.option);
 
       this.chart && this.chart.setOption(this.option);
     },
@@ -206,8 +201,6 @@ export default {
       this.chart.off('click');
       this.chart.on('click', evt => {
         this.$emit('click', evt);
-
-        this.setOption();
       });
     },
 
@@ -217,6 +210,21 @@ export default {
         this.chart.clear(); // 释放图形资源
         this.chart.dispose(); // 销毁实例对象
         this.chart = null;
+      }
+    },
+
+    // 窗口尺寸变化
+    resize() {
+      this.init();
+      this.setOption();
+    },
+
+    // 获取 option 参数的对应类型
+    getOptionParam(param, key) {
+      if (Array.isArray(this.option[key]) && !Array.isArray(param)) {
+        return [param];
+      } else {
+        return param;
       }
     },
   },

@@ -113,5 +113,5 @@ export {
   remToPx,
   getMoblieFormat,
   chartData,
-  uuid
+  uuid,
 };
