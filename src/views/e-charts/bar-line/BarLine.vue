@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 09:18:43
+ * @LastEditTime: 2022-07-15 10:12:27
  * @Description: 柱线图
 -->
 
@@ -86,7 +86,11 @@
       </div>
       <!-- 折线图 -->
       <div class="chart-bar-line-item">
-        <xx-bar-line title-text="折线图" series-type="line" :series-data="chartData"></xx-bar-line>
+        <xx-bar-line
+          title-text="折线图"
+          series-type="line"
+          :series-data="chartData"
+        ></xx-bar-line>
       </div>
       <!-- 多线图 -->
       <div class="chart-bar-line-item">
@@ -120,14 +124,14 @@ export default {
   components: {
     XxBarLine,
     XxBarCuboid,
-    XxDoubleChart
+    XxDoubleChart,
   },
   props: {},
   data() {
     return {
       chartData: [],
       chartData1: [],
-      chartData2: []
+      chartData2: [],
     };
   },
   computed: {
@@ -138,28 +142,28 @@ export default {
           type: 'bar',
           barWidth: 5,
           itemStyle: {
-            color: '#ffa0a0'
+            color: '#ffa0a0',
           },
-          data: this.chartData
+          data: this.chartData,
         },
         {
           name: '数据2',
           type: 'bar',
           barWidth: 5,
           itemStyle: {
-            color: '#ffd599'
+            color: '#ffd599',
           },
-          data: this.chartData1
+          data: this.chartData1,
         },
         {
           name: '数据3',
           type: 'bar',
           barWidth: 5,
           itemStyle: {
-            color: '#a1c4fd'
+            color: '#a1c4fd',
           },
-          data: this.chartData2
-        }
+          data: this.chartData2,
+        },
       ];
     },
     seriesBarsStack() {
@@ -168,7 +172,7 @@ export default {
       return seriesBars.map(item => {
         return Object.assign(item, {
           barWidth: null,
-          stack: 'A'
+          stack: 'A',
         });
       });
     },
@@ -188,7 +192,7 @@ export default {
 
       return seriesBars.map(item => {
         return Object.assign(item, {
-          type: 'line'
+          type: 'line',
         });
       });
     },
@@ -199,7 +203,7 @@ export default {
         return Object.assign(item, {
           type: 'line',
           smooth: true,
-          stack: 'A'
+          stack: 'A',
         });
       });
     },
@@ -209,21 +213,21 @@ export default {
           name: '数据1',
           type: 'line',
           itemStyle: {
-            color: '#ffa0a0'
+            color: '#ffa0a0',
           },
           lineStyle: {
-            color: '#ffa0a0'
+            color: '#ffa0a0',
           },
-          data: this.chartData
+          data: this.chartData,
         },
         {
           name: '数据2',
           type: 'bar',
           itemStyle: {
-            color: '#9fff9f'
+            color: '#9fff9f',
           },
-          data: this.chartData
-        }
+          data: this.chartData,
+        },
       ];
     },
     seriesCuboid() {
@@ -234,9 +238,9 @@ export default {
           smooth: true,
           lineStyle: {
             type: 'dashed',
-            color: '#FF9C00'
-          }
-        }
+            color: '#FF9C00',
+          },
+        },
       ];
     },
     seriesPictorialBars() {
@@ -247,14 +251,14 @@ export default {
           barCategoryGap: '-60%',
           symbol: 'path://M0,10 L10,10 C5.5,10 5.5,5 5,0 C4.5,5 4.5,10 0,10 z',
           itemStyle: {
-            color: '#ffa0a0'
+            color: '#ffa0a0',
           },
           barMaxWidth: '100%',
           data: this.chartData,
-          z: 10
-        }
+          z: 10,
+        },
       ];
-    }
+    },
   },
   watch: {},
   created() {
@@ -281,15 +285,15 @@ export default {
       for (let i = 0; i < 10; i++) {
         list.push({
           name: 'X' + i,
-          value: Math.round(Math.random() * 1000)
+          value: Math.round(Math.random() * 1000),
         });
         list1.push({
           name: 'X' + i,
-          value: Math.round(Math.random() * 1000)
+          value: Math.round(Math.random() * 1000),
         });
         list2.push({
           name: 'X' + i,
-          value: Math.round(Math.random() * 1000)
+          value: Math.round(Math.random() * 1000),
         });
       }
 
@@ -302,8 +306,8 @@ export default {
         clearInterval(timer);
         timer = null;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

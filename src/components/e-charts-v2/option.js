@@ -1,4 +1,4 @@
-export default {
+export const lineOption = {
   // [标题](https://echarts.apache.org/zh/option.html#title)
   title: {
     textStyle: {
@@ -77,30 +77,5 @@ export default {
   // [图表内部配置](https://echarts.apache.org/zh/option.html#series)
   series: {
     smooth: true,
-    itemStyle: {
-      color: '#a1c4fd',
-    },
-    lineStyle: {
-      color: '#a1c4fd',
-    },
-    areaStyle: {
-      color: {
-        type: 'linear',
-        x: 0,
-        y: 0,
-        x2: 0,
-        y2: 1,
-        colorStops: [
-          {
-            offset: 0,
-            color: '#00C1DE99',
-          },
-          {
-            offset: 1,
-            color: '#0080DE0D',
-          },
-        ],
-      },
-    },
   },
 };

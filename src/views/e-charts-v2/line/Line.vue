@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-12 17:21:57
+ * @LastEditTime: 2022-07-15 10:14:33
 -->
 
 <template>
@@ -19,6 +19,8 @@
 <script>
 import XxLine from '@/components/e-charts-v2/line';
 
+let timer = null;
+
 export default {
   name: 'dm-line',
   components: {
@@ -28,11 +30,7 @@ export default {
   data() {
     return {
       option: {
-        series: [
-          {
-            data: [],
-          },
-        ],
+        series: [],
       },
       chartData: [],
     };
@@ -41,38 +39,64 @@ export default {
   watch: {},
   created() {},
   mounted() {
-    this.getChartData();
+    this.initData();
   },
-  beforeDestroy() {},
+  beforeDestroy() {
+    this.clearTimer();
+  },
   methods: {
-    getChartData() {
-      setTimeout(() => {
-        const num = Math.random(0, 1) * 100;
-        this.option.series[0].data = [
-          {
-            name: 'a',
-            value: num,
-          },
-          {
-            name: 'b',
-            value: 30,
-          },
-          {
-            name: 'c',
-            value: 80,
-          },
-          {
-            name: 'd',
-            value: 60,
-          },
-          {
-            name: 'e',
-            value: 100,
-          },
-        ];
+    initData() {
+      this.clearTimer();
+      this.getChartData();
 
-        this.$refs['xx-line'].setOption();
-      }, 500);
+      timer = setInterval(() => {
+        this.getChartData();
+      }, 2000);
+    },
+
+    getChartData() {
+      let data1 = [];
+      let data2 = [];
+      let data3 = [];
+
+      for (let i = 0; i < 10; i++) {
+        data1.push({
+          name: 'X' + i,
+          value: Math.round(Math.random() * 1000),
+        });
+        data2.push({
+          name: 'X' + i,
+          value: Math.round(Math.random() * 1000),
+        });
+        data3.push({
+          name: 'X' + i,
+          value: Math.round(Math.random() * 1000),
+        });
+      }
+
+      this.option.series = [
+        {
+          name: '折线1',
+          data: data1,
+        },
+        {
+          name: '折线2',
+          data: data2,
+        },
+        {
+          name: '折线3',
+          data: data3,
+        },
+      ];
+
+      this.$refs['xx-line'].setOption();
+    },
+
+    clearTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
     },
   },
 };

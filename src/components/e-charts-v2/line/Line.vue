@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-15 09:34:08
+ * @LastEditTime: 2022-07-15 10:16:26
 -->
 
 <template>
@@ -25,7 +25,7 @@ import {
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { uuid } from '@/utils/utils';
-import option from '../option';
+import { lineOption as option } from '../option';
 
 Echarts.use([
   TitleComponent,
@@ -99,6 +99,12 @@ export default {
         let key = item[0];
         let value = item[1];
 
+        if (key === 'legend') {
+          value = {
+            ...value,
+            data: this.legendData,
+          };
+        }
         if (key === 'xAxis') {
           value = {
             ...value,
@@ -125,6 +131,15 @@ export default {
       });
 
       return params;
+    },
+
+    // legend.data
+    legendData() {
+      let data = this.option.series.map(item => {
+        return item.name;
+      });
+
+      return data;
     },
 
     // xAxis.data
