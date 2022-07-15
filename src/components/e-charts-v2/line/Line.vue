@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-15 10:16:26
+ * @LastEditTime: 2022-07-15 17:15:58
 -->
 
 <template>
@@ -25,7 +25,7 @@ import {
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { uuid } from '@/utils/utils';
-import { lineOption as option } from '../option';
+import { lineOption } from '../option';
 
 Echarts.use([
   TitleComponent,
@@ -82,18 +82,26 @@ export default {
       type: String,
       default: 'value',
     },
+    // 水平展示
+    horizontal: Boolean,
   },
   data() {
     return {
       uuid: uuid(),
       chart: null,
+      lineOption: { ...lineOption },
     };
   },
   computed: {
     // 设置默认配置项
     optionData() {
-      const optList = Object.entries(option);
+      this.chartConfig();
+
+      const optList = Object.entries(this.lineOption);
       let params = {};
+      let seriesTypes = this.option.series.map(item => {
+        return item.type;
+      });
 
       optList.forEach(item => {
         let key = item[0];
@@ -106,10 +114,37 @@ export default {
           };
         }
         if (key === 'xAxis') {
+          let obj = {};
+
+          if (!this.horizontal) {
+            obj.data = this.xAxisData;
+            obj.boundaryGap = seriesTypes.includes('bar');
+          }
+
           value = {
             ...value,
-            boundaryGap: false,
-            data: this.xAxisData,
+            ...obj,
+          };
+        }
+        if (key === 'yAxis') {
+          let obj = {};
+
+          if (this.horizontal) {
+            obj.data = this.xAxisData;
+            obj.boundaryGap = seriesTypes.includes('bar');
+          }
+
+          value = {
+            ...value,
+            ...obj,
+          };
+        }
+        if (key === 'tooltip') {
+          value = {
+            ...value,
+            axisPointer: {
+              type: seriesTypes.includes('bar') ? 'shadow' : 'line',
+            },
           };
         }
         if (key === 'series') {
@@ -240,6 +275,18 @@ export default {
         return [param];
       } else {
         return param;
+      }
+    },
+
+    // 图表配置
+    chartConfig() {
+      // 水平展示
+      if (this.horizontal) {
+        let tmpXAxis = this.lineOption.xAxis;
+        let tmpYAxis = this.lineOption.yAxis;
+
+        this.lineOption.xAxis = tmpYAxis;
+        this.lineOption.yAxis = tmpXAxis;
       }
     },
   },

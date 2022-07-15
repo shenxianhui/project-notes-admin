@@ -1,16 +1,20 @@
 <!--
- * @Description: [Demo]折线图
+ * @Description: [Demo]柱线图
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-15 10:14:33
+ * @LastEditTime: 2022-07-15 17:17:12
 -->
 
 <template>
   <div class="dm-line admin-content">
     <div class="dm-line-wrap">
-      <div class="dm-line-item">
-        <xx-line ref="xx-line" :option="option"></xx-line>
+      <div v-for="(item, index) in chart" :key="index" class="dm-line-item">
+        <xx-line
+          ref="line"
+          :option="item.option"
+          :horizontal="item.horizontal"
+        ></xx-line>
       </div>
     </div>
   </div>
@@ -29,10 +33,117 @@ export default {
   props: {},
   data() {
     return {
-      option: {
-        series: [],
-      },
-      chartData: [],
+      chart: [
+        {
+          option: {
+            title: {
+              show: true,
+              text: '折线图',
+            },
+            yAxis: {
+              name: 'm',
+            },
+            series: [
+              {
+                name: 'demo1',
+                type: 'line',
+              },
+            ],
+          },
+        },
+        {
+          option: {
+            title: {
+              show: true,
+              text: '柱状图',
+            },
+            yAxis: {
+              name: 'm',
+            },
+            series: [
+              {
+                name: 'demo1',
+                type: 'bar',
+              },
+            ],
+          },
+        },
+        {
+          option: {
+            title: {
+              show: true,
+              text: '柱线混合',
+            },
+            yAxis: [
+              {
+                name: 'm',
+              },
+              {
+                name: 'kg',
+              },
+            ],
+            series: [
+              {
+                name: 'demo1',
+                type: 'bar',
+              },
+              {
+                name: 'demo2',
+                type: 'line',
+                yAxisIndex: 1,
+              },
+            ],
+          },
+        },
+        {
+          option: {
+            title: {
+              show: true,
+              text: '柱状图(组)',
+            },
+            yAxis: {
+              name: 'm',
+            },
+            series: [
+              {
+                name: 'demo1',
+                type: 'bar',
+              },
+              {
+                name: 'demo2',
+                type: 'bar',
+                stack: true,
+              },
+              {
+                name: 'demo3',
+                type: 'bar',
+                stack: true,
+              },
+            ],
+          },
+        },
+        {
+          horizontal: true,
+          option: {
+            title: {
+              show: true,
+              text: '水平柱状图',
+            },
+            grid: {
+              right: 50,
+            },
+            xAxis: {
+              name: 'm',
+            },
+            series: [
+              {
+                name: 'demo1',
+                type: 'bar',
+              },
+            ],
+          },
+        },
+      ],
     };
   },
   computed: {},
@@ -47,14 +158,36 @@ export default {
   methods: {
     initData() {
       this.clearTimer();
-      this.getChartData();
+      this.getData();
 
       timer = setInterval(() => {
-        this.getChartData();
+        this.getData();
       }, 2000);
     },
 
-    getChartData() {
+    getData() {
+      this.chart.forEach((item, index) => {
+        this.getChartData(item, index);
+      });
+    },
+
+    getChartData(itm, idx) {
+      for (let i = 0; i < 3; i++) {
+        this.chart[idx].option.series[i] &&
+          (this.chart[idx].option.series[i].data = this.mockData()[i]);
+      }
+
+      this.$refs['line'][idx].setOption();
+    },
+
+    clearTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    },
+
+    mockData() {
       let data1 = [];
       let data2 = [];
       let data3 = [];
@@ -74,29 +207,7 @@ export default {
         });
       }
 
-      this.option.series = [
-        {
-          name: '折线1',
-          data: data1,
-        },
-        {
-          name: '折线2',
-          data: data2,
-        },
-        {
-          name: '折线3',
-          data: data3,
-        },
-      ];
-
-      this.$refs['xx-line'].setOption();
-    },
-
-    clearTimer() {
-      if (timer) {
-        clearInterval(timer);
-        timer = null;
-      }
+      return [data1, data2, data3];
     },
   },
 };

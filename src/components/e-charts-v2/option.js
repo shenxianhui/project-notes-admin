@@ -19,8 +19,8 @@ export const lineOption = {
   // [直角坐标系内绘图网格](https://echarts.apache.org/zh/option.html#grid)
   grid: {
     left: 10,
-    top: 50,
-    right: 10,
+    top: 60,
+    right: 20,
     bottom: 20,
     containLabel: true,
   },
@@ -28,6 +28,7 @@ export const lineOption = {
   // [直角坐标系 grid 中的 x 轴](https://echarts.apache.org/zh/option.html#xAxis)
   xAxis: {
     name: '',
+    type: 'category',
     axisTick: {
       show: false,
     },
@@ -44,6 +45,7 @@ export const lineOption = {
 
   // [直角坐标系 grid 中的 y 轴](https://echarts.apache.org/zh/option.html#yAxis)
   yAxis: {
+    type: 'value',
     axisTick: {
       show: false,
     },
@@ -74,7 +76,7 @@ export const lineOption = {
     type: 'line',
   },
 
-  // [图表内部配置](https://echarts.apache.org/zh/option.html#series)
+  // [图表配置](https://echarts.apache.org/zh/option.html#series)
   series: {
     smooth: true,
   },

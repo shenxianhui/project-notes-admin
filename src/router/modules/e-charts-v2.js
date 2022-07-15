@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:51:16
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-11 10:24:09
+ * @LastEditTime: 2022-07-15 11:14:28
  * @Description: ECharts
  */
 
@@ -20,7 +20,7 @@ export default [
         path: 'line',
         name: 'line',
         meta: {
-          label: '折线图',
+          label: '柱线图',
         },
         component: loadView('e-charts-v2/line/Line'),
       },
