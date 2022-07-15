@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-14 17:32:12
+ * @LastEditTime: 2022-07-15 09:34:08
 -->
 
 <template>
@@ -92,27 +92,24 @@ export default {
   computed: {
     // 设置默认配置项
     optionData() {
-      // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>优化: 使用 Object.entries(option) 自动给设置配置项
-      const { title, legend, grid, xAxis, yAxis, tooltip, series } = option;
+      const optList = Object.entries(option);
+      let params = {};
 
-      return {
-        title: this.getOptionParam(title, 'title'),
-        legend: this.getOptionParam(legend, 'legend'),
-        grid: this.getOptionParam(grid, 'grid'),
-        xAxis: this.getOptionParam(
-          {
-            ...xAxis,
+      optList.forEach(item => {
+        let key = item[0];
+        let value = item[1];
+
+        if (key === 'xAxis') {
+          value = {
+            ...value,
             boundaryGap: false,
             data: this.xAxisData,
-          },
-          'xAxis',
-        ),
-        yAxis: this.getOptionParam(yAxis, 'yAxis'),
-        tooltip: this.getOptionParam(tooltip, 'tooltip'),
-        series: this.getOptionParam(
-          this.option.series.map(item => {
+          };
+        }
+        if (key === 'series') {
+          value = this.option.series.map(item => {
             return {
-              ...series,
+              ...value,
               type: 'line',
               data: item.data.map(item1 => {
                 return {
@@ -121,10 +118,13 @@ export default {
                 };
               }),
             };
-          }),
-          'series',
-        ),
-      };
+          });
+        }
+
+        params[item[0]] = this.getOptionParam(value, key);
+      });
+
+      return params;
     },
 
     // xAxis.data
