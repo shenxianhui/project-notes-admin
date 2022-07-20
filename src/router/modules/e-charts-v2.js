@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 09:51:16
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-15 11:14:28
+ * @LastEditTime: 2022-07-20 15:24:11
  * @Description: ECharts
  */
 
@@ -13,16 +13,18 @@ export default [
     meta: {
       label: 'ECharts 2.0',
     },
-    redirect: '/e-charts-v2/line',
+    redirect: '/e-charts-v2/cartesian-coordinate-system-chart',
     component: loadView('layout/Layout'),
     children: [
       {
-        path: 'line',
-        name: 'line',
+        path: 'cartesian-coordinate-system-chart',
+        name: 'cartesian-coordinate-system-chart',
         meta: {
-          label: '柱线图',
+          label: '直角坐标系图表',
         },
-        component: loadView('e-charts-v2/line/Line'),
+        component: loadView(
+          'e-charts-v2/cartesian-coordinate-system-chart/CartesianCoordinateSystemChart',
+        ),
       },
     ],
   },

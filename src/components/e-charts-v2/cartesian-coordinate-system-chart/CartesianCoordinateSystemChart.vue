@@ -1,13 +1,17 @@
 <!--
- * @Description: [组件]柱线图
+ * @Description: [组件]直角坐标系图表
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-20 13:56:29
+ * @LastEditTime: 2022-07-20 15:24:49
 -->
 
 <template>
-  <div :id="id || uuid" class="xx-line" :style="{ width, height }"></div>
+  <div
+    :id="id || uuid"
+    class="cartesian-coordinate-system-chart"
+    :style="{ width, height }"
+  ></div>
 </template>
 
 <script>
@@ -42,13 +46,11 @@ Echarts.use([
 ]);
 
 export default {
-  name: 'xx-line',
+  name: 'cartesian-coordinate-system-chart',
   components: {},
   props: {
     // id (非必填)
     id: [String, Number],
-    // 数据改变时自动更新图表
-    // autoUpdate: Boolean,
     // 宽度
     width: {
       type: String,
@@ -66,12 +68,6 @@ export default {
         return {};
       },
     },
-    // [必填]图表数据
-    // 例: [[{ name: '折线a', value: 100 }], [{ name: '折线b', value: 200 }]]
-    // data: {
-    //   type: Array,
-    //   required: true,
-    // },
     // name 的 key 值
     nameKey: {
       type: String,

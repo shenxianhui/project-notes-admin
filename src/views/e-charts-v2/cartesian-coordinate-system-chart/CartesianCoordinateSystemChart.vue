@@ -1,34 +1,38 @@
 <!--
- * @Description: [Demo]柱线图
+ * @Description: [Demo]直角坐标系图表
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-20 15:13:27
+ * @LastEditTime: 2022-07-20 15:25:48
 -->
 
 <template>
-  <div class="dm-line admin-content">
-    <div class="dm-line-wrap">
-      <div v-for="(item, index) in chart" :key="index" class="dm-line-item">
-        <xx-line
+  <div class="dm-cartesian-coordinate-system-chart admin-content">
+    <div class="dm-cartesian-coordinate-system-chart-wrap">
+      <div
+        v-for="(item, index) in chart"
+        :key="index"
+        class="dm-cartesian-coordinate-system-chart-item"
+      >
+        <cartesian-coordinate-system-chart
           ref="line"
           :option="item.option"
           :horizontal="item.horizontal"
-        ></xx-line>
+        ></cartesian-coordinate-system-chart>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import XxLine from '@/components/e-charts-v2/line';
+import CartesianCoordinateSystemChart from '@/components/e-charts-v2/cartesian-coordinate-system-chart';
 
 let timer = null;
 
 export default {
-  name: 'dm-line',
+  name: 'dm-cartesian-coordinate-system-chart',
   components: {
-    XxLine,
+    CartesianCoordinateSystemChart,
   },
   props: {},
   data() {
@@ -331,8 +335,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.dm-line {
-  .dm-line-wrap {
+.dm-cartesian-coordinate-system-chart {
+  .dm-cartesian-coordinate-system-chart-wrap {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -340,7 +344,7 @@ export default {
     min-height: 100%;
     border: 1px solid #efefef;
     overflow: auto;
-    .dm-line-item {
+    .dm-cartesian-coordinate-system-chart-item {
       flex-shrink: 0;
       width: 33.3%;
       height: 50%;
