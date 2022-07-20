@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-20 15:25:48
+ * @LastEditTime: 2022-07-20 16:23:21
 -->
 
 <template>
@@ -15,7 +15,7 @@
         class="dm-cartesian-coordinate-system-chart-item"
       >
         <cartesian-coordinate-system-chart
-          ref="line"
+          ref="chart"
           :option="item.option"
           :horizontal="item.horizontal"
         ></cartesian-coordinate-system-chart>
@@ -161,6 +161,11 @@ export default {
                 bottom: undefined,
                 height: '30%',
                 containLabel: false,
+                tooltip: {
+                  axisPointer: {
+                    type: 'line',
+                  },
+                },
               },
               {
                 left: 50,
@@ -220,6 +225,11 @@ export default {
                 right: undefined,
                 width: '38%',
                 containLabel: false,
+                tooltip: {
+                  axisPointer: {
+                    type: 'line',
+                  },
+                },
               },
               {
                 top: 40,
@@ -264,6 +274,49 @@ export default {
             ],
           },
         },
+        {
+          setSeries: true,
+          option: {
+            title: {
+              show: true,
+              text: '长方体柱图',
+            },
+            tooltip: {
+              formatter(params) {
+                return `${params[0].name}<br />${params[0].value}`;
+              },
+            },
+            yAxis: {
+              name: 'm',
+            },
+            series: this.cuboidSeries(),
+          },
+        },
+        {
+          option: {
+            title: {
+              show: true,
+              text: '象形柱图',
+            },
+            yAxis: {
+              name: 'm',
+            },
+            series: [
+              {
+                name: 'demo1',
+                type: 'pictorialBar',
+                barCategoryGap: '-60%',
+                symbol:
+                  'path://M0,10 L10,10 C5.5,10 5.5,5 5,0 C4.5,5 4.5,10 0,10 z',
+                itemStyle: {
+                  color: '#ffa0a0',
+                },
+                barMaxWidth: '100%',
+                z: 10,
+              },
+            ],
+          },
+        },
       ],
     };
   },
@@ -294,11 +347,15 @@ export default {
 
     getChartData(itm, idx) {
       for (let i = 0; i < 3; i++) {
-        this.chart[idx].option.series[i] &&
-          (this.chart[idx].option.series[i].data = this.mockData()[i]);
+        if (!this.chart[idx].setSeries) {
+          this.chart[idx].option.series[i] &&
+            (this.chart[idx].option.series[i].data = this.mockData()[i]);
+        } else {
+          this.chart[idx].option.series = this.cuboidSeries();
+        }
       }
 
-      this.$refs['line'][idx].setOption();
+      this.$refs.chart[idx].setOption();
     },
 
     clearTimer() {
@@ -329,6 +386,86 @@ export default {
       }
 
       return [data1, data2, data3];
+    },
+
+    // 长方体柱图 series
+    cuboidSeries() {
+      const barWidth = 20;
+      const colors = ['#00FFF6', '#00CCFF', '#006CFF']; // 左 右 上
+      const color = {
+        type: 'linear',
+        x: 0,
+        x2: 1,
+        y: 0,
+        y2: 0,
+        colorStops: [
+          {
+            offset: 0,
+            color: colors[0],
+          },
+          {
+            offset: 0.5,
+            color: colors[0],
+          },
+          {
+            offset: 0.5,
+            color: colors[1],
+          },
+          {
+            offset: 1,
+            color: colors[1],
+          },
+        ],
+      };
+      const seriesData = this.mockData()[0];
+      const data = [
+        {
+          z: 1,
+          name: '',
+          type: 'bar',
+          barWidth,
+          data: seriesData,
+          itemStyle: {
+            color,
+          },
+        },
+        // 底部
+        {
+          z: 2,
+          name: '',
+          type: 'pictorialBar',
+          data: seriesData,
+          symbol: 'diamond',
+          symbolOffset: [0, '50%'],
+          symbolSize: [barWidth, 10],
+          itemStyle: {
+            color,
+          },
+        },
+        // 上部
+        {
+          z: 3,
+          name: '',
+          type: 'pictorialBar',
+          symbolPosition: 'end',
+          data: seriesData.map(item => {
+            return {
+              name: item.name,
+              value: item.value || null, // 为 0 时会出现样式问题
+            };
+          }),
+          symbol: 'diamond',
+          symbolOffset: [0, '-50%'],
+          symbolSize: [barWidth, (10 * barWidth) / barWidth],
+          itemStyle: {
+            borderColor: colors[2],
+            borderWidth: 2,
+            color: colors[2],
+          },
+        },
+      ];
+
+      return data || [];
     },
   },
 };

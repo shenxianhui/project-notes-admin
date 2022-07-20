@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-20 15:24:49
+ * @LastEditTime: 2022-07-20 16:34:06
 -->
 
 <template>
@@ -94,10 +94,10 @@ export default {
       this.chartConfig();
 
       const optList = Object.entries(this.lineOption);
-      let params = {};
-      let seriesTypes = this.option.series.map(item => {
-        return item.type;
+      const hasBar = (this.option.series || []).some(item => {
+        return item.type.toLocaleLowerCase().includes('bar');
       });
+      let params = {};
 
       optList.forEach(item => {
         let key = item[0];
@@ -114,7 +114,7 @@ export default {
 
           if (!this.horizontal) {
             obj.data = this.xAxisData;
-            obj.boundaryGap = seriesTypes.includes('bar');
+            obj.boundaryGap = hasBar;
           }
 
           value = {
@@ -127,7 +127,7 @@ export default {
 
           if (this.horizontal) {
             obj.data = this.xAxisData;
-            obj.boundaryGap = seriesTypes.includes('bar');
+            obj.boundaryGap = hasBar;
           }
 
           value = {
@@ -139,12 +139,12 @@ export default {
           value = {
             ...value,
             axisPointer: {
-              type: seriesTypes.includes('bar') ? 'shadow' : 'line',
+              type: hasBar ? 'shadow' : 'line',
             },
           };
         }
         if (key === 'series') {
-          value = this.option.series.map(item => {
+          value = (this.option.series || []).map(item => {
             return {
               ...value,
               type: 'line',
@@ -166,7 +166,7 @@ export default {
 
     // legend.data
     legendData() {
-      let data = this.option.series.map(item => {
+      let data = (this.option.series || []).map(item => {
         return item.name;
       });
 
@@ -177,7 +177,7 @@ export default {
     xAxisData() {
       let data;
 
-      for (let i = 0; i < this.option.series.length; i++) {
+      for (let i = 0; i < (this.option.series || []).length; i++) {
         const seriesData = this.option.series[i].data;
 
         if (seriesData && seriesData.length) {
@@ -223,7 +223,7 @@ export default {
         if (isArray) {
           let arr = [];
 
-          this.option[item[0]].forEach((item1, index1) => {
+          (this.option[item[0]] || []).forEach((item1, index1) => {
             arr[index1] = {
               ...item[1][index1],
               ...item1,
