@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-31 16:51:26
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-12 08:11:14
+ * @LastEditTime: 2022-07-20 10:46:25
  * @Description: 长方体柱状图
 -->
 
@@ -35,31 +35,31 @@ import XxBarLine from '@/components/e-charts/bar-line';
 export default {
   name: 'xx-bar-cuboid',
   components: {
-    XxBarLine
+    XxBarLine,
   },
   props: {
     id: [String, Number],
     width: {
       type: String,
-      default: '100%'
+      default: '100%',
     },
     height: {
       type: String,
-      default: '100%'
+      default: '100%',
     },
     seriesType: {
       type: String,
-      default: 'bar'
+      default: 'bar',
     },
     barWidth: {
       type: Number,
-      default: 20
+      default: 20,
     },
     colors: {
       type: Array,
       default() {
         return ['#00FFF6', '#00CCFF', '#006CFF']; // 左 右 上
-      }
+      },
     },
     horizontal: Boolean, // 横向展示(XY轴交换)
     titleText: String,
@@ -73,8 +73,8 @@ export default {
     series: [Array, Object],
     seriesData: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -88,10 +88,10 @@ export default {
               </div>
             `;
             return html;
-          }
+          },
         },
-        this.tooltip
-      )
+        this.tooltip,
+      ),
     };
   },
   computed: {
@@ -105,21 +105,21 @@ export default {
         colorStops: [
           {
             offset: 0,
-            color: this.colors[0]
+            color: this.colors[0],
           },
           {
             offset: 0.5,
-            color: this.colors[0]
+            color: this.colors[0],
           },
           {
             offset: 0.5,
-            color: this.colors[1]
+            color: this.colors[1],
           },
           {
             offset: 1,
-            color: this.colors[1]
-          }
-        ]
+            color: this.colors[1],
+          },
+        ],
       };
       let barWidth = this.barWidth;
       let data = [
@@ -130,9 +130,9 @@ export default {
           data: this.seriesData,
           itemStyle: {
             normal: {
-              color: color
-            }
-          }
+              color: color,
+            },
+          },
         },
         {
           z: 2,
@@ -144,9 +144,9 @@ export default {
           symbolSize: [barWidth, 10],
           itemStyle: {
             normal: {
-              color: color
-            }
-          }
+              color: color,
+            },
+          },
         },
         {
           z: 3,
@@ -156,7 +156,7 @@ export default {
           data: this.seriesData.map(item => {
             return {
               name: item.name,
-              value: item.value || null // 为 0 时会出现样式问题
+              value: item.value || null, // 为 0 时会出现样式问题
             };
           }),
           symbol: 'diamond',
@@ -165,20 +165,20 @@ export default {
           itemStyle: {
             borderColor: this.colors[2],
             borderWidth: 2,
-            color: this.colors[2]
-          }
+            color: this.colors[2],
+          },
         },
-        ...this.series
+        ...this.series,
       ];
 
       return data;
-    }
+    },
   },
   watch: {},
   created() {},
   mounted() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {},
 };
 </script>
 

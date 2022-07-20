@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-15 17:15:58
+ * @LastEditTime: 2022-07-20 13:56:29
 -->
 
 <template>
@@ -272,7 +272,9 @@ export default {
     // 获取 option 参数的对应类型
     getOptionParam(param, key) {
       if (Array.isArray(this.option[key]) && !Array.isArray(param)) {
-        return [param];
+        return this.option[key].map(() => {
+          return param;
+        });
       } else {
         return param;
       }

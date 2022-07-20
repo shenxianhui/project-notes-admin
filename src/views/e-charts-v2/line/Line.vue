@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-15 17:17:12
+ * @LastEditTime: 2022-07-20 15:13:27
 -->
 
 <template>
@@ -139,6 +139,123 @@ export default {
               {
                 name: 'demo1',
                 type: 'bar',
+              },
+            ],
+          },
+        },
+        {
+          option: {
+            title: {
+              show: true,
+              text: '上下双图',
+            },
+            grid: [
+              {
+                top: 40,
+                left: 50,
+                right: 20,
+                bottom: undefined,
+                height: '30%',
+                containLabel: false,
+              },
+              {
+                left: 50,
+                right: 20,
+                top: undefined,
+                bottom: 15,
+                height: '30%',
+                containLabel: false,
+              },
+            ],
+            xAxis: [
+              {
+                gridIndex: 0,
+              },
+              {
+                gridIndex: 1,
+                axisLabel: {
+                  show: false,
+                },
+              },
+            ],
+            yAxis: [
+              {
+                gridIndex: 0,
+              },
+              {
+                gridIndex: 1,
+                inverse: true,
+              },
+            ],
+            series: [
+              {
+                name: 'demo1',
+                type: 'line',
+              },
+              {
+                name: 'demo2',
+                type: 'bar',
+                xAxisIndex: 1,
+                yAxisIndex: 1,
+              },
+            ],
+          },
+        },
+        {
+          horizontal: true,
+          option: {
+            title: {
+              show: true,
+              text: '左右双图',
+            },
+            grid: [
+              {
+                top: 40,
+                bottom: 30,
+                left: 30,
+                right: undefined,
+                width: '38%',
+                containLabel: false,
+              },
+              {
+                top: 40,
+                bottom: 30,
+                left: undefined,
+                right: 30,
+                width: '38%',
+                containLabel: false,
+              },
+            ],
+            xAxis: [
+              {
+                gridIndex: 0,
+                inverse: true,
+              },
+              {
+                gridIndex: 1,
+              },
+            ],
+            yAxis: [
+              {
+                gridIndex: 0,
+                axisLabel: {
+                  show: false,
+                },
+              },
+              {
+                gridIndex: 1,
+              },
+            ],
+            series: [
+              {
+                name: 'demo1',
+                type: 'line',
+              },
+              {
+                name: 'demo2',
+                type: 'bar',
+                xAxisIndex: 1,
+                yAxisIndex: 1,
               },
             ],
           },
