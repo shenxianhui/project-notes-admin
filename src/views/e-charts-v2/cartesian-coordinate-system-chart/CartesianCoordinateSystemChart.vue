@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-20 16:23:21
+ * @LastEditTime: 2022-07-21 10:55:17
 -->
 
 <template>
@@ -317,6 +317,44 @@ export default {
             ],
           },
         },
+        {
+          option: {
+            title: {
+              show: true,
+              text: '饼图',
+            },
+            series: [
+              {
+                name: 'demo1',
+                type: 'pie',
+              },
+            ],
+          },
+        },
+        {
+          option: {
+            title: {
+              show: true,
+              text: '雷达图',
+            },
+            radar: {
+              indicator: [
+                { name: 'X1', max: 1 },
+                { name: 'X2', max: 1 },
+                { name: 'X3', max: 1 },
+                { name: 'X4', max: 1 },
+                { name: 'X5', max: 1 },
+                { name: 'X6', max: 1 },
+                { name: 'X7', max: 1 },
+              ],
+            },
+            series: [
+              {
+                type: 'radar',
+              },
+            ],
+          },
+        },
       ],
     };
   },
@@ -347,11 +385,19 @@ export default {
 
     getChartData(itm, idx) {
       for (let i = 0; i < 3; i++) {
-        if (!this.chart[idx].setSeries) {
-          this.chart[idx].option.series[i] &&
-            (this.chart[idx].option.series[i].data = this.mockData()[i]);
+        let chart = this.chart[idx];
+        let chartOptionSeries = chart.option.series;
+
+        if (!chart.setSeries) {
+          if (chartOptionSeries[i]) {
+            if (chartOptionSeries[i].type === 'radar') {
+              chartOptionSeries[i].data = this.mockRadarData();
+            } else {
+              chartOptionSeries[i].data = this.mockData()[i];
+            }
+          }
         } else {
-          this.chart[idx].option.series = this.cuboidSeries();
+          chartOptionSeries = this.cuboidSeries();
         }
       }
 
@@ -386,6 +432,33 @@ export default {
       }
 
       return [data1, data2, data3];
+    },
+
+    mockRadarData() {
+      let data1 = [];
+      let data2 = [];
+      let data3 = [];
+
+      for (let i = 0; i < 10; i++) {
+        data1.push(Math.round(Math.random() * 1000));
+        data2.push(Math.round(Math.random() * 1000));
+        data3.push(Math.round(Math.random() * 1000));
+      }
+
+      return [
+        {
+          name: 'demo1',
+          value: data1,
+        },
+        {
+          name: 'demo2',
+          value: data2,
+        },
+        {
+          name: 'demo3',
+          value: data3,
+        },
+      ];
     },
 
     // 长方体柱图 series

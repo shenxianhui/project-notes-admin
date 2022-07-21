@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-11 11:36:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-12 08:24:38
+ * @LastEditTime: 2022-07-20 16:44:35
  * @Description: 组件-饼图
 -->
 
@@ -20,11 +20,11 @@ export default {
     id: [String, Number],
     width: {
       type: String,
-      default: '100%'
+      default: '100%',
     },
     height: {
       type: String,
-      default: '100%'
+      default: '100%',
     },
 
     title: Object,
@@ -34,12 +34,12 @@ export default {
     series: [Array, Object],
     seriesData: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      myId: uuid()
+      myId: uuid(),
     };
   },
   computed: {
@@ -48,16 +48,16 @@ export default {
         title: this._title,
         legend: this._legend,
         tooltip: this._tooltip,
-        series: this._series
+        series: this._series,
       };
     },
     _title() {
       let title = Object.assign(
         {
           show: this.titleText ? true : false,
-          text: this.titleText
+          text: this.titleText,
         },
-        this.title
+        this.title,
       );
 
       return title;
@@ -69,17 +69,17 @@ export default {
           top: '2%',
           textStyle: {
             fontSize: 14,
-            color: '#000'
+            color: '#000',
           },
           data: (() => {
             this.seriesData.map(item => {
               return {
-                name: item.name
+                name: item.name,
               };
             });
-          })()
+          })(),
         },
-        this.legend
+        this.legend,
       );
 
       return legend;
@@ -87,9 +87,9 @@ export default {
     _tooltip() {
       let tooltip = Object.assign(
         {
-          confine: true
+          confine: true,
         },
-        this.tooltip
+        this.tooltip,
       );
 
       return tooltip;
@@ -103,19 +103,19 @@ export default {
                 {
                   type: 'pie',
                   radius: '75%',
-                  data: this.seriesData
+                  data: this.seriesData,
                 },
-                this.series
-              )
+                this.series,
+              ),
             ];
 
       return series;
-    }
+    },
   },
   watch: {
     seriesData() {
       this.initChart();
-    }
+    },
   },
   created() {},
   mounted() {
@@ -154,8 +154,8 @@ export default {
         chart.clear(); // 释放图形资源
         chart.dispose(); // 销毁实例对象
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

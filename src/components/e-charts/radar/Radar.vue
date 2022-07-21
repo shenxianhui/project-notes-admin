@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-11 11:36:48
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-12 08:24:26
+ * @LastEditTime: 2022-07-21 09:19:05
  * @Description: 组件-雷达图
 -->
 
@@ -20,11 +20,11 @@ export default {
     id: [String, Number],
     width: {
       type: String,
-      default: '100%'
+      default: '100%',
     },
     height: {
       type: String,
-      default: '100%'
+      default: '100%',
     },
 
     title: Object,
@@ -35,17 +35,17 @@ export default {
     // 雷达图的指示器，用来指定雷达图中的多个变量（维度）
     radarIndicator: {
       type: Array,
-      required: true
+      required: true,
     },
     series: [Array, Object],
     seriesData: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      myId: uuid()
+      myId: uuid(),
     };
   },
   computed: {
@@ -55,16 +55,16 @@ export default {
         legend: this._legend,
         tooltip: this._tooltip,
         radar: this._radar,
-        series: this._series
+        series: this._series,
       };
     },
     _title() {
       let title = Object.assign(
         {
           show: this.titleText ? true : false,
-          text: this.titleText
+          text: this.titleText,
         },
-        this.title
+        this.title,
       );
 
       return title;
@@ -76,17 +76,17 @@ export default {
           top: '2%',
           textStyle: {
             fontSize: 14,
-            color: '#000'
+            color: '#000',
           },
           data: (() => {
             this.seriesData.map(item => {
               return {
-                name: item.name
+                name: item.name,
               };
             });
-          })()
+          })(),
         },
-        this.legend
+        this.legend,
       );
 
       return legend;
@@ -94,9 +94,9 @@ export default {
     _tooltip() {
       let tooltip = Object.assign(
         {
-          confine: true
+          confine: true,
         },
-        this.tooltip
+        this.tooltip,
       );
 
       return tooltip;
@@ -104,9 +104,9 @@ export default {
     _radar() {
       let radar = Object.assign(
         {
-          indicator: this.radarIndicator
+          indicator: this.radarIndicator,
         },
-        this.radar
+        this.radar,
       );
 
       return radar;
@@ -120,28 +120,28 @@ export default {
                 {
                   type: 'radar',
                   itemStyle: {
-                    opacity: 0
+                    opacity: 0,
                   },
                   lineStyle: {
-                    opacity: 0
+                    opacity: 0,
                   },
                   areaStyle: {
                     color: '#c00',
-                    opacity: 0.5
+                    opacity: 0.5,
                   },
-                  data: this.seriesData
+                  data: this.seriesData,
                 },
-                this.series
-              )
+                this.series,
+              ),
             ];
 
       return series;
-    }
+    },
   },
   watch: {
     seriesData() {
       this.initChart();
-    }
+    },
   },
   created() {},
   mounted() {
@@ -185,8 +185,8 @@ export default {
         chart.clear(); // 释放图形资源
         chart.dispose(); // 销毁实例对象
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

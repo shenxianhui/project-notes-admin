@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-08-25 18:24:28
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-11 18:36:55
+ * @LastEditTime: 2022-07-21 09:20:08
  * @Description: 雷达图
 -->
 
@@ -29,13 +29,13 @@ let timer;
 export default {
   name: 'chart-radar',
   components: {
-    XxRadar
+    XxRadar,
   },
   props: {},
   data() {
     return {
       chartData: [],
-      radarIndicator: []
+      radarIndicator: [],
     };
   },
   computed: {
@@ -48,7 +48,7 @@ export default {
       });
 
       return maxNum;
-    }
+    },
   },
   watch: {},
   created() {
@@ -71,15 +71,15 @@ export default {
         list.push(Math.round(Math.random() * 1000));
         IndicatorList.push({
           name: 'X' + i,
-          max: 1000
+          max: 1000,
         });
       }
 
       this.chartData = [
         {
           name: '数据1',
-          value: list
-        }
+          value: list,
+        },
       ];
       this.radarIndicator = IndicatorList;
     },
@@ -88,8 +88,8 @@ export default {
         clearInterval(timer);
         timer = null;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-20 16:34:06
+ * @LastEditTime: 2022-07-21 10:52:46
 -->
 
 <template>
@@ -16,7 +16,13 @@
 
 <script>
 import * as Echarts from 'echarts/core';
-import { LineChart } from 'echarts/charts';
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ScatterChart,
+  RadarChart,
+} from 'echarts/charts';
 import {
   TitleComponent,
   LegendComponent,
@@ -29,7 +35,11 @@ import {
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { uuid } from '@/utils/utils';
-import { lineOption } from '../option';
+import {
+  cartesianCoordinateSystemOption,
+  pieOption,
+  radarOption,
+} from '../option';
 
 Echarts.use([
   TitleComponent,
@@ -40,6 +50,10 @@ Echarts.use([
   DatasetComponent,
   TransformComponent,
   LineChart,
+  BarChart,
+  PieChart,
+  ScatterChart,
+  RadarChart,
   LabelLayout,
   UniversalTransition,
   CanvasRenderer,
@@ -80,22 +94,68 @@ export default {
     },
     // 水平展示
     horizontal: Boolean,
+    // 雷达图max的省略位数 (五入, 取整)
+    radarIndicatorMax: {
+      type: Number,
+      default: 2, // 0: 个位; 1: 十位; 2: 百位; ...
+    },
   },
   data() {
     return {
       uuid: uuid(),
       chart: null,
-      lineOption: { ...lineOption },
+      chartType: '',
+      // chartOption: { ...cartesianCoordinateSystemOption },
     };
   },
   computed: {
+    chartOption() {
+      let option = {};
+      let type = '';
+
+      (this.option.series || []).forEach(item => {
+        // 饼图
+        if (item.type === 'pie') {
+          type = 'pie';
+        }
+        // 雷达图
+        if (item.type === 'radar') {
+          type = 'radar';
+        }
+      });
+
+      if (type === 'pie') {
+        option = { ...pieOption };
+      } else if (type === 'radar') {
+        option = { ...radarOption };
+      } else {
+        option = { ...cartesianCoordinateSystemOption };
+      }
+
+      return option;
+    },
+
     // 设置默认配置项
     optionData() {
       this.chartConfig();
 
-      const optList = Object.entries(this.lineOption);
-      const hasBar = (this.option.series || []).some(item => {
-        return item.type.toLocaleLowerCase().includes('bar');
+      const optList = Object.entries(this.chartOption);
+      let type = '';
+      let hasBar = false;
+
+      (this.option.series || []).forEach(item => {
+        if (item.type.toLocaleLowerCase().includes('bar')) {
+          hasBar = true;
+        }
+
+        // 饼图
+        if (item.type === 'pie') {
+          type = 'pie';
+        }
+        // 雷达图
+        if (item.type === 'radar') {
+          type = 'radar';
+        }
       });
       let params = {};
 
@@ -103,7 +163,7 @@ export default {
         let key = item[0];
         let value = item[1];
 
-        if (key === 'legend') {
+        if (key === 'legend' && !type) {
           value = {
             ...value,
             data: this.legendData,
@@ -142,6 +202,27 @@ export default {
               type: hasBar ? 'shadow' : 'line',
             },
           };
+        }
+        if (key === 'radar') {
+          const powNum = Math.pow(10, +Math.round(this.radarIndicatorMax || 0));
+          let maxNum = 0;
+
+          (this.option.series || []).forEach(item => {
+            item.data &&
+              item.data.forEach(item1 => {
+                item1.value &&
+                  item1.value.forEach(item2 => {
+                    if (item2 > maxNum) {
+                      maxNum = item2;
+                    }
+                  });
+              });
+          });
+
+          maxNum = Math.ceil(maxNum / powNum) * powNum;
+          (this.option?.radar?.indicator || []).forEach(item => {
+            item.max = maxNum;
+          });
         }
         if (key === 'series') {
           value = (this.option.series || []).map(item => {
@@ -280,11 +361,11 @@ export default {
     chartConfig() {
       // 水平展示
       if (this.horizontal) {
-        let tmpXAxis = this.lineOption.xAxis;
-        let tmpYAxis = this.lineOption.yAxis;
+        let tmpXAxis = this.chartOption.xAxis;
+        let tmpYAxis = this.chartOption.yAxis;
 
-        this.lineOption.xAxis = tmpYAxis;
-        this.lineOption.yAxis = tmpXAxis;
+        this.chartOption.xAxis = tmpYAxis;
+        this.chartOption.yAxis = tmpXAxis;
       }
     },
   },
