@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-21 10:55:17
+ * @LastEditTime: 2022-07-21 11:14:45
 -->
 
 <template>
@@ -397,7 +397,7 @@ export default {
             }
           }
         } else {
-          chartOptionSeries = this.cuboidSeries();
+          chart.option.series = this.cuboidSeries();
         }
       }
 
