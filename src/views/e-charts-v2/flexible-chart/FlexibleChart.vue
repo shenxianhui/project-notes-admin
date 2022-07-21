@@ -1,5 +1,5 @@
 <!--
- * @Description: [Demo]直角坐标系图表
+ * @Description: [Demo]灵活图表
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
@@ -7,32 +7,32 @@
 -->
 
 <template>
-  <div class="dm-cartesian-coordinate-system-chart admin-content">
-    <div class="dm-cartesian-coordinate-system-chart-wrap">
+  <div class="dm-flexible-chart admin-content">
+    <div class="dm-flexible-chart-wrap">
       <div
         v-for="(item, index) in chart"
         :key="index"
-        class="dm-cartesian-coordinate-system-chart-item"
+        class="dm-flexible-chart-item"
       >
-        <cartesian-coordinate-system-chart
+        <flexible-chart
           ref="chart"
           :option="item.option"
           :horizontal="item.horizontal"
-        ></cartesian-coordinate-system-chart>
+        ></flexible-chart>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import CartesianCoordinateSystemChart from '@/components/e-charts-v2/cartesian-coordinate-system-chart';
+import FlexibleChart from '@/components/e-charts-v2/flexible-chart';
 
 let timer = null;
 
 export default {
-  name: 'dm-cartesian-coordinate-system-chart',
+  name: 'dm-flexible-chart',
   components: {
-    CartesianCoordinateSystemChart,
+    FlexibleChart,
   },
   props: {},
   data() {
@@ -545,8 +545,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.dm-cartesian-coordinate-system-chart {
-  .dm-cartesian-coordinate-system-chart-wrap {
+.dm-flexible-chart {
+  .dm-flexible-chart-wrap {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -554,7 +554,7 @@ export default {
     min-height: 100%;
     border: 1px solid #efefef;
     overflow: auto;
-    .dm-cartesian-coordinate-system-chart-item {
+    .dm-flexible-chart-item {
       flex-shrink: 0;
       width: 33.3%;
       height: 50%;

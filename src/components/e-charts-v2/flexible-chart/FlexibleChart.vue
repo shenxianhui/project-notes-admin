@@ -1,17 +1,13 @@
 <!--
- * @Description: [组件]直角坐标系图表
+ * @Description: [组件]灵活图表 (适用于: bar/line/pie/radar)
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-21 10:52:46
+ * @LastEditTime: 2022-07-21 11:04:26
 -->
 
 <template>
-  <div
-    :id="id || uuid"
-    class="cartesian-coordinate-system-chart"
-    :style="{ width, height }"
-  ></div>
+  <div :id="id || uuid" class="flexible-chart" :style="{ width, height }"></div>
 </template>
 
 <script>
@@ -60,7 +56,7 @@ Echarts.use([
 ]);
 
 export default {
-  name: 'cartesian-coordinate-system-chart',
+  name: 'flexible-chart',
   components: {},
   props: {
     // id (非必填)
