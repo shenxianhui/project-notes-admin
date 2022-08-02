@@ -5,9 +5,10 @@
 </template>
 
 <script>
-import events from './enum/events';
-import ThreeContainer from './three/threeContainer.js';
-let threeContainer;
+import events from './enum/events'
+import ThreeContainer from './three/threeContainer.js'
+let threeContainer
+
 export default {
   name: 'three',
   props: {
@@ -21,7 +22,7 @@ export default {
         return {
           type: '',
           params: null,
-        };
+        }
       },
     },
   },
@@ -29,10 +30,10 @@ export default {
   data() {
     return {
       threeType: 1,
-    };
+    }
   },
   beforeDestroy() {
-    if (threeContainer) threeContainer.deInit();
+    if (threeContainer) threeContainer.deInit()
   },
   methods: {
     /**
@@ -49,15 +50,15 @@ export default {
           type: type || this.threeType,
           configType: configType,
         }),
-      };
-      return threeContainer.getDiagram(data);
+      }
+      return threeContainer.getDiagram(data)
     },
     /**
      * 上传工艺流程图数据
      * @param {Object} info 工艺流程图数据对象
      * */
     uploadObj(data) {
-      threeContainer.emit(events.getDiagram, data);
+      threeContainer.emit(events.getDiagram, data)
     },
     /**
      * 根据数据展示工艺流程图信息
@@ -65,9 +66,9 @@ export default {
      * @private
      * */
     setDiagram({ info, amplification }) {
-      if (!info) return;
+      if (!info) return
       // this.changeDiv('three')
-      threeContainer.setDiagram({ info });
+      threeContainer.setDiagram({ info })
 
       if (amplification) {
         // setTimeout(() => {
@@ -87,7 +88,7 @@ export default {
      * @param {object} params - 类型参数
      */
     e(type, params) {
-      this.$emit('response', { type, params }, 'equipment');
+      this.$emit('response', { type, params }, 'equipment')
     },
 
     /**
@@ -95,7 +96,7 @@ export default {
      * @description 添加点光源
      */
     addPointLight(params) {
-      threeContainer.addPointLight(params);
+      threeContainer.addPointLight(params)
     },
 
     /**
@@ -103,14 +104,14 @@ export default {
      * @description 获取视角
      */
     getViewAngle() {
-      console.log(threeContainer.getViewAngle());
+      console.log(threeContainer.getViewAngle())
     },
 
     changeVisibleLabel(value) {
-      threeContainer.showLabels(value);
+      threeContainer.showLabels(value)
     },
     changeMointorVisibleLabel(value) {
-      threeContainer.showMonintorLabels(value);
+      threeContainer.showMonintorLabels(value)
     },
 
     /**
@@ -124,45 +125,45 @@ export default {
      * @description 飞行动画
      */
     flyTo(params) {
-      threeContainer.flyTo(params);
+      threeContainer.flyTo(params)
     },
     opacityTween(params) {
-      threeContainer.opacityTween(params);
+      threeContainer.opacityTween(params)
     },
     /**
      * @description 初始化管道
      * @param {Number} params.type 管道种类
      */
     initGuandao(params) {
-      threeContainer.initGuandao(params);
+      threeContainer.initGuandao(params)
     },
     /**
      * @description 初始化加载物体种类
      * @param {Number} params.type 物体种类
      */
     initLoad(params) {
-      threeContainer.initLoad(params);
+      threeContainer.initLoad(params)
     },
     deInit() {
-      threeContainer.deInit();
+      threeContainer.deInit()
     },
     changeDiv() {
-      const threeDiv = document.getElementById('three');
-      if (threeContainer) threeContainer.deInit();
-      threeDiv.style.display = 'block';
-      this.initThree();
+      const threeDiv = document.getElementById('three')
+      if (threeContainer) threeContainer.deInit()
+      threeDiv.style.display = 'block'
+      this.initThree()
     },
 
     initThree() {
       threeContainer = new ThreeContainer({
         upAxis: 'Z',
-      });
+      })
       threeContainer.on(events.clicked, data => {
-        this.e('clicked', data);
-        if (data.diagramId) this.$emit('setDiagramThree', data);
-      });
+        this.e('clicked', data)
+        if (data.diagramId) this.$emit('setDiagramThree', data)
+      })
       threeContainer.on(events.getDiagram, data => {
-        this.e('getDiagram', data);
+        this.e('getDiagram', data)
         // this.ajax(
         // 	this,
         // 	true,
@@ -175,15 +176,15 @@ export default {
         // 	() => {},
         // 	() => {},
         // )
-      });
-      threeContainer.init('three');
+      })
+      threeContainer.init('three')
     },
   },
   mounted() {
-    threeContainer = null;
-    this.changeDiv('three');
+    threeContainer = null
+    this.changeDiv('three')
   },
-};
+}
 </script>
 <style scoped lang="less">
 #three {
