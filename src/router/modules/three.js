@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:56:08
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-22 10:01:17
+ * @LastEditTime: 2022-08-03 14:04:54
  */
 export default [
   {
@@ -17,11 +17,19 @@ export default [
     children: [
       {
         path: 'water-model',
-        name: 'water-model-demo',
+        name: 'water-model',
         meta: {
           label: '水务模型',
         },
         component: loadView('three/WaterModel'),
+      },
+      {
+        path: 'water-model-new',
+        name: 'water-model-new',
+        meta: {
+          label: '水务模型-新',
+        },
+        component: loadView('three/WaterModelNew'),
       },
       {
         path: 'lesson1',
@@ -41,9 +49,9 @@ export default [
       },
     ],
   },
-];
+]
 
 function loadView(path) {
   return () =>
-    import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`);
+    import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`)
 }
