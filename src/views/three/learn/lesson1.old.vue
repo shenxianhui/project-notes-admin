@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-21 14:06:32
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-02 15:38:28
+ * @LastEditTime: 2022-08-04 16:03:35
 -->
 <template>
   <div class="admin-content">
@@ -22,6 +22,7 @@ import Stats from 'three/examples/jsm/libs/stats.module'
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 
 export default {
@@ -142,8 +143,15 @@ export default {
 
       // 加载 glb、gltf模型
       const loader = new GLTFLoader()
+
+      const dracoLoader = new DRACOLoader()
+      // dracoLoader.setDecoderPath('/static/draco/')
+      dracoLoader.setDecoderPath('/static/draco/')
+      loader.setDRACOLoader(dracoLoader)
+
       loader.load(
-        '/modules/st_happens/scene.gltf',
+        // '/modules/st_happens/scene.gltf',
+        '/modules/water-model/build1YNSCYQ.glb',
         gltf => {
           // gltf.scene.traverse(function(child) {
           //   if (child.isMesh) {

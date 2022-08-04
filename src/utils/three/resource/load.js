@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-02 16:35:19
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-02 17:01:09
+ * @LastEditTime: 2022-08-04 13:42:05
  */
 
 import * as THREE from 'three'
@@ -19,18 +19,18 @@ export default {
     const type = arr[arr.length - 1]
 
     if (type === 'glb' || type === 'gltf') {
-      this.GLTFLoader()
+      this.GLTFLoader(url)
     }
     if (type === 'fbx') {
-      this.FBXLoader()
+      this.FBXLoader(url)
     }
   },
 
   // 加载 glb、gltf模型
-  GLTFLoader() {
+  GLTFLoader(url) {
     const loader = new GLTFLoader()
     loader.load(
-      '/modules/st_happens/scene.gltf',
+      url,
       gltf => {
         // gltf.scene.traverse(function(child) {
         //   if (child.isMesh) {
@@ -49,10 +49,10 @@ export default {
   },
 
   // 加载 FBX 模型
-  FBXLoader() {
+  FBXLoader(url) {
     const loader = new FBXLoader()
 
-    loader.load('/modules/st-happens/source/egg.fbx', object => {
+    loader.load(url, object => {
       // 加载路径fbx文件
       console.log(object, 'object----->>>')
       object.traverse(child => {

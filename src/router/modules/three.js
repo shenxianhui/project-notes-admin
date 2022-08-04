@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:56:08
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-03 14:04:54
+ * @LastEditTime: 2022-08-04 14:23:22
  */
 export default [
   {
@@ -37,7 +37,7 @@ export default [
         meta: {
           label: '创建一个场景',
         },
-        component: loadView('three/learn/lesson1.vue'),
+        component: loadView('three/learn/lesson1.old.vue'),
       },
       {
         path: 'lesson2',

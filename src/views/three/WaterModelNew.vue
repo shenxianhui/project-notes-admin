@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 13:59:36
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-03 17:10:44
+ * @LastEditTime: 2022-08-04 16:04:04
 -->
 
 <template>
@@ -33,6 +33,9 @@ export default {
       ambientLight: null, // 环境光
       directionalLight: null, // 平行光
       Vector3: null, // 三维向量
+      dracoLoader: null, // 已压缩模型加载器
+      loader: null, // 加载器
+      animationFrame: null, // 动画
     }
   },
   computed: {},
@@ -52,8 +55,22 @@ export default {
       //   console.log('点击事件', evt)
       // })
 
-      // three.load('/modules/st_happens/scene.gltf')
       three.initThree('three')
+      this.getLoader()
+      three.getRendererDom()
+    },
+
+    getLoader() {
+      const context = require.context(
+        '../../../public/modules/water-model',
+        true,
+        /\.glb$/,
+      )
+      const files = context.keys().map(item => {
+        return item.replace(/^./, '/modules/water-model')
+      })
+
+      three.initLoader(files)
     },
   },
 }
