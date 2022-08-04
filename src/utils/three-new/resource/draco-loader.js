@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-04 14:34:17
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-04 15:51:25
+ * @LastEditTime: 2022-08-04 16:15:16
  */
 
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
@@ -23,7 +23,7 @@ export default {
    * @param {*} url 解压库文件路径
    * @return {*}
    */
-  setDRACOLoaderDecoderPath(url = '/static/draco/') {
+  setDRACOLoaderDecoderPath(url = '/utils/draco/') {
     this.dracoLoader.setDecoderPath(url)
   },
 }

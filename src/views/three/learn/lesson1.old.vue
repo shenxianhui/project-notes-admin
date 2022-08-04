@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-21 14:06:32
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-04 16:03:35
+ * @LastEditTime: 2022-08-04 16:15:12
 -->
 <template>
   <div class="admin-content">
@@ -145,8 +145,8 @@ export default {
       const loader = new GLTFLoader()
 
       const dracoLoader = new DRACOLoader()
-      // dracoLoader.setDecoderPath('/static/draco/')
-      dracoLoader.setDecoderPath('/static/draco/')
+      // dracoLoader.setDecoderPath('/utils/draco/')
+      dracoLoader.setDecoderPath('/utils/draco/')
       loader.setDRACOLoader(dracoLoader)
 
       loader.load(
