@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:50:26
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-03 17:27:45
+ * @LastEditTime: 2022-08-07 10:40:53
  */
 
 import * as THREE from 'three'
@@ -34,10 +34,9 @@ export default {
    * @return {*}
    */
   setDirectionalLightShadowMapSize(params = {}) {
-    this.directionalLight.mapSize = {
-      ...(this.directionalLight.mapSize || {}),
-      ...params,
-    }
+    Object.entries(params).forEach(item => {
+      this.directionalLight.shadow.mapSize[item[0]] = item[1]
+    })
   },
 
   /**

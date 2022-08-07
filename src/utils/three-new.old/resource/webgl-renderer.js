@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 14:44:27
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-03 17:28:26
+ * @LastEditTime: 2022-08-07 10:35:25
  */
 
 import * as THREE from 'three'
@@ -37,9 +37,8 @@ export default {
    * @return {*}
    */
   setRendererShadowMap(params = {}) {
-    this.renderer.shadowMap = {
-      ...(this.renderer.shadowMap || {}),
-      ...params,
-    }
+    Object.entries(params).forEach(item => {
+      this.renderer.shadowMap[item[0]] = item[1]
+    })
   },
 }

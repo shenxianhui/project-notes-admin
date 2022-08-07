@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-06 11:09:14
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-06 11:46:21
+ * @LastEditTime: 2022-08-07 10:49:59
 -->
 
 <template>
@@ -12,7 +12,9 @@
     id="three"
     ref="three"
     :style="{ width: width, height: height }"
-  ></div>
+  >
+    <div class="stats" id="stats"></div>
+  </div>
 </template>
 
 <script>
@@ -52,6 +54,7 @@ export default {
      */
     initThree() {
       three.container = document.getElementById('three')
+      three.statsContainer = document.getElementById('stats')
 
       /* 场景 */
       three.initScene()
@@ -94,8 +97,16 @@ export default {
       three.initGLTFLoader()
       three.initDRACOLoader()
 
-      /* 其他 */
+      /* 性能监测 */
+      three.initStats()
+      three.setStatsStyle()
+      console.log(three.statsContainer, three.stats)
+      three.statsContainer.appendChild(three.stats.domElement)
+
+      /* 动画 */
       this.animate()
+
+      /* 模型加载 */
       this.initLoader()
 
       three.container.appendChild(three.renderer.domElement)
@@ -147,6 +158,7 @@ export default {
      * @return {*}
      */
     render() {
+      three.stats.update()
       three.renderer.render(three.scene, three.camera)
     },
 
@@ -195,6 +207,8 @@ export default {
       cancelAnimationFrame(three.animationFrame) // 停止动画
 
       three.container = null // three 容器
+      three.statsContainer = null // 性能监测容器
+      three.stats = null // 性能监测
       three.scene = null // 场景
       three.renderer = null // 渲染器
       three.clock = null // 时间
@@ -214,4 +228,8 @@ export default {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.three {
+  position: relative;
+}
+</style>
