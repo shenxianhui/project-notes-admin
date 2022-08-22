@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-04 14:34:17
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-06 11:22:46
+ * @LastEditTime: 2022-08-22 11:22:45
  */
 
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
@@ -20,10 +20,10 @@ export default {
 
   /**
    * @description: 到包含 JS 和 WASM 解码器库的文件夹的路径
-   * @param {*} url 解压库文件路径 (注: 复制 node_modules/three/examples/js/libs/ 下的 draco 文件夹至 public/ 目录内)
+   * @param {*} url 解压库文件路径 (注: 复制 three/examples/js/libs/draco/gltf 至 public 目录内)
    * @return {*}
    */
-  setDRACOLoaderDecoderPath(url = '/utils/draco/') {
+  setDRACOLoaderDecoderPath(url = '/utils/gltf/') {
     this.dracoLoader.setDecoderPath(url)
   },
 }
