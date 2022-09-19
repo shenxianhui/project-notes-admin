@@ -5,8 +5,8 @@ module.exports = {
     index: {
       entry: './src/main.js',
       template: './public/index.html',
-      filename: 'index.html'
-    }
+      filename: 'index.html',
+    },
   },
   // eslint-loader 是否在保存的时候检查
   lintOnSave: false,
@@ -21,16 +21,16 @@ module.exports = {
     let pluginsWebpack = [
       // 使用ProvidePlugin加载的模块，需要在eslintrc.js的globals里设置
       new webpack.ProvidePlugin({
-        axios: 'axios'
-      })
+        axios: 'axios',
+      }),
     ];
     if (process.env.NODE_ENV === 'production') {
       // 生产环境
       // 使用DefinePlugin暴露的全局变量，需要在eslintrc.js的globals里设置
       pluginsWebpack.push(
         new webpack.DefinePlugin({
-          __PROJECTPATH__: JSON.stringify('')
-        })
+          __PROJECTPATH__: JSON.stringify(''),
+        }),
       );
       // gzip压缩
       const CompressionWebpackPlugin = require('compression-webpack-plugin');
@@ -41,15 +41,15 @@ module.exports = {
           test: /\.js$|\.html$|\.css/, // 压缩 js html css
           threshold: 10240, // 资源文件大于10240B=10kB时会被压缩
           minRatio: 0.8, // 最小压缩比达到0.8时才会被压缩
-          deleteOriginalAssets: false // 删除原文件
-        })
+          deleteOriginalAssets: false, // 删除原文件
+        }),
       );
     } else {
       // 开发环境
       pluginsWebpack.push(
         new webpack.DefinePlugin({
-          __PROJECTPATH__: JSON.stringify('/test')
-        })
+          __PROJECTPATH__: JSON.stringify('/test'),
+        }),
       );
     }
     config.plugins = [...config.plugins, ...pluginsWebpack];
@@ -67,9 +67,9 @@ module.exports = {
         // 这样服务端和服务端进行数据的交互就不会有跨域问题
         changeOrigin: true,
         pathRewrite: {
-          '^/test': ''
-        }
-      }
-    }
-  }
+          '^/test': '',
+        },
+      },
+    },
+  },
 };

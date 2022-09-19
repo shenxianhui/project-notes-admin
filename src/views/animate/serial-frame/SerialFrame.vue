@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2021-07-07 10:41:02
  * @LastEditors: shenxh
- * @LastEditTime: 2021-07-07 17:12:44
+ * @LastEditTime: 2022-09-19 13:44:09
  * @Description: 序列帧
 -->
 
@@ -30,12 +30,12 @@ const framesUrl1 = require
 export default {
   name: 'serial-frame',
   components: {
-    FrameAnimation
+    FrameAnimation,
   },
   props: {},
   data() {
     return {
-      framesUrl1
+      framesUrl1,
     };
   },
   computed: {},
@@ -43,7 +43,7 @@ export default {
   created() {},
   mounted() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {},
 };
 </script>
 

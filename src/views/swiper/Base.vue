@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:53:50
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-23 11:50:25
+ * @LastEditTime: 2022-09-19 13:48:08
  * @Description: Swiper-基础
 -->
 
@@ -11,7 +11,11 @@
     <div class="swiper-wrap">
       <!-- 横向滚动 -->
       <div class="swiper-item">
-        <xx-swiper ref="swiper-horizontal" :swiper-data="swiperData" @slide-change="slideChangeHor">
+        <xx-swiper
+          ref="swiper-horizontal"
+          :swiper-data="swiperData"
+          @slide-change="slideChangeHor"
+        >
           <template v-slot="{ item, index }">
             <div
               class="swiper-item-content"
@@ -57,7 +61,7 @@
             :options="{
               slidesPerView: 1,
               centeredSlides: false,
-              loop: false
+              loop: false,
             }"
             @slide-change="slideChangeThumbs"
           >
@@ -90,7 +94,7 @@
               autoplay: false,
               loop: false,
               mousewheel: true,
-              speed: 0
+              speed: 0,
             }"
           >
             <template v-slot="{ item, index }">
@@ -99,7 +103,7 @@
                 :class="{
                   'bg-lightblue': item.value % 2 === 0,
                   'bg-lightcoral': item.value % 2 === 1,
-                  'bg-lightyellow': index === thumbsMainIdx
+                  'bg-lightyellow': index === thumbsMainIdx,
                 }"
                 @click="handleSwiperSider(item, index)"
               >
@@ -119,14 +123,14 @@ import XxSwiper from '@/components/swiper';
 export default {
   name: 'swiper',
   components: {
-    XxSwiper
+    XxSwiper,
   },
   props: {},
   data() {
     return {
       realIndex: 0,
       thumbsMainIdx: 0,
-      thumbsSiderIdx: 0
+      thumbsSiderIdx: 0,
     };
   },
   computed: {
@@ -136,12 +140,12 @@ export default {
       for (let i = 1; i <= 20; i++) {
         arr.push({
           label: `slider${i}`,
-          value: i
+          value: i,
         });
       }
 
       return arr;
-    }
+    },
   },
   watch: {},
   created() {},
@@ -159,8 +163,8 @@ export default {
       this.thumbsSiderIdx = index;
       this.$refs['swiper-thumbs'].slideTo(index);
       this.$refs['swiper-sider'].slideTo(index - 1);
-    }
-  }
+    },
+  },
 };
 </script>
 

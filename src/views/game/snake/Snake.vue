@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2019-04-25 08:30:57
  * @LastEditors: shenxh
- * @LastEditTime: 2020-09-24 09:34:33
+ * @LastEditTime: 2022-09-19 13:46:10
  * @Description: 贪吃蛇
  -->
 <template>
@@ -29,19 +29,19 @@ export default {
       // 尺寸
       snakeParts: {
         width: 20,
-        height: 20
+        height: 20,
       },
       // 蛇头位置
       initialPosition: {
         left: 40,
-        top: 0
+        top: 0,
       },
       food: null, // 食物
       // 食物位置
       foodPosition: {
         left: 0,
-        top: 0
-      }
+        top: 0,
+      },
     };
   },
   computed: {},
@@ -69,7 +69,7 @@ export default {
       }
       this.initialPosition = {
         left: 40,
-        top: 0
+        top: 0,
       };
       this.snake = this.snakeList = [];
       this.$refs.map.innerHTML = '';
@@ -84,8 +84,13 @@ export default {
       let map = this.$refs.map;
       let snakeW = this.snakeParts.width;
       let snakeH = this.snakeParts.height;
-      let borderX = (map.clientWidth - Math.floor(map.clientWidth / snakeW) * snakeW) / 2 + 'px';
-      let borderY = (map.clientHeight - Math.floor(map.clientHeight / snakeH) * snakeH) / 2 + 'px';
+      let borderX =
+        (map.clientWidth - Math.floor(map.clientWidth / snakeW) * snakeW) / 2 +
+        'px';
+      let borderY =
+        (map.clientHeight - Math.floor(map.clientHeight / snakeH) * snakeH) /
+          2 +
+        'px';
 
       this.$refs.snake.style.padding = borderY + ' ' + borderX;
     },
@@ -96,7 +101,8 @@ export default {
         let item = document.createElement('span');
         item.style.position = 'absolute';
         item.style.top = '0px';
-        item.style.left = this.initialPosition.left - i * this.snakeParts.width + 'px';
+        item.style.left =
+          this.initialPosition.left - i * this.snakeParts.width + 'px';
         item.style.display = 'inline-block';
         item.style.width = this.snakeParts.width + 'px';
         item.style.height = this.snakeParts.height + 'px';
@@ -110,7 +116,10 @@ export default {
     // 移动
     snakeMove(isAlert) {
       // 判断蛇头是否能吃到食物
-      if (JSON.stringify(this.initialPosition) === JSON.stringify(this.foodPosition)) {
+      if (
+        JSON.stringify(this.initialPosition) ===
+        JSON.stringify(this.foodPosition)
+      ) {
         // 将食物放到蛇尾位置
         if (!this.food) return;
         this.snake.push(this.food);
@@ -129,7 +138,7 @@ export default {
         // 记录蛇的区域
         let snakePosition = {
           left: this.snake[i].offsetLeft,
-          top: this.snake[i].offsetTop
+          top: this.snake[i].offsetTop,
         };
         this.snakeList.push(snakePosition);
       }
@@ -204,9 +213,13 @@ export default {
       let snakeW = this.snakeParts.width;
       let snakeH = this.snakeParts.height;
       let randomL =
-        Math.floor((Math.random() * (this.$refs.map.offsetWidth - snakeW)) / snakeW) * snakeW;
+        Math.floor(
+          (Math.random() * (this.$refs.map.offsetWidth - snakeW)) / snakeW,
+        ) * snakeW;
       let randomT =
-        Math.floor((Math.random() * (this.$refs.map.offsetHeight - snakeH)) / snakeH) * snakeH;
+        Math.floor(
+          (Math.random() * (this.$refs.map.offsetHeight - snakeH)) / snakeH,
+        ) * snakeH;
       let item = document.createElement('span');
       let str = '#';
       for (let i = 0; i < 6; i++) {
@@ -229,7 +242,13 @@ export default {
 
     // 键盘事件
     keyboard(e) {
-      if (e.keyCode !== 37 && e.keyCode !== 38 && e.keyCode !== 39 && e.keyCode !== 40) return;
+      if (
+        e.keyCode !== 37 &&
+        e.keyCode !== 38 &&
+        e.keyCode !== 39 &&
+        e.keyCode !== 40
+      )
+        return;
       let _keyNumber = this.keyNumber;
       // 禁止直上直下, 直左直右
       if (_keyNumber === 37 && e.keyCode === 39) return;
@@ -248,8 +267,8 @@ export default {
       timer = setInterval(() => {
         this.snakeMove(true);
       }, 100);
-    }
-  }
+    },
+  },
 };
 </script>
 
