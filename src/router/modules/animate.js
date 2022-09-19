@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-05-01 18:28:06
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-19 13:56:50
+ * @LastEditTime: 2022-09-19 14:10:12
  * @Description: Animate
  */
 
@@ -39,6 +39,14 @@ export default [
           label: '媒体文件',
         },
         component: loadView('animate/media-file/MediaFile'),
+      },
+      {
+        path: 'line',
+        name: 'line',
+        meta: {
+          label: '线',
+        },
+        component: loadView('animate/line/Line'),
       },
     ],
   },
