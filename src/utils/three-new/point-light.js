@@ -3,10 +3,10 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:28:59
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-03 16:49:00
+ * @LastEditTime: 2022-09-19 16:01:03
  */
 
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 export default {
   /**
@@ -18,7 +18,7 @@ export default {
    * @return {*}
    */
   initPointLight(color, intensity, distance, decay) {
-    this.pointLight = new THREE.PointLight(color, intensity, distance, decay)
+    this.pointLight = new THREE.PointLight(color, intensity, distance, decay);
   },
 
   /**
@@ -29,6 +29,6 @@ export default {
    * @return {*}
    */
   setPointLightPosition(x, y, z) {
-    this.pointLight.position.set(x, y, z) // 点光源位置
+    this.pointLight.position.set(x, y, z); // 点光源位置
   },
-}
+};

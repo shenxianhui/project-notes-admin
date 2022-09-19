@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-08-03 17:11:08
  */
 
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 export default {
   /**
@@ -17,6 +17,6 @@ export default {
    * @return {*}
    */
   initVector3() {
-    this.Vector3 = new THREE.Vector3()
+    this.Vector3 = new THREE.Vector3();
   },
-}
+};

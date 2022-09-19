@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-08-03 16:22:58
  */
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export default {
   /**
@@ -16,7 +16,7 @@ export default {
    * @return {*}
    */
   initOrbitControls(object, domElement) {
-    this.controls = new OrbitControls(object, domElement)
+    this.controls = new OrbitControls(object, domElement);
   },
 
   /**
@@ -26,8 +26,8 @@ export default {
    * @return {*}
    */
   setOrbitControlsZoom(min, max) {
-    min && (this.controls.minZoom = min)
-    max && (this.controls.maxZoom = max)
+    min && (this.controls.minZoom = min);
+    max && (this.controls.maxZoom = max);
   },
 
   /**
@@ -37,7 +37,7 @@ export default {
    * @return {*}
    */
   setOrbitControlsPolarAngle(min, max) {
-    min && (this.controls.minPolarAngle = min)
-    max && (this.controls.maxPolarAngle = max)
+    min && (this.controls.minPolarAngle = min);
+    max && (this.controls.maxPolarAngle = max);
   },
-}
+};

@@ -3,10 +3,10 @@
  * @Author: shenxh
  * @Date: 2022-08-04 09:15:01
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-04 13:37:37
+ * @LastEditTime: 2022-09-19 16:00:51
  */
 
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 export default {
   /**
@@ -15,7 +15,7 @@ export default {
    * @return {*}
    */
   initGLTFLoader(manager) {
-    this.loader = new GLTFLoader(manager)
+    this.loader = new GLTFLoader(manager);
   },
 
   /**
@@ -27,6 +27,6 @@ export default {
    * @return {*}
    */
   getGLTFLoaderLoad(url, onLoad, onProgress, onError) {
-    this.loader.load(url, onLoad, onProgress, onError)
+    this.loader.load(url, onLoad, onProgress, onError);
   },
-}
+};

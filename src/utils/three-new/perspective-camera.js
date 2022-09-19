@@ -3,10 +3,10 @@
  * @Author: shenxh
  * @Date: 2022-08-03 15:19:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-03 15:55:14
+ * @LastEditTime: 2022-09-19 16:01:01
  */
 
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 export default {
   /**
@@ -18,7 +18,7 @@ export default {
    * @return {*}
    */
   initPerspectiveCamera(fov, aspect, near, far) {
-    this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
+    this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
   },
 
   /**
@@ -29,7 +29,7 @@ export default {
    * @return {*}
    */
   setPerspectiveCameraPosition(x, y, z) {
-    this.camera.position.set(x, y, z)
+    this.camera.position.set(x, y, z);
   },
 
   /**
@@ -38,6 +38,6 @@ export default {
    * @return {*}
    */
   setPerspectiveCameraLookAt(vector3) {
-    this.camera.lookAt(vector3)
+    this.camera.lookAt(vector3);
   },
-}
+};

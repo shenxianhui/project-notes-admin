@@ -3,10 +3,10 @@
  * @Author: shenxh
  * @Date: 2022-08-03 15:58:04
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-03 16:43:17
+ * @LastEditTime: 2022-09-19 16:00:41
  */
 
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 export default {
   /**
@@ -15,6 +15,6 @@ export default {
    * @return {*}
    */
   initAxesHelper(size) {
-    this.axesHelper = new THREE.AxesHelper(size)
+    this.axesHelper = new THREE.AxesHelper(size);
   },
-}
+};

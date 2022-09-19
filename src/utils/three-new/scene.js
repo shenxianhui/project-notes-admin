@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-08-03 15:17:09
  */
 
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 export default {
   /**
@@ -15,6 +15,6 @@ export default {
    * @return {*}
    */
   initScene(params = {}) {
-    this.scene = new THREE.Scene(params)
+    this.scene = new THREE.Scene(params);
   },
-}
+};

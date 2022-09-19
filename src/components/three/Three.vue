@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-06 11:09:14
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-07 10:49:59
+ * @LastEditTime: 2022-09-19 16:12:16
 -->
 
 <template>
@@ -18,8 +18,10 @@
 </template>
 
 <script>
-import * as THREE from 'three'
-import three from '@/utils/three-new'
+import * as THREE from 'three';
+import Three from '@/utils/three-new';
+
+let three = null;
 
 export default {
   name: 'three',
@@ -35,16 +37,16 @@ export default {
     },
   },
   data() {
-    return {}
+    return {};
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {
-    this.initThree()
+    this.initThree();
   },
   beforeDestroy() {
-    this.clearThree()
+    this.clearThree();
   },
   methods: {
     /**
@@ -53,63 +55,62 @@ export default {
      * @return {*}
      */
     initThree() {
-      three.container = document.getElementById('three')
-      three.statsContainer = document.getElementById('stats')
+      if (!three) three = new Three('three');
 
       /* 场景 */
-      three.initScene()
+      three.initScene();
 
       /* 渲染器 */
       three.initWebGLRenderer({
         antialias: true, // 抗锯齿
-      })
-      three.setRendererSize()
+      });
+      three.setRendererSize();
       three.setRendererShadowMap({
         type: THREE.PCFSoftShadowMap, // 定义阴影贴图类型
-      })
+      });
 
       /* 相机 */
-      const { clientWidth, clientHeight } = three.container
-      const clientScale = clientWidth / clientHeight
+      const { clientWidth, clientHeight } = three.container;
+      const clientScale = clientWidth / clientHeight;
 
-      three.initPerspectiveCamera(75, clientScale, 0.1, 1000)
-      three.setPerspectiveCameraPosition(10, 20, 40)
-      three.setPerspectiveCameraLookAt(three.scene.position)
+      three.initPerspectiveCamera(75, clientScale, 0.1, 1000);
+      three.setPerspectiveCameraPosition(10, 20, 40);
+      three.setPerspectiveCameraLookAt(three.scene.position);
 
       /* 时间 */
-      three.initClock()
+      three.initClock();
 
       /* 坐标轴 */
-      three.initAxesHelper(20)
-      three.scene.add(three.axesHelper)
+      three.initAxesHelper(20);
+      three.scene.add(three.axesHelper);
 
       /* 坐标格 */
-      three.initGridHelper(200, 40, 0xf0f, 0xff000020)
-      three.scene.add(three.gridHelper)
+      three.initGridHelper(200, 40, 0xf0f, 0xff000020);
+      three.scene.add(three.gridHelper);
 
       /* 轨道控制器 */
-      three.initOrbitControls(three.camera, three.container)
+      three.initOrbitControls(three.camera, three.container);
 
       /* 光 */
-      this.initLight()
+      this.initLight();
 
       /* 加载器 */
-      three.initGLTFLoader()
-      three.initDRACOLoader()
+      three.initGLTFLoader();
+      three.initDRACOLoader();
 
       /* 性能监测 */
-      three.initStats()
-      three.setStatsStyle()
-      console.log(three.statsContainer, three.stats)
-      three.statsContainer.appendChild(three.stats.domElement)
+      three.initStats('stats', (stats, statsContainer) => {
+        statsContainer.appendChild(three.stats.domElement);
+      });
+      three.setStatsStyle();
 
       /* 动画 */
-      this.animate()
+      this.animate();
 
       /* 模型加载 */
-      this.initLoader()
+      this.initLoader();
 
-      three.container.appendChild(three.renderer.domElement)
+      three.container.appendChild(three.renderer.domElement);
     },
 
     /**
@@ -118,16 +119,16 @@ export default {
      */
     initLight() {
       // 点光源
-      three.initPointLight(0xffffff)
-      three.setPointLightPosition(500, 300, 400)
-      three.scene.add(three.pointLight)
+      three.initPointLight(0xffffff);
+      three.setPointLightPosition(500, 300, 400);
+      three.scene.add(three.pointLight);
 
       // 环境光
-      three.initAmbientLight(0x404040)
-      three.scene.add(three.ambientLight)
+      three.initAmbientLight(0x404040);
+      three.scene.add(three.ambientLight);
 
       // 平行光 (阳光)
-      three.initDirectionalLight(0xffffff, 0.5)
+      three.initDirectionalLight(0xffffff, 0.5);
       three.setDirectionalLightShadowCamera({
         near: 1,
         far: 400,
@@ -135,12 +136,12 @@ export default {
         right: -50,
         top: 20,
         bottom: -50,
-      })
+      });
       three.setDirectionalLightShadowMapSize({
         width: 1024,
         height: 1024,
-      })
-      three.scene.add(three.directionalLight)
+      });
+      three.scene.add(three.directionalLight);
     },
 
     /**
@@ -148,9 +149,9 @@ export default {
      * @return {*}
      */
     animate() {
-      three.animationFrame = requestAnimationFrame(this.animate.bind(three))
+      three.animationFrame = requestAnimationFrame(this.animate.bind(three));
 
-      this.render()
+      this.render();
     },
 
     /**
@@ -158,8 +159,8 @@ export default {
      * @return {*}
      */
     render() {
-      three.stats.update()
-      three.renderer.render(three.scene, three.camera)
+      three.stats.update();
+      three.renderer.render(three.scene, three.camera);
     },
 
     /**
@@ -172,31 +173,31 @@ export default {
         '../../../public/modules/water-model',
         true,
         /\.glb$/,
-      )
+      );
       const urlList = context.keys().map(item => {
-        return item.replace(/^./, '/modules/water-model')
-      })
+        return item.replace(/^./, '/modules/water-model');
+      });
 
       urlList.forEach(item => {
-        const arr = item.split('.')
-        const type = arr[arr.length - 1].toLocaleLowerCase()
+        const arr = item.split('.');
+        const type = arr[arr.length - 1].toLocaleLowerCase();
 
         if (type === 'glb' || type === 'gltf') {
-          three.setDRACOLoaderDecoderPath()
-          three.loader.setDRACOLoader(three.dracoLoader)
+          three.setDRACOLoaderDecoderPath();
+          three.loader.setDRACOLoader(three.dracoLoader);
 
           three.getGLTFLoaderLoad(
             item,
             gltf => {
-              three.scene.add(gltf.scene)
+              three.scene.add(gltf.scene);
             },
             undefined,
             error => {
-              console.error(error)
+              console.error(error);
             },
-          )
+          );
         }
-      })
+      });
     },
 
     /**
@@ -204,28 +205,28 @@ export default {
      * @return {*}
      */
     clearThree() {
-      cancelAnimationFrame(three.animationFrame) // 停止动画
+      cancelAnimationFrame(three.animationFrame); // 停止动画
 
-      three.container = null // three 容器
-      three.statsContainer = null // 性能监测容器
-      three.stats = null // 性能监测
-      three.scene = null // 场景
-      three.renderer = null // 渲染器
-      three.clock = null // 时间
-      three.camera = null // 相机
-      three.axesHelper = null // 坐标轴
-      three.gridHelper = null // 坐标格
-      three.controls = null // 轨道控制器
-      three.pointLight = null // 点光源
-      three.ambientLight = null // 环境光
-      three.directionalLight = null // 平行光
-      three.Vector3 = null // 三维向量
-      three.dracoLoader = null // 已压缩模型加载器
-      three.loader = null // 加载器
-      three.animationFrame = null // 动画
+      three.container = null; // three 容器
+      three.statsContainer = null; // 性能监测容器
+      three.stats = null; // 性能监测
+      three.scene = null; // 场景
+      three.renderer = null; // 渲染器
+      three.clock = null; // 时间
+      three.camera = null; // 相机
+      three.axesHelper = null; // 坐标轴
+      three.gridHelper = null; // 坐标格
+      three.controls = null; // 轨道控制器
+      three.pointLight = null; // 点光源
+      three.ambientLight = null; // 环境光
+      three.directionalLight = null; // 平行光
+      three.Vector3 = null; // 三维向量
+      three.dracoLoader = null; // 已压缩模型加载器
+      three.loader = null; // 加载器
+      three.animationFrame = null; // 动画
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>

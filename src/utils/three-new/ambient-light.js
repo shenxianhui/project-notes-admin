@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-08-06 11:07:33
  */
 
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 export default {
   /**
@@ -16,6 +16,6 @@ export default {
    * @return {*}
    */
   initAmbientLight(color, intensity) {
-    this.ambientLight = new THREE.AmbientLight(color, intensity)
+    this.ambientLight = new THREE.AmbientLight(color, intensity);
   },
-}
+};

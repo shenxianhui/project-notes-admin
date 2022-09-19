@@ -3,10 +3,10 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:05:02
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-03 16:44:43
+ * @LastEditTime: 2022-09-19 16:00:58
  */
 
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 export default {
   /**
@@ -23,6 +23,6 @@ export default {
       divisions,
       colorCenterLine,
       colorGrid,
-    )
+    );
   },
-}
+};

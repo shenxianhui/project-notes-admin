@@ -3,10 +3,10 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:50:26
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-07 10:40:32
+ * @LastEditTime: 2022-09-19 16:00:45
  */
 
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 export default {
   /**
@@ -16,7 +16,7 @@ export default {
    * @return {*}
    */
   initDirectionalLight(color, intensity) {
-    this.directionalLight = new THREE.DirectionalLight(color, intensity)
+    this.directionalLight = new THREE.DirectionalLight(color, intensity);
   },
 
   /**
@@ -25,7 +25,7 @@ export default {
    * @return {*}
    */
   setDirectionalLightShadowCamera(params = {}) {
-    Object.assign(this.directionalLight.shadow, params)
+    Object.assign(this.directionalLight.shadow, params);
   },
 
   /**
@@ -35,8 +35,8 @@ export default {
    */
   setDirectionalLightShadowMapSize(params = {}) {
     Object.entries(params).forEach(item => {
-      this.directionalLight.shadow.mapSize[item[0]] = item[1]
-    })
+      this.directionalLight.shadow.mapSize[item[0]] = item[1];
+    });
   },
 
   /**
@@ -47,6 +47,6 @@ export default {
    * @return {*}
    */
   setDirectionalLightPosition(x, y, z) {
-    this.directionalLight.position.set(x, y, z)
+    this.directionalLight.position.set(x, y, z);
   },
-}
+};

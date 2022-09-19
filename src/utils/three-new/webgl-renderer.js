@@ -3,10 +3,10 @@
  * @Author: shenxh
  * @Date: 2022-08-03 14:44:27
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-07 10:34:27
+ * @LastEditTime: 2022-09-19 16:01:08
  */
 
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 export default {
   /**
@@ -15,7 +15,7 @@ export default {
    * @return {*}
    */
   initWebGLRenderer(params = {}) {
-    this.renderer = new THREE.WebGLRenderer(params)
+    this.renderer = new THREE.WebGLRenderer(params);
   },
 
   /**
@@ -28,7 +28,7 @@ export default {
     this.renderer.setSize(
       width || this.container.clientWidth,
       height || this.container.clientHeight,
-    )
+    );
   },
 
   /**
@@ -38,7 +38,7 @@ export default {
    */
   setRendererShadowMap(params = {}) {
     Object.entries(params).forEach(item => {
-      this.renderer.shadowMap[item[0]] = item[1]
-    })
+      this.renderer.shadowMap[item[0]] = item[1];
+    });
   },
-}
+};

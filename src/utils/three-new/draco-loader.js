@@ -3,10 +3,10 @@
  * @Author: shenxh
  * @Date: 2022-08-04 14:34:17
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-22 11:22:45
+ * @LastEditTime: 2022-09-19 16:00:48
  */
 
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 export default {
   /**
@@ -15,7 +15,7 @@ export default {
    * @return {*}
    */
   initDRACOLoader() {
-    this.dracoLoader = new DRACOLoader()
+    this.dracoLoader = new DRACOLoader();
   },
 
   /**
@@ -24,6 +24,6 @@ export default {
    * @return {*}
    */
   setDRACOLoaderDecoderPath(url = '/utils/gltf/') {
-    this.dracoLoader.setDecoderPath(url)
+    this.dracoLoader.setDecoderPath(url);
   },
-}
+};

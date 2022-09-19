@@ -3,18 +3,21 @@
  * @Author: shenxh
  * @Date: 2022-08-07 10:07:07
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-07 10:44:27
+ * @LastEditTime: 2022-09-19 16:12:13
  */
 
-import Stats from 'three/examples/jsm/libs/stats.module'
+import Stats from 'three/examples/jsm/libs/stats.module';
 
 export default {
   /**
    * @description: 初始化
    * @return {*}
    */
-  initStats() {
-    this.stats = new Stats()
+  initStats(id, fn) {
+    this.statsContainer = document.getElementById(id);
+    this.stats = new Stats();
+
+    fn && fn(this.stats, this.statsContainer);
   },
 
   /**
@@ -23,7 +26,7 @@ export default {
    * @return {*}
    */
   setStatsShowPanel(type = 0) {
-    this.stats.showPanel(type)
+    this.stats.showPanel(type);
   },
 
   /**
@@ -37,7 +40,7 @@ export default {
     },
   ) {
     Object.entries(params).forEach(item => {
-      this.stats.domElement.style[item[0]] = item[1]
-    })
+      this.stats.domElement.style[item[0]] = item[1];
+    });
   },
-}
+};

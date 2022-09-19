@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-08-03 15:15:26
  */
 
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 export default {
   /**
@@ -15,6 +15,6 @@ export default {
    * @return {*}
    */
   initClock(params = {}) {
-    this.clock = new THREE.Clock(params)
+    this.clock = new THREE.Clock(params);
   },
-}
+};
