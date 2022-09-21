@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-06 11:09:14
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-19 16:12:16
+ * @LastEditTime: 2022-09-21 17:25:45
 -->
 
 <template>
@@ -58,7 +58,9 @@ export default {
       if (!three) three = new Three('three');
 
       /* 场景 */
-      three.initScene();
+      three.initScene({}, scene => {
+        scene.background = new THREE.Color(0xf0f0f0);
+      });
 
       /* 渲染器 */
       three.initWebGLRenderer({
@@ -189,7 +191,11 @@ export default {
           three.getGLTFLoaderLoad(
             item,
             gltf => {
+              gltf.scene.scale.set(0.01, 0.01, 0.01);
               three.scene.add(gltf.scene);
+              // if (item.indexOf('build1YNSCYQ') !== -1) {
+              //   three.scene.add(gltf.scene);
+              // }
             },
             undefined,
             error => {

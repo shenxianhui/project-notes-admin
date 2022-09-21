@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:56:08
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-04 14:23:22
+ * @LastEditTime: 2022-09-19 16:18:17
  */
 export default [
   {
@@ -47,11 +47,19 @@ export default [
         },
         component: loadView('three/learn/lesson2.vue'),
       },
+      {
+        path: 'water-works',
+        name: 'water-works',
+        meta: {
+          label: '水厂',
+        },
+        component: loadView('three/WaterWorks.vue'),
+      },
     ],
   },
-]
+];
 
 function loadView(path) {
   return () =>
-    import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`)
+    import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`);
 }

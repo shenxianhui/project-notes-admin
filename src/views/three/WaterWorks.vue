@@ -3,17 +3,23 @@
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-19 15:11:01
+ * @LastEditTime: 2022-09-19 16:31:59
 -->
 
 <template>
-  <div class="water-works">New page</div>
+  <div class="water-works admin-content">
+    <three width="100%" height="100%"></three>
+  </div>
 </template>
 
 <script>
+import Three from '@/components/three';
+
 export default {
   name: 'water-works',
-  components: {},
+  components: {
+    Three,
+  },
   props: {},
   data() {
     return {};
