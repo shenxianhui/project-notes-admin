@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:56:08
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-19 16:18:17
+ * @LastEditTime: 2022-09-22 08:34:10
  */
 export default [
   {
@@ -48,12 +48,12 @@ export default [
         component: loadView('three/learn/lesson2.vue'),
       },
       {
-        path: 'water-works',
-        name: 'water-works',
+        path: 'water-works-yq',
+        name: 'water-works-yq',
         meta: {
-          label: '水厂',
+          label: '水厂 (乐清)',
         },
-        component: loadView('three/WaterWorks.vue'),
+        component: loadView('three/WaterWorksYQ.vue'),
       },
     ],
   },
