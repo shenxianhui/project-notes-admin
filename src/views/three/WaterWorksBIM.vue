@@ -1,28 +1,28 @@
 <!--
- * @Description: [Demo]水务模型-新
+ * @Description: 水厂-BIM
  * @Author: shenxh
- * @Date: 2022-08-06 11:08:14
+ * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-06 11:34:38
+ * @LastEditTime: 2022-09-22 09:16:06
 -->
 
 <template>
-  <div class="water-model-new admin-content">
+  <div class="water-works-bim admin-content">
     <three width="100%" height="100%"></three>
   </div>
 </template>
 
 <script>
-import Three from '@/components/three'
+import Three from '@/components/three';
 
 export default {
-  name: 'water-model-new',
+  name: 'water-works-bim',
   components: {
     Three,
   },
   props: {},
   data() {
-    return {}
+    return {};
   },
   computed: {},
   watch: {},
@@ -30,7 +30,7 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {},
-}
+};
 </script>
 
 <style lang="less" scoped></style>

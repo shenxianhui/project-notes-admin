@@ -18,40 +18,40 @@
 </template>
 
 <script>
-import Three from '@/utils/three'
-import events from '@/utils/three/enum/events'
+import Three from '@/utils/three';
+import events from '@/utils/three/enum/events';
 
-let three = null
+let three = null;
 
 export default {
   name: '',
   components: {},
   props: {},
   data() {
-    return {}
+    return {};
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {
-    this.initThree()
+    this.initThree();
   },
   beforeDestroy() {},
   methods: {
     // 初始化
     initThree() {
-      three = new Three()
+      three = new Three();
 
       // 点击事件
       three.on(events.clicked, evt => {
-        console.log('点击事件', evt)
-      })
+        console.log('点击事件', evt);
+      });
 
-      three.load('/modules/st_happens/scene.gltf')
-      three.init('three')
+      three.load('/modules/st_happens/scene.gltf');
+      three.init('three');
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>

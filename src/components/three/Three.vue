@@ -3,13 +3,13 @@
  * @Author: shenxh
  * @Date: 2022-08-06 11:09:14
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-21 17:25:45
+ * @LastEditTime: 2022-09-22 09:32:14
 -->
 
 <template>
   <div
     class="three"
-    id="three"
+    :id="id"
     ref="three"
     :style="{ width: width, height: height }"
   >
@@ -19,7 +19,7 @@
 
 <script>
 import * as THREE from 'three';
-import Three from '@/utils/three-new';
+import Three from './utils';
 
 let three = null;
 
@@ -27,6 +27,10 @@ export default {
   name: 'three',
   components: {},
   props: {
+    id: {
+      type: String,
+      default: '$_three',
+    },
     width: {
       type: String,
       default: '500px',
@@ -55,7 +59,7 @@ export default {
      * @return {*}
      */
     initThree() {
-      if (!three) three = new Three('three');
+      if (!three) three = new Three(this.id);
 
       /* 场景 */
       three.initScene({}, scene => {
@@ -230,6 +234,7 @@ export default {
       three.dracoLoader = null; // 已压缩模型加载器
       three.loader = null; // 加载器
       three.animationFrame = null; // 动画
+      three = null;
     },
   },
 };

@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:56:08
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-22 08:34:10
+ * @LastEditTime: 2022-09-22 09:34:16
  */
 export default [
   {
@@ -22,14 +22,6 @@ export default [
           label: '水务模型',
         },
         component: loadView('three/WaterModel'),
-      },
-      {
-        path: 'water-model-new',
-        name: 'water-model-new',
-        meta: {
-          label: '水务模型-新',
-        },
-        component: loadView('three/WaterModelNew'),
       },
       {
         path: 'lesson1',
@@ -54,6 +46,14 @@ export default [
           label: '水厂 (乐清)',
         },
         component: loadView('three/WaterWorksYQ.vue'),
+      },
+      {
+        path: 'water-works-bim',
+        name: 'water-works-bim',
+        meta: {
+          label: '水厂 (BIM)',
+        },
+        component: loadView('three/WaterWorksBIM.vue'),
       },
     ],
   },
