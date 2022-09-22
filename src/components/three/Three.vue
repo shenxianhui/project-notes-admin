@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-06 11:09:14
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-22 09:32:14
+ * @LastEditTime: 2022-09-22 09:49:00
 -->
 
 <template>
@@ -114,7 +114,8 @@ export default {
       this.animate();
 
       /* 模型加载 */
-      this.initLoader();
+      // this.initLoader();
+      this.$emit('loader-modules', three);
 
       three.container.appendChild(three.renderer.domElement);
     },
@@ -197,9 +198,6 @@ export default {
             gltf => {
               gltf.scene.scale.set(0.01, 0.01, 0.01);
               three.scene.add(gltf.scene);
-              // if (item.indexOf('build1YNSCYQ') !== -1) {
-              //   three.scene.add(gltf.scene);
-              // }
             },
             undefined,
             error => {
