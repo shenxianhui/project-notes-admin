@@ -3,18 +3,26 @@
  * @Author: shenxh
  * @Date: 2022-08-04 09:15:01
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-19 16:00:51
+ * @LastEditTime: 2022-09-23 15:54:35
  */
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 export default {
   /**
-   * @description: GLTF加载器初始化
+   * @description: 初始化
+   * @return {*}
+   */
+  initGLTFLoader() {
+    this.createGLTFLoader();
+  },
+
+  /**
+   * @description: 创建GLTF加载器
    * @param {*} manager 该加载器将要使用的 loadingManager 。默认为 THREE.DefaultLoadingManager
    * @return {*}
    */
-  initGLTFLoader(manager) {
+  createGLTFLoader(manager) {
     this.loader = new GLTFLoader(manager);
   },
 

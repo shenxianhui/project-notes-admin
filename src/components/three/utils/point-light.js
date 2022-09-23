@@ -3,21 +3,31 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:28:59
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-19 16:01:03
+ * @LastEditTime: 2022-09-23 15:56:55
  */
 
 import * as THREE from 'three';
 
 export default {
   /**
-   * @description: 点光源初始化
+   * @description: 初始化
+   * @return {*}
+   */
+  initPointLight() {
+    this.createPointLight(0xffffff);
+    this.setPointLightPosition(500, 300, 400);
+    this.scene.add(this.pointLight);
+  },
+
+  /**
+   * @description: 创建点光源
    * @param {*} color  十六进制光照颜色。 缺省值 0xffffff (白色)
    * @param {*} intensity 光照强度。 缺省值 1
    * @param {*} distance 这个距离表示从光源到光照强度为0的位置。 当设置为0时，光永远不会消失(距离无穷大)。缺省值 0
    * @param {*} decay 沿着光照距离的衰退量。缺省值 1
    * @return {*}
    */
-  initPointLight(color, intensity, distance, decay) {
+  createPointLight(color, intensity, distance, decay) {
     this.pointLight = new THREE.PointLight(color, intensity, distance, decay);
   },
 

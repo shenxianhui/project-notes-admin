@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-07 10:07:07
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-19 16:12:13
+ * @LastEditTime: 2022-09-23 15:57:32
  */
 
 import Stats from 'three/examples/jsm/libs/stats.module';
@@ -11,13 +11,22 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 export default {
   /**
    * @description: 初始化
+   * @param {*} id 容器id
    * @return {*}
    */
-  initStats(id, fn) {
+  initStats(id) {
+    this.createStats(id);
+    this.statsContainer.appendChild(this.stats.domElement);
+    this.setStatsStyle();
+  },
+
+  /**
+   * @description: 创建性能监测器
+   * @return {*}
+   */
+  createStats(id) {
     this.statsContainer = document.getElementById(id);
     this.stats = new Stats();
-
-    fn && fn(this.stats, this.statsContainer);
   },
 
   /**

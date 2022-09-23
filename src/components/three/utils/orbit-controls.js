@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:10:31
  * @LastEditors: shenxh
- * @LastEditTime: 2022-08-03 16:22:58
+ * @LastEditTime: 2022-09-23 15:55:43
  */
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -11,11 +11,19 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 export default {
   /**
    * @description: 轨道控制器初始化
+   * @return {*}
+   */
+  initOrbitControls() {
+    this.createOrbitControls(this.camera, this.container);
+  },
+
+  /**
+   * @description: 创建轨道控制器
    * @param {Camera} object 将要被控制的相机。该相机不允许是其他任何对象的子级，除非该对象是场景自身。
    * @param {HTMLDOMElement} domElement 用于事件监听的HTML元素。
    * @return {*}
    */
-  initOrbitControls(object, domElement) {
+  createOrbitControls(object, domElement) {
     this.controls = new OrbitControls(object, domElement);
   },
 

@@ -3,18 +3,26 @@
  * @Author: shenxh
  * @Date: 2022-08-04 14:34:17
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-19 16:00:48
+ * @LastEditTime: 2022-09-23 15:53:46
  */
 
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 export default {
   /**
+   * @description: 初始化
+   * @return {*}
+   */
+  initDRACOLoader() {
+    this.createDRACOLoader();
+  },
+
+  /**
    * @description: 加载器初始化
    * @param {*} manager 该加载器将要使用的 loadingManager 。默认为 THREE.DefaultLoadingManager
    * @return {*}
    */
-  initDRACOLoader() {
+  createDRACOLoader() {
     this.dracoLoader = new DRACOLoader();
   },
 

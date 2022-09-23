@@ -3,19 +3,40 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:50:26
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-19 16:00:45
+ * @LastEditTime: 2022-09-23 15:53:03
  */
 
 import * as THREE from 'three';
 
 export default {
   /**
-   * @description: 环境光初始化
+   * @description: 初始化
+   * @return {*}
+   */
+  initDirectionalLight() {
+    this.createDirectionalLight(0xffffff, 0.5);
+    this.setDirectionalLightShadowCamera({
+      near: 1,
+      far: 400,
+      left: -50,
+      right: -50,
+      top: 20,
+      bottom: -50,
+    });
+    this.setDirectionalLightShadowMapSize({
+      width: 1024,
+      height: 1024,
+    });
+    this.scene.add(this.directionalLight);
+  },
+
+  /**
+   * @description: 创建环境光
    * @param {*} color  十六进制光照颜色。 缺省值 0xffffff (白色)
    * @param {*} intensity 光照强度。 缺省值 1
    * @return {*}
    */
-  initDirectionalLight(color, intensity) {
+  createDirectionalLight(color, intensity) {
     this.directionalLight = new THREE.DirectionalLight(color, intensity);
   },
 

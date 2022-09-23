@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 15:19:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-19 16:01:01
+ * @LastEditTime: 2022-09-23 15:56:33
  */
 
 import * as THREE from 'three';
@@ -11,13 +11,26 @@ import * as THREE from 'three';
 export default {
   /**
    * @description: 透视相机初始化
+   * @return {*}
+   */
+  initPerspectiveCamera() {
+    const { clientWidth, clientHeight } = this.container;
+    const clientScale = clientWidth / clientHeight;
+
+    this.createPerspectiveCamera(75, clientScale, 0.1, 1000);
+    this.setPerspectiveCameraPosition(10, 20, 40);
+    this.setPerspectiveCameraLookAt(this.scene.position);
+  },
+
+  /**
+   * @description: 创建透视相机
    * @param {number} fov 摄像机视锥体垂直视野角度
    * @param {number} aspect 摄像机视锥体长宽比
    * @param {number} near 摄像机视锥体近端面
    * @param {number} far 摄像机视锥体远端面
    * @return {*}
    */
-  initPerspectiveCamera(fov, aspect, near, far) {
+  createPerspectiveCamera(fov, aspect, near, far) {
     this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
   },
 

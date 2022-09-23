@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-22 09:47:26
+ * @LastEditTime: 2022-09-23 16:16:00
 -->
 
 <template>
@@ -53,10 +53,7 @@ export default {
             item,
             gltf => {
               gltf.scene.scale.set(0.01, 0.01, 0.01);
-              three.scene.add(gltf.scene);
-              // if (item.indexOf('build1YNSCYQ') !== -1) {
-              //   three.scene.add(gltf.scene);
-              // }
+              three.scene && three.scene.add(gltf.scene);
             },
             undefined,
             error => {
