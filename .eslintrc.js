@@ -12,7 +12,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'prettier/prettier': 1, // 错误提示级别: 0-关闭, 1-警告, 2-报错
     'no-unused-vars': 0, // 未使用变量提示
-    semi: 0, // 结尾分号
+    semi: [0, 'never'], // 结尾分号
   },
   parserOptions: {
     parser: 'babel-eslint',
@@ -20,4 +20,4 @@ module.exports = {
   globals: {
     // axios: false,
   },
-};
+}
