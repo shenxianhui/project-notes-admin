@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import Three from './utils';
+import Three from './utils'
 
-let three = null;
+let three = null
 
 export default {
   name: 'three',
@@ -44,34 +44,34 @@ export default {
     },
   },
   data() {
-    return {};
+    return {}
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {
-    this.initThree();
+    this.initThree()
   },
   beforeDestroy() {
-    this.clearThree();
+    this.clearThree()
   },
   methods: {
     // three 初始化
     initThree() {
-      if (!three) three = new Three(this.threeId, this.statsId);
+      if (!three) three = new Three(this.threeId, this.statsId)
 
       /* 模型加载 */
-      this.$emit('loader-modules', three);
+      this.$emit('loader-modules', three)
     },
 
     // 清空 three
     clearThree() {
-      three.clearThree();
+      three.clearThree()
 
-      three = null;
+      three = null
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>

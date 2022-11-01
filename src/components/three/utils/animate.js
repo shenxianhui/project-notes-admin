@@ -3,34 +3,36 @@
  * @Author: shenxh
  * @Date: 2022-09-22 11:13:37
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-23 15:50:44
+ * @LastEditTime: 2022-11-01 09:52:37
  */
 
-export default {
-  /**
-   * @description: 初始化
-   * @return {*}
-   */
-  initAnimate() {
-    this.animate();
-  },
+export default that => {
+  return {
+    /**
+     * @description: 初始化
+     * @return {*}
+     */
+    init() {
+      this.animate()
+    },
 
-  /**
-   * @description: 启用动画
-   * @return {*}
-   */
-  animate() {
-    this.animationFrame = requestAnimationFrame(this.animate.bind(this));
+    /**
+     * @description: 启用动画
+     * @return {*}
+     */
+    animate() {
+      that.animationFrame = requestAnimationFrame(this.animate.bind(this))
 
-    this.render();
-  },
+      this.render()
+    },
 
-  /**
-   * @description: 渲染
-   * @return {*}
-   */
-  render() {
-    this.stats && this.stats.update();
-    this.renderer.render(this.scene, this.camera);
-  },
-};
+    /**
+     * @description: 渲染
+     * @return {*}
+     */
+    render() {
+      that.stats && that.stats.update()
+      that.renderer.render(that.scene, that.camera)
+    },
+  }
+}

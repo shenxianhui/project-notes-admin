@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-23 16:16:00
+ * @LastEditTime: 2022-11-01 09:58:36
 -->
 
 <template>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Three from '@/components/three';
+import Three from '@/components/three'
 
 export default {
   name: 'water-works-yq',
@@ -22,7 +22,7 @@ export default {
   },
   props: {},
   data() {
-    return {};
+    return {}
   },
   computed: {},
   watch: {},
@@ -36,35 +36,35 @@ export default {
         '../../../public/modules/water-model',
         true,
         /\.glb$/,
-      );
+      )
       const urlList = context.keys().map(item => {
-        return item.replace(/^./, '/modules/water-model');
-      });
+        return item.replace(/^./, '/modules/water-model')
+      })
 
       urlList.forEach(item => {
-        const arr = item.split('.');
-        const type = arr[arr.length - 1].toLocaleLowerCase();
+        const arr = item.split('.')
+        const type = arr[arr.length - 1].toLocaleLowerCase()
 
         if (type === 'glb' || type === 'gltf') {
-          three.setDRACOLoaderDecoderPath();
-          three.loader.setDRACOLoader(three.dracoLoader);
+          three.DracoLoader.setDecoderPath()
+          three.loader.setDRACOLoader(three.dracoLoader)
 
-          three.getGLTFLoaderLoad(
+          three.GltfLoader.load(
             item,
             gltf => {
-              gltf.scene.scale.set(0.01, 0.01, 0.01);
-              three.scene && three.scene.add(gltf.scene);
+              gltf.scene.scale.set(0.01, 0.01, 0.01)
+              three.scene && three.scene.add(gltf.scene)
             },
             undefined,
             error => {
-              console.error(error);
+              console.error(error)
             },
-          );
+          )
         }
-      });
+      })
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped></style>
