@@ -230,26 +230,26 @@ export default {
   components: {},
   model: {
     prop: 'value',
-    event: 'set-value'
+    event: 'set-value',
   },
   props: {
     // 指定类型
     itemType: {
       type: String,
-      required: true
+      required: true,
     },
     // 绑定值
     value: {},
     // 栅格布局
     col: {
       type: Number,
-      default: 24
+      default: 24,
     },
     // 宽度
     itemWidth: {
       type: String,
       // default: '100%'
-      default: '300px'
+      default: '300px',
     },
     // 行内模式, 打开时 col/itemWidth 会失效
     inline: Boolean,
@@ -271,12 +271,12 @@ export default {
     // 可清空
     clearable: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 输入框尺寸，只在 type!="textarea" 时有效
     size: {
       type: String,
-      default: 'small' // large/medium/small/mini
+      default: 'small', // large/medium/small/mini
     },
     // 步长 (计数器/滑块)
     step: Number,
@@ -307,7 +307,7 @@ export default {
     // 可搜索
     filterable: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 自定义搜索方法
     filterMethod: Function,
@@ -335,12 +335,12 @@ export default {
     // 范围选择时开始日期的占位内容
     startPlaceholder: {
       type: String,
-      default: '开始日期'
+      default: '开始日期',
     },
     // 范围选择时结束日期的占位内容
     endPlaceholder: {
       type: String,
-      default: '结束日期'
+      default: '结束日期',
     },
     // 选中日期后的默认具体时刻
     defaultTime: [Array, String],
@@ -348,7 +348,7 @@ export default {
     // https://element.eleme.cn/#/zh-CN/component/date-picker#ri-qi-ge-shi
     valueFormat: {
       type: String,
-      default: 'timestamp'
+      default: 'timestamp',
     },
     /* DateTimePicker 日期时间选择器 end */
 
@@ -382,7 +382,7 @@ export default {
     // 是否显示 tooltip
     showTooltip: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 格式化 tooltip message
     formatTooltip: Function,
@@ -395,32 +395,32 @@ export default {
     // Slider 高度，竖向模式时必填
     height: String,
     // 标记
-    marks: Object
+    marks: Object,
     /* Slider 滑块 end */
   },
   data() {
     return {
       vModel: this.value,
-      isCheckAll: this.checkAll
-    };
+      isCheckAll: this.checkAll,
+    }
   },
   computed: {
     setWidth() {
       return this.inline
         ? 'inherit'
-        : parseInt((this.col / 24) * 10000) / 100 + '%';
+        : parseInt((this.col / 24) * 10000) / 100 + '%'
     },
     setItemWidth() {
-      return this.inline ? 'inherit' : this.itemWidth;
-    }
+      return this.inline ? 'inherit' : this.itemWidth
+    },
   },
   watch: {
     value(val) {
-      this.vModel = val;
+      this.vModel = val
     },
     checkAll(val) {
-      this.isCheckAll = val;
-    }
+      this.isCheckAll = val
+    },
   },
   created() {},
   mounted() {},
@@ -428,42 +428,42 @@ export default {
   methods: {
     // input 事件
     handleInput(val) {
-      this.$emit('set-value', val);
-      this.$emit('input', val);
+      this.$emit('set-value', val)
+      this.$emit('input', val)
     },
     // change 事件
     handleChange(val) {
-      this.$emit('set-value', val);
-      this.$emit('change', val);
+      this.$emit('set-value', val)
+      this.$emit('change', val)
     },
 
     /* Input 输入框 */
     // 模糊搜索 (节流)
     fetchSuggestions(val, cb) {
-      this.$emit('fetch-suggestions', val, cb);
+      this.$emit('fetch-suggestions', val, cb)
     },
     // 选中 input 中的文字
     handleSelect(val) {
-      this.$emit('select', val);
+      this.$emit('select', val)
     },
 
     /* Checkbox 多选框 */
     // 全选
     handleCheckAllChange(val) {
-      this.$emit('check-all', val);
+      this.$emit('check-all', val)
     },
 
     /* 表单项内置方法 */
     // 对该表单项进行重置，将其值重置为初始值并移除校验结果
     resetField() {
-      this.$refs['xx-form-item'].resetField();
+      this.$refs['xx-form-item'].resetField()
     },
     // 移除该表单项的校验结果
     clearValidate() {
-      this.$refs['xx-form-item'].clearValidate();
-    }
-  }
-};
+      this.$refs['xx-form-item'].clearValidate()
+    },
+  },
+}
 </script>
 
 <style lang="less" scoped>

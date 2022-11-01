@@ -1,3 +1,3 @@
-import Radar from './Radar.vue';
+import Radar from './Radar.vue'
 
-export default Radar;
+export default Radar

@@ -26,9 +26,9 @@ export default [
       },
     ],
   },
-];
+]
 
 function loadView(path) {
   return () =>
-    import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`);
+    import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`)
 }

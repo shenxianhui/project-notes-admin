@@ -83,16 +83,16 @@
 </template>
 
 <script>
-import XxTable from '@/components/element/table';
-import XxForm from '@/components/element/form';
-import XxFormItem from '@/components/element/form/form-item';
+import XxTable from '@/components/element/table'
+import XxForm from '@/components/element/form'
+import XxFormItem from '@/components/element/form/form-item'
 
 export default {
   name: 'base-table',
   components: {
     XxTable,
     XxForm,
-    XxFormItem
+    XxFormItem,
   },
   props: {},
   data() {
@@ -103,56 +103,56 @@ export default {
       options: [
         {
           label: '男',
-          value: 1
+          value: 1,
         },
         {
           label: '女',
-          value: 2
-        }
+          value: 2,
+        },
       ],
       columns: [
         {
-          type: 'expand'
+          type: 'expand',
         },
         {
-          type: 'selection'
+          type: 'selection',
         },
         {
           label: '序号',
           type: 'index',
-          width: 60
+          width: 60,
         },
         {
           label: '姓名',
-          prop: 'name'
+          prop: 'name',
         },
         {
           label: '性别',
           prop: 'sex',
-          slot: true
+          slot: true,
         },
         {
           label: '生日',
           prop: 'birthday',
           sortable: true,
-          slot: true
+          slot: true,
         },
         {
           label: '资产',
           prop: 'money',
           slot: true,
-          align: 'right'
+          align: 'right',
         },
         {
           label: '地址',
           prop: 'address',
-          align: 'left'
+          align: 'left',
         },
         {
           label: '操作 (slot)',
           prop: 'set',
           width: 150,
-          slot: true
+          slot: true,
         },
         {
           label: '操作 (render)',
@@ -163,80 +163,80 @@ export default {
               'el-button',
               {
                 class: {
-                  'btn-del': true
+                  'btn-del': true,
                 },
                 style: {
                   color: '#f00',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
                 },
                 props: {
                   slot: 'reference',
-                  type: 'text'
+                  type: 'text',
                 },
                 on: {
                   click: () => {
                     this.$confirm('确认删除？', '提示', {
                       confirmButtonText: '确定',
                       cancelButtonText: '取消',
-                      type: 'warning'
+                      type: 'warning',
                     }).then(() => {
-                      this.handleDel(params.row);
-                    });
-                  }
-                }
+                      this.handleDel(params.row)
+                    })
+                  },
+                },
               },
-              '删除'
-            );
-          }
-        }
+              '删除',
+            )
+          },
+        },
       ],
       tableForm: {
         pageNo: 1,
         pageSize: 20,
-        pageTotal: 1000
+        pageTotal: 1000,
       },
-      tableData: []
-    };
+      tableData: [],
+    }
   },
   computed: {},
   watch: {},
   created() {
-    this._getTableData();
+    this._getTableData()
   },
   mounted() {},
   beforeDestroy() {},
   methods: {
     handleDel(data) {
-      this.$message.success(`"${data.name}" 删除成功`);
-      this.tableForm.pageNo = 1;
+      this.$message.success(`"${data.name}" 删除成功`)
+      this.tableForm.pageNo = 1
 
-      this._getTableData();
+      this._getTableData()
     },
     handleSizeChange(data) {
-      this.tableForm.pageSize = data;
+      this.tableForm.pageSize = data
 
-      this._getTableData();
+      this._getTableData()
     },
     handleCurrentChange(data) {
-      this.tableForm.pageNo = data;
+      this.tableForm.pageNo = data
 
-      this._getTableData();
+      this._getTableData()
     },
     // 表单重置
     resetForm(formName) {
-      this.$refs[formName].resetFields();
-      this.tableForm.pageNo = 1;
-      this._getTableData();
+      this.$refs[formName].resetFields()
+      this.tableForm.pageNo = 1
+      this._getTableData()
     },
     // 表单提交
     submitForm() {
-      this.tableForm.pageNo = 1;
-      this._getTableData();
+      this.tableForm.pageNo = 1
+      this._getTableData()
     },
 
     // 获取 mock 数据
     _getTableData() {
-      let arr = [];
+      let arr = []
 
       for (
         let i = (this.tableForm.pageNo - 1) * this.tableForm.pageSize;
@@ -249,18 +249,18 @@ export default {
           sex: Math.round(Math.random() * 10) % 2,
           birthday: Math.round(Math.random() * 1000000000000 + 600000000000),
           money: Math.round(Math.random() * 100000 + 5000),
-          address: '浙江省杭州市'
-        });
+          address: '浙江省杭州市',
+        })
       }
 
-      this.loading = true;
+      this.loading = true
       setTimeout(() => {
-        this.tableData = arr;
-        this.loading = false;
-      }, 500);
-    }
-  }
-};
+        this.tableData = arr
+        this.loading = false
+      }, 500)
+    },
+  },
+}
 </script>
 
 <style scoped lang="less"></style>

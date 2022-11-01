@@ -113,11 +113,11 @@
 </template>
 
 <script>
-import XxBarLine from '@/components/e-charts/bar-line';
-import XxBarCuboid from '@/components/e-charts/bar-line/bar-cuboid';
-import XxDoubleChart from '@/components/e-charts/bar-line/double-chart';
+import XxBarLine from '@/components/e-charts/bar-line'
+import XxBarCuboid from '@/components/e-charts/bar-line/bar-cuboid'
+import XxDoubleChart from '@/components/e-charts/bar-line/double-chart'
 
-let timer;
+let timer
 
 export default {
   name: 'chart-bar-line',
@@ -132,7 +132,7 @@ export default {
       chartData: [],
       chartData1: [],
       chartData2: [],
-    };
+    }
   },
   computed: {
     seriesBars() {
@@ -164,48 +164,48 @@ export default {
           },
           data: this.chartData2,
         },
-      ];
+      ]
     },
     seriesBarsStack() {
-      let seriesBars = JSON.parse(JSON.stringify(this.seriesBars));
+      let seriesBars = JSON.parse(JSON.stringify(this.seriesBars))
 
       return seriesBars.map(item => {
         return Object.assign(item, {
           barWidth: null,
           stack: 'A',
-        });
-      });
+        })
+      })
     },
     seriesBarsDoubleY() {
-      let seriesBars = JSON.parse(JSON.stringify(this.seriesBars)).slice(0, 2);
+      let seriesBars = JSON.parse(JSON.stringify(this.seriesBars)).slice(0, 2)
 
       seriesBars.forEach((item, index) => {
         if (index === 1) {
-          item.yAxisIndex = 1;
+          item.yAxisIndex = 1
         }
-      });
+      })
 
-      return seriesBars;
+      return seriesBars
     },
     seriesLines() {
-      let seriesBars = JSON.parse(JSON.stringify(this.seriesBars));
+      let seriesBars = JSON.parse(JSON.stringify(this.seriesBars))
 
       return seriesBars.map(item => {
         return Object.assign(item, {
           type: 'line',
-        });
-      });
+        })
+      })
     },
     seriesLinesStack() {
-      let seriesBars = JSON.parse(JSON.stringify(this.seriesBars));
+      let seriesBars = JSON.parse(JSON.stringify(this.seriesBars))
 
       return seriesBars.map(item => {
         return Object.assign(item, {
           type: 'line',
           smooth: true,
           stack: 'A',
-        });
-      });
+        })
+      })
     },
     seriesBarLine() {
       return [
@@ -228,7 +228,7 @@ export default {
           },
           data: this.chartData,
         },
-      ];
+      ]
     },
     seriesCuboid() {
       return [
@@ -241,7 +241,7 @@ export default {
             color: '#FF9C00',
           },
         },
-      ];
+      ]
     },
     seriesPictorialBars() {
       return [
@@ -257,58 +257,58 @@ export default {
           data: this.chartData,
           z: 10,
         },
-      ];
+      ]
     },
   },
   watch: {},
   created() {
-    this._clearTimer();
-    this._getChartData();
+    this._clearTimer()
+    this._getChartData()
     timer = setInterval(() => {
-      this._getChartData();
-    }, 5000);
+      this._getChartData()
+    }, 5000)
   },
   mounted() {},
   beforeDestroy() {
-    this._clearTimer();
+    this._clearTimer()
   },
   methods: {
     handleBar(evt) {
-      const data = evt.data;
+      const data = evt.data
 
-      this.$message.success(data.name + ': ' + data.value);
+      this.$message.success(data.name + ': ' + data.value)
     },
     _getChartData() {
-      let list = [];
-      let list1 = [];
-      let list2 = [];
+      let list = []
+      let list1 = []
+      let list2 = []
       for (let i = 0; i < 10; i++) {
         list.push({
           name: 'X' + i,
           value: Math.round(Math.random() * 1000),
-        });
+        })
         list1.push({
           name: 'X' + i,
           value: Math.round(Math.random() * 1000),
-        });
+        })
         list2.push({
           name: 'X' + i,
           value: Math.round(Math.random() * 1000),
-        });
+        })
       }
 
-      this.chartData = list;
-      this.chartData1 = list1;
-      this.chartData2 = list2;
+      this.chartData = list
+      this.chartData1 = list1
+      this.chartData2 = list2
     },
     _clearTimer() {
       if (timer) {
-        clearInterval(timer);
-        timer = null;
+        clearInterval(timer)
+        timer = null
       }
     },
   },
-};
+}
 </script>
 
 <style scoped lang="less">

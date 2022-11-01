@@ -1,3 +1,3 @@
-import Map from './Map.vue';
+import Map from './Map.vue'
 
-export default Map;
+export default Map

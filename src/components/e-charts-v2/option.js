@@ -82,7 +82,7 @@ export const cartesianCoordinateSystemOption = {
   series: {
     smooth: true,
   },
-};
+}
 
 // 饼图
 export const pieOption = {
@@ -121,7 +121,7 @@ export const pieOption = {
       },
     },
   },
-};
+}
 
 // 雷达图
 export const radarOption = {
@@ -157,4 +157,4 @@ export const radarOption = {
 
   // [图表配置](https://echarts.apache.org/zh/option.html#series)
   series: {},
-};
+}

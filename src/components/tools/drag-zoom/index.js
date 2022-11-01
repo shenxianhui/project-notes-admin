@@ -1,3 +1,3 @@
-import DragZoom from './DragZoom.vue';
+import DragZoom from './DragZoom.vue'
 
-export default DragZoom;
+export default DragZoom

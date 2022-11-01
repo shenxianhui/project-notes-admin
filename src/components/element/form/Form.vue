@@ -70,7 +70,7 @@ export default {
     // 表单数据对象
     model: {
       type: Object,
-      required: true
+      required: true,
     },
     // 表单验证规则
     rules: Object,
@@ -85,11 +85,11 @@ export default {
     // 按钮位置
     buttonPosition: {
       type: String,
-      default: 'right' // left center right
-    }
+      default: 'right', // left center right
+    },
   },
   data() {
-    return {};
+    return {}
   },
   computed: {},
   watch: {},
@@ -99,27 +99,27 @@ export default {
   methods: {
     // 任一表单项被校验后触发
     getValidate(name, checkPassed, errMsg) {
-      this.$emit('validate', name, checkPassed, errMsg);
+      this.$emit('validate', name, checkPassed, errMsg)
     },
     /* 表单内置方法 */
     // 对整个表单进行校验
     validate(callback) {
       this.$refs['xx-form'].validate(valid => {
-        callback(valid);
-      });
+        callback(valid)
+      })
     },
     // 对部分表单字段进行校验
     validateField(props, callback) {
       this.$refs['xx-form'].validateField(props, errorMessage => {
-        callback(errorMessage);
-      });
+        callback(errorMessage)
+      })
     },
     // 对整个表单进行重置，将所有字段值重置为初始值并移除校验结果
     resetFields() {
-      this.$refs['xx-form'].resetFields();
-    }
-  }
-};
+      this.$refs['xx-form'].resetFields()
+    },
+  },
+}
 </script>
 
 <style lang="less" scoped>

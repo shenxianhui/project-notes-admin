@@ -23,37 +23,37 @@
 </template>
 
 <script>
-import XxSwiper from '@/components/swiper';
+import XxSwiper from '@/components/swiper'
 
 export default {
   name: 'swiper',
   components: {
-    XxSwiper
+    XxSwiper,
   },
   props: {},
   data() {
-    return {};
+    return {}
   },
   computed: {
     swiperData() {
-      let arr = [];
+      let arr = []
 
       for (let i = 1; i <= 20; i++) {
         arr.push({
           label: `slider${i}`,
-          value: i
-        });
+          value: i,
+        })
       }
 
-      return arr;
-    }
+      return arr
+    },
   },
   watch: {},
   created() {},
   mounted() {},
   beforeDestroy() {},
-  methods: {}
-};
+  methods: {},
+}
 </script>
 
 <style scoped lang="less">

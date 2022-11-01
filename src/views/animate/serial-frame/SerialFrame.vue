@@ -19,13 +19,13 @@
 </template>
 
 <script>
-import FrameAnimation from '@/components/frame-animation';
+import FrameAnimation from '@/components/frame-animation'
 
 // 静态文件要在 public 目录下引入, 否则 frame-animation.js 中不好查找文件位置
 const framesUrl1 = require
   .context('../../../../public/static/serial-frame/demo1', true, /\.png$/)
   .keys()
-  .map(item => item.replace('.', '/static/serial-frame/demo1'));
+  .map(item => item.replace('.', '/static/serial-frame/demo1'))
 
 export default {
   name: 'serial-frame',
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       framesUrl1,
-    };
+    }
   },
   computed: {},
   watch: {},
@@ -44,7 +44,7 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {},
-};
+}
 </script>
 
 <style lang="less" scoped></style>

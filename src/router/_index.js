@@ -1,7 +1,7 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 export default new VueRouter({
   mode: 'history',
@@ -9,13 +9,13 @@ export default new VueRouter({
     // 默认
     {
       path: '/',
-      redirect: '/main/home'
+      redirect: '/main/home',
     },
     // 错误
     {
       path: '*',
       name: 'error',
-      component: loadView('Error')
+      component: loadView('Error'),
     },
     {
       path: '/main',
@@ -24,18 +24,19 @@ export default new VueRouter({
         {
           path: 'home',
           name: 'home',
-          component: loadView('Home')
+          component: loadView('Home'),
         },
         {
           path: 'about',
           name: 'about',
-          component: loadView('About')
-        }
-      ]
-    }
-  ]
-});
+          component: loadView('About'),
+        },
+      ],
+    },
+  ],
+})
 
 function loadView(path) {
-  return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`);
+  return () =>
+    import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`)
 }

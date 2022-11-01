@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import Router from '@/router/modules';
+import Router from '@/router/modules'
 
 export default {
   name: 'main-header',
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       Router,
-    };
+    }
   },
   computed: {},
   watch: {},
@@ -45,12 +45,12 @@ export default {
   beforeDestroy() {},
   methods: {
     haneleMenu(data) {
-      if (this.$route.path.split('/')[1] === data.path.split('/')[1]) return;
+      if (this.$route.path.split('/')[1] === data.path.split('/')[1]) return
 
-      this.$router.push(data.path);
+      this.$router.push(data.path)
     },
   },
-};
+}
 </script>
 
 <style scoped lang="less">

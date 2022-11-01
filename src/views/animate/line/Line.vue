@@ -33,7 +33,7 @@ export default {
   components: {},
   props: {},
   data() {
-    return {};
+    return {}
   },
   computed: {},
   watch: {},
@@ -41,7 +41,7 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {},
-};
+}
 </script>
 
 <style lang="less" scoped>

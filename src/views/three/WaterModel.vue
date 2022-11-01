@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ThreeModel from '@/components/three-model';
+import ThreeModel from '@/components/three-model'
 
 export default {
   name: 'water-model-demo',
@@ -24,13 +24,13 @@ export default {
   data() {
     return {
       type: 'ETZSCSP',
-    };
+    }
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {
-    this.debugObj();
+    this.debugObj()
   },
   beforeDestroy() {},
   methods: {
@@ -38,18 +38,18 @@ export default {
       // const type = this.$route.params.type
       // const type = 'ETZSCSP'
       this.$nextTick(() => {
-        console.log(this.$refs.three);
-        let diagramData = this.$refs.three.getDiagram(this.type);
-        diagramData.pointGroups = diagramData.points;
-        diagramData.debug = true;
-        this.$refs.three.setDiagram({ info: diagramData });
-      });
+        console.log(this.$refs.three)
+        let diagramData = this.$refs.three.getDiagram(this.type)
+        diagramData.pointGroups = diagramData.points
+        diagramData.debug = true
+        this.$refs.three.setDiagram({ info: diagramData })
+      })
     },
     handleCallback(info) {
-      console.log(info);
+      console.log(info)
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>

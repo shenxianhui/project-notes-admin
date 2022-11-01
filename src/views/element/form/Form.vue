@@ -186,27 +186,27 @@
 </template>
 
 <script>
-import XxForm from '@/components/element/form';
-import XxFormItem from '@/components/element/form/form-item';
+import XxForm from '@/components/element/form'
+import XxFormItem from '@/components/element/form/form-item'
 
 export default {
   name: 'base-form',
   components: {
     XxForm,
-    XxFormItem
+    XxFormItem,
   },
   props: {},
   data() {
     const checkRadio = (rule, value, callback) => {
       // 定时器为了使校验发生在赋值之后
       setTimeout(() => {
-        const formVal = this.form.radio;
+        const formVal = this.form.radio
 
         if (!formVal) {
-          return callback(new Error('请选择'));
+          return callback(new Error('请选择'))
         }
-      }, 0);
-    };
+      }, 0)
+    }
 
     return {
       formLoading: false, // 表单数据加载 loading
@@ -224,12 +224,12 @@ export default {
         checkbox: [],
         inputNumber: '',
         switch: true,
-        slider: 50
+        slider: 50,
       },
       rules: {
         input: [
           { required: true, message: '请输入', trigger: 'blur' },
-          { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
+          { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' },
         ],
         select: [{ required: true, message: '请选择', trigger: 'change' }],
         datePicker: [
@@ -237,10 +237,10 @@ export default {
             // type: 'date',
             required: true,
             message: '请选择日期',
-            trigger: 'change'
-          }
+            trigger: 'change',
+          },
         ],
-        radio: [{ validator: checkRadio, required: true, trigger: 'change' }]
+        radio: [{ validator: checkRadio, required: true, trigger: 'change' }],
       },
       selectOptions: [],
       options: [
@@ -254,19 +254,19 @@ export default {
               children: [
                 {
                   label: '选项1-1-1',
-                  value: 111
+                  value: 111,
                 },
                 {
                   label: '选项1-1-2',
-                  value: 112
+                  value: 112,
                 },
                 {
                   label: '选项1-1-3',
-                  value: 113
-                }
-              ]
-            }
-          ]
+                  value: 113,
+                },
+              ],
+            },
+          ],
         },
         {
           label: '选项2',
@@ -278,30 +278,30 @@ export default {
               children: [
                 {
                   label: '选项2-1-1',
-                  value: 211
+                  value: 211,
                 },
                 {
                   label: '选项2-1-2',
-                  value: 212
+                  value: 212,
                 },
                 {
                   label: '选项2-1-3',
-                  value: 213
-                }
-              ]
-            }
-          ]
+                  value: 213,
+                },
+              ],
+            },
+          ],
         },
         {
           label: '选项3',
-          value: 3
-        }
+          value: 3,
+        },
       ],
 
       /* checkbox */
       isCheckAll: false,
-      isIndeterminate: false
-    };
+      isIndeterminate: false,
+    }
   },
   computed: {},
   watch: {},
@@ -311,59 +311,59 @@ export default {
   methods: {
     // 表单重置
     resetForm(formName) {
-      this.isCheckAll = this.isIndeterminate = false;
-      this.$refs[formName].resetFields();
+      this.isCheckAll = this.isIndeterminate = false
+      this.$refs[formName].resetFields()
     },
     // 表单提交
     submitForm(formName) {
-      console.log(this.form);
+      console.log(this.form)
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.formLoading = true;
+          this.formLoading = true
           setTimeout(() => {
-            this.formLoading = false;
-            this.$message.success('提交成功');
-          }, 500);
+            this.formLoading = false
+            this.$message.success('提交成功')
+          }, 500)
         } else {
-          this.$message.warning('必填项不能为空哦~');
+          this.$message.warning('必填项不能为空哦~')
         }
-      });
+      })
     },
 
     // change 事件
     handleChange(val, name) {
-      console.log(val, name);
+      console.log(val, name)
     },
     // input 事件
     handleInput(val, name) {
-      console.log(val, name);
+      console.log(val, name)
     },
 
     /* input */
     // 远程搜索
     fetchSuggestions(val, cb) {
       this.getData(val).then(res => {
-        cb(res); // 数组中的 value 必须为字符串
-      });
+        cb(res) // 数组中的 value 必须为字符串
+      })
     },
     // 选择事件
     handleSelect({ label, value }) {
-      this.form.autocompleteLabel = label;
-      this.form.autocomplete = value;
+      this.form.autocompleteLabel = label
+      this.form.autocomplete = value
     },
 
     /* select */
     // 搜索事件
     filterMethod(val) {
-      console.log(val);
+      console.log(val)
     },
     // 远程搜索
     remoteMethod(val) {
-      this.searchLoading = true;
+      this.searchLoading = true
       this.getData(val).then(res => {
-        this.selectOptions = res;
-        this.searchLoading = false;
-      });
+        this.selectOptions = res
+        this.searchLoading = false
+      })
     },
 
     /* checkbox */
@@ -371,20 +371,20 @@ export default {
     handleCheckAll(isCheckAll) {
       if (isCheckAll) {
         this.form.checkbox = this.options.map(item => {
-          return item.value;
-        });
+          return item.value
+        })
       } else {
-        this.form.checkbox = [];
+        this.form.checkbox = []
       }
-      this.isCheckAll = isCheckAll;
-      this.isIndeterminate = false;
+      this.isCheckAll = isCheckAll
+      this.isIndeterminate = false
     },
     changeCheckbox(val) {
-      let checkedCount = val.length;
+      let checkedCount = val.length
 
-      this.isCheckAll = checkedCount === this.options.length;
+      this.isCheckAll = checkedCount === this.options.length
       this.isIndeterminate =
-        checkedCount > 0 && checkedCount < this.options.length;
+        checkedCount > 0 && checkedCount < this.options.length
     },
 
     // 获取 mock 数据 (支持模糊搜索)
@@ -393,28 +393,28 @@ export default {
         let data = [
           {
             label: '内容1',
-            value: '1'
+            value: '1',
           },
           {
             label: '内容2',
-            value: '2'
+            value: '2',
           },
           {
             label: '内容3',
-            value: '3'
-          }
-        ];
+            value: '3',
+          },
+        ]
         let arr = data.filter(item => {
-          return item.label.includes(val);
-        });
+          return item.label.includes(val)
+        })
 
         setTimeout(() => {
-          resolve(arr);
-        }, 200);
-      });
-    }
-  }
-};
+          resolve(arr)
+        }, 200)
+      })
+    },
+  },
+}
 </script>
 
 <style lang="less" scoped></style>

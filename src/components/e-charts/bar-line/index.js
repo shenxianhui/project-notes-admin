@@ -1,3 +1,3 @@
-import BarLine from './BarLine.vue';
+import BarLine from './BarLine.vue'
 
-export default BarLine;
+export default BarLine

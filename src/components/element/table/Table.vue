@@ -87,23 +87,23 @@ let XxSlot = {
     index: Number,
     column: {
       type: Object,
-      default: null
+      default: null,
     },
-    render: Function
+    render: Function,
   },
   render: (h, data) => {
     let params = {
       row: data.props.row,
-      index: data.props.index
-    };
-
-    if (data.props.column) {
-      params.column = data.props.column;
+      index: data.props.index,
     }
 
-    return data.props.render(h, params);
-  }
-};
+    if (data.props.column) {
+      params.column = data.props.column
+    }
+
+    return data.props.render(h, params)
+  },
+}
 export default {
   name: 'xx-table',
   components: { XxSlot },
@@ -111,35 +111,35 @@ export default {
     /* 表格: https://element.eleme.cn/#/zh-CN/component/table#table-attributes */
     columns: {
       type: Array,
-      required: true
+      required: true,
     },
     loading: Boolean,
     data: {
       type: Array,
-      required: true
+      required: true,
     },
     height: {
       type: [String, Number],
-      default: 'calc(100% - 60px)'
+      default: 'calc(100% - 60px)',
       // default: '100%'
     },
     maxHeight: [String, Number],
     stripe: {
       type: Boolean,
-      default: true
+      default: true,
     },
     border: {
       type: Boolean,
-      default: true
+      default: true,
     },
     size: String,
     fit: {
       type: Boolean,
-      default: true
+      default: true,
     },
     showHeader: {
       type: Boolean,
-      default: true
+      default: true,
     },
     highlightCurrentRow: Boolean,
     currentRowKey: [String, Number],
@@ -147,11 +147,11 @@ export default {
     /* 分页: https://element.eleme.cn/#/zh-CN/component/pagination#attributes */
     showPage: {
       type: Boolean,
-      default: true
+      default: true,
     },
     layout: {
       type: String,
-      default: 'total, sizes, prev, pager, next, jumper'
+      default: 'total, sizes, prev, pager, next, jumper',
     },
     currentPage: Number,
     pageSizes: Array,
@@ -159,13 +159,13 @@ export default {
     total: Number,
     background: {
       type: Boolean,
-      default: true
+      default: true,
     },
     hideOnSinglePage: Boolean,
-    reserveSelection: Boolean
+    reserveSelection: Boolean,
   },
   data() {
-    return {};
+    return {}
   },
   computed: {},
   watch: {},
@@ -175,26 +175,26 @@ export default {
   methods: {
     // pageSize 改变时触发
     handleSizeChange(data) {
-      this.$emit('size-change', data);
+      this.$emit('size-change', data)
     },
     // currentPage 改变时触发
     handleCurrentChange(data) {
-      this.$emit('current-change', data);
+      this.$emit('current-change', data)
     },
     // 当选择项发生变化时触发
     handleSelectionChange(data) {
-      this.$emit('selection-change', data);
+      this.$emit('selection-change', data)
     },
     // 用于多选表格，清空用户的选择
     clearSelection() {
-      this.$refs['el-table'].clearSelection();
+      this.$refs['el-table'].clearSelection()
     },
     // 当表格的排序条件发生变化的时候触发
     sortChange({ column, prop, order }) {
-      this.$emit('sort-change', { column, prop, order });
-    }
-  }
-};
+      this.$emit('sort-change', { column, prop, order })
+    },
+  },
+}
 </script>
 
 <style scoped lang="less">

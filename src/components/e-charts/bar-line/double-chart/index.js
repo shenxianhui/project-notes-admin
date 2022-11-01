@@ -1,3 +1,3 @@
-import DoubleChart from './DoubleChart.vue';
+import DoubleChart from './DoubleChart.vue'
 
-export default DoubleChart;
+export default DoubleChart

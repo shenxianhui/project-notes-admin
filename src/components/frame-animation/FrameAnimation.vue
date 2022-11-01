@@ -8,58 +8,58 @@
 </template>
 
 <script>
-import FrameAnimation from '@/plugin/frame-animation';
+import FrameAnimation from '@/plugin/frame-animation'
 
 export default {
   props: {
     // canvas id
     canvasTargetId: {
       type: String,
-      required: true
+      required: true,
     },
     // 文件路径
     framesUrl: {
       type: Array,
-      required: true
+      required: true,
     },
     // 频率
     frequency: {
       type: Number,
-      default: 20
+      default: 20,
     },
     // 循环
     loop: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 起始X
     startX: {
       type: Number,
-      default: 0
+      default: 0,
     },
     // 起始Y
     startY: {
       type: Number,
-      default: 0
+      default: 0,
     },
     // 宽度
     width: {
       type: Number,
-      required: true
+      required: true,
     },
     // 高度
     height: {
       type: Number,
-      required: true
+      required: true,
     },
     // 缩放
     zoom: {
       type: Number,
-      default: 1
-    }
+      default: 1,
+    },
   },
   mounted() {
-    this.play_animation(this);
+    this.play_animation(this)
   },
   methods: {
     play_animation({
@@ -70,7 +70,7 @@ export default {
       startX,
       startY,
       width,
-      height
+      height,
     }) {
       const ani = new FrameAnimation({
         canvasTargetId, // target canvas ID
@@ -84,15 +84,15 @@ export default {
         // audioIonName: "bgm_1", // ion.sound audio name
         onComplete() {
           // complete callback
-          console.log('Animation loop');
-        }
-      });
+          console.log('Animation loop')
+        },
+      })
 
       // preload & play
       ani.initialize(() => {
-        ani.play();
-      });
-    }
-  }
-};
+        ani.play()
+      })
+    },
+  },
+}
 </script>

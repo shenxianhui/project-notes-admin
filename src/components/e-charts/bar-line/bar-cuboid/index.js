@@ -1,3 +1,3 @@
-import BarCuboid from './BarCuboid.vue';
+import BarCuboid from './BarCuboid.vue'
 
-export default BarCuboid;
+export default BarCuboid

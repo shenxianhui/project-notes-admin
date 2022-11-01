@@ -20,37 +20,37 @@
 </template>
 
 <script>
-import Router from '@/router/modules';
-import XxSiderMenu from './sider-menu/SiderMenu';
+import Router from '@/router/modules'
+import XxSiderMenu from './sider-menu/SiderMenu'
 
 export default {
   name: 'menu',
   components: {
-    XxSiderMenu
+    XxSiderMenu,
   },
   props: {},
   data() {
-    return {};
+    return {}
   },
   computed: {
     currentRoute() {
-      let arr = [];
+      let arr = []
 
       Router.forEach(item => {
         if (this.$route.path.includes(item.path)) {
-          arr = item;
+          arr = item
         }
-      });
+      })
 
-      return arr;
-    }
+      return arr
+    },
   },
   watch: {},
   created() {},
   mounted() {},
   beforeDestroy() {},
-  methods: {}
-};
+  methods: {},
+}
 </script>
 
 <style scoped lang="less">

@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import XxSwiper from '@/components/swiper';
+import XxSwiper from '@/components/swiper'
 
 export default {
   name: 'swiper',
@@ -131,20 +131,20 @@ export default {
       realIndex: 0,
       thumbsMainIdx: 0,
       thumbsSiderIdx: 0,
-    };
+    }
   },
   computed: {
     swiperData() {
-      let arr = [];
+      let arr = []
 
       for (let i = 1; i <= 20; i++) {
         arr.push({
           label: `slider${i}`,
           value: i,
-        });
+        })
       }
 
-      return arr;
+      return arr
     },
   },
   watch: {},
@@ -153,19 +153,19 @@ export default {
   beforeDestroy() {},
   methods: {
     slideChangeHor(swiper) {
-      this.realIndex = swiper.realIndex;
+      this.realIndex = swiper.realIndex
     },
     slideChangeThumbs(swiper) {
-      this.thumbsMainIdx = swiper.realIndex;
-      this.$refs['swiper-sider'].slideTo(swiper.realIndex - 1);
+      this.thumbsMainIdx = swiper.realIndex
+      this.$refs['swiper-sider'].slideTo(swiper.realIndex - 1)
     },
     handleSwiperSider(item, index) {
-      this.thumbsSiderIdx = index;
-      this.$refs['swiper-thumbs'].slideTo(index);
-      this.$refs['swiper-sider'].slideTo(index - 1);
+      this.thumbsSiderIdx = index
+      this.$refs['swiper-thumbs'].slideTo(index)
+      this.$refs['swiper-sider'].slideTo(index - 1)
     },
   },
-};
+}
 </script>
 
 <style scoped lang="less">

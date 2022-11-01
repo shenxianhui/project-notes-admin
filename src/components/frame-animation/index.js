@@ -1,3 +1,3 @@
-import FrameAnimation from './FrameAnimation.vue';
+import FrameAnimation from './FrameAnimation.vue'
 
-export default FrameAnimation;
+export default FrameAnimation

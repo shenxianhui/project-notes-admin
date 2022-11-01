@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Three from '@/components/three';
+import Three from '@/components/three'
 
 export default {
   name: 'water-works-bim',
@@ -22,7 +22,7 @@ export default {
   },
   props: {},
   data() {
-    return {};
+    return {}
   },
   computed: {},
   watch: {},
@@ -30,7 +30,7 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {},
-};
+}
 </script>
 
 <style lang="less" scoped></style>

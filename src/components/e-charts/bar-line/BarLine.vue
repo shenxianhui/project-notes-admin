@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { uuid } from '@/utils/utils';
+import { uuid } from '@/utils/utils'
 
 export default {
   name: 'xx-bar-line',
@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       myId: uuid(),
-    };
+    }
   },
   computed: {
     option() {
@@ -62,7 +62,7 @@ export default {
         xAxis: this._xAxis,
         yAxis: this._yAxis,
         series: this._series,
-      };
+      }
     },
     _title() {
       let title = Object.assign(
@@ -71,9 +71,9 @@ export default {
           text: this.titleText,
         },
         this.title,
-      );
+      )
 
-      return title;
+      return title
     },
     _grid() {
       let grid =
@@ -88,9 +88,9 @@ export default {
                 containLabel: true, // 包含坐标轴的刻度标签
               },
               this.grid,
-            );
+            )
 
-      return grid;
+      return grid
     },
     _legend() {
       let legend = Object.assign(
@@ -105,14 +105,14 @@ export default {
             this.seriesData.map(item => {
               return {
                 name: item.name,
-              };
-            });
+              }
+            })
           })(),
         },
         this.legend,
-      );
+      )
 
-      return legend;
+      return legend
     },
     _tooltip() {
       let tooltip = Object.assign(
@@ -124,9 +124,9 @@ export default {
           confine: true,
         },
         this.tooltip,
-      );
+      )
 
-      return tooltip;
+      return tooltip
     },
     _xAxis() {
       let xAxisData = {
@@ -147,23 +147,23 @@ export default {
         boundaryGap: this.seriesType === 'bar',
         data: (() => {
           let data = this.seriesData.map(item => {
-            return item.name;
-          });
-          return data;
+            return item.name
+          })
+          return data
         })(),
-      };
-      let xAxis = [Object.assign(xAxisData, this.xAxis)];
+      }
+      let xAxis = [Object.assign(xAxisData, this.xAxis)]
       if (this.xAxis1) {
-        let _xAxisData = JSON.parse(JSON.stringify(xAxisData));
+        let _xAxisData = JSON.parse(JSON.stringify(xAxisData))
         xAxis.push(
           Object.assign(
             _xAxisData,
             this.xAxis1 && typeof this.xAxis1 === 'object' ? this.xAxis1 : {},
           ),
-        );
+        )
       }
 
-      return xAxis;
+      return xAxis
     },
     _yAxis() {
       let yAxisData = {
@@ -186,19 +186,19 @@ export default {
             opacity: 0.2,
           },
         },
-      };
-      let yAxis = [Object.assign(yAxisData, this.yAxis)];
+      }
+      let yAxis = [Object.assign(yAxisData, this.yAxis)]
       if (this.yAxis1) {
-        let _yAxisData = JSON.parse(JSON.stringify(yAxisData));
+        let _yAxisData = JSON.parse(JSON.stringify(yAxisData))
         yAxis.push(
           Object.assign(
             _yAxisData,
             this.yAxis1 && typeof this.yAxis1 === 'object' ? this.yAxis1 : {},
           ),
-        );
+        )
       }
 
-      return yAxis;
+      return yAxis
     },
     _series() {
       let series =
@@ -238,68 +238,68 @@ export default {
                 },
                 this.series,
               ),
-            ];
+            ]
 
-      return series;
+      return series
     },
   },
   watch: {
     seriesData() {
-      this.initChart();
+      this.initChart()
     },
   },
   created() {},
   mounted() {
-    window.addEventListener('resize', this.initChart);
+    window.addEventListener('resize', this.initChart)
     if (this.seriesData && this.seriesData.length) {
-      this.initChart();
+      this.initChart()
     }
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.initChart);
+    window.removeEventListener('resize', this.initChart)
   },
   methods: {
     initChart() {
-      this.setOption();
-      this.destroyChart();
+      this.setOption()
+      this.destroyChart()
 
-      let id = this.id || this.myId;
-      let myChart = this.$echarts.init(document.getElementById(id));
+      let id = this.id || this.myId
+      let myChart = this.$echarts.init(document.getElementById(id))
 
       // 设置配置项, 刷新图表
-      myChart.setOption(this.option, true);
+      myChart.setOption(this.option, true)
 
       // 点击事件
-      myChart.off('click');
+      myChart.off('click')
       myChart.on('click', evt => {
-        this.$emit('click', evt);
+        this.$emit('click', evt)
 
-        myChart.setOption(this.option, true);
-      });
+        myChart.setOption(this.option, true)
+      })
     },
     // 销毁图表实例
     destroyChart() {
-      let id = this.id || this.myId;
-      let chart = this.$echarts.getInstanceByDom(document.getElementById(id));
+      let id = this.id || this.myId
+      let chart = this.$echarts.getInstanceByDom(document.getElementById(id))
 
       if (chart) {
-        chart.clear(); // 释放图形资源
-        chart.dispose(); // 销毁实例对象
+        chart.clear() // 释放图形资源
+        chart.dispose() // 销毁实例对象
       }
     },
     // 数据处理
     setOption() {
       // 横向
       if (this.horizontal) {
-        let _xAxis = this.option.xAxis;
-        let _yAxis = this.option.yAxis;
+        let _xAxis = this.option.xAxis
+        let _yAxis = this.option.yAxis
 
-        this.option.xAxis = _yAxis;
-        this.option.yAxis = _xAxis;
+        this.option.xAxis = _yAxis
+        this.option.yAxis = _xAxis
       }
     },
   },
-};
+}
 </script>
 
 <style scoped lang="less"></style>

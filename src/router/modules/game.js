@@ -6,28 +6,28 @@
  * @Description: Game
  */
 export default [
-	{
-		path: '/game',
-		name: 'game',
-		meta: {
-			label: '游戏',
-		},
-		redirect: '/game/snake',
-		component: loadView('layout/Layout'),
-		children: [
-			{
-				path: 'snake',
-				name: 'snake',
-				meta: {
-					label: '贪吃蛇',
-				},
-				component: loadView('game/snake/Snake'),
-			},
-		],
-	},
-];
+  {
+    path: '/game',
+    name: 'game',
+    meta: {
+      label: '游戏',
+    },
+    redirect: '/game/snake',
+    component: loadView('layout/Layout'),
+    children: [
+      {
+        path: 'snake',
+        name: 'snake',
+        meta: {
+          label: '贪吃蛇',
+        },
+        component: loadView('game/snake/Snake'),
+      },
+    ],
+  },
+]
 
 function loadView(path) {
-	return () =>
-		import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`);
+  return () =>
+    import(/* webpackChunkName: "view-[request]" */ `@/views/${path || ''}`)
 }

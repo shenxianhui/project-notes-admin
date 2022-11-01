@@ -1,19 +1,19 @@
-(function(root, factory) {
+;(function(root, factory) {
   // if (typeof define === 'function' && define.amd) {
   //   //AMD
   //   define(factory);
   // } else
   if (typeof exports === 'object') {
     //Node, CommonJS之类的
-    module.exports = factory();
+    module.exports = factory()
   } else {
     //浏览器全局变量(root 即 window)
-    root.frame_ani = factory(root);
+    root.frame_ani = factory(root)
   }
 })(this, function() {
   const isFunc = f => {
-    return typeof f === 'function';
-  };
+    return typeof f === 'function'
+  }
 
   /* 从此处开始主要逻辑 */
 
@@ -32,34 +32,34 @@
       loop: false, // 是否循环
       frequency: 25, // 每秒帧数
       startX: 0, // 起始X
-      startY: 0 // 起始Y
-    };
+      startY: 0, // 起始Y
+    }
     // 覆盖默认配置
     if (config) {
       for (let key in config) {
-        this.option[key] = config[key];
+        this.option[key] = config[key]
       }
     } else {
-      alert('参数错误！');
-      return;
+      alert('参数错误！')
+      return
     }
 
-    this.status = 0; // 状态，0：未启动   1：正在加载   2：播放中（没写）
-    this.total = this.option.framesUrl.length || 0; //资源总数
+    this.status = 0 // 状态，0：未启动   1：正在加载   2：播放中（没写）
+    this.total = this.option.framesUrl.length || 0 //资源总数
     this.ctx = document
       .getElementById(this.option.canvasTargetId)
-      .getContext('2d'); // 画布上下文
+      .getContext('2d') // 画布上下文
 
     if (this.option.audioObject != null) {
-      this.bgm = this.option.audioObject;
+      this.bgm = this.option.audioObject
     } else if (this.option.audioIonName != null) {
-      this.bgm_ion_name = this.option.audioIonName;
+      this.bgm_ion_name = this.option.audioIonName
     } else {
-      this.bgm = new Audio(); // 背景音乐！
+      this.bgm = new Audio() // 背景音乐！
       this.bgm.onerror = () => {
-        this.bgm = undefined;
-      };
-      this.bgm.src = this.option.audioUrl;
+        this.bgm = undefined
+      }
+      this.bgm.src = this.option.audioUrl
     }
 
     // 设置频率
@@ -71,38 +71,38 @@
 
   // 预加载
   frame_ani.prototype.initialize = function(callback) {
-    this.initialize_cb = callback;
+    this.initialize_cb = callback
     // 启动加载，图片按顺序存起来，加载完毕后开始播放
-    this.status = 1;
-    this.frames = []; // 存帧对象的
-    this.currentIndex = 0; //当前正在加载的资源索引
+    this.status = 1
+    this.frames = [] // 存帧对象的
+    this.currentIndex = 0 //当前正在加载的资源索引
 
     for (let i = 0, l = this.option.framesUrl.length; i < l; i++) {
-      const image = new Image();
+      const image = new Image()
       // 注: require 路径里面包含变量时, webpack 静态分析并不能确切的知道打包 src 下的哪个文件, 此时会打包 src 下的所有文件
       // const url = require(`../${this.option.framesUrl[i]}`);
-      const url = this.option.framesUrl[i];
+      const url = this.option.framesUrl[i]
 
-      image.src = url;
+      image.src = url
       image.onload = () => {
-        this.loaded();
-      };
+        this.loaded()
+      }
       image.onerror = () => {
-        console.log('preload error.');
-        this.loaded();
-      };
-      this.frames.push(image);
+        console.log('preload error.')
+        this.loaded()
+      }
+      this.frames.push(image)
     }
     // 回调一下启动函数
     if (isFunc(this.option.onStart)) {
-      this.option.onStart(this.total);
+      this.option.onStart(this.total)
     }
-  };
+  }
 
   // 设置封面
   frame_ani.prototype.setPoster = function() {
-    this.calculate();
-    this.ctx.clearRect(0, 0, this.width, this.height);
+    this.calculate()
+    this.ctx.clearRect(0, 0, this.width, this.height)
     this.ctx.drawImage(
       this.frames[0],
       this.showX,
@@ -112,90 +112,90 @@
       this.option.startX,
       this.option.startY,
       this.canvasWidth,
-      this.canvasHeight
-    );
+      this.canvasHeight,
+    )
     // console.log("画好封面了");
     if (isFunc(this.initialize_cb)) {
-      this.initialize_cb();
+      this.initialize_cb()
     }
-  };
+  }
 
   // 计算一下宽高和显示位置，默认居中靠底部显示（background-position: center bottom）
   // 非默认的没写
   frame_ani.prototype.calculate = function() {
-    this.canvasWidth = this.option.width;
-    this.canvasHeight = this.option.height;
-    const canvasR = (1.0 * this.canvasWidth) / this.canvasHeight; // 窗口的宽高比
-    const imageR = (1.0 * this.option.width) / this.option.height;
+    this.canvasWidth = this.option.width
+    this.canvasHeight = this.option.height
+    const canvasR = (1.0 * this.canvasWidth) / this.canvasHeight // 窗口的宽高比
+    const imageR = (1.0 * this.option.width) / this.option.height
 
     // 用来计算裁剪的宽高
     if (imageR < canvasR) {
       // 宽度相同，高度要裁剪
-      this.width = this.canvasWidth;
-      this.height = this.canvasWidth / imageR;
+      this.width = this.canvasWidth
+      this.height = this.canvasWidth / imageR
 
-      this.sourceWidth = this.option.width;
-      this.sourceHeight = this.option.width / canvasR;
-      this.showX = 0;
-      this.showY = this.option.height - this.sourceHeight;
+      this.sourceWidth = this.option.width
+      this.sourceHeight = this.option.width / canvasR
+      this.showX = 0
+      this.showY = this.option.height - this.sourceHeight
     } else {
       // 高度相同，宽度要裁剪
-      this.width = this.canvasHeight * imageR;
-      this.height = this.canvasHeight;
+      this.width = this.canvasHeight * imageR
+      this.height = this.canvasHeight
 
-      this.sourceWidth = this.option.height * canvasR;
-      this.sourceHeight = this.option.height;
+      this.sourceWidth = this.option.height * canvasR
+      this.sourceHeight = this.option.height
 
-      this.showX = (this.option.width - this.sourceWidth) / 2;
-      this.showY = 0;
+      this.showX = (this.option.width - this.sourceWidth) / 2
+      this.showY = 0
     }
 
     // // 裁剪的起始位置
     // this.showX = (this.option.width - this.canvasWidth) / 2;
     // this.showY = this.option.height - this.canvasHeight;
-    console.log(this.showX, this.showY, this.canvasWidth, this.canvasHeight);
-  };
+    console.log(this.showX, this.showY, this.canvasWidth, this.canvasHeight)
+  }
 
   // 播放视频
   frame_ani.prototype.play = function() {
     // 设置当前播放帧
-    this.currentTimes = this.currentTimes || 0;
-    this.maxFramesTimes = this.option.framesUrl.length; // 总帧数
-    this.lastTimestamp = undefined;
+    this.currentTimes = this.currentTimes || 0
+    this.maxFramesTimes = this.option.framesUrl.length // 总帧数
+    this.lastTimestamp = undefined
     // 开始播放
-    this.status = 2;
+    this.status = 2
     // 如果有音频也播放
     if (this.bgm != undefined) {
-      this.bgm.play();
+      this.bgm.play()
     }
     if (this.bgm_ion_name) {
       // ion.sound.play(this.bgm_ion_name);
     }
-    window.requestAnimationFrame(this.nextFrame.bind(this));
-  };
+    window.requestAnimationFrame(this.nextFrame.bind(this))
+  }
 
   // 暂停
   frame_ani.prototype.pause = function() {
-    this.status = 3;
+    this.status = 3
     // bgm 也停一下
     if (this.bgm != undefined) {
-      this.bgm.pause();
+      this.bgm.pause()
     }
     if (this.bgm_ion_name) {
       // ion.sound.pause(this.bgm_ion_name);
     }
-  };
+  }
 
   // 重置播放序列和音频
   frame_ani.prototype.reset = function() {
-    this.currentTimes = 0;
+    this.currentTimes = 0
     if (this.bgm) {
-      this.bgm.currentTime = 0;
+      this.bgm.currentTime = 0
     }
     if (this.bgm_ion_name) {
       // ion.sound.stop(this.bgm_ion_name);
     }
-  };
+  }
 
   // 绘制下一帧，核心函数？
   frame_ani.prototype.nextFrame = function(timestamp) {
@@ -205,35 +205,35 @@
     if (this.status === 3) {
       // 提前结束了
       if (isFunc(this.option.onComplete)) {
-        this.option.onComplete();
+        this.option.onComplete()
       }
       // 双重保障？
       if (this.bgm != undefined) {
-        this.bgm.pause();
+        this.bgm.pause()
       }
       if (this.bgm_ion_name) {
         // ion.sound.stop(this.bgm_ion_name);
       }
-      return false;
+      return false
     }
     // console.log(timestamp);
-    let needRedraw = false; // 需要重绘
+    let needRedraw = false // 需要重绘
     if (this.lastTimestamp === undefined) {
-      this.lastTimestamp = timestamp;
-      this.carryTime = 0; // 上次的余数
-      needRedraw = true;
+      this.lastTimestamp = timestamp
+      this.carryTime = 0 // 上次的余数
+      needRedraw = true
     } else {
       const jumpFrames = parseInt(
         (timestamp - this.lastTimestamp + this.carryTime) /
-          (1000 / this.option.frequency)
-      );
+          (1000 / this.option.frequency),
+      )
       if (jumpFrames > 0) {
-        this.currentTimes += jumpFrames;
-        needRedraw = true;
+        this.currentTimes += jumpFrames
+        needRedraw = true
         this.carryTime =
           (timestamp - this.lastTimestamp + this.carryTime) %
-          (1000 / this.option.frequency);
-        this.lastTimestamp = timestamp;
+          (1000 / this.option.frequency)
+        this.lastTimestamp = timestamp
       }
     }
 
@@ -243,7 +243,7 @@
       // 疯狂更新来监听窗口大小变化
       // this.calculate();
       // console.log("画了一帧！现在在第：" + this.currentTimes + "帧！");
-      this.ctx.clearRect(0, 0, this.width, this.height);
+      this.ctx.clearRect(0, 0, this.width, this.height)
       // console.log(this.canvasWidth, this.canvasHeight);
       this.ctx.drawImage(
         this.frames[this.currentTimes],
@@ -254,52 +254,52 @@
         this.option.startX,
         this.option.startY,
         this.canvasWidth,
-        this.canvasHeight
-      );
+        this.canvasHeight,
+      )
     }
 
     // 是否继续
     if (this.currentTimes < this.maxFramesTimes) {
       // console.log("下一帧");
-      window.requestAnimationFrame(this.nextFrame.bind(this));
+      window.requestAnimationFrame(this.nextFrame.bind(this))
     } else if (isFunc(this.option.onComplete)) {
       // console.log("没有下一帧");
-      this.option.onComplete();
+      this.option.onComplete()
       if (this.option.loop === true) {
         // 需要循环播放
-        this.currentTimes = 0;
-        this.lastTimestamp = undefined;
+        this.currentTimes = 0
+        this.lastTimestamp = undefined
         // 音频也从头开始
         if (this.bgm != undefined) {
-          this.bgm.currentTime = 0;
-          this.bgm.play();
+          this.bgm.currentTime = 0
+          this.bgm.play()
         }
         if (this.bgm_ion_name) {
-          console.log('restart ion sound');
+          console.log('restart ion sound')
           // ion.sound.stop(this.bgm_ion_name);
         }
-        window.requestAnimationFrame(this.nextFrame.bind(this));
+        window.requestAnimationFrame(this.nextFrame.bind(this))
       } else {
         // 结束了
-        this.status = 3;
+        this.status = 3
         if (this.bgm != undefined) {
-          this.bgm.pause();
+          this.bgm.pause()
         }
         if (this.bgm_ion_name) {
           // ion.sound.stop(this.bgm_ion_name);
         }
       }
     }
-  };
+  }
 
   // 计数函数
   frame_ani.prototype.loaded = function() {
-    this.currentIndex++;
+    this.currentIndex++
     if (this.currentIndex === this.total) {
       // 加载完毕，设置一下封面美滋滋
-      this.setPoster();
+      this.setPoster()
     }
-  };
+  }
 
-  return frame_ani;
-});
+  return frame_ani
+})

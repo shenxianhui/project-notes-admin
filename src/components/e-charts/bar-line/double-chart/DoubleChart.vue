@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import XxBarLine from '@/components/e-charts/bar-line';
+import XxBarLine from '@/components/e-charts/bar-line'
 
 export default {
   name: 'double-chart',
@@ -74,17 +74,17 @@ export default {
     },
   },
   data() {
-    return {};
+    return {}
   },
   computed: {
     horizontal() {
-      return this.type === 'horizontal';
+      return this.type === 'horizontal'
     },
     getGrid() {
-      let grid;
+      let grid
 
       if (this.grid) {
-        grid = this.grid;
+        grid = this.grid
       } else {
         if (this.type === 'horizontal') {
           grid = [
@@ -100,7 +100,7 @@ export default {
               bottom: '12%',
               width: '36%',
             },
-          ];
+          ]
         } else {
           grid = [
             {
@@ -115,11 +115,11 @@ export default {
               bottom: '10%',
               height: '32%',
             },
-          ];
+          ]
         }
       }
 
-      return grid;
+      return grid
     },
     getXAxis() {
       let xAxis = Object.assign(
@@ -129,9 +129,9 @@ export default {
           },
         },
         this.xAxis || {},
-      );
+      )
 
-      return xAxis;
+      return xAxis
     },
     getXAxis1() {
       let xAxis1 = Object.assign(
@@ -142,9 +142,9 @@ export default {
           },
         },
         this.xAxis1 || {},
-      );
+      )
 
-      return xAxis1;
+      return xAxis1
     },
     getYAxis() {
       let yAxis = Object.assign(
@@ -155,9 +155,9 @@ export default {
           },
         },
         this.yAxis || {},
-      );
+      )
 
-      return yAxis;
+      return yAxis
     },
     getYAxis1() {
       let yAxis1 = Object.assign(
@@ -166,17 +166,17 @@ export default {
           gridIndex: 1,
         },
         this.yAxis1 || {},
-      );
+      )
 
-      return yAxis1;
+      return yAxis1
     },
     getSeries() {
-      let series = JSON.parse(JSON.stringify(this.series)).slice(0, 2);
+      let series = JSON.parse(JSON.stringify(this.series)).slice(0, 2)
 
-      series[1].xAxisIndex = 1;
-      series[1].yAxisIndex = 1;
+      series[1].xAxisIndex = 1
+      series[1].yAxisIndex = 1
 
-      return series;
+      return series
     },
   },
   watch: {},
@@ -184,7 +184,7 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {},
-};
+}
 </script>
 
 <style scoped lang="less"></style>

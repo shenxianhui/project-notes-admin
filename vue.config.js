@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 module.exports = {
   pages: {
@@ -15,7 +15,7 @@ module.exports = {
   // publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   chainWebpack: config => {
     // [移除 prefetch 插件](https://cli.vuejs.org/zh/guide/html-and-static-assets.html#prefetch)
-    config.plugins.delete('prefetch');
+    config.plugins.delete('prefetch')
   },
   configureWebpack: config => {
     let pluginsWebpack = [
@@ -23,7 +23,7 @@ module.exports = {
       new webpack.ProvidePlugin({
         axios: 'axios',
       }),
-    ];
+    ]
     if (process.env.NODE_ENV === 'production') {
       // 生产环境
       // 使用DefinePlugin暴露的全局变量，需要在eslintrc.js的globals里设置
@@ -31,9 +31,9 @@ module.exports = {
         new webpack.DefinePlugin({
           __PROJECTPATH__: JSON.stringify(''),
         }),
-      );
+      )
       // gzip压缩
-      const CompressionWebpackPlugin = require('compression-webpack-plugin');
+      const CompressionWebpackPlugin = require('compression-webpack-plugin')
       pluginsWebpack.push(
         new CompressionWebpackPlugin({
           filename: '[path].gz[query]', // 目标文件名
@@ -43,16 +43,16 @@ module.exports = {
           minRatio: 0.8, // 最小压缩比达到0.8时才会被压缩
           deleteOriginalAssets: false, // 删除原文件
         }),
-      );
+      )
     } else {
       // 开发环境
       pluginsWebpack.push(
         new webpack.DefinePlugin({
           __PROJECTPATH__: JSON.stringify('/test'),
         }),
-      );
+      )
     }
-    config.plugins = [...config.plugins, ...pluginsWebpack];
+    config.plugins = [...config.plugins, ...pluginsWebpack]
   },
   devServer: {
     hot: true, // 页面实时预览
@@ -72,4 +72,4 @@ module.exports = {
       },
     },
   },
-};
+}

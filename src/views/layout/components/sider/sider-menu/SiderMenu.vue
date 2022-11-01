@@ -8,7 +8,11 @@
 
 <template>
   <div class="xx-menu">
-    <div v-for="(item, index) in menuData.children" :key="index" class="menu-wrap">
+    <div
+      v-for="(item, index) in menuData.children"
+      :key="index"
+      class="menu-wrap"
+    >
       <div v-if="item.children" class="menu-item">
         <el-submenu :index="`${menuData.path}/${item.path}`">
           <template slot="title">
@@ -18,7 +22,10 @@
         </el-submenu>
       </div>
       <div v-else class="menu-item">
-        <el-menu-item :index="`${menuData.path}/${item.path}`" @click="handleMenu(item)">
+        <el-menu-item
+          :index="`${menuData.path}/${item.path}`"
+          @click="handleMenu(item)"
+        >
           <span slot="title">{{ item.meta.label }}</span>
         </el-menu-item>
       </div>
@@ -31,10 +38,10 @@ export default {
   name: 'sider-menu',
   components: {},
   props: {
-    menuData: Object
+    menuData: Object,
   },
   data() {
-    return {};
+    return {}
   },
   computed: {},
   watch: {},
@@ -43,12 +50,12 @@ export default {
   beforeDestroy() {},
   methods: {
     handleMenu(item) {
-      console.log(item);
+      console.log(item)
       // if (this.$route.path === path) return;
       // this.$router.push(path);
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style scoped lang="less"></style>

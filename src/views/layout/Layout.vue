@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import XxHeader from './components/header/Header';
-import XxSider from './components/sider/Sider';
-import XxTags from './components/tags/Tags';
+import XxHeader from './components/header/Header'
+import XxSider from './components/sider/Sider'
+import XxTags from './components/tags/Tags'
 
 export default {
   name: 'layout',
@@ -47,17 +47,17 @@ export default {
   data() {
     return {
       routeInfo: {},
-    };
+    }
   },
   computed: {
     breadcrumbList() {
-      let list = [];
+      let list = []
       this.$route.matched.map(item => {
         if (item.meta.label) {
-          list.push(item);
+          list.push(item)
         }
-      });
-      return list;
+      })
+      return list
     },
   },
   watch: {},
@@ -66,25 +66,25 @@ export default {
       vm.routeInfo = {
         to,
         from,
-      };
-    });
+      }
+    })
   },
   beforeRouteUpdate(to, from, next) {
     this.routeInfo = {
       to,
       from,
-    };
-    next();
+    }
+    next()
   },
   created() {},
   mounted() {},
   beforeDestroy() {},
   methods: {
     handleSiderMenu(path) {
-      this.currentRouterPath = path;
+      this.currentRouterPath = path
     },
   },
-};
+}
 </script>
 
 <style scoped lang="less">

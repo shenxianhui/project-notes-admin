@@ -1,41 +1,41 @@
-import Vue from 'vue';
-import App from './App.vue';
-import router from './router';
-import store from './store';
-import './style/common.less';
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+import './style/common.less'
 // Element
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 // ECharts
-import * as Echarts from 'echarts';
+import * as Echarts from 'echarts'
 // 进度条
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 // 日期格式化 Moment
-import Moment from 'moment';
+import Moment from 'moment'
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
-Vue.use(ElementUI);
+Vue.use(ElementUI)
 
 // 挂载
-Vue.prototype.$echarts = Echarts;
-Vue.prototype.$moment = Moment;
+Vue.prototype.$echarts = Echarts
+Vue.prototype.$moment = Moment
 
 new Vue({
   router,
   store,
   render: h => h(App),
-}).$mount('#app');
+}).$mount('#app')
 
 router.beforeEach((to, from, next) => {
-  NProgress.start();
-  next();
-});
+  NProgress.start()
+  next()
+})
 
 router.afterEach(() => {
-  NProgress.done();
-});
+  NProgress.done()
+})
 
 // 添加请求拦截器
 // axios.interceptors.request.use(

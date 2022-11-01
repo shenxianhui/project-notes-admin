@@ -85,27 +85,27 @@
 </template>
 
 <script>
-import Router from '@/router/modules';
+import Router from '@/router/modules'
 
 export default {
   name: 'sider',
   components: {},
   props: {},
   data() {
-    return {};
+    return {}
   },
   computed: {
     currentRoute() {
-      let arr = [];
+      let arr = []
 
       Router.forEach(item => {
         // if (this.$route.path.includes(item.path)) {
         if (this.$route.path.split('/')[1] === item.path.split('/')[1]) {
-          arr = item;
+          arr = item
         }
-      });
+      })
 
-      return arr;
+      return arr
     },
   },
   watch: {},
@@ -114,11 +114,11 @@ export default {
   beforeDestroy() {},
   methods: {
     handleMenu(path) {
-      if (this.$route.path === path) return;
-      this.$router.push(path);
+      if (this.$route.path === path) return
+      this.$router.push(path)
     },
   },
-};
+}
 </script>
 
 <style scoped lang="less">

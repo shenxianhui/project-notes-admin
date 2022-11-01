@@ -106,12 +106,12 @@
 </template>
 
 <script>
-import XxTree from '@/components/element/tree/Tree';
+import XxTree from '@/components/element/tree/Tree'
 
 export default {
   name: 'tree-demo',
   components: {
-    XxTree
+    XxTree,
   },
   props: {},
   data() {
@@ -134,11 +134,11 @@ export default {
               children: [
                 {
                   label: '三级 1-1-1',
-                  id: '三级 1-1-1'
-                }
-              ]
-            }
-          ]
+                  id: '三级 1-1-1',
+                },
+              ],
+            },
+          ],
         },
         {
           label: '一级 2',
@@ -150,9 +150,9 @@ export default {
               children: [
                 {
                   label: '三级 2-1-1',
-                  id: '三级 2-1-1'
-                }
-              ]
+                  id: '三级 2-1-1',
+                },
+              ],
             },
             {
               label: '二级 2-2',
@@ -160,11 +160,11 @@ export default {
               children: [
                 {
                   label: '三级 2-2-1',
-                  id: '三级 2-2-1'
-                }
-              ]
-            }
-          ]
+                  id: '三级 2-2-1',
+                },
+              ],
+            },
+          ],
         },
         {
           label: '一级 3',
@@ -176,9 +176,9 @@ export default {
               children: [
                 {
                   label: '三级 3-1-1',
-                  id: '三级 3-1-1'
-                }
-              ]
+                  id: '三级 3-1-1',
+                },
+              ],
             },
             {
               label: '二级 3-2',
@@ -186,14 +186,14 @@ export default {
               children: [
                 {
                   label: '三级 3-2-1',
-                  id: '三级 3-2-1'
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    };
+                  id: '三级 3-2-1',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }
   },
   computed: {},
   watch: {},
@@ -202,32 +202,32 @@ export default {
   beforeDestroy() {},
   methods: {
     handleNode(data, node) {
-      this.currentNode = node;
-      this.currentNodeData = { ...data };
+      this.currentNode = node
+      this.currentNodeData = { ...data }
     },
     handleDragStart(node, ev) {
-      this.nodeStartClientY = ev.clientY;
+      this.nodeStartClientY = ev.clientY
     },
     handleDrop(draggingNode, dropNode, dropType, ev) {
-      this.expandNode = draggingNode;
-      this.draggingNode = draggingNode;
-      this.draggingNode.data.index = dropNode.data.index;
+      this.expandNode = draggingNode
+      this.draggingNode = draggingNode
+      this.draggingNode.data.index = dropNode.data.index
       // 从下到上拖拽
       if (ev.clientY - this.nodeStartClientY < 0) {
         Object.assign(this.draggingNode.data, {
-          index: this.draggingNode.data.index - 1
-        });
+          index: this.draggingNode.data.index - 1,
+        })
       } else {
         Object.assign(this.draggingNode.data, {
-          index: this.draggingNode.data.index + 1
-        });
+          index: this.draggingNode.data.index + 1,
+        })
       }
     },
     handleBtn(type) {
-      console.log(type, this.currentNode);
-    }
-  }
-};
+      console.log(type, this.currentNode)
+    },
+  },
+}
 </script>
 
 <style lang="less" scoped>

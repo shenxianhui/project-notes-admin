@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import XxRadar from '@/components/e-charts/radar';
+import XxRadar from '@/components/e-charts/radar'
 
-let timer;
+let timer
 
 export default {
   name: 'chart-radar',
@@ -36,43 +36,43 @@ export default {
     return {
       chartData: [],
       radarIndicator: [],
-    };
+    }
   },
   computed: {
     getMaxData() {
-      let maxNum = 0;
+      let maxNum = 0
       this.chartData.forEach(item => {
         if (item.value > maxNum) {
-          maxNum = item.value;
+          maxNum = item.value
         }
-      });
+      })
 
-      return maxNum;
+      return maxNum
     },
   },
   watch: {},
   created() {
-    this._clearTimer();
-    this._getChartData();
+    this._clearTimer()
+    this._getChartData()
     timer = setInterval(() => {
-      this._getChartData();
-    }, 5000);
+      this._getChartData()
+    }, 5000)
   },
   mounted() {},
   beforeDestroy() {
-    this._clearTimer();
+    this._clearTimer()
   },
   methods: {
     _getChartData() {
-      let list = [];
-      let IndicatorList = [];
+      let list = []
+      let IndicatorList = []
 
       for (let i = 0; i < 10; i++) {
-        list.push(Math.round(Math.random() * 1000));
+        list.push(Math.round(Math.random() * 1000))
         IndicatorList.push({
           name: 'X' + i,
           max: 1000,
-        });
+        })
       }
 
       this.chartData = [
@@ -80,17 +80,17 @@ export default {
           name: '数据1',
           value: list,
         },
-      ];
-      this.radarIndicator = IndicatorList;
+      ]
+      this.radarIndicator = IndicatorList
     },
     _clearTimer() {
       if (timer) {
-        clearInterval(timer);
-        timer = null;
+        clearInterval(timer)
+        timer = null
       }
     },
   },
-};
+}
 </script>
 
 <style scoped lang="less">

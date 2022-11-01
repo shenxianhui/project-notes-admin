@@ -3,14 +3,13 @@
  * @Author: shenxh
  * @Date: 2022-08-03 14:14:01
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-01 10:33:39
+ * @LastEditTime: 2022-11-01 10:36:05
  */
 
 import Events from 'events'
 import { kebabCaseToCamelCased, camelCasedBigToSmall } from '@/utils/utils.js'
 
 const context = require.context('.', true, /\.js$/)
-let _this
 
 class Three extends Events {
   constructor(threeId, statsId) {

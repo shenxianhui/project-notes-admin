@@ -1,3 +1,3 @@
-import Pie from './Pie.vue';
+import Pie from './Pie.vue'
 
-export default Pie;
+export default Pie

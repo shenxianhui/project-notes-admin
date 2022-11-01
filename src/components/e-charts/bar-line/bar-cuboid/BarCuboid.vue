@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import XxBarLine from '@/components/e-charts/bar-line';
+import XxBarLine from '@/components/e-charts/bar-line'
 
 export default {
   name: 'xx-bar-cuboid',
@@ -58,7 +58,7 @@ export default {
     colors: {
       type: Array,
       default() {
-        return ['#00FFF6', '#00CCFF', '#006CFF']; // 左 右 上
+        return ['#00FFF6', '#00CCFF', '#006CFF'] // 左 右 上
       },
     },
     horizontal: Boolean, // 横向展示(XY轴交换)
@@ -86,13 +86,13 @@ export default {
                 <div>${params[0].name || ''}</div>
                 <div>${params[0].value || 0}</div>
               </div>
-            `;
-            return html;
+            `
+            return html
           },
         },
         this.tooltip,
       ),
-    };
+    }
   },
   computed: {
     getSeries() {
@@ -120,8 +120,8 @@ export default {
             color: this.colors[1],
           },
         ],
-      };
-      let barWidth = this.barWidth;
+      }
+      let barWidth = this.barWidth
       let data = [
         {
           z: 1,
@@ -157,7 +157,7 @@ export default {
             return {
               name: item.name,
               value: item.value || null, // 为 0 时会出现样式问题
-            };
+            }
           }),
           symbol: 'diamond',
           symbolOffset: [0, '-50%'],
@@ -169,9 +169,9 @@ export default {
           },
         },
         ...this.series,
-      ];
+      ]
 
-      return data;
+      return data
     },
   },
   watch: {},
@@ -179,7 +179,7 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {},
-};
+}
 </script>
 
 <style scoped lang="less"></style>

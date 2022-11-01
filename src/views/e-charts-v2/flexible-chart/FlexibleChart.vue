@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import FlexibleChart from '@/components/e-charts-v2/flexible-chart';
+import FlexibleChart from '@/components/e-charts-v2/flexible-chart'
 
-let timer = null;
+let timer = null
 
 export default {
   name: 'dm-flexible-chart',
@@ -283,7 +283,7 @@ export default {
             },
             tooltip: {
               formatter(params) {
-                return `${params[0].name}<br />${params[0].value}`;
+                return `${params[0].name}<br />${params[0].value}`
               },
             },
             yAxis: {
@@ -356,93 +356,93 @@ export default {
           },
         },
       ],
-    };
+    }
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {
-    this.initData();
+    this.initData()
   },
   beforeDestroy() {
-    this.clearTimer();
+    this.clearTimer()
   },
   methods: {
     initData() {
-      this.clearTimer();
-      this.getData();
+      this.clearTimer()
+      this.getData()
 
       timer = setInterval(() => {
-        this.getData();
-      }, 2000);
+        this.getData()
+      }, 2000)
     },
 
     getData() {
       this.chart.forEach((item, index) => {
-        this.getChartData(item, index);
-      });
+        this.getChartData(item, index)
+      })
     },
 
     getChartData(itm, idx) {
       for (let i = 0; i < 3; i++) {
-        let chart = this.chart[idx];
-        let chartOptionSeries = chart.option.series;
+        let chart = this.chart[idx]
+        let chartOptionSeries = chart.option.series
 
         if (!chart.setSeries) {
           if (chartOptionSeries[i]) {
             if (chartOptionSeries[i].type === 'radar') {
-              chartOptionSeries[i].data = this.mockRadarData();
+              chartOptionSeries[i].data = this.mockRadarData()
             } else {
-              chartOptionSeries[i].data = this.mockData()[i];
+              chartOptionSeries[i].data = this.mockData()[i]
             }
           }
         } else {
-          chart.option.series = this.cuboidSeries();
+          chart.option.series = this.cuboidSeries()
         }
       }
 
-      this.$refs.chart[idx].setOption();
+      this.$refs.chart[idx].setOption()
     },
 
     clearTimer() {
       if (timer) {
-        clearInterval(timer);
-        timer = null;
+        clearInterval(timer)
+        timer = null
       }
     },
 
     mockData() {
-      let data1 = [];
-      let data2 = [];
-      let data3 = [];
+      let data1 = []
+      let data2 = []
+      let data3 = []
 
       for (let i = 0; i < 10; i++) {
         data1.push({
           name: 'X' + i,
           value: Math.round(Math.random() * 1000),
-        });
+        })
         data2.push({
           name: 'X' + i,
           value: Math.round(Math.random() * 1000),
-        });
+        })
         data3.push({
           name: 'X' + i,
           value: Math.round(Math.random() * 1000),
-        });
+        })
       }
 
-      return [data1, data2, data3];
+      return [data1, data2, data3]
     },
 
     mockRadarData() {
-      let data1 = [];
-      let data2 = [];
-      let data3 = [];
+      let data1 = []
+      let data2 = []
+      let data3 = []
 
       for (let i = 0; i < 10; i++) {
-        data1.push(Math.round(Math.random() * 1000));
-        data2.push(Math.round(Math.random() * 1000));
-        data3.push(Math.round(Math.random() * 1000));
+        data1.push(Math.round(Math.random() * 1000))
+        data2.push(Math.round(Math.random() * 1000))
+        data3.push(Math.round(Math.random() * 1000))
       }
 
       return [
@@ -458,13 +458,13 @@ export default {
           name: 'demo3',
           value: data3,
         },
-      ];
+      ]
     },
 
     // 长方体柱图 series
     cuboidSeries() {
-      const barWidth = 20;
-      const colors = ['#00FFF6', '#00CCFF', '#006CFF']; // 左 右 上
+      const barWidth = 20
+      const colors = ['#00FFF6', '#00CCFF', '#006CFF'] // 左 右 上
       const color = {
         type: 'linear',
         x: 0,
@@ -489,8 +489,8 @@ export default {
             color: colors[1],
           },
         ],
-      };
-      const seriesData = this.mockData()[0];
+      }
+      const seriesData = this.mockData()[0]
       const data = [
         {
           z: 1,
@@ -525,7 +525,7 @@ export default {
             return {
               name: item.name,
               value: item.value || null, // 为 0 时会出现样式问题
-            };
+            }
           }),
           symbol: 'diamond',
           symbolOffset: [0, '-50%'],
@@ -536,12 +536,12 @@ export default {
             color: colors[2],
           },
         },
-      ];
+      ]
 
-      return data || [];
+      return data || []
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { uuid } from '@/utils/utils';
+import { uuid } from '@/utils/utils'
 
 export default {
   name: 'xx-radar',
@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       myId: uuid(),
-    };
+    }
   },
   computed: {
     option() {
@@ -56,7 +56,7 @@ export default {
         tooltip: this._tooltip,
         radar: this._radar,
         series: this._series,
-      };
+      }
     },
     _title() {
       let title = Object.assign(
@@ -65,9 +65,9 @@ export default {
           text: this.titleText,
         },
         this.title,
-      );
+      )
 
-      return title;
+      return title
     },
     _legend() {
       let legend = Object.assign(
@@ -82,14 +82,14 @@ export default {
             this.seriesData.map(item => {
               return {
                 name: item.name,
-              };
-            });
+              }
+            })
           })(),
         },
         this.legend,
-      );
+      )
 
-      return legend;
+      return legend
     },
     _tooltip() {
       let tooltip = Object.assign(
@@ -97,9 +97,9 @@ export default {
           confine: true,
         },
         this.tooltip,
-      );
+      )
 
-      return tooltip;
+      return tooltip
     },
     _radar() {
       let radar = Object.assign(
@@ -107,9 +107,9 @@ export default {
           indicator: this.radarIndicator,
         },
         this.radar,
-      );
+      )
 
-      return radar;
+      return radar
     },
     _series() {
       let series =
@@ -133,61 +133,61 @@ export default {
                 },
                 this.series,
               ),
-            ];
+            ]
 
-      return series;
+      return series
     },
   },
   watch: {
     seriesData() {
-      this.initChart();
+      this.initChart()
     },
   },
   created() {},
   mounted() {
-    window.addEventListener('resize', this.initChart);
+    window.addEventListener('resize', this.initChart)
     if (
       this.seriesData &&
       this.seriesData.length &&
       this.radarIndicator &&
       this.radarIndicator.length
     ) {
-      this.initChart();
+      this.initChart()
     }
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.initChart);
+    window.removeEventListener('resize', this.initChart)
   },
   methods: {
     initChart() {
-      this.destroyChart();
+      this.destroyChart()
 
-      let id = this.id || this.myId;
-      let myChart = this.$echarts.init(document.getElementById(id));
+      let id = this.id || this.myId
+      let myChart = this.$echarts.init(document.getElementById(id))
 
       // 设置配置项, 刷新图表
-      myChart.setOption(this.option, true);
+      myChart.setOption(this.option, true)
 
       // 点击事件
-      myChart.off('click');
+      myChart.off('click')
       myChart.on('click', evt => {
-        this.$emit('click', evt);
+        this.$emit('click', evt)
 
-        myChart.setOption(this.option, true);
-      });
+        myChart.setOption(this.option, true)
+      })
     },
     // 销毁图表实例
     destroyChart() {
-      let id = this.id || this.myId;
-      let chart = this.$echarts.getInstanceByDom(document.getElementById(id));
+      let id = this.id || this.myId
+      let chart = this.$echarts.getInstanceByDom(document.getElementById(id))
 
       if (chart) {
-        chart.clear(); // 释放图形资源
-        chart.dispose(); // 销毁实例对象
+        chart.clear() // 释放图形资源
+        chart.dispose() // 销毁实例对象
       }
     },
   },
-};
+}
 </script>
 
 <style scoped lang="less"></style>

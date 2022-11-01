@@ -23,63 +23,67 @@
       </div>
       <!-- 玫瑰图 -->
       <div class="chart-pie-item">
-        <xx-pie title-text="玫瑰图" :series="{ roseType: true }" :series-data="chartData"></xx-pie>
+        <xx-pie
+          title-text="玫瑰图"
+          :series="{ roseType: true }"
+          :series-data="chartData"
+        ></xx-pie>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import XxPie from '@/components/e-charts/pie';
+import XxPie from '@/components/e-charts/pie'
 
-let timer;
+let timer
 
 export default {
   name: 'chart-pie',
   components: {
-    XxPie
+    XxPie,
   },
   props: {},
   data() {
     return {
-      chartData: []
-    };
+      chartData: [],
+    }
   },
   computed: {},
   watch: {},
   created() {
-    this._clearTimer();
-    this._getChartData();
+    this._clearTimer()
+    this._getChartData()
     timer = setInterval(() => {
-      this._getChartData();
-    }, 5000);
+      this._getChartData()
+    }, 5000)
   },
   mounted() {},
   beforeDestroy() {
-    this._clearTimer();
+    this._clearTimer()
   },
   methods: {
     _getChartData() {
-      let list = [];
+      let list = []
       for (let i = 0; i < 10; i++) {
         list.push({
           name: 'X' + i,
-          value: Math.round(Math.random() * 1000)
-        });
+          value: Math.round(Math.random() * 1000),
+        })
       }
 
       this.chartData = list.sort((a, b) => {
-        return a.value - b.value;
-      });
+        return a.value - b.value
+      })
     },
     _clearTimer() {
       if (timer) {
-        clearInterval(timer);
-        timer = null;
+        clearInterval(timer)
+        timer = null
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style scoped lang="less">

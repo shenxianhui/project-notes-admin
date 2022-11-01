@@ -19,5 +19,5 @@ export default {
     //   let res = await axios.post(`${__PROJECTPATH__}/api-infos/home/banner`, payload);
     //   return res;
     // }
-  }
-};
+  },
+}

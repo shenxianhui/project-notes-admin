@@ -29,55 +29,55 @@ export default {
   name: 'tags',
   components: {},
   props: {
-    beforeRouteUpdate: Object
+    beforeRouteUpdate: Object,
   },
   data() {
     return {
-      tagList: [this.$route]
-    };
+      tagList: [this.$route],
+    }
   },
   computed: {},
   watch: {
     beforeRouteUpdate(route) {
-      let tag = this._arraySearch(this.tagList, 'path', route.to.path);
+      let tag = this._arraySearch(this.tagList, 'path', route.to.path)
       if (!tag.length) {
-        this.tagList.push(route.to);
+        this.tagList.push(route.to)
       }
-    }
+    },
   },
   created() {},
   mounted() {},
   beforeDestroy() {},
   methods: {
     handleClose(tag, index) {
-      if (this.tagList.length <= 1) return;
+      if (this.tagList.length <= 1) return
 
       // 删除该标签
       if (this.tagList.length) {
-        this.tagList.splice(index, 1);
+        this.tagList.splice(index, 1)
       }
       // 删除当前标签时, 自动跳转至标签列表末项
       if (tag.path === this.$route.path) {
-        let endTag = this.tagList[this.tagList.length - 1];
-        if (this.$route.path === endTag.path) return;
-        this.$router.push(endTag.path);
+        let endTag = this.tagList[this.tagList.length - 1]
+        if (this.$route.path === endTag.path) return
+        this.$router.push(endTag.path)
       }
     },
     handleTag(data) {
-      if (this.$route.path === data.path) return;
-      this.$router.push(data.path);
+      if (this.$route.path === data.path) return
+      this.$router.push(data.path)
     },
 
     // 根据数组对象的某个属性值找到指定的元素
     _arraySearch(arr, objKey, value) {
       let data = arr.filter(item => {
-        return item[objKey] === value;
-      });
+        return item[objKey] === value
+      })
 
-      return data;
-    }
-  }
-};
+      return data
+    },
+  },
+}
 </script>
 
 <style scoped lang="less">

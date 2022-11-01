@@ -1,3 +1,3 @@
-import FlexibleChart from './FlexibleChart.vue';
+import FlexibleChart from './FlexibleChart.vue'
 
-export default FlexibleChart;
+export default FlexibleChart

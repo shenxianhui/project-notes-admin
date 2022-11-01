@@ -40,14 +40,14 @@ export default {
   components: {},
   props: {},
   data() {
-    return {};
+    return {}
   },
   computed: {},
   watch: {},
   mounted() {},
   created() {},
-  methods: {}
-};
+  methods: {},
+}
 </script>
 
 <style scoped lang="less">
