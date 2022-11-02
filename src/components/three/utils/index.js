@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 14:14:01
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-01 10:36:05
+ * @LastEditTime: 2022-11-02 15:11:44
  */
 
 import Events from 'events'
@@ -40,12 +40,6 @@ class Three extends Events {
     /* 时间 */
     this.Clock.init()
 
-    /* 坐标轴 */
-    this.AxesHelper.init()
-
-    /* 坐标格 */
-    this.GridHelper.init()
-
     /* 轨道控制器 */
     this.OrbitControls.init()
 
@@ -68,6 +62,9 @@ class Three extends Events {
 
     /* 动画 */
     this.Animate.init()
+
+    /* 辅助对象 */
+    this.Helper.init()
 
     this.container.appendChild(this.renderer.domElement)
   }

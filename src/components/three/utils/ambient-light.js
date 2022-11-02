@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:41:02
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-23 15:50:14
+ * @LastEditTime: 2022-11-02 14:46:07
  */
 
 import * as THREE from 'three'
@@ -15,8 +15,7 @@ export default that => {
      * @return {*}
      */
     init() {
-      this.create(0x404040)
-      that.scene.add(that.ambientLight)
+      this.create(0xffffff)
     },
 
     /**
@@ -27,6 +26,7 @@ export default that => {
      */
     create(color, intensity) {
       that.ambientLight = new THREE.AmbientLight(color, intensity)
+      that.scene.add(that.ambientLight)
     },
   }
 }

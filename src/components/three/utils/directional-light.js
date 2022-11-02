@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:50:26
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-01 09:54:45
+ * @LastEditTime: 2022-11-02 15:22:47
  */
 
 import * as THREE from 'three'
@@ -15,7 +15,8 @@ export default that => {
      * @return {*}
      */
     init() {
-      this.create(0xffffff, 0.5)
+      this.create(0xffffff, 1)
+      this.setPosition(500, 500, 500)
       this.setShadowCamera({
         near: 1,
         far: 400,
@@ -28,7 +29,6 @@ export default that => {
         width: 1024,
         height: 1024,
       })
-      that.scene.add(that.directionalLight)
     },
 
     /**
@@ -39,6 +39,7 @@ export default that => {
      */
     create(color, intensity) {
       that.directionalLight = new THREE.DirectionalLight(color, intensity)
+      that.scene.add(that.directionalLight)
     },
 
     /**

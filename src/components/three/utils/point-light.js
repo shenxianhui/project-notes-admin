@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:28:59
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-01 10:24:34
+ * @LastEditTime: 2022-11-02 15:24:42
  */
 
 import * as THREE from 'three'
@@ -16,8 +16,7 @@ export default that => {
      */
     init() {
       this.create(0xffffff)
-      this.setPosition(500, 300, 400)
-      that.scene.add(that.pointLight)
+      this.setPosition(-20, 20, -20)
     },
 
     /**
@@ -30,6 +29,7 @@ export default that => {
      */
     create(color, intensity, distance, decay) {
       that.pointLight = new THREE.PointLight(color, intensity, distance, decay)
+      that.scene.add(that.pointLight)
     },
 
     /**

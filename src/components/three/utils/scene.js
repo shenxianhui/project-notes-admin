@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 14:33:30
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-01 10:28:25
+ * @LastEditTime: 2022-11-02 14:49:53
  */
 
 import * as THREE from 'three'
@@ -17,7 +17,6 @@ export default that => {
      */
     init() {
       this.create()
-      that.scene.background = new THREE.Color(0xf0f0f0)
     },
 
     /**
@@ -27,6 +26,7 @@ export default that => {
      */
     create(params = {}) {
       that.scene = new THREE.Scene(params)
+      that.scene.background = new THREE.Color(0xf1f9fb)
     },
 
     /**
