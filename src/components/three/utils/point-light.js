@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:28:59
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-02 15:24:42
+ * @LastEditTime: 2022-11-02 17:28:25
  */
 
 import * as THREE from 'three'
@@ -21,10 +21,10 @@ export default that => {
 
     /**
      * @description: 创建点光源
-     * @param {*} color  十六进制光照颜色。 缺省值 0xffffff (白色)
-     * @param {*} intensity 光照强度。 缺省值 1
-     * @param {*} distance 这个距离表示从光源到光照强度为0的位置。 当设置为0时，光永远不会消失(距离无穷大)。缺省值 0
-     * @param {*} decay 沿着光照距离的衰退量。缺省值 1
+     * @param {Color} color  十六进制光照颜色。 缺省值 0xffffff (白色)
+     * @param {number} intensity 光照强度。 缺省值 1
+     * @param {number} distance 这个距离表示从光源到光照强度为0的位置。 当设置为0时，光永远不会消失(距离无穷大)。缺省值 0
+     * @param {number} decay 沿着光照距离的衰退量。缺省值 1
      * @return {*}
      */
     create(color, intensity, distance, decay) {

@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-11-02 14:59:17
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-02 15:17:14
+ * @LastEditTime: 2022-11-02 17:29:18
  */
 
 import * as THREE from 'three'
@@ -20,7 +20,7 @@ export default that => {
 
     /**
      * @description: 创建坐标轴
-     * @param {*} size 表示代表轴的线段长度. 默认为 1
+     * @param {number} size 表示代表轴的线段长度. 默认为 1
      * @return {*}
      */
     createAxesHelper(size) {
@@ -49,8 +49,8 @@ export default that => {
     /**
      * @description: 创建平行光 DirectionalLight 的辅助对象
      * @param {*} light 被模拟的光源
-     * @param {*} size (可选的) 平面的尺寸. 默认为 1
-     * @param {*} color (可选的) 如果没有设置颜色将使用光源的颜色
+     * @param {number} size (可选的) 平面的尺寸. 默认为 1
+     * @param {Color} color (可选的) 如果没有设置颜色将使用光源的颜色
      * @return {*}
      */
     createDirectionalLightHelper(light, size, color) {
@@ -65,8 +65,8 @@ export default that => {
     /**
      * @description: 创建点光源 PointLight 的辅助对象
      * @param {*} light 被模拟的光源
-     * @param {*} sphereSize (可选的) 球形辅助对象的尺寸. 默认为 1
-     * @param {*} color (可选的) 如果没有设置颜色将使用光源的颜色
+     * @param {number} sphereSize (可选的) 球形辅助对象的尺寸. 默认为 1
+     * @param {Color} color (可选的) 如果没有设置颜色将使用光源的颜色
      * @return {*}
      */
     createPointLightHelper(light, sphereSize, color) {
