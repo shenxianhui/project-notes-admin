@@ -3,11 +3,15 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-09 10:31:09
+ * @LastEditTime: 2022-11-09 10:40:18
 -->
 
 <template>
-  <div :id="id || uuid" class="flexible-chart" :style="{ width, height }"></div>
+  <div
+    class="flexible-chart"
+    ref="$_flexibleChart"
+    :style="{ width, height }"
+  ></div>
 </template>
 
 <script>
@@ -30,7 +34,6 @@ import {
 } from 'echarts/components'
 import { LabelLayout, UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
-import { uuid } from '@/utils/utils'
 import {
   cartesianCoordinateSystemOption,
   pieOption,
@@ -59,8 +62,6 @@ export default {
   name: 'flexible-chart',
   components: {},
   props: {
-    // id (非必填)
-    id: [String, Number],
     // 宽度
     width: {
       type: String,
@@ -98,7 +99,6 @@ export default {
   },
   data() {
     return {
-      uuid: uuid(),
       chart: null,
       chartType: '',
       // chartOption: { ...cartesianCoordinateSystemOption },
@@ -284,9 +284,7 @@ export default {
     init() {
       this.clear()
 
-      const id = this.id || this.uuid
-
-      this.chart = Echarts.init(document.getElementById(id))
+      this.chart = this.$refs['$_flexibleChart']
 
       // this.setOption();
       this.click()
@@ -299,8 +297,9 @@ export default {
 
         if (isArray) {
           let arr = []
+          const list = this.option[item[0]] || []
 
-          ;(this.option[item[0]] || []).forEach((item1, index1) => {
+          list.forEach((item1, index1) => {
             arr[index1] = {
               ...item[1][index1],
               ...item1,
