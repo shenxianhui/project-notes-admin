@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-21 11:04:26
+ * @LastEditTime: 2022-11-09 10:31:09
 -->
 
 <template>
@@ -276,13 +276,13 @@ export default {
     window.addEventListener('resize', this.resize)
   },
   beforeDestroy() {
-    this.dispose()
+    this.clear(true)
     window.removeEventListener('resize', this.resize)
   },
   methods: {
     // 实例初始化
     init() {
-      this.dispose()
+      this.clear()
 
       const id = this.id || this.uuid
 
@@ -328,11 +328,10 @@ export default {
     },
 
     // 销毁图表实例
-    dispose() {
-      if (this.chart && !this.chart.isDisposed()) {
+    clear(isDestroy) {
+      if (this.chart) {
         this.chart.clear() // 释放图形资源
-        this.chart.dispose() // 销毁实例对象
-        this.chart = null
+        isDestroy && this.chart.dispose() // 销毁实例对象
       }
     },
 
