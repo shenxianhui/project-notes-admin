@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-09 10:40:18
+ * @LastEditTime: 2022-11-09 13:53:46
 -->
 
 <template>
@@ -284,7 +284,9 @@ export default {
     init() {
       this.clear()
 
-      this.chart = this.$refs['$_flexibleChart']
+      const chartDom = this.$refs['$_flexibleChart']
+
+      this.chart = Echarts.init(chartDom)
 
       // this.setOption();
       this.click()
