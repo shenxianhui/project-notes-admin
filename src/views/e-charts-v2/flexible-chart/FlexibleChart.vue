@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2022-07-21 11:14:45
+ * @LastEditTime: 2022-11-10 14:20:13
 -->
 
 <template>
@@ -332,6 +332,24 @@ export default {
           },
         },
         {
+          key: 'spacing-annular-chart',
+          option: {
+            title: {
+              show: true,
+              text: '环形间隔图表',
+            },
+            legend: {
+              data: [],
+            },
+            series: [
+              {
+                name: 'demo1',
+                type: 'pie',
+              },
+            ],
+          },
+        },
+        {
           option: {
             title: {
               show: true,
@@ -398,6 +416,15 @@ export default {
           }
         } else {
           chart.option.series = this.cuboidSeries()
+        }
+
+        if (chart.key === 'spacing-annular-chart') {
+          chart.option.series[0].data = this.spacingAnnularData(
+            this.mockData()[i],
+          ).list
+          chart.option.legend.data = this.spacingAnnularData(
+            this.mockData()[i],
+          ).nativeList
         }
       }
 
@@ -539,6 +566,58 @@ export default {
       ]
 
       return data || []
+    },
+
+    // 环形间隔图表 data
+    spacingAnnularData(data) {
+      let nativeList = []
+      let list = []
+      let total = 0
+
+      data.forEach(item => {
+        total += item.value
+      })
+      data.forEach(item => {
+        // 间隔 = 总数 * 占比 / 个数
+        const gapVal = Number(((total * 0.1) / data.length).toFixed(2))
+
+        if (data.length > 1) {
+          list.push(item, this.getBlankItem(gapVal))
+        } else {
+          list.push(item)
+        }
+        nativeList.push(item)
+      })
+
+      return {
+        nativeList,
+        list,
+      }
+    },
+    getBlankItem(value) {
+      return {
+        value,
+        name: '空',
+        itemStyle: {
+          label: {
+            show: false,
+          },
+          labelLine: {
+            show: false,
+          },
+          color: 'rgba(0, 0, 0, 0)',
+          borderWidth: 0,
+        },
+        tooltip: {
+          backgroundColor: '#00000000',
+          textStyle: {
+            color: '#00000000',
+          },
+        },
+        label: {
+          show: false,
+        },
+      }
     },
   },
 }
