@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-10 14:20:13
+ * @LastEditTime: 2022-11-11 10:00:35
 -->
 
 <template>
@@ -579,7 +579,7 @@ export default {
       })
       data.forEach(item => {
         // 间隔 = 总数 * 占比 / 个数
-        const gapVal = Number(((total * 0.1) / data.length).toFixed(2))
+        const gapVal = Number(((total * 0.05) / data.length).toFixed(2))
 
         if (data.length > 1) {
           list.push(item, this.getBlankItem(gapVal))
