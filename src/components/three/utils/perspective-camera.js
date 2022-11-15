@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 15:19:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-01 10:28:32
+ * @LastEditTime: 2022-11-03 11:15:54
  */
 
 import * as THREE from 'three'
@@ -18,8 +18,8 @@ export default that => {
       const { clientWidth, clientHeight } = that.container
       const clientScale = clientWidth / clientHeight
 
-      this.create(75, clientScale, 0.1, 1000)
-      this.setPosition(10, 20, 40)
+      this.create(75, clientScale, 1, 100000)
+      this.setPosition(-5000, 5000, -5000)
       this.lookAt(that.scene.position)
     },
 

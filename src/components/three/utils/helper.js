@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-11-02 14:59:17
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-02 17:29:18
+ * @LastEditTime: 2022-11-03 11:09:11
  */
 
 import * as THREE from 'three'
@@ -11,8 +11,8 @@ import * as THREE from 'three'
 export default that => {
   return {
     init() {
-      this.createAxesHelper(300)
-      this.createGridHelper(200, 40, 0xf0f, 0xff000020)
+      this.createAxesHelper(35000)
+      this.createGridHelper(30000, 40, 0xffff00, 0xffffff)
       this.createDirectionalLightHelper(that.directionalLight, 5)
       this.createPointLightHelper(that.pointLight)
       this.createCameraHelper(that.camera)

@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:50:26
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-02 15:22:47
+ * @LastEditTime: 2022-11-15 10:11:33
  */
 
 import * as THREE from 'three'
@@ -15,8 +15,8 @@ export default that => {
      * @return {*}
      */
     init() {
-      this.create(0xffffff, 1)
-      this.setPosition(500, 500, 500)
+      this.create(0xffffff, 5)
+      this.setPosition(10000, 10000, -10000)
       this.setShadowCamera({
         near: 1,
         far: 400,

@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 16:28:59
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-02 17:28:25
+ * @LastEditTime: 2022-11-03 11:38:35
  */
 
 import * as THREE from 'three'
@@ -16,7 +16,7 @@ export default that => {
      */
     init() {
       this.create(0xffffff)
-      this.setPosition(-20, 20, -20)
+      this.setPosition(-2000, 2000, -2000)
     },
 
     /**

@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 14:33:30
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-02 14:49:53
+ * @LastEditTime: 2022-11-03 15:54:44
  */
 
 import * as THREE from 'three'
@@ -26,16 +26,7 @@ export default that => {
      */
     create(params = {}) {
       that.scene = new THREE.Scene(params)
-      that.scene.background = new THREE.Color(0xf1f9fb)
-    },
-
-    /**
-     * @description: 添加至场景
-     * @param {*} obj 添加的对象
-     * @return {*}
-     */
-    add(obj) {
-      that.scene.add(obj)
+      that.scene.background = new THREE.Color(0xcaf3ff)
     },
   }
 }
