@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 14:14:01
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-02 15:11:44
+ * @LastEditTime: 2022-11-16 09:26:45
  */
 
 import Events from 'events'
@@ -53,6 +53,7 @@ class Three extends Events {
 
     /* 加载器 */
     this.GltfLoader.init()
+    this.ColladaLoader.init()
 
     /* 解码器 */
     this.DracoLoader.init()

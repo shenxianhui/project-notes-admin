@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-15 13:39:07
+ * @LastEditTime: 2022-11-16 13:42:23
 -->
 
 <template>
@@ -47,7 +47,7 @@ export default {
 
         if (type === 'glb' || type === 'gltf') {
           three.DracoLoader.setDecoderPath()
-          three.loader.setDRACOLoader(three.dracoLoader)
+          three.gltfLoader.setDRACOLoader(three.dracoLoader)
 
           three.GltfLoader.load(
             item,

@@ -1,12 +1,12 @@
 /*
- * @Description: GLTFLoader GLTF加载器
+ * @Description: ColladaLoader GLTF加载器
  * @Author: shenxh
  * @Date: 2022-08-04 09:15:01
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-16 09:21:40
+ * @LastEditTime: 2022-11-16 09:36:17
  */
 
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js'
 
 export default that => {
   return {
@@ -19,12 +19,11 @@ export default that => {
     },
 
     /**
-     * @description: 创建GLTF加载器
-     * @param {*} manager 该加载器将要使用的 loadingManager 。默认为 THREE.DefaultLoadingManager
+     * @description: 创建Collada加载器
      * @return {*}
      */
     create(manager) {
-      that.gltfLoader = new GLTFLoader(manager)
+      that.colladaLoader = new ColladaLoader()
     },
 
     /**
@@ -36,7 +35,7 @@ export default that => {
      * @return {*}
      */
     load(url, onLoad, onProgress, onError) {
-      that.gltfLoader.load(url, onLoad, onProgress, onError)
+      that.colladaLoader.load(url, onLoad, onProgress, onError)
     },
   }
 }
