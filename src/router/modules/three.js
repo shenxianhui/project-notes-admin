@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:56:08
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-22 09:34:16
+ * @LastEditTime: 2022-11-17 11:25:20
  */
 export default [
   {
@@ -12,7 +12,7 @@ export default [
     meta: {
       label: 'Three',
     },
-    redirect: '/three/lesson1',
+    redirect: '/three/water-works-sgs',
     component: loadView('layout/Layout'),
     children: [
       {
@@ -24,36 +24,20 @@ export default [
         component: loadView('three/WaterModel'),
       },
       {
-        path: 'lesson1',
-        name: 'lesson1',
+        path: 'water-works-zy',
+        name: 'water-works-zy',
         meta: {
-          label: '创建一个场景',
+          label: '状元水厂',
         },
-        component: loadView('three/learn/lesson1.old.vue'),
+        component: loadView('three/water-works-zy.vue'),
       },
       {
-        path: 'lesson2',
-        name: 'lesson2',
+        path: 'water-works-sgs',
+        name: 'water-works-sgs',
         meta: {
-          label: '画线',
+          label: '石鼓山水厂',
         },
-        component: loadView('three/learn/lesson2.vue'),
-      },
-      {
-        path: 'water-works-yq',
-        name: 'water-works-yq',
-        meta: {
-          label: '水厂 (乐清)',
-        },
-        component: loadView('three/WaterWorksYQ.vue'),
-      },
-      {
-        path: 'water-works-bim',
-        name: 'water-works-bim',
-        meta: {
-          label: '水厂 (BIM)',
-        },
-        component: loadView('three/WaterWorksBIM.vue'),
+        component: loadView('three/water-works-sgs.vue'),
       },
     ],
   },

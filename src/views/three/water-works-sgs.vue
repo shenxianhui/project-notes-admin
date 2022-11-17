@@ -1,14 +1,14 @@
 <!--
- * @Description: 水厂-BIM
+ * @Description: 石鼓山水厂
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-09-22 09:16:06
+ * @LastEditTime: 2022-11-17 11:26:01
 -->
 
 <template>
-  <div class="water-works-bim admin-content">
-    <three width="100%" height="100%"></three>
+  <div class="water-works-yq admin-content">
+    <three width="100%" height="100%" @loader-modules="loaderModules"></three>
   </div>
 </template>
 
@@ -16,7 +16,7 @@
 import Three from '@/components/three'
 
 export default {
-  name: 'water-works-bim',
+  name: 'water-works-yq',
   components: {
     Three,
   },
@@ -29,7 +29,9 @@ export default {
   created() {},
   mounted() {},
   beforeDestroy() {},
-  methods: {},
+  methods: {
+    loaderModules(three) {},
+  },
 }
 </script>
 

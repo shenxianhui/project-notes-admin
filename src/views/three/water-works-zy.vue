@@ -1,13 +1,13 @@
 <!--
- * @Description: 水厂-乐清
+ * @Description: 状元水厂
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-16 13:42:23
+ * @LastEditTime: 2022-11-17 11:22:21
 -->
 
 <template>
-  <div class="water-works-yq admin-content">
+  <div class="water-works-zy admin-content">
     <three width="100%" height="100%" @loader-modules="loaderModules"></three>
   </div>
 </template>
@@ -16,7 +16,7 @@
 import Three from '@/components/three'
 
 export default {
-  name: 'water-works-yq',
+  name: 'water-works-zy',
   components: {
     Three,
   },
