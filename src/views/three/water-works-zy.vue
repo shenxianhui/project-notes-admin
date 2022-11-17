@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-17 11:22:21
+ * @LastEditTime: 2022-11-17 11:31:07
 -->
 
 <template>
@@ -33,7 +33,7 @@ export default {
     // 加载模型
     loaderModules(three) {
       const context = require.context(
-        '../../../public/modules/water-model',
+        '../../../public/modules/water-model-zy',
         true,
         /\.glb$/,
       )
