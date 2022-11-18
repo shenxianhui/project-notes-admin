@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-17 11:26:01
+ * @LastEditTime: 2022-11-18 09:19:21
 -->
 
 <template>
@@ -30,7 +30,30 @@ export default {
   mounted() {},
   beforeDestroy() {},
   methods: {
-    loaderModules(three) {},
+    // 加载模型
+    loaderModules(three) {
+      // const context = require.context(
+      //   '../../../public/modules/water-model-sgs',
+      //   true,
+      // )
+      // const urlList = context.keys().map(item => {
+      //   return item.replace(/^./, '/modules/water-model-sgs')
+      // })
+      // urlList.forEach(item => {
+      //   const arr = item.split('.')
+      //   const type = arr[arr.length - 1].toLocaleLowerCase()
+      //   if (type === 'dae') {
+      //     three.ColladaLoader.load(item, mesh => {
+      //       three.scene.attach(mesh.scene)
+      //     })
+      //   }
+      //   if (type === 'glb' || type === 'gltf') {
+      //     three.GltfLoader.load(item, gltf => {
+      //       three.scene && three.scene.attach(gltf.scene)
+      //     })
+      //   }
+      // })
+    },
   },
 }
 </script>

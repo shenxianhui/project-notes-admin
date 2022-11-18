@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-17 11:31:07
+ * @LastEditTime: 2022-11-17 15:32:00
 -->
 
 <template>
@@ -38,7 +38,7 @@ export default {
         /\.glb$/,
       )
       const urlList = context.keys().map(item => {
-        return item.replace(/^./, '/modules/water-model')
+        return item.replace(/^./, '/modules/water-model-zy')
       })
 
       urlList.forEach(item => {

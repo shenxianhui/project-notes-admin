@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:56:08
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-17 11:25:20
+ * @LastEditTime: 2022-11-18 13:56:17
  */
 export default [
   {
@@ -12,7 +12,7 @@ export default [
     meta: {
       label: 'Three',
     },
-    redirect: '/three/water-works-sgs',
+    redirect: '/three/water-model',
     component: loadView('layout/Layout'),
     children: [
       {
