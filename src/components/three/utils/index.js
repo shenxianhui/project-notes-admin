@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 14:14:01
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-16 09:26:45
+ * @LastEditTime: 2022-11-21 14:46:47
  */
 
 import Events from 'events'
@@ -33,6 +33,7 @@ class Three extends Events {
 
     /* 渲染器 */
     this.WebglRenderer.init()
+    this.Css2dRenderer.createRenderer()
 
     /* 相机 */
     this.PerspectiveCamera.init()

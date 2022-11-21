@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-18 14:51:46
+ * @LastEditTime: 2022-11-21 14:58:40
 -->
 
 <template>
@@ -14,6 +14,8 @@
 
 <script>
 import Three from '@/components/three'
+
+let three = null
 
 export default {
   name: 'water-works-zy',
@@ -31,7 +33,8 @@ export default {
   beforeDestroy() {},
   methods: {
     // 加载模型
-    loaderModules(three) {
+    loaderModules(threeObj) {
+      three = threeObj
       const context = require.context(
         '../../../public/modules/water-model-zy',
         true,
@@ -54,111 +57,125 @@ export default {
             gltf => {
               const patch = arr[0].split('/')
               const fileName = patch[patch.length - 1]
+              let label = ''
+              let position = [0, 0, 0]
 
               gltf.name = fileName
               switch (fileName) {
                 // 前池及取水泵房
                 case 'build1YNSCYQ':
-                  gltf.scene.position.set(-4000, 310, 2500)
+                  label = '前池及取水泵房'
+                  position = [-4000, 310, 2500]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 污泥脱水机房
                 case 'build2YNSCYQ':
-                  gltf.scene.position.set(-7400, 390, -1000)
+                  label = '污泥脱水机房'
+                  position = [-7400, 390, -1000]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 储泥池
                 case 'build3YNSCYQ':
-                  gltf.scene.position.set(-9200, 390, -1800)
+                  label = '储泥池'
+                  position = [-9200, 390, -1800]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 污泥浓缩池及排泥泵房
                 case 'build4YNSCYQ':
-                  gltf.scene.position.set(-10400, 410, -2500)
+                  label = '污泥浓缩池及排泥泵房'
+                  position = [-10400, 410, -2500]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 综合楼
                 case 'build5YNSCYQ':
-                  gltf.scene.position.set(10100, 1100, 4450)
+                  label = '综合楼'
+                  position = [10100, 1100, 4450]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 加药间
                 case 'build6YNSCYQ':
-                  gltf.scene.position.set(9670, 250, -3060)
+                  label = '加药间'
+                  position = [9670, 250, -3060]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 次氯酸钠投加间
                 case 'build7YNSCYQ':
-                  gltf.scene.position.set(9700, 300, -4300)
+                  label = '次氯酸钠投加间'
+                  position = [9700, 300, -4300]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 滤池
                 case 'build8YNSCYQ':
-                  gltf.scene.position.set(3910, 420, -800)
+                  label = '滤池'
+                  position = [3910, 420, -800]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 反应沉淀池
                 case 'build9YNSCYQ':
-                  gltf.scene.position.set(-1970, 220, -830)
+                  label = '反应沉淀池'
+                  position = [-1970, 220, -830]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 高压配电房
                 case 'build10YNSCYQ':
-                  gltf.scene.position.set(6010, 320, -4700)
+                  label = '高压配电房'
+                  position = [6010, 320, -4700]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 吸水井及送水泵房
                 case 'build11YNSCYQ':
-                  gltf.scene.position.set(3570, 330, -4530)
+                  label = '吸水井及送水泵房'
+                  position = [3570, 330, -4530]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 门卫室
                 case 'build12YNSCYQ':
-                  gltf.scene.position.set(12698, 230, 1720)
+                  label = '门卫室'
+                  position = [12698, 230, 1720]
                   three.scene && three.scene.attach(gltf.scene)
-                  break
-                case 'BXGYNSCYQ':
                   break
                 // 地面
                 case 'dimianYNSCYQ':
-                  gltf.scene.position.set(0, 0, 0)
+                  position = [0, 0, 0]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 地形
                 case 'dixingYNSCYQ':
-                  gltf.scene.position.set(-3350, 1900, 9000)
+                  position = [-3350, 1900, 9000]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 草地
                 case 'grassYNSCYQ':
-                  gltf.scene.position.set(2930, 120, 220)
+                  position = [2930, 120, 220]
                   three.scene && three.scene.attach(gltf.scene)
-                  break
-                case 'logoBXGYNSCYQ':
                   break
                 // 公园
                 case 'qitaYNSCYQ':
-                  gltf.scene.position.set(10200, 300, 1500)
+                  position = [10200, 300, 1500]
                   three.scene && three.scene.attach(gltf.scene)
                   break
                 // 树1
                 case 'tree1COM':
-                  // gltf.scene.position.set(300, 2000, 0)
+                  // position = [300, 2000, 0]
                   // three.scene && three.scene.attach(gltf.scene)
                   break
                 // 树2
                 case 'tree2COM':
-                  // gltf.scene.position.set(0, 2000, 0)
+                  // position = [0, 2000, 0]
                   // three.scene && three.scene.attach(gltf.scene)
                   break
                 // 围栏
                 case 'weilanYNSCYQ':
-                  gltf.scene.position.set(200, 120, 0)
+                  position = [200, 120, 0]
                   three.scene && three.scene.attach(gltf.scene)
                   break
               }
               // gltf.scene.scale.set(0.01, 0.01, 0.01)
               // three.scene && three.scene.attach(gltf.scene)
+
+              gltf.scene.position.set(position[0], position[1], position[2])
+
+              this.getLabel(label, gltf.scene)
             },
             undefined,
             error => {
@@ -167,6 +184,23 @@ export default {
           )
         }
       })
+    },
+
+    // 创建标签
+    getLabel(label, scene) {
+      if (!label) return
+
+      const div = document.createElement('div')
+
+      div.textContent = label
+      div.className = 'three-label'
+      div.style.cursor = 'pointer'
+      div.style.padding = '0 8px'
+      div.style.color = '#fff'
+      div.style.background = '#ff6700'
+
+      three.Css2dRenderer.createObject(div)
+      scene.add(three.css2DObject)
     },
   },
 }

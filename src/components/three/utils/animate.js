@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-09-22 11:13:37
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-01 09:52:37
+ * @LastEditTime: 2022-11-21 14:32:12
  */
 
 export default that => {
@@ -33,6 +33,7 @@ export default that => {
     render() {
       that.stats && that.stats.update()
       that.renderer.render(that.scene, that.camera)
+      that.css2DRenderer && that.css2DRenderer.render(that.scene, that.camera)
     },
   }
 }
