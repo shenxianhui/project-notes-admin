@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-30 13:34:31
+ * @LastEditTime: 2022-11-30 13:50:14
 -->
 
 <template>
@@ -212,20 +212,29 @@ export default {
       const threeLabelInnerDom = div.getElementsByClassName(
         'three-label-inner',
       )[0]
-      threeLabelInnerDom.addEventListener('mouseover', e => {
-        for (let item of e.target.children) {
-          if (item.className === 'three-label-inner-body') {
-            item.style.display = 'block'
-          }
+      threeLabelInnerDom.addEventListener(
+        'mouseover',
+        this.onMouseoverThreeLabelInnerDom,
+      )
+      threeLabelInnerDom.addEventListener(
+        'mouseleave',
+        this.onMouseleaveThreeLabelInnerDom,
+      )
+    },
+
+    onMouseoverThreeLabelInnerDom(e) {
+      for (let item of e.target.children) {
+        if (item.className === 'three-label-inner-body') {
+          item.style.display = 'block'
         }
-      })
-      threeLabelInnerDom.addEventListener('mouseleave', e => {
-        for (let item of e.target.children) {
-          if (item.className === 'three-label-inner-body') {
-            item.style.display = 'none'
-          }
+      }
+    },
+    onMouseleaveThreeLabelInnerDom(e) {
+      for (let item of e.target.children) {
+        if (item.className === 'three-label-inner-body') {
+          item.style.display = 'none'
         }
-      })
+      }
     },
   },
 }
