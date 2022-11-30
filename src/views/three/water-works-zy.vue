@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-21 14:58:40
+ * @LastEditTime: 2022-11-30 13:34:31
 -->
 
 <template>
@@ -175,7 +175,7 @@ export default {
 
               gltf.scene.position.set(position[0], position[1], position[2])
 
-              this.getLabel(label, gltf.scene)
+              this.createLabel(label, gltf.scene)
             },
             undefined,
             error => {
@@ -187,23 +187,89 @@ export default {
     },
 
     // 创建标签
-    getLabel(label, scene) {
+    createLabel(label, object) {
       if (!label) return
 
       const div = document.createElement('div')
 
-      div.textContent = label
-      div.className = 'three-label'
-      div.style.cursor = 'pointer'
-      div.style.padding = '0 8px'
-      div.style.color = '#fff'
-      div.style.background = '#ff6700'
+      // div.className = 'three-label-container'
+      // div.style.color = '#fff'
+      // div.style.background = '#ff6700'
+      // div.textContent = label
+      div.innerHTML = `<div class="three-label">
+        <div class="three-label-inner">
+          <div class="three-label-inner-header">${label}</div>
+          <div class="three-label-inner-body">
+            内容区域内容区域内容区域内容区域内容区域内容区域内容区域内容区域内容区域内容区域
+          </div>
+        </div>
+        <div class="three-label-line"></div>
+      </div>`
 
       three.Css2dRenderer.createObject(div)
-      scene.add(three.css2DObject)
+      object.add(three.css2DObject)
+
+      const threeLabelInnerDom = div.getElementsByClassName(
+        'three-label-inner',
+      )[0]
+      threeLabelInnerDom.addEventListener('mouseover', e => {
+        for (let item of e.target.children) {
+          if (item.className === 'three-label-inner-body') {
+            item.style.display = 'block'
+          }
+        }
+      })
+      threeLabelInnerDom.addEventListener('mouseleave', e => {
+        for (let item of e.target.children) {
+          if (item.className === 'three-label-inner-body') {
+            item.style.display = 'none'
+          }
+        }
+      })
     },
   },
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.water-works-zy {
+  /deep/ .three-label {
+    cursor: default;
+    max-width: 200px;
+    transform: translate(0, -50%);
+    .three-label-inner {
+      padding: 5px 10px;
+      border-radius: 4px;
+      color: #fff;
+      background: #00000099;
+      .three-label-inner-body {
+        display: none;
+        font-size: 12px;
+        margin-top: 6px;
+      }
+    }
+    .three-label-line {
+      position: relative;
+      top: -2px;
+      left: 50%;
+      height: 20px;
+      margin-left: -3px;
+
+      width: 1px;
+      background: rgb(28, 135, 197);
+      &::after {
+        position: absolute;
+        bottom: -2px;
+        margin-left: -3.5px;
+        content: '';
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        border: 1px solid rgb(28, 135, 197);
+        background-color: #fff;
+      }
+    }
+  }
+}
+</style>

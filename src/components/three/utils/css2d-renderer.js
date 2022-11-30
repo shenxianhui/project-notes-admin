@@ -3,10 +3,9 @@
  * @Author: shenxh
  * @Date: 2022-11-21 09:37:57
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-21 14:54:38
+ * @LastEditTime: 2022-11-30 13:29:44
  */
 
-import * as THREE from 'three'
 import {
   CSS2DRenderer,
   CSS2DObject,
@@ -49,6 +48,15 @@ export default that => {
       that.css2DRenderer.domElement.style.position = 'absolute'
       that.css2DRenderer.domElement.style.top = '0px'
       that.container.appendChild(that.css2DRenderer.domElement)
+      // that.css2DRenderer.domElement.addEventListener('click', e => {
+      //   that.emit('click-label', e)
+      // })
+      // that.css2DRenderer.domElement.addEventListener('mousemove', e => {
+      //   that.emit('mousemove-label', e)
+      // })
+      // that.css2DRenderer.domElement.addEventListener('mouseout', e => {
+      //   that.emit('mouseout-label', e)
+      // })
     },
   }
 }
