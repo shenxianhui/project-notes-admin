@@ -9,7 +9,7 @@
 vue + less + element-ui + echarts + swiper
 
 ## 在线预览
-[👇猛戳这里](http://admin_w.ianki.cn/)
+[👇猛戳这里](https://shenxianhui.gitee.io/xx-vue-summary)
 
 ## 个人博客
 [简书](https://www.jianshu.com/u/195a91a868f5)
