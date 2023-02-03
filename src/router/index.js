@@ -6,7 +6,7 @@ import CommonRouters from './common'
 Vue.use(VueRouter)
 
 export default new VueRouter({
-  mode: 'history', // 需要服务端支持
+  // mode: 'history', // 需要服务端支持
   // scrollBehavior: () => ({ y: 0 }),
   routes: RouterConfig.concat(CommonRouters),
 })
