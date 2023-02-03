@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-09-19 15:10:58
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-30 17:14:01
+ * @LastEditTime: 2023-02-03 15:43:54
 -->
 
 <template>
@@ -53,7 +53,7 @@ export default {
     loaderModules(threeObj) {
       three = threeObj
       const context = require.context(
-        '../../../public/modules/water-model-zy',
+        '/public/modules/water-model-zy',
         true,
         /\.glb$/,
       )
