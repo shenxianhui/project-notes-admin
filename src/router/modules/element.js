@@ -2,7 +2,7 @@
  * @Author: shenxh
  * @Date: 2020-05-01 18:28:06
  * @LastEditors: shenxh
- * @LastEditTime: 2022-02-25 11:20:17
+ * @LastEditTime: 2023-02-24 10:52:06
  * @Description: Element
  */
 export default [
@@ -38,6 +38,14 @@ export default [
           label: '树形控件',
         },
         component: loadView('element/tree/Tree'),
+      },
+      {
+        path: 'virtualized-select',
+        name: 'element-virtualized-select',
+        meta: {
+          label: '虚拟化选择器',
+        },
+        component: loadView('element/virtualized-select/virtualized-select'),
       },
     ],
   },
