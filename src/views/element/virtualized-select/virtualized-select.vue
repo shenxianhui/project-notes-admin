@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-02-24 10:46:10
  * @LastEditors: shenxh
- * @LastEditTime: 2023-02-24 14:22:21
+ * @LastEditTime: 2023-02-24 17:20:12
 -->
 
 <template>
@@ -45,13 +45,12 @@ export default {
   methods: {
     // 输入回调
     virtualInputCall(val) {
-      console.log('virtualInputCall---->', val)
-      // ...
+      console.log(val)
     },
+
     // 点击项目回调
-    virtualClickItemCall(item) {
-      console.log('virtualClickItemCall---->', item)
-      // ...
+    virtualClickItemCall(val) {
+      console.log(val)
     },
 
     // mock 数据
@@ -61,10 +60,9 @@ export default {
 
         for (let i = 0; i < count; i++) {
           const obj = {
-            id: i + '',
-            index: i,
-            name: `选项${i}`,
+            label: i + '',
             value: i,
+            index: i,
           }
 
           arr.push(obj)

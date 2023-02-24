@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-02-24 10:33:17
  * @LastEditors: shenxh
- * @LastEditTime: 2023-02-24 14:18:38
+ * @LastEditTime: 2023-02-24 17:02:49
 -->
 
 <template>
@@ -18,19 +18,18 @@
       v-if="showPopover"
       ref="virtualListRef"
       class="virtual-list"
-      :data-key="'id'"
+      :data-key="'value'"
       :keeps="keeps"
       :data-sources="dataList"
-      :data-component="itemComponent"
-      :extra-props="{ curId }"
+      :data-component="dataComponent"
+      :extra-props="{ value: currentData.value }"
       :estimate-size="estimateSize"
       :item-class="'list-item-custom-class'"
     ></virtual-scroll-list>
     <el-input
+      v-model="currentData.label"
       slot="reference"
-      v-model="curValue"
-      :style="`width:${width}px;`"
-      :size="size"
+      :style="`width: ${width}px;`"
       :placeholder="placeholder"
       @input="handleInput"
     ></el-input>
@@ -47,48 +46,45 @@ export default {
     VirtualScrollList,
   },
   props: {
+    // 输入框宽度
     width: {
       type: Number,
       default: 250,
     },
-    size: {
-      type: String,
-      default: 'small',
-    },
+    // 占位符
     placeholder: {
       type: String,
       default: '请选择',
     },
+    // 选项列表
     options: {
       type: Array,
       default: () => {
         return []
       },
     },
-    // 虚拟列表在真实 dom 中保持渲染的项目数量
+    // 虚拟列表在真实 dom 中保持渲染的数量
     keeps: {
       type: Number,
       default: 20,
     },
-    // 每个项目的估计大小，如果更接近平均大小，则滚动条长度看起来更准确。 建议分配自己计算的平均值。
+    // 每个选项的估计大小，如果更接近平均大小，则滚动条长度看起来更准确。 建议分配自己计算的平均值
     estimateSize: {
       type: Number,
       default: 32,
     },
     // input输入触发方法
     virtualInputCall: Function,
-    // 点击每个项目触发方法
+    // 点击每个选项触发方法
     virtualClickItemCall: Function,
   },
   data() {
     return {
       dataList: this.options,
-      curId: '', // 当前选择的 id
-      curValue: '', // 当前选择的值
-      curValueTmp: '', // 当前选择的值
-      curIndex: null, // 当前选择的索引
+      currentData: {}, // 当前已选项
+      currentDataTmp: {}, // 当前已选项-临时
       showPopover: false, // 显示下拉弹窗
-      itemComponent: VirtualizedOption, // 由 vue 创建/声明的渲染项组件，它将使用 data-sources 中的数据对象作为渲染道具并命名为：source。
+      dataComponent: VirtualizedOption, // 由 vue 创建/声明的渲染项组件, 它将使用 data-sources 中的数据对象作为渲染道具并命名为: source
     }
   },
   computed: {},
@@ -100,33 +96,30 @@ export default {
       deep: true,
     },
 
-    showPopover(n) {
-      if (n) {
-        // 当展示虚拟列表时，需要定位到选择的位置
+    showPopover(val) {
+      if (val) {
         this.$nextTick(() => {
-          let temp = this.curIndex ? this.curIndex : 0
-          // 方法一：手动设置滚动位置到指定索引。
-          this.$refs.virtualListRef.scrollToIndex(temp - 1)
-          // 方法二：手动将滚动位置设置为指定的偏移量。
-          // this.$refs.virtualListRef.scrollToOffset(this.estimateSize * (temp - 1));
+          // 方法一：手动设置滚动位置到指定索引
+          // this.$refs.virtualListRef.scrollToIndex(this.currentData.index || 0)
+          this.$refs.virtualListRef.scrollToIndex(this.getCurrentIndex())
+          // 方法二：手动将滚动位置设置为指定的偏移量
+          // this.$refs.virtualListRef.scrollToOffset(this.estimateSize * (index));
         })
       } else {
-        if (this.curValue !== this.curValueTmp) {
-          this.curValue = this.curValueTmp
-          this.dataList = this.options
+        if (this.currentData.label !== this.currentDataTmp.label) {
+          this.currentData.label = this.currentDataTmp.label
         }
+        console.log(this.currentData.index)
+        this.dataList = this.getFilterData()
       }
     },
   },
   created() {
     // 监听点击子组件
     this.$on('clickVirtualItem', item => {
-      this.curId = item.id
-      this.curValue = item.name
-      this.curValueTmp = item.name
-      this.curIndex = item.index
+      this.currentData = { ...item }
+      this.currentDataTmp = { ...item }
       this.showPopover = false
-      console.log('item--->', item)
       this.virtualClickItemCall && this.virtualClickItemCall(item)
     })
   },
@@ -135,14 +128,40 @@ export default {
   methods: {
     // 输入框改变
     handleInput(val) {
-      console.log('val--->', val, this.dataList)
       if (!val) {
-        this.curId = ''
-        this.curIndex = null
+        this.currentData = {}
       }
-      this.dataList = this.options.filter(item => item.name.includes(val))
 
+      this.dataList = this.getFilterData()
       this.virtualInputCall && this.virtualInputCall(val)
+    },
+
+    // 模糊搜索
+    getFilterData() {
+      return this.options.filter(item =>
+        item.label.includes(this.currentData.label || ''),
+      )
+    },
+
+    // 获取当前选项index
+    getCurrentIndex() {
+      let index = 0
+
+      if (
+        this.dataList &&
+        this.dataList.length &&
+        (this.currentData.value || this.currentData.value === 0)
+      ) {
+        for (let i = 0; i < this.dataList.length; i++) {
+          if (this.dataList[i].value === this.currentData.value) {
+            index = i
+
+            return
+          }
+        }
+      }
+
+      return index
     },
   },
 }

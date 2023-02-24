@@ -3,16 +3,16 @@
  * @Author: shenxh
  * @Date: 2023-02-24 10:35:01
  * @LastEditors: shenxh
- * @LastEditTime: 2023-02-24 14:21:51
+ * @LastEditTime: 2023-02-24 16:41:16
 -->
 
 <template>
   <div
     class="xx-virtualized-option"
-    :class="{ selected: curId === source.id }"
+    :class="{ selected: value === source.value }"
     @click="handleClick"
   >
-    <span>{{ source.name }}</span>
+    <span>{{ source.label }}</span>
   </div>
 </template>
 
@@ -21,8 +21,8 @@ export default {
   name: 'xx-virtualized-option',
   components: {},
   props: {
-    curId: {
-      type: String,
+    value: {
+      type: [String, Number],
       default: '',
     },
     source: {
