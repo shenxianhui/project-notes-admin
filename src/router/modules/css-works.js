@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-11-10 13:17:53
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-10 13:22:57
+ * @LastEditTime: 2023-04-07 14:29:20
  */
 
 export default [
@@ -23,6 +23,14 @@ export default [
           label: '进度条',
         },
         component: loadView('css-works/ProgressBar'),
+      },
+      {
+        path: 'element-dance',
+        name: 'element-dance',
+        meta: {
+          label: '元素跳动',
+        },
+        component: loadView('css-works/element-dance'),
       },
     ],
   },
