@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-18 15:51:55
+ * @LastEditTime: 2023-05-18 16:01:37
 -->
 
 <template>
@@ -96,6 +96,7 @@ export default {
       type: Number,
       default: 2, // 0: 个位; 1: 十位; 2: 百位; ...
     },
+    loading: Boolean, // 加载动画效果
   },
   data() {
     return {
@@ -269,7 +270,11 @@ export default {
       return data
     },
   },
-  watch: {},
+  watch: {
+    loading() {
+      this.setLoading()
+    },
+  },
   created() {},
   mounted() {
     this.init()
@@ -289,6 +294,7 @@ export default {
       this.chart = Echarts.init(chartDom)
 
       // this.setOption();
+      this.setLoading()
       this.click()
     },
 
@@ -362,6 +368,16 @@ export default {
 
         this.chartOption.xAxis = tmpYAxis
         this.chartOption.yAxis = tmpXAxis
+      }
+    },
+
+    // 设置 loading
+    setLoading() {
+      if (!this.chart) return
+      if (this.loading) {
+        this.chart.showLoading()
+      } else {
+        this.chart.hideLoading()
       }
     },
   },
