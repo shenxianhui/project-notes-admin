@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-09 13:53:46
+ * @LastEditTime: 2023-05-18 15:51:55
 -->
 
 <template>
@@ -282,7 +282,7 @@ export default {
   methods: {
     // 实例初始化
     init() {
-      this.clear()
+      this.clear(true)
 
       const chartDom = this.$refs['$_flexibleChart']
 
