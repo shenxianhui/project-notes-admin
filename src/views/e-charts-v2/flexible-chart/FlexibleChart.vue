@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-11 10:00:35
+ * @LastEditTime: 2023-05-18 15:22:48
 -->
 
 <template>
@@ -14,13 +14,34 @@
         :key="index"
         class="dm-flexible-chart-item"
       >
-        <flexible-chart
-          ref="chart"
-          :option="item.option"
-          :horizontal="item.horizontal"
-        ></flexible-chart>
+        <el-card shadow="hover">
+          <div slot="header" class="clearfix">
+            <span>{{ item.option?.title?.text }}</span>
+            <el-button
+              class="button-config"
+              type="text"
+              @click="handleConfig(item)"
+            >
+              配置项
+            </el-button>
+          </div>
+          <flexible-chart
+            ref="chart"
+            :option="item.option"
+            :horizontal="item.horizontal"
+          ></flexible-chart>
+        </el-card>
       </div>
     </div>
+
+    <el-drawer
+      :title="currentCardData?.option?.title?.text"
+      :visible.sync="showDrawer"
+      direction="ltr"
+      append-to-body
+    >
+      <pre>{{ currentCardData }}</pre>
+    </el-drawer>
   </div>
 </template>
 
@@ -37,11 +58,13 @@ export default {
   props: {},
   data() {
     return {
+      showDrawer: false,
+      currentCardData: {},
       chart: [
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '折线图',
             },
             yAxis: {
@@ -58,7 +81,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '柱状图',
             },
             yAxis: {
@@ -75,7 +98,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '柱线混合',
             },
             yAxis: [
@@ -102,7 +125,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '柱状图(组)',
             },
             yAxis: {
@@ -130,7 +153,7 @@ export default {
           horizontal: true,
           option: {
             title: {
-              show: true,
+              show: false,
               text: '水平柱状图',
             },
             grid: {
@@ -150,7 +173,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '上下双图',
             },
             grid: [
@@ -214,7 +237,7 @@ export default {
           horizontal: true,
           option: {
             title: {
-              show: true,
+              show: false,
               text: '左右双图',
             },
             grid: [
@@ -278,7 +301,7 @@ export default {
           setSeries: true,
           option: {
             title: {
-              show: true,
+              show: false,
               text: '长方体柱图',
             },
             tooltip: {
@@ -295,7 +318,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '象形柱图',
             },
             yAxis: {
@@ -320,7 +343,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '饼图',
             },
             series: [
@@ -335,7 +358,7 @@ export default {
           key: 'spacing-annular-chart',
           option: {
             title: {
-              show: true,
+              show: false,
               text: '环形间隔图表',
             },
             legend: {
@@ -352,7 +375,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '雷达图',
             },
             radar: {
@@ -377,7 +400,15 @@ export default {
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    showDrawer(val) {
+      if (val) {
+        this.clearTimer()
+      } else {
+        this.initData()
+      }
+    },
+  },
   created() {},
   mounted() {
     this.initData()
@@ -386,6 +417,11 @@ export default {
     this.clearTimer()
   },
   methods: {
+    handleConfig(itm) {
+      this.currentCardData = itm
+      this.showDrawer = true
+    },
+
     initData() {
       this.clearTimer()
       this.getData()
@@ -631,15 +667,33 @@ export default {
     width: 100%;
     height: 100%;
     min-height: 100%;
-    border: 1px solid #efefef;
     overflow: auto;
     .dm-flexible-chart-item {
       flex-shrink: 0;
-      width: 33.3%;
+      width: 32.6%;
       height: 50%;
-      border-bottom: 1px solid #efefef;
+      margin-bottom: 1%;
       &:not(:nth-of-type(3n)) {
-        border-right: 1px solid #efefef;
+        margin-right: 1%;
+      }
+      /deep/ .el-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        .el-card__header {
+          height: 40px;
+          padding: 0 10px;
+          .clearfix {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+          }
+        }
+        .el-card__body {
+          flex-grow: 1;
+          padding: 10px;
+        }
       }
     }
   }
