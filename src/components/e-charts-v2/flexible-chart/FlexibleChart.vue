@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-18 16:01:37
+ * @LastEditTime: 2023-05-19 09:43:50
 -->
 
 <template>
@@ -300,12 +300,14 @@ export default {
 
     // 设置配置项, 刷新图表 (需父组件主动调用)
     setOption() {
+      let chartOpt = { ...this.option }
+
       Object.entries(this.optionData).forEach(item => {
         const isArray = Array.isArray(item[1])
 
         if (isArray) {
           let arr = []
-          const list = this.option[item[0]] || []
+          const list = chartOpt[item[0]] || []
 
           list.forEach((item1, index1) => {
             arr[index1] = {
@@ -314,16 +316,16 @@ export default {
             }
           })
 
-          this.option[item[0]] = arr
+          chartOpt[item[0]] = arr
         } else {
-          this.option[item[0]] = {
+          chartOpt[item[0]] = {
             ...item[1],
-            ...this.option[item[0]],
+            ...chartOpt[item[0]],
           }
         }
       })
 
-      this.chart && this.chart.setOption(this.option)
+      this.chart && this.chart.setOption(chartOpt)
     },
 
     // 点击事件
