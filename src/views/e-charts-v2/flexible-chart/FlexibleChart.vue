@@ -3,11 +3,22 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-18 15:22:48
+ * @LastEditTime: 2023-05-19 11:02:41
 -->
 
 <template>
   <div class="dm-flexible-chart admin-content">
+    <div class="buttons">
+      <span></span>
+      <el-button
+        class="update-btn"
+        type="primary"
+        size="mini"
+        @click="handleUpdateData"
+      >
+        数据更新
+      </el-button>
+    </div>
     <div class="dm-flexible-chart-wrap">
       <div
         v-for="(item, index) in chart"
@@ -181,7 +192,7 @@ export default {
                 top: 40,
                 left: 50,
                 right: 20,
-                bottom: undefined,
+                bottom: null,
                 height: '30%',
                 containLabel: false,
                 tooltip: {
@@ -193,7 +204,7 @@ export default {
               {
                 left: 50,
                 right: 20,
-                top: undefined,
+                top: null,
                 bottom: 15,
                 height: '30%',
                 containLabel: false,
@@ -245,7 +256,7 @@ export default {
                 top: 40,
                 bottom: 30,
                 left: 30,
-                right: undefined,
+                right: null,
                 width: '38%',
                 containLabel: false,
                 tooltip: {
@@ -257,7 +268,7 @@ export default {
               {
                 top: 40,
                 bottom: 30,
-                left: undefined,
+                left: null,
                 right: 30,
                 width: '38%',
                 containLabel: false,
@@ -400,35 +411,20 @@ export default {
     }
   },
   computed: {},
-  watch: {
-    showDrawer(val) {
-      if (val) {
-        this.clearTimer()
-      } else {
-        this.initData()
-      }
-    },
-  },
+  watch: {},
   created() {},
   mounted() {
-    this.initData()
+    this.getData()
   },
-  beforeDestroy() {
-    this.clearTimer()
-  },
+  beforeDestroy() {},
   methods: {
+    handleUpdateData() {
+      this.getData()
+    },
+
     handleConfig(itm) {
       this.currentCardData = itm
       this.showDrawer = true
-    },
-
-    initData() {
-      this.clearTimer()
-      this.getData()
-
-      timer = setInterval(() => {
-        this.getData()
-      }, 2000)
     },
 
     getData() {
@@ -448,6 +444,11 @@ export default {
               chartOptionSeries[i].data = this.mockRadarData()
             } else {
               chartOptionSeries[i].data = this.mockData()[i]
+
+              // 解决数据不更新问题
+              this.chart[idx].option.series = JSON.parse(
+                JSON.stringify(chartOptionSeries),
+              )
             }
           }
         } else {
@@ -475,11 +476,12 @@ export default {
     },
 
     mockData() {
+      const total = Math.round(Math.random() * 5) + 5
       let data1 = []
       let data2 = []
       let data3 = []
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < total; i++) {
         data1.push({
           name: 'X' + i,
           value: Math.round(Math.random() * 1000),
@@ -661,12 +663,15 @@ export default {
 
 <style lang="less" scoped>
 .dm-flexible-chart {
+  display: flex;
+  flex-direction: column;
   .dm-flexible-chart-wrap {
     display: flex;
     flex-wrap: wrap;
+    flex-grow: 1;
     width: 100%;
-    height: 100%;
-    min-height: 100%;
+    // height: 100%;
+    // min-height: 100%;
     overflow: auto;
     .dm-flexible-chart-item {
       flex-shrink: 0;
@@ -696,6 +701,12 @@ export default {
         }
       }
     }
+  }
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
   }
 }
 </style>
