@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-11-03 15:53:11
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-29 16:23:46
+ * @LastEditTime: 2023-05-29 16:47:13
 -->
 
 <template>
@@ -48,6 +48,11 @@ export default {
       gltfLoader: null, // GLTF加载器
       dracoLoader: null, // 解码库加载器
       animationFrame: null, // 动画帧
+
+      // 组
+      group: {
+        waterWorks: new THREE.Group(), // 水厂
+      },
 
       coordinateList: [...coordinateList],
     }
@@ -136,7 +141,7 @@ export default {
 
     // 初始化-平行光
     initDirectionalLight() {
-      this.directionalLight = new THREE.DirectionalLight(0xffffff, 5)
+      this.directionalLight = new THREE.DirectionalLight(0xffffff, 3)
       this.directionalLight.position.set(1, 1, -1)
       this.scene.add(this.directionalLight)
     },
@@ -228,10 +233,12 @@ export default {
             const { x, y, z } = position
 
             gltf.scene.position.set(x, y, z)
-            this.scene.attach(gltf.scene)
+            this.group.waterWorks.add(gltf.scene)
           }
         })
       })
+
+      this.scene.add(this.group.waterWorks)
     },
 
     setModule(gltf) {
@@ -244,7 +251,7 @@ export default {
 
         if (name === gltfName) {
           cloneGltf.position.set(x, y, z)
-          this.scene.attach(cloneGltf)
+          this.group.waterWorks.add(cloneGltf)
           this.coordinateList.splice(index, 1)
         }
       })
