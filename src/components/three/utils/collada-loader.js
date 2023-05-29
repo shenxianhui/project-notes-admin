@@ -1,9 +1,9 @@
 /*
- * @Description: ColladaLoader GLTF加载器
+ * @Description: ColladaLoader Collada加载器
  * @Author: shenxh
  * @Date: 2022-08-04 09:15:01
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-17 14:45:04
+ * @LastEditTime: 2023-05-29 10:44:38
  */
 
 import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js'
