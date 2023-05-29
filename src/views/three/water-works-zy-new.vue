@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-11-03 15:53:11
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-29 16:47:13
+ * @LastEditTime: 2023-05-29 17:13:57
 -->
 
 <template>
@@ -234,6 +234,8 @@ export default {
 
             gltf.scene.position.set(x, y, z)
             this.group.waterWorks.add(gltf.scene)
+
+            this.createLabel(gltf)
           }
         })
       })
@@ -253,6 +255,45 @@ export default {
           cloneGltf.position.set(x, y, z)
           this.group.waterWorks.add(cloneGltf)
           this.coordinateList.splice(index, 1)
+        }
+      })
+    },
+
+    // 创建标签
+    createLabel(gltf) {
+      const div = document.createElement('div')
+      const gltfName = gltf?.scene?.children[0]?.name
+
+      div.innerHTML = `
+        <div class="three-label">
+          <div class="three-label-inner">
+            <div class="three-label-inner-header">${gltfName}</div>
+            <div class="three-label-inner-body">
+              ${gltf.asset.generator}
+            </div>
+          </div>
+          <div class="three-label-line"></div>
+        </div>
+      `
+
+      this.css2DObject = new CSS2DObject(div)
+      gltf.scene.add(this.css2DObject)
+
+      const threeLabelInnerDom = div.getElementsByClassName(
+        'three-label-inner',
+      )[0]
+      threeLabelInnerDom.addEventListener('mouseover', e => {
+        for (let item of e.target.children) {
+          if (item.className === 'three-label-inner-body') {
+            item.style.display = 'block'
+          }
+        }
+      })
+      threeLabelInnerDom.addEventListener('mouseleave', e => {
+        for (let item of e.target.children) {
+          if (item.className === 'three-label-inner-body') {
+            item.style.display = 'none'
+          }
         }
       })
     },
