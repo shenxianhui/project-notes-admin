@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-11-03 15:53:11
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-29 14:28:38
+ * @LastEditTime: 2023-05-29 16:23:46
 -->
 
 <template>
@@ -19,7 +19,6 @@ import * as THREE from 'three'
 import Stats from 'three/examples/jsm/libs/stats.module'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import {
   CSS2DRenderer,
@@ -29,6 +28,7 @@ import {
   CSS3DRenderer,
   CSS3DObject,
 } from 'three/examples/jsm/renderers/CSS3DRenderer.js'
+import coordinateList from '/public/modules/water-model-zy/zuobiao.json'
 
 export default {
   name: 'water-works-zy-new',
@@ -46,9 +46,10 @@ export default {
       directionalLight: null, // 平行光
       css2DRenderer: null, // CSS 2D渲染器
       gltfLoader: null, // GLTF加载器
-      colladaLoader: null, // Collada加载器
       dracoLoader: null, // 解码库加载器
       animationFrame: null, // 动画帧
+
+      coordinateList: [...coordinateList],
     }
   },
   computed: {},
@@ -56,10 +57,10 @@ export default {
   created() {},
   mounted() {
     this.init()
-    // this.loaderModules()
+    this.loaderModules()
   },
   beforeDestroy() {
-    this.clearThree()
+    this.dispose()
   },
   methods: {
     init() {
@@ -76,7 +77,6 @@ export default {
       this.initDirectionalLight()
       this.initCSS2DRenderer()
       this.initGLTFLoader()
-      this.initColladaLoader()
       this.initDRACOLoader()
       this.initAnimate()
     },
@@ -136,8 +136,8 @@ export default {
 
     // 初始化-平行光
     initDirectionalLight() {
-      this.directionalLight = new THREE.DirectionalLight(0xffffff)
-      this.directionalLight.position.set(10000, 10000, -10000)
+      this.directionalLight = new THREE.DirectionalLight(0xffffff, 5)
+      this.directionalLight.position.set(1, 1, -1)
       this.scene.add(this.directionalLight)
     },
 
@@ -157,11 +157,6 @@ export default {
     // 初始化-GLTF加载器
     initGLTFLoader() {
       this.gltfLoader = new GLTFLoader()
-    },
-
-    // 初始化-Collada加载器
-    initColladaLoader() {
-      this.colladaLoader = new ColladaLoader()
     },
 
     // 初始化-解码库加载器
@@ -184,7 +179,7 @@ export default {
     },
 
     // 清空 three
-    clearThree() {
+    dispose() {
       // 停止动画
       cancelAnimationFrame(this.animationFrame)
 
@@ -211,24 +206,47 @@ export default {
         true,
         /\.glb$/,
       )
-      const urlList = context.keys().map(item => {
-        return item.replace(/^./, '/modules/water-model-zy')
-      })
 
-      urlList.forEach(filePath => {
-        // const GLTF = require('three/examples/js/libs/draco/gltf')
-        this.dracoLoader.setDecoderPath('/public/utils/gltf/')
+      context.keys().forEach(item => {
+        const filePath = item.replace(/^./, '/modules/water-model-zy')
+
+        this.dracoLoader.setDecoderPath('/utils/gltf/')
         this.gltfLoader.setDRACOLoader(this.dracoLoader)
-        console.log(filePath, this.gltfLoader)
         this.gltfLoader.load(filePath, gltf => {
-          console.log(filePath, gltf)
+          const gltfName = gltf?.scene?.children[0]?.name
+          if (gltfName === 'tree1COM' || gltfName === 'tree2COM') {
+            this.setModule(gltf)
+          } else {
+            const model = this.coordinateList.find((item, index) => {
+              if (item.name === gltfName) {
+                this.coordinateList.splice(index, 1)
+
+                return true
+              }
+            })
+            const { position = {} } = model || {}
+            const { x, y, z } = position
+
+            gltf.scene.position.set(x, y, z)
+            this.scene.attach(gltf.scene)
+          }
         })
-        this.colladaLoader.load(
-          '/public/modules/water-model-zy/zuobiao.dae',
-          dae => {
-            // console.log(dae)
-          },
-        )
+      })
+    },
+
+    setModule(gltf) {
+      const gltfName = gltf?.scene?.children[0]?.name
+
+      this.coordinateList.forEach((item, index) => {
+        const cloneGltf = gltf.scene.clone()
+        const { position = {}, name } = item || {}
+        const { x, y, z } = position
+
+        if (name === gltfName) {
+          cloneGltf.position.set(x, y, z)
+          this.scene.attach(cloneGltf)
+          this.coordinateList.splice(index, 1)
+        }
       })
     },
   },
