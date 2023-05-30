@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-11-03 15:53:11
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-29 17:13:57
+ * @LastEditTime: 2023-05-30 14:56:36
 -->
 
 <template>
@@ -36,6 +36,8 @@ export default {
   props: {},
   data() {
     return {
+      coordinateList: [...coordinateList], // 坐标数组
+
       threeContainer: null, // three 容器
       statsContainer: null, // 性能监测容器
       stats: null, // 性能监测
@@ -49,16 +51,25 @@ export default {
       dracoLoader: null, // 解码库加载器
       animationFrame: null, // 动画帧
 
-      // 组
+      /* 组 */
       group: {
         waterWorks: new THREE.Group(), // 水厂
       },
 
-      coordinateList: [...coordinateList],
+      /* 模型对象暂存数组 */
+      css2DObjectList: [], // 已创建的2D渲染器
+
+      /* 其他 */
+      showWaterWorks: true, // 显示水厂相关模型
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    showWaterWorks(val) {
+      this.group.waterWorks.visible = val
+      this.set2DObjectVisible(this.css2DObjectList, val)
+    },
+  },
   created() {},
   mounted() {
     this.init()
@@ -276,12 +287,12 @@ export default {
         </div>
       `
 
-      this.css2DObject = new CSS2DObject(div)
-      gltf.scene.add(this.css2DObject)
+      const css2DObject = new CSS2DObject(div)
+      const threeLabelInnerDom = div.querySelector('.three-label-inner')
 
-      const threeLabelInnerDom = div.getElementsByClassName(
-        'three-label-inner',
-      )[0]
+      gltf.scene.add(css2DObject)
+      this.css2DObjectList.push(css2DObject)
+
       threeLabelInnerDom.addEventListener('mouseover', e => {
         for (let item of e.target.children) {
           if (item.className === 'three-label-inner-body') {
@@ -295,6 +306,16 @@ export default {
             item.style.display = 'none'
           }
         }
+      })
+      threeLabelInnerDom.addEventListener('click', e => {
+        this.showWaterWorks = false
+      })
+    },
+
+    // 批量设置对象属性
+    set2DObjectVisible(list = [], show) {
+      list.forEach(obj => {
+        obj.visible = show
       })
     },
   },
