@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-11-03 15:53:11
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-31 10:39:28
+ * @LastEditTime: 2023-05-31 16:02:11
 -->
 
 <template>
@@ -67,9 +67,13 @@ export default {
   mounted() {
     this.init()
     this.loaderModules()
+    this.threeContainer &&
+      this.threeContainer.addEventListener('click', this.onClick)
   },
   beforeDestroy() {
     this.dispose()
+    this.threeContainer &&
+      this.threeContainer.removeEventListener('click', this.onClick)
   },
   methods: {
     // 加载模型
@@ -86,7 +90,9 @@ export default {
         this.dracoLoader.setDecoderPath('/utils/gltf/')
         this.gltfLoader.setDRACOLoader(this.dracoLoader)
         this.gltfLoader.load(filePath, gltf => {
-          const gltfName = gltf?.scene?.children[0]?.name
+          const meshObj = gltf?.scene?.children[0]
+          const gltfName = meshObj?.name
+
           if (gltfName === 'tree1COM' || gltfName === 'tree2COM') {
             this.setModule(gltf)
           } else {
@@ -100,6 +106,10 @@ export default {
             const { position = {} } = model || {}
             const { x, y, z } = position
 
+            // 定义可点击的元素
+            if (gltfName === 'build2YNSCYQ') {
+              meshObj.userData.interactive = true
+            }
             gltf.scene.position.set(x, y, z)
             this.group.waterWorks.add(gltf.scene)
 
@@ -120,6 +130,13 @@ export default {
         const { x, y, z } = position
 
         if (name === gltfName) {
+          // 取消关联
+          cloneGltf.traverse(child => {
+            if (child.isMesh) {
+              child.material = child.material.clone() // 克隆材质
+              child.material.needsUpdate = true // 更新材质
+            }
+          })
           cloneGltf.position.set(x, y, z)
           this.group.waterWorks.add(cloneGltf)
           this.coordinateList.splice(index, 1)
@@ -164,15 +181,84 @@ export default {
           }
         }
       })
-      threeLabelInnerDom.addEventListener('click', e => {
-        this.showWaterWorks = false
-      })
     },
 
     // 批量设置对象属性
     set2DObjectVisible(list = [], show) {
       list.forEach(obj => {
         obj.visible = show
+      })
+    },
+
+    // 点击事件
+    onClick(e) {
+      e.stopPropagation()
+
+      this.selectModel(e)
+    },
+
+    // 射线选择模型
+    selectModel(e) {
+      const raycaster = new THREE.Raycaster()
+      const mouse = new THREE.Vector2()
+
+      mouse.x =
+        ((e.clientX - this.threeContainer.getBoundingClientRect().left) /
+          this.threeContainer.offsetWidth) *
+          2 -
+        1
+      mouse.y =
+        -(
+          (e.clientY - this.threeContainer.getBoundingClientRect().top) /
+          this.threeContainer.offsetHeight
+        ) *
+          2 +
+        1
+
+      raycaster.setFromCamera(mouse, this.camera)
+      const intersects = raycaster.intersectObjects(
+        this.getMesh(this.group.waterWorks),
+      )
+
+      if (intersects && intersects.length) {
+        const selected = intersects[0]
+        const object = selected.object
+
+        this.clearHighlight(this.group.waterWorks)
+        if (object.userData.interactive) {
+          object.material.emissive.setHex(0xff0000)
+
+          // tmp
+          setTimeout(() => {
+            this.showWaterWorks = false
+          }, 1000)
+        }
+
+        console.log('拾取坐标: ', selected.point)
+      }
+    },
+
+    // 提取指定类型的对象
+    getMesh(group) {
+      // 去重
+      const meshes = new Set()
+
+      // Group.traverse 方法可以实现递归遍历
+      group.traverse(obj => {
+        if (obj.isMesh) {
+          meshes.add(obj)
+        }
+      })
+
+      return Array.from(meshes)
+    },
+
+    // 取消所有物体高亮
+    clearHighlight(group) {
+      group.traverse(obj => {
+        if (obj.isMesh) {
+          obj.material.emissive.setHex(0x000000)
+        }
       })
     },
   },
