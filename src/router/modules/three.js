@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:56:08
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-29 09:48:37
+ * @LastEditTime: 2023-05-31 10:25:21
  */
 export default [
   {
@@ -37,7 +37,7 @@ export default [
         meta: {
           label: '状元水厂-新',
         },
-        component: loadView('three/water-works-zy-new.vue'),
+        component: loadView('three/water-works-zy-new/water-works-zy-new.vue'),
       },
     ],
   },
