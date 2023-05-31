@@ -5,6 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js'
 import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer.js'
+import TWEEN from '@tweenjs/tween.js'
 
 export default {
   data() {
@@ -23,7 +24,7 @@ export default {
       this.initStats()
       this.initScene()
       this.initAxesHelper()
-      this.initGridHelper()
+      // this.initGridHelper()
       this.initWebGLRenderer()
       this.initPerspectiveCamera()
       this.initOrbitControls()
@@ -31,7 +32,7 @@ export default {
       this.initCSS2DRenderer()
       this.initGLTFLoader()
       this.initDRACOLoader()
-      this.initAnimate()
+      this.animate()
     },
 
     // 初始化-性能监测
@@ -75,16 +76,34 @@ export default {
     initPerspectiveCamera() {
       const { clientWidth, clientHeight } = this.threeContainer
       const clientScale = clientWidth / clientHeight
+      const { x, y, z } = { x: -13000, y: 0, z: -3000 }
 
       this.camera = new THREE.PerspectiveCamera(75, clientScale, 1, 100000)
-      this.camera.position.set(-5000, 5000, -5000)
-      this.camera.lookAt(this.scene.position)
+      this.camera.position.set(-50000, 50000, -50000)
+
+      new TWEEN.Tween(this.camera)
+        .to(
+          {
+            position: new THREE.Vector3(-13000, 6000, -12000),
+          },
+          3000,
+        )
+        .easing(TWEEN.Easing.Sinusoidal.InOut)
+        .onUpdate(e => {
+          this.camera.lookAt(x, y, z)
+        })
+        .onComplete(e => {
+          this.controls.target.set(x, y, z)
+          this.controls.enabled = true
+        })
+        .start()
     },
 
     // 初始化-轨道控制器
     initOrbitControls() {
       this.controls = new OrbitControls(this.camera, this.threeContainer)
       this.controls.target.set(0, 0, 0)
+      this.controls.enabled = false
     },
 
     // 初始化-平行光
@@ -118,17 +137,13 @@ export default {
     },
 
     // 初始化-动画
-    initAnimate() {
-      this.animationFrame = requestAnimationFrame(this.initAnimate)
-
-      this.render()
-    },
-
-    // 渲染
-    render() {
+    animate() {
+      this.renderer.render(this.scene, this.camera) // 最先调用
       this.stats.update()
-      this.renderer.render(this.scene, this.camera)
       this.css2DRenderer.render(this.scene, this.camera)
+      TWEEN.update()
+
+      this.animationFrame = requestAnimationFrame(this.animate) // 最后调用
     },
 
     // 清空 three
