@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-19 11:02:41
+ * @LastEditTime: 2023-06-02 09:56:13
 -->
 
 <template>
@@ -51,7 +51,7 @@
       direction="ltr"
       append-to-body
     >
-      <pre>{{ currentCardData }}</pre>
+      <pre>{{ currentCardData?.option }}</pre>
     </el-drawer>
   </div>
 </template>
@@ -309,6 +309,61 @@ export default {
           },
         },
         {
+          noSeriesData: true,
+          option: {
+            title: {
+              show: false,
+              text: '图表标线',
+            },
+            legend: {
+              show: false,
+            },
+            grid: {
+              top: 0,
+              tooltip: {
+                show: false,
+              },
+            },
+            xAxis: {
+              data: ['X0', 'X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'X8'],
+            },
+            yAxis: {
+              name: '',
+              type: 'value',
+            },
+            series: [
+              {
+                name: 'demo1',
+                type: 'line',
+                markLine: {
+                  lineStyle: {
+                    type: 'solid',
+                  },
+                  symbol: 'none',
+                  label: {
+                    show: false,
+                  },
+                  emphasis: {
+                    disabled: true,
+                  },
+                  data: [
+                    {
+                      xAxis: 'X2',
+                    },
+                    {
+                      xAxis: 'X3',
+                    },
+                    {
+                      xAxis: 'X5',
+                    },
+                  ],
+                },
+                data: [],
+              },
+            ],
+          },
+        },
+        {
           setSeries: true,
           option: {
             title: {
@@ -435,20 +490,22 @@ export default {
 
     getChartData(itm, idx) {
       for (let i = 0; i < 3; i++) {
-        let chart = this.chart[idx]
-        let chartOptionSeries = chart.option.series
+        const chart = this.chart[idx]
+        const chartOptionSeries = chart.option.series
 
         if (!chart.setSeries) {
           if (chartOptionSeries[i]) {
             if (chartOptionSeries[i].type === 'radar') {
               chartOptionSeries[i].data = this.mockRadarData()
             } else {
-              chartOptionSeries[i].data = this.mockData()[i]
+              if (!chart.noSeriesData) {
+                chartOptionSeries[i].data = this.mockData()[i]
 
-              // 解决数据不更新问题
-              this.chart[idx].option.series = JSON.parse(
-                JSON.stringify(chartOptionSeries),
-              )
+                // 解决数据不更新问题
+                this.chart[idx].option.series = JSON.parse(
+                  JSON.stringify(chartOptionSeries),
+                )
+              }
             }
           }
         } else {
