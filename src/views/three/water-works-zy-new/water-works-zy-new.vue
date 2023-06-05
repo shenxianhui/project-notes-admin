@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-11-03 15:53:11
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-31 16:02:11
+ * @LastEditTime: 2023-06-05 17:18:53
 -->
 
 <template>
@@ -11,6 +11,15 @@
     <div ref="three" class="three">
       <div ref="stats" class="stats"></div>
     </div>
+
+    <el-button
+      v-show="pathList && pathList.length"
+      class="back"
+      size="mini"
+      @click="handleBack"
+    >
+      返回
+    </el-button>
   </div>
 </template>
 
@@ -18,6 +27,7 @@
 import * as THREE from 'three'
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js'
 import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js'
+import TWEEN from '@tweenjs/tween.js'
 
 import coordinateList from '/public/modules/water-model-zy/zuobiao.json'
 import basicConfig from './mixins/basic-config'
@@ -54,6 +64,9 @@ export default {
 
       /* 其他 */
       showWaterWorks: true, // 显示水厂相关模型
+      pathList: [], // 下钻路径
+      initCameraPosition: { x: -50000, y: 50000, z: -50000 }, // 相机初始位置
+      normalCameraPosition: { x: -13000, y: 6000, z: -12000 }, // 相机标准位置
     }
   },
   computed: {},
@@ -190,6 +203,27 @@ export default {
       })
     },
 
+    // 返回
+    handleBack() {
+      const { x, y, z } = { x: -13000, y: 0, z: -3000 }
+
+      this.pathList.splice(this.pathList - 1, 1)
+      this.showWaterWorks = true
+
+      new TWEEN.Tween(this.camera)
+        .to(
+          {
+            position: this.normalCameraPosition,
+          },
+          1500,
+        )
+        .onUpdate(e => {
+          this.camera.lookAt(x, y, z)
+        })
+        .easing(TWEEN.Easing.Sinusoidal.InOut)
+        .start()
+    },
+
     // 点击事件
     onClick(e) {
       e.stopPropagation()
@@ -228,10 +262,42 @@ export default {
         if (object.userData.interactive) {
           object.material.emissive.setHex(0xff0000)
 
-          // tmp
-          setTimeout(() => {
-            this.showWaterWorks = false
-          }, 1000)
+          if (object.userData.interactive) {
+            object.material.emissive.setHex(0xff0000)
+
+            var startPosition = this.camera.position.clone() // 起始位置
+            var startLookAt = this.camera
+              .getWorldDirection(new THREE.Vector3())
+              .clone() // 起始朝向
+
+            new TWEEN.Tween({ t: 0 }) // 使用t参数作为时间插值因子
+              .to({ t: 1 }, 2000) // 将t从0过渡到1，持续时间为2000毫秒
+              .easing(TWEEN.Easing.Sinusoidal.InOut)
+              .onUpdate(({ t }) => {
+                // 更新位置
+                this.camera.position.lerpVectors(
+                  startPosition,
+                  object.getWorldPosition(),
+                  t,
+                )
+
+                // 更新朝向
+                this.camera.lookAt(
+                  new THREE.Vector3().addVectors(
+                    this.camera.position,
+                    startLookAt
+                      .clone()
+                      .lerp(object.getWorldDirection(new THREE.Vector3()), t),
+                  ),
+                )
+              })
+              .onComplete(e => {
+                this.clearHighlight(this.group.waterWorks)
+                this.showWaterWorks = false
+                this.pathList.splice(0, 0, object.uuid)
+              })
+              .start()
+          }
         }
 
         console.log('拾取坐标: ', selected.point)
@@ -309,6 +375,11 @@ export default {
         background-color: #fff;
       }
     }
+  }
+  .back {
+    position: absolute;
+    top: 30px;
+    right: 30px;
   }
 }
 </style>

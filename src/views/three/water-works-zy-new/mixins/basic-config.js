@@ -79,12 +79,16 @@ export default {
       const { x, y, z } = { x: -13000, y: 0, z: -3000 }
 
       this.camera = new THREE.PerspectiveCamera(75, clientScale, 1, 100000)
-      this.camera.position.set(-50000, 50000, -50000)
+      this.camera.position.set(
+        this.initCameraPosition.x,
+        this.initCameraPosition.y,
+        this.initCameraPosition.z,
+      )
 
       new TWEEN.Tween(this.camera)
         .to(
           {
-            position: new THREE.Vector3(-13000, 6000, -12000),
+            position: this.normalCameraPosition,
           },
           3000,
         )
