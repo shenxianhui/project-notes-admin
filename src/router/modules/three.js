@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:56:08
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-31 10:25:21
+ * @LastEditTime: 2023-06-06 17:05:44
  */
 export default [
   {
@@ -38,6 +38,14 @@ export default [
           label: '状元水厂-新',
         },
         component: loadView('three/water-works-zy-new/water-works-zy-new.vue'),
+      },
+      {
+        path: 'earth-rotation',
+        name: 'earth-rotation',
+        meta: {
+          label: '地球自转',
+        },
+        component: loadView('three/earth-rotation.vue'),
       },
     ],
   },
