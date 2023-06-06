@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-11-03 15:53:11
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-05 17:18:53
+ * @LastEditTime: 2023-06-06 11:12:41
 -->
 
 <template>
@@ -41,6 +41,7 @@ export default {
     return {
       coordinateList: [...coordinateList], // 坐标数组
 
+      /* 基础 */
       threeContainer: null, // three 容器
       statsContainer: null, // 性能监测容器
       stats: null, // 性能监测
@@ -58,12 +59,9 @@ export default {
       group: {
         waterWorks: new THREE.Group(), // 水厂
       },
-
-      /* 模型对象暂存数组 */
-      css2DObjectList: [], // 已创建的2D渲染器
+      showGroup: ['waterWorks'], // 显示的组(与 group 的 key 对应)
 
       /* 其他 */
-      showWaterWorks: true, // 显示水厂相关模型
       pathList: [], // 下钻路径
       initCameraPosition: { x: -50000, y: 50000, z: -50000 }, // 相机初始位置
       normalCameraPosition: { x: -13000, y: 6000, z: -12000 }, // 相机标准位置
@@ -71,9 +69,35 @@ export default {
   },
   computed: {},
   watch: {
-    showWaterWorks(val) {
-      this.group.waterWorks.visible = val
-      this.set2DObjectVisible(this.css2DObjectList, val)
+    showGroup: {
+      handler(val) {
+        for (let key in this.group) {
+          let show = false
+
+          if (val.find(item => item === key)) {
+            show = true
+          } else {
+            show = false
+          }
+
+          this.group[key].visible = show
+          this.getObjectModel(this.group[key], CSS2DObject).forEach(obj => {
+            obj.visible = show
+          })
+        }
+      },
+      deep: true,
+    },
+
+    pathList: {
+      handler(val) {
+        if (!val.length) {
+          this.showGroup = ['waterWorks']
+        } else if (val.length === 1) {
+          this.showGroup = []
+        }
+      },
+      deep: true,
     },
   },
   created() {},
@@ -103,7 +127,7 @@ export default {
         this.dracoLoader.setDecoderPath('/utils/gltf/')
         this.gltfLoader.setDRACOLoader(this.dracoLoader)
         this.gltfLoader.load(filePath, gltf => {
-          const meshObj = gltf?.scene?.children[0]
+          const meshObj = gltf.scene.children[0]
           const gltfName = meshObj?.name
 
           if (gltfName === 'tree1COM' || gltfName === 'tree2COM') {
@@ -135,7 +159,7 @@ export default {
     },
 
     setModule(gltf) {
-      const gltfName = gltf?.scene?.children[0]?.name
+      const gltfName = gltf.scene.children[0]?.name
 
       this.coordinateList.forEach((item, index) => {
         const cloneGltf = gltf.scene.clone()
@@ -160,7 +184,7 @@ export default {
     // 创建标签
     createLabel(gltf) {
       const div = document.createElement('div')
-      const gltfName = gltf?.scene?.children[0]?.name
+      const gltfName = gltf.scene.children[0]?.name
 
       div.innerHTML = `
         <div class="three-label">
@@ -178,7 +202,6 @@ export default {
       const threeLabelInnerDom = div.querySelector('.three-label-inner')
 
       gltf.scene.add(css2DObject)
-      this.css2DObjectList.push(css2DObject)
 
       threeLabelInnerDom.addEventListener('mouseover', e => {
         for (let item of e.target.children) {
@@ -196,19 +219,11 @@ export default {
       })
     },
 
-    // 批量设置对象属性
-    set2DObjectVisible(list = [], show) {
-      list.forEach(obj => {
-        obj.visible = show
-      })
-    },
-
     // 返回
     handleBack() {
       const { x, y, z } = { x: -13000, y: 0, z: -3000 }
 
       this.pathList.splice(this.pathList - 1, 1)
-      this.showWaterWorks = true
 
       new TWEEN.Tween(this.camera)
         .to(
@@ -251,7 +266,7 @@ export default {
 
       raycaster.setFromCamera(mouse, this.camera)
       const intersects = raycaster.intersectObjects(
-        this.getMesh(this.group.waterWorks),
+        this.getObjectModel(this.group.waterWorks, THREE.Mesh),
       )
 
       if (intersects && intersects.length) {
@@ -262,61 +277,55 @@ export default {
         if (object.userData.interactive) {
           object.material.emissive.setHex(0xff0000)
 
-          if (object.userData.interactive) {
-            object.material.emissive.setHex(0xff0000)
+          const startPosition = this.camera.position.clone() // 起始位置
+          const startLookAt = this.camera
+            .getWorldDirection(new THREE.Vector3())
+            .clone() // 起始朝向
 
-            var startPosition = this.camera.position.clone() // 起始位置
-            var startLookAt = this.camera
-              .getWorldDirection(new THREE.Vector3())
-              .clone() // 起始朝向
+          new TWEEN.Tween({ t: 0 }) // 使用t参数作为时间插值因子
+            .to({ t: 1 }, 2000) // 将t从0过渡到1，持续时间为2000毫秒
+            .easing(TWEEN.Easing.Sinusoidal.InOut)
+            .onUpdate(({ t }) => {
+              // 更新位置
+              this.camera.position.lerpVectors(
+                startPosition,
+                object.getWorldPosition(),
+                t,
+              )
 
-            new TWEEN.Tween({ t: 0 }) // 使用t参数作为时间插值因子
-              .to({ t: 1 }, 2000) // 将t从0过渡到1，持续时间为2000毫秒
-              .easing(TWEEN.Easing.Sinusoidal.InOut)
-              .onUpdate(({ t }) => {
-                // 更新位置
-                this.camera.position.lerpVectors(
-                  startPosition,
-                  object.getWorldPosition(),
-                  t,
-                )
-
-                // 更新朝向
-                this.camera.lookAt(
-                  new THREE.Vector3().addVectors(
-                    this.camera.position,
-                    startLookAt
-                      .clone()
-                      .lerp(object.getWorldDirection(new THREE.Vector3()), t),
-                  ),
-                )
-              })
-              .onComplete(e => {
-                this.clearHighlight(this.group.waterWorks)
-                this.showWaterWorks = false
-                this.pathList.splice(0, 0, object.uuid)
-              })
-              .start()
-          }
+              // 更新朝向
+              this.camera.lookAt(
+                new THREE.Vector3().addVectors(
+                  this.camera.position,
+                  startLookAt
+                    .clone()
+                    .lerp(object.getWorldDirection(new THREE.Vector3()), t),
+                ),
+              )
+            })
+            .onComplete(e => {
+              this.clearHighlight(this.group.waterWorks)
+              this.pathList.splice(0, 0, object.uuid)
+            })
+            .start()
         }
 
         console.log('拾取坐标: ', selected.point)
       }
     },
 
-    // 提取指定类型的对象
-    getMesh(group) {
-      // 去重
-      const meshes = new Set()
+    // 提取指定类型的对象模型
+    getObjectModel(group, type) {
+      const arr = []
 
-      // Group.traverse 方法可以实现递归遍历
+      // traverse 方法可以实现递归遍历
       group.traverse(obj => {
-        if (obj.isMesh) {
-          meshes.add(obj)
+        if (obj instanceof type) {
+          arr.push(obj)
         }
       })
 
-      return Array.from(meshes)
+      return arr
     },
 
     // 取消所有物体高亮
