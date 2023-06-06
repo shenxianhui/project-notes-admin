@@ -76,7 +76,7 @@ export default {
     initPerspectiveCamera() {
       const { clientWidth, clientHeight } = this.threeContainer
       const clientScale = clientWidth / clientHeight
-      const { x, y, z } = { x: -13000, y: 0, z: -3000 }
+      const { x, y, z } = this.normalCameraLookAt
 
       this.camera = new THREE.PerspectiveCamera(75, clientScale, 1, 100000)
       this.camera.position.set(

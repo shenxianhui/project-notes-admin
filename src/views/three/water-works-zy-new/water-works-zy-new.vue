@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-11-03 15:53:11
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-06 11:12:41
+ * @LastEditTime: 2023-06-06 14:42:59
 -->
 
 <template>
@@ -13,7 +13,7 @@
     </div>
 
     <el-button
-      v-show="pathList && pathList.length"
+      v-show="pathList && pathList.length > 1"
       class="back"
       size="mini"
       @click="handleBack"
@@ -39,7 +39,11 @@ export default {
   props: {},
   data() {
     return {
+      /* 默认值 */
       coordinateList: [...coordinateList], // 坐标数组
+      initCameraPosition: { x: -50000, y: 50000, z: -50000 }, // 初始相机位置
+      normalCameraPosition: { x: -13000, y: 6000, z: -12000 }, // 标准相机位置
+      normalCameraLookAt: { x: -13000, y: 0, z: -3000 }, // 标准相机朝向
 
       /* 基础 */
       threeContainer: null, // three 容器
@@ -58,13 +62,13 @@ export default {
       /* 组 */
       group: {
         waterWorks: new THREE.Group(), // 水厂
+        build2YNSCYQ: new THREE.Group(), // 污泥脱水机房
       },
-      showGroup: ['waterWorks'], // 显示的组(与 group 的 key 对应)
+      showGroup: [], // 显示的组(与 group 的 key 对应)
 
       /* 其他 */
-      pathList: [], // 下钻路径
-      initCameraPosition: { x: -50000, y: 50000, z: -50000 }, // 相机初始位置
-      normalCameraPosition: { x: -13000, y: 6000, z: -12000 }, // 相机标准位置
+      pathList: ['waterWorks'], // 下钻路径
+      currentModel: null, // 当前模型
     }
   },
   computed: {},
@@ -91,10 +95,15 @@ export default {
 
     pathList: {
       handler(val) {
-        if (!val.length) {
-          this.showGroup = ['waterWorks']
-        } else if (val.length === 1) {
-          this.showGroup = []
+        const name = val[val.length - 1]
+
+        switch (name) {
+          case 'waterWorks':
+            this.showGroup = ['waterWorks']
+            break
+          case 'build2YNSCYQ':
+            this.showGroup = ['build2YNSCYQ']
+            break
         }
       },
       deep: true,
@@ -143,6 +152,7 @@ export default {
             const { position = {} } = model || {}
             const { x, y, z } = position
 
+            meshObj.userData = model
             // 定义可点击的元素
             if (gltfName === 'build2YNSCYQ') {
               meshObj.userData.interactive = true
@@ -156,6 +166,7 @@ export default {
       })
 
       this.scene.add(this.group.waterWorks)
+      this.pathList = ['waterWorks']
     },
 
     setModule(gltf) {
@@ -221,10 +232,11 @@ export default {
 
     // 返回
     handleBack() {
-      const { x, y, z } = { x: -13000, y: 0, z: -3000 }
+      const { x, y, z } = this.normalCameraLookAt
+      const pos = this.currentModel.userData.position
 
-      this.pathList.splice(this.pathList - 1, 1)
-
+      this.pathList.pop()
+      this.camera.position = new THREE.Vector3(pos.x, pos.y, pos.z)
       new TWEEN.Tween(this.camera)
         .to(
           {
@@ -234,6 +246,7 @@ export default {
         )
         .onUpdate(e => {
           this.camera.lookAt(x, y, z)
+          this.controls.target.set(x, y, z)
         })
         .easing(TWEEN.Easing.Sinusoidal.InOut)
         .start()
@@ -277,6 +290,10 @@ export default {
         if (object.userData.interactive) {
           object.material.emissive.setHex(0xff0000)
 
+          this.currentModel = object
+          // 在动画开始之前预先创建场景模型
+          this.createSphere()
+
           const startPosition = this.camera.position.clone() // 起始位置
           const startLookAt = this.camera
             .getWorldDirection(new THREE.Vector3())
@@ -305,7 +322,7 @@ export default {
             })
             .onComplete(e => {
               this.clearHighlight(this.group.waterWorks)
-              this.pathList.splice(0, 0, object.uuid)
+              this.pathList.push(object.name)
             })
             .start()
         }
@@ -335,6 +352,16 @@ export default {
           obj.material.emissive.setHex(0x000000)
         }
       })
+    },
+
+    // 创建一个球体
+    createSphere() {
+      const geometry = new THREE.BoxGeometry(5000, 5000, 5000)
+      const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+      const sphere = new THREE.Mesh(geometry, material)
+
+      this.group.build2YNSCYQ.add(sphere)
+      this.scene.add(this.group.build2YNSCYQ)
     },
   },
 }
