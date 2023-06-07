@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-06 15:20:46
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-06 17:28:36
+ * @LastEditTime: 2023-06-07 15:38:31
 -->
 
 <template>
@@ -39,6 +39,7 @@ export default {
       animationFrame: null, // 动画帧
       earthMesh: null, // 地球网格
       satelliteMesh: null, // 卫星网格
+      sphereMesh: null, // 天球背景网格
 
       isMouseOver: false,
     }
@@ -102,12 +103,12 @@ export default {
         map: texture,
         side: THREE.BackSide,
       })
-      const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
+      this.sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
 
       // 反转球体的面，使其内部可见
-      sphereMesh.scale.x = -1
+      this.sphereMesh.scale.x = -1
 
-      this.scene.add(sphereMesh)
+      this.scene.add(this.sphereMesh)
     },
 
     // 初始化-坐标轴
@@ -148,8 +149,8 @@ export default {
 
     // 初始化-平行光
     initDirectionalLight() {
-      this.directionalLight = new THREE.DirectionalLight(0xffffff)
-      this.directionalLight.position.set(10000, 10000, -10000)
+      this.directionalLight = new THREE.DirectionalLight(0xffffff, 2)
+      this.directionalLight.position.set(10000, 0, 0)
       this.scene.add(this.directionalLight)
     },
 
@@ -165,6 +166,9 @@ export default {
 
         // 使卫星跟随地球的旋转
         this.satelliteMesh.rotation.y -= 0.01
+
+        // 使天球背景自转
+        this.sphereMesh.rotation.y += 0.002
       }
 
       this.animationFrame = requestAnimationFrame(this.animate) // 最后调用
@@ -230,7 +234,9 @@ export default {
       )
 
       // 创建地球材质
-      const earthMaterial = new THREE.MeshBasicMaterial({ map: earthTexture })
+      const earthMaterial = new THREE.MeshStandardMaterial({
+        map: earthTexture,
+      })
 
       // 创建地球网格
       this.earthMesh = new THREE.Mesh(earthGeometry, earthMaterial)
@@ -242,7 +248,9 @@ export default {
       const satelliteGeometry = new THREE.SphereGeometry(10, 32, 16)
 
       // 创建卫星材质
-      const satelliteMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+      const satelliteMaterial = new THREE.MeshStandardMaterial({
+        color: 0xff0000,
+      })
 
       // 创建卫星网格
       this.satelliteMesh = new THREE.Mesh(satelliteGeometry, satelliteMaterial)
