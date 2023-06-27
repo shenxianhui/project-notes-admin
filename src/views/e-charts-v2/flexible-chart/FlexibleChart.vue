@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-27 14:10:27
+ * @LastEditTime: 2023-06-27 14:15:32
 -->
 
 <template>
@@ -739,7 +739,7 @@ export default {
     .dm-flexible-chart-item {
       flex-shrink: 0;
       width: 32.6%;
-      height: 50%;
+      height: 48%;
       margin-bottom: 1%;
       &:not(:nth-of-type(3n)) {
         margin-right: 1%;
