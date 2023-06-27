@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-02 09:56:13
+ * @LastEditTime: 2023-06-27 14:10:27
 -->
 
 <template>
@@ -21,7 +21,7 @@
     </div>
     <div class="dm-flexible-chart-wrap">
       <div
-        v-for="(item, index) in chart"
+        v-for="(item, index) in charts"
         :key="index"
         class="dm-flexible-chart-item"
       >
@@ -31,7 +31,7 @@
             <el-button
               class="button-config"
               type="text"
-              @click="handleConfig(item)"
+              @click="handleConfig(item, index)"
             >
               配置项
             </el-button>
@@ -40,18 +40,19 @@
             ref="chart"
             :option="item.option"
             :horizontal="item.horizontal"
+            @set-option="setOption($event, item, index)"
           ></flexible-chart>
         </el-card>
       </div>
     </div>
 
     <el-drawer
-      :title="currentCardData?.option?.title?.text"
+      :title="currentChartOption?.title?.text"
       :visible.sync="showDrawer"
       direction="ltr"
       append-to-body
     >
-      <pre>{{ currentCardData?.option }}</pre>
+      <pre>{{ currentChartOption }}</pre>
     </el-drawer>
   </div>
 </template>
@@ -70,8 +71,9 @@ export default {
   data() {
     return {
       showDrawer: false,
-      currentCardData: {},
-      chart: [
+      chartsOption: [],
+      currentChartOption: {},
+      charts: [
         {
           option: {
             title: {
@@ -477,20 +479,20 @@ export default {
       this.getData()
     },
 
-    handleConfig(itm) {
-      this.currentCardData = itm
+    handleConfig(itm, idx) {
+      this.currentChartOption = this.chartsOption[idx]
       this.showDrawer = true
     },
 
     getData() {
-      this.chart.forEach((item, index) => {
+      this.charts.forEach((item, index) => {
         this.getChartData(item, index)
       })
     },
 
     getChartData(itm, idx) {
       for (let i = 0; i < 3; i++) {
-        const chart = this.chart[idx]
+        const chart = this.charts[idx]
         const chartOptionSeries = chart.option.series
 
         if (!chart.setSeries) {
@@ -502,7 +504,7 @@ export default {
                 chartOptionSeries[i].data = this.mockData()[i]
 
                 // 解决数据不更新问题
-                this.chart[idx].option.series = JSON.parse(
+                this.charts[idx].option.series = JSON.parse(
                   JSON.stringify(chartOptionSeries),
                 )
               }
@@ -523,6 +525,10 @@ export default {
       }
 
       this.$refs.chart[idx].setOption()
+    },
+
+    setOption(opt, itm, idx) {
+      this.chartsOption[idx] = opt
     },
 
     clearTimer() {

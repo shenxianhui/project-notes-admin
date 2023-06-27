@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2023-05-19 09:43:50
+ * @LastEditTime: 2023-06-27 13:59:24
 -->
 
 <template>
@@ -326,6 +326,8 @@ export default {
       })
 
       this.chart && this.chart.setOption(chartOpt)
+
+      this.$emit('set-option', chartOpt)
     },
 
     // 点击事件
