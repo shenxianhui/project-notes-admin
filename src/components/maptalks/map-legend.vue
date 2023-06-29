@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import legend from '../data/legend'
+import legend from '../../views/maptalks/data/legend'
 
 export default {
   name: 'map-legend',

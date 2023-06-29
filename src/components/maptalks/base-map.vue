@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 14:15:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-28 15:19:53
+ * @LastEditTime: 2023-06-29 13:57:39
 -->
 
 <template>
@@ -81,12 +81,15 @@ export default {
   methods: {
     // 地图初始化
     init() {
+      // https://studio.mapbox.com
       const baseLayer = new MapboxglLayer('tile', {
         glOptions: {
-          style: 'mapbox://styles/waka1234/cl5gfgwi1001v15p8vrierrfc',
-          // style: 'mapbox://styles/waka1234/cl9gh8szg000814qmyod9l6q6', // 2d
+          style: 'mapbox://styles/shenxh0928/cljgibp4c002r01prdnwn4o5r',
         },
       })
+
+      Mapboxgl.accessToken =
+        'pk.eyJ1Ijoic2hlbnhoMDkyOCIsImEiOiJjbGpnZmhqMmowM3hkM29xbWk1aWY0eHJ6In0.xwShSuiFuLRxRd0eKVtu6g'
 
       const map = new Maptalks.Map('map-maptalks', {
         baseLayer,
@@ -100,9 +103,6 @@ export default {
         pitch: this.pitch,
         bearing: this.bearing,
       })
-
-      Mapboxgl.accessToken =
-        'pk.eyJ1Ijoid2FrYTEyMzQiLCJhIjoiY2tyMXFxYzkzMXdqdjJucnpycDEwMDJkbiJ9._i9NTkELvuvwactlVYhaqA'
 
       map.on('baselayerload', () => {
         console.log('基础层加载完成')

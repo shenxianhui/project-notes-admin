@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-27 17:22:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-28 13:41:36
+ * @LastEditTime: 2023-06-29 10:28:14
 -->
 
 <template>
@@ -70,22 +70,29 @@ export default {
   .map-item {
     cursor: pointer;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
-    width: 90px;
+    width: 120px;
     height: 40px;
     line-height: 40px;
     color: #b2d9ef;
     font-weight: 700;
     margin: 0 10px;
     transition: all 0.1s;
+    background: url('https://eslink-iot.oss-cn-beijing.aliyuncs.com/nav_default_1688005003739.png');
+    background-size: 100% 100%;
+    transition: all 0.1s;
     &:hover {
       color: #fff;
+      background: url('https://eslink-iot.oss-cn-beijing.aliyuncs.com/nav_hover_1688005003739.png');
+      background-size: 100% 100%;
     }
     &.active {
-      color: #2cb2ff;
-      transform: scale(1.2);
+      color: #000;
+      transform: scale(1.1);
       transition: all 0.2s;
+      background: url('https://eslink-iot.oss-cn-beijing.aliyuncs.com/nav_selected_1688005003739.png');
+      background-size: 100% 100%;
     }
   }
 }
