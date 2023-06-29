@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-27 17:22:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-29 10:28:14
+ * @LastEditTime: 2023-06-29 17:26:09
 -->
 
 <template>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import legend from './data/legend'
+
 export default {
   name: 'map-bar',
   components: {},
@@ -29,29 +31,20 @@ export default {
     event: 'set-value',
   },
   props: {
-    value: String,
+    value: [Number, String],
   },
   data() {
-    return {
-      tabList: [
-        {
-          label: '水厂监控',
-          value: 'station',
-        },
-        {
-          label: '供水总览',
-          value: 'overview',
-        },
-        {
-          label: '管网管理',
-          value: 'pipeline',
-        },
-      ],
-    }
+    return {}
   },
-  computed: {},
+  computed: {
+    tabList() {
+      return legend
+    },
+  },
   watch: {},
-  created() {},
+  created() {
+    this.$emit('change', 0, this.tabList[0])
+  },
   mounted() {},
   beforeDestroy() {},
   methods: {

@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 09:37:44
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-29 15:36:22
+ * @LastEditTime: 2023-06-29 17:31:18
 -->
 
 <template>
@@ -11,7 +11,7 @@
     <div class="map-legend-list">
       <div
         class="map-legend-item"
-        v-for="(item, index) in legendList"
+        v-for="(item, index) in data"
         :key="index"
         :class="{ active: item.selected }"
         @click="handleLegendItem(item, index)"
@@ -23,7 +23,7 @@
           </div>
         </div>
         <el-switch
-          v-if="!item.noSwitch && item.showSwitch"
+          v-if="item.showSwitch && item.selected"
           class="switch"
           v-model="item.switched"
           @click.native.stop
@@ -35,30 +35,16 @@
 </template>
 
 <script>
-import legend from '../../views/maptalks/data/legend'
-
 export default {
   name: 'map-legend',
   components: {},
   props: {
-    screenName: String,
+    data: Array,
   },
   data() {
-    return {
-      legend,
-    }
+    return {}
   },
-  computed: {
-    legendList() {
-      const data = this.legend[this.screenName]
-
-      data.forEach(item => {
-        item.showSwitch = !!item.selected
-      })
-
-      return data
-    },
-  },
+  computed: {},
   watch: {},
   created() {},
   mounted() {},
@@ -67,7 +53,6 @@ export default {
     // 点击图例的某项
     handleLegendItem(itm, idx) {
       itm.selected = !itm.selected
-      itm.showSwitch = itm.selected
 
       this.$emit('change-legend', itm, this.legendData)
       this.$emit('change', itm, this.legendData)

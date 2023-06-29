@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-27 14:22:09
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-27 16:52:05
+ * @LastEditTime: 2023-06-29 16:45:03
  */
 
 export default [
@@ -13,16 +13,16 @@ export default [
     meta: {
       label: 'Maptalks',
     },
-    redirect: '/maptalks/screen-wz',
+    redirect: '/maptalks/base-map',
     component: loadView('layout/Layout'),
     children: [
       {
-        path: 'screen-wz',
-        name: 'screen-wz',
+        path: 'base-map',
+        name: 'base-map',
         meta: {
-          label: '温州大屏',
+          label: '基础',
         },
-        component: loadView('maptalks/screen-wz'),
+        component: loadView('maptalks/base-map'),
       },
     ],
   },

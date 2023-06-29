@@ -1,16 +1,20 @@
 <!--
- * @Description: 温州大屏地图
+ * @Description: 基础地图
  * @Author: shenxh
  * @Date: 2023-06-27 16:46:54
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-29 15:30:52
+ * @LastEditTime: 2023-06-29 17:28:44
 -->
 
 <template>
   <div class="screen-wz admin-content">
     <base-map class="base-map"></base-map>
-    <map-tab v-model="selectedTab" class="map-tab"></map-tab>
-    <map-legend :screen-name="selectedTab" class="map-legend"></map-legend>
+    <map-tab
+      v-model="selectedTab"
+      class="map-tab"
+      @change="changeTab"
+    ></map-tab>
+    <map-legend :data="selectedTabData.data" class="map-legend"></map-legend>
   </div>
 </template>
 
@@ -29,7 +33,8 @@ export default {
   props: {},
   data() {
     return {
-      selectedTab: 'overview',
+      selectedTab: 'point',
+      selectedTabData: {},
     }
   },
   computed: {},
@@ -37,7 +42,11 @@ export default {
   created() {},
   mounted() {},
   beforeDestroy() {},
-  methods: {},
+  methods: {
+    changeTab(val, data) {
+      this.selectedTabData = data
+    },
+  },
 }
 </script>
 
