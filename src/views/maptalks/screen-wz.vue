@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-27 16:46:54
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-29 11:04:16
+ * @LastEditTime: 2023-06-29 15:30:52
 -->
 
 <template>
@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import BaseMap from '@/components/maptalks/base-map.vue'
-import MapTab from '../../components/maptalks/map-tab.vue'
-import MapLegend from '../../components/maptalks/map-legend.vue'
+import BaseMap from '@/components/maptalks/maptalks.vue'
+import MapTab from '@/components/map-tab/map-tab.vue'
+import MapLegend from '@/components/map-legend/map-legend.vue'
 
 export default {
   name: 'screen-wz',

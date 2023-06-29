@@ -3,21 +3,21 @@
  * @Author: shenxh
  * @Date: 2023-06-28 14:15:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-29 13:57:39
+ * @LastEditTime: 2023-06-29 15:46:10
 -->
 
 <template>
-  <div class="base-map" id="map-maptalks"></div>
+  <div class="maptalks" id="map-maptalks"></div>
 </template>
 
 <script>
 import * as Maptalks from 'maptalks'
-import Mapboxgl from 'mapbox-gl'
+import MapboxGL from 'mapbox-gl'
 import { MapboxglLayer } from 'maptalks.mapboxgl/dist/maptalks.mapboxgl.js'
 import { ClusterLayer } from 'maptalks.markercluster'
 
 export default {
-  name: 'base-map',
+  name: 'maptalks',
   components: {},
   props: {
     center: {
@@ -46,12 +46,12 @@ export default {
     // 可以通过右键单击或 ctrl + 左键单击拖动地图进行旋转
     dragRotate: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     // 可以通过右键单击或 ctrl + 左键将地图拖动俯仰
     dragPitch: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     // 俯仰角度
     pitch: {
@@ -81,14 +81,14 @@ export default {
   methods: {
     // 地图初始化
     init() {
-      // https://studio.mapbox.com
       const baseLayer = new MapboxglLayer('tile', {
         glOptions: {
           style: 'mapbox://styles/shenxh0928/cljgibp4c002r01prdnwn4o5r',
         },
       })
 
-      Mapboxgl.accessToken =
+      // https://studio.mapbox.com
+      MapboxGL.accessToken =
         'pk.eyJ1Ijoic2hlbnhoMDkyOCIsImEiOiJjbGpnZmhqMmowM3hkM29xbWk1aWY0eHJ6In0.xwShSuiFuLRxRd0eKVtu6g'
 
       const map = new Maptalks.Map('map-maptalks', {
