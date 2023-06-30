@@ -13,6 +13,7 @@ module.exports = {
     'prettier/prettier': 1, // 错误提示级别: 0-关闭, 1-警告, 2-报错
     'no-unused-vars': 0,
     'vue/no-unused-components': 0,
+    'no-useless-escape': 0,
     semi: [0, 'never'], // 结尾分号
   },
   parserOptions: {

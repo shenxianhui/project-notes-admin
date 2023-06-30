@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-27 17:22:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-29 17:26:09
+ * @LastEditTime: 2023-06-30 13:54:05
 -->
 
 <template>
@@ -42,15 +42,15 @@ export default {
     },
   },
   watch: {},
-  created() {
-    this.$emit('change', 0, this.tabList[0])
+  created() {},
+  mounted() {
+    this.$root.$emit('change-map-tab', 0, this.tabList[0])
   },
-  mounted() {},
   beforeDestroy() {},
   methods: {
     handleTab(itm) {
       this.$emit('set-value', itm.value)
-      this.$emit('change', itm.value, itm)
+      this.$root.$emit('change-map-tab', itm.value, itm)
     },
   },
 }

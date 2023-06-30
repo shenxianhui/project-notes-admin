@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 14:15:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-29 15:46:10
+ * @LastEditTime: 2023-06-30 17:30:12
 -->
 
 <template>
@@ -11,10 +11,12 @@
 </template>
 
 <script>
-import * as Maptalks from 'maptalks'
-import MapboxGL from 'mapbox-gl'
-import { MapboxglLayer } from 'maptalks.mapboxgl/dist/maptalks.mapboxgl.js'
-import { ClusterLayer } from 'maptalks.markercluster'
+import MT from './utils/base'
+import MARKER from './utils/marker'
+
+import basePointData from '@/data/maptalks/base-point.js'
+
+let map = null
 
 export default {
   name: 'maptalks',
@@ -65,55 +67,99 @@ export default {
     },
   },
   data() {
-    return {
-      map: null,
-    }
+    return {}
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {
     this.init()
+    this.$root.$on('change-map-legend', this.changeMapLegend)
   },
   beforeDestroy() {
-    this.remove()
+    MT.map.remove()
+    this.$root.$off('change-map-legend', this.changeMapLegend)
   },
   methods: {
     // 地图初始化
     init() {
-      const baseLayer = new MapboxglLayer('tile', {
-        glOptions: {
-          style: 'mapbox://styles/shenxh0928/cljgibp4c002r01prdnwn4o5r',
-        },
+      map = MT.map.init('map-maptalks', {
+        ...this.$props,
       })
-
-      // https://studio.mapbox.com
-      MapboxGL.accessToken =
-        'pk.eyJ1Ijoic2hlbnhoMDkyOCIsImEiOiJjbGpnZmhqMmowM3hkM29xbWk1aWY0eHJ6In0.xwShSuiFuLRxRd0eKVtu6g'
-
-      const map = new Maptalks.Map('map-maptalks', {
-        baseLayer,
-        center: this.center,
-        zoom: this.zoom,
-        minZoom: this.minZoom,
-        maxZoom: this.maxZoom,
-        maxExtent: this.maxExtent,
-        dragRotate: this.dragRotate,
-        dragPitch: this.dragPitch,
-        pitch: this.pitch,
-        bearing: this.bearing,
-      })
-
-      map.on('baselayerload', () => {
-        console.log('基础层加载完成')
-      })
-
-      this.map = map
     },
 
-    // 销毁地图
-    remove() {
-      this.map && this.map.remove()
+    // 改变地图图例
+    changeMapLegend(legend = {}, tab = {}) {
+      // console.log(legend, tab)
+      switch (legend.value) {
+        case 'basePoint':
+          this.initBasePoint(legend)
+          break
+        case 'clusterPoint':
+          this.initClusterPoint(legend)
+          break
+        case 'baseLine':
+          this.initBaseLine(legend)
+          break
+        case 'baseSurface':
+          this.initBaseSurface(legend)
+          break
+        case 'drillSurface':
+          this.initDrillSurface(legend)
+          break
+      }
+    },
+
+    // 基础点
+    initBasePoint(legend) {
+      const markers = basePointData.map(item => {
+        const data = {
+          ...item,
+          markerFile: legend.pointIcon,
+          hasInfoWindow: true,
+        }
+        const marker = MARKER.init(data)
+
+        marker.on('click', e => {
+          // const hasInfoWindow = marker.getInfoWindow()
+          // 判断当前弹窗状态
+          // if (hasInfoWindow) {
+          //   if (hasInfoWindow.isVisible()) {
+          //     marker.closeInfoWindow()
+          //   } else {
+          //     marker.openInfoWindow()
+          //   }
+          // } else {
+          //   MARKER.initInfoWindow(marker, data)
+          // }
+        })
+
+        return marker
+      })
+
+      MT.layer.init(legend.value, markers, {
+        zIndex: 10,
+      })
+    },
+
+    // 聚合点
+    initClusterPoint() {
+      console.log('聚合点')
+    },
+
+    // 聚合线
+    initBaseLine() {
+      console.log('聚合线')
+    },
+
+    // 基础面
+    initBaseSurface() {
+      console.log('基础面')
+    },
+
+    // 下钻面
+    initDrillSurface() {
+      console.log('下钻面')
     },
   },
 }

@@ -3,18 +3,14 @@
  * @Author: shenxh
  * @Date: 2023-06-27 16:46:54
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-29 17:28:44
+ * @LastEditTime: 2023-06-30 13:39:29
 -->
 
 <template>
   <div class="screen-wz admin-content">
     <base-map class="base-map"></base-map>
-    <map-tab
-      v-model="selectedTab"
-      class="map-tab"
-      @change="changeTab"
-    ></map-tab>
-    <map-legend :data="selectedTabData.data" class="map-legend"></map-legend>
+    <map-legend class="map-legend"></map-legend>
+    <map-tab v-model="selectedTab" class="map-tab"></map-tab>
   </div>
 </template>
 
@@ -34,7 +30,6 @@ export default {
   data() {
     return {
       selectedTab: 'point',
-      selectedTabData: {},
     }
   },
   computed: {},
@@ -42,11 +37,7 @@ export default {
   created() {},
   mounted() {},
   beforeDestroy() {},
-  methods: {
-    changeTab(val, data) {
-      this.selectedTabData = data
-    },
-  },
+  methods: {},
 }
 </script>
 

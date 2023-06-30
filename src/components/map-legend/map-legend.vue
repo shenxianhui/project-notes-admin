@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 09:37:44
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-29 17:31:18
+ * @LastEditTime: 2023-06-30 13:57:28
 -->
 
 <template>
@@ -11,7 +11,7 @@
     <div class="map-legend-list">
       <div
         class="map-legend-item"
-        v-for="(item, index) in data"
+        v-for="(item, index) in legendList"
         :key="index"
         :class="{ active: item.selected }"
         @click="handleLegendItem(item, index)"
@@ -38,30 +38,48 @@
 export default {
   name: 'map-legend',
   components: {},
-  props: {
-    data: Array,
-  },
+  props: {},
   data() {
-    return {}
+    return {
+      tabData: {},
+    }
   },
-  computed: {},
+  computed: {
+    legendList() {
+      return this.tabData.data || []
+    },
+  },
   watch: {},
   created() {},
-  mounted() {},
-  beforeDestroy() {},
+  mounted() {
+    this.$root.$on('change-map-tab', this.changeMapTab)
+  },
+  beforeDestroy() {
+    this.$root.$off('change-map-tab', this.changeMapTab)
+  },
   methods: {
+    // 点击地图Tab
+    changeMapTab(idx, tabData) {
+      this.tabData = tabData
+      this.legendList.forEach(item => {
+        if (item.selected) {
+          this.$root.$emit('change-map-legend', item, this.tabData)
+        }
+      })
+    },
+
     // 点击图例的某项
     handleLegendItem(itm, idx) {
       itm.selected = !itm.selected
 
-      this.$emit('change-legend', itm, this.legendData)
-      this.$emit('change', itm, this.legendData)
+      this.$emit('change-legend', itm, this.tabData)
+      this.$root.$emit('change-map-legend', itm, this.tabData)
     },
 
     // 切换右侧开关状态
     changeSwitch(itm, idx) {
-      this.$emit('change-switch', itm, this.legendData)
-      this.$emit('change', itm, this.legendData)
+      this.$emit('change-switch', itm, this.tabData)
+      this.$root.$emit('change-map-legend', itm, this.tabData)
     },
   },
 }
