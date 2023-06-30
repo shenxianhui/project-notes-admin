@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import legend from './data/legend'
+import legend from '@/data/maptalks/legend'
 
 export default {
   name: 'map-bar',
