@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 09:37:44
  * @LastEditors: shenxh
- * @LastEditTime: 2023-07-03 11:17:15
+ * @LastEditTime: 2023-07-03 13:41:46
 -->
 
 <template>
@@ -59,8 +59,8 @@ export default {
   },
   methods: {
     // 点击地图Tab
-    changeMapTab(idx, tabData) {
-      this.tabData = tabData
+    changeMapTab(val, tabData) {
+      this.tabData = JSON.parse(JSON.stringify(tabData))
       this.legendList.forEach(item => {
         const { selected, switched } = item
 
