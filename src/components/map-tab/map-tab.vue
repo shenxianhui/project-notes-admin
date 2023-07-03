@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-27 17:22:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-30 13:54:05
+ * @LastEditTime: 2023-07-03 13:16:08
 -->
 
 <template>
@@ -49,6 +49,7 @@ export default {
   beforeDestroy() {},
   methods: {
     handleTab(itm) {
+      this.$root.$emit('before-change-map-tab', itm.value, itm)
       this.$emit('set-value', itm.value)
       this.$root.$emit('change-map-tab', itm.value, itm)
     },

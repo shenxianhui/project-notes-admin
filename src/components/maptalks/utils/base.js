@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-28 13:45:32
  * @LastEditors: shenxh
- * @LastEditTime: 2023-07-03 11:00:02
+ * @LastEditTime: 2023-07-03 13:25:21
  */
 
 import * as Maptalks from 'maptalks'
@@ -74,6 +74,132 @@ export default {
         },
       )
     },
+
+    /**
+     * @description: 显示图层
+     * @param {string} id 图层id
+     * @return {*}
+     */
+    showLayer(id) {
+      const layer = map.getLayer(id)
+
+      layer && layer.show()
+    },
+
+    /**
+     * @description: 显示多个图层
+     * @param {function} filter 过滤函数
+     * @return {*}
+     */
+    showLayers(filter) {
+      const layers = map.getLayers(filter)
+
+      layers.forEach(layer => {
+        layer && layer.show()
+      })
+    },
+
+    /**
+     * @description: 显示图层
+     * @param {string} id 图层id
+     * @return {*}
+     */
+    hideLayer(id) {
+      const layer = map.getLayer(id)
+
+      layer && layer.hide()
+    },
+
+    /**
+     * @description: 隐藏多个图层
+     * @param {function} filter 过滤函数
+     * @return {*}
+     */
+    hideLayers(filter) {
+      const layers = map.getLayers(filter)
+
+      layers.forEach(layer => {
+        layer && layer.hide()
+      })
+    },
+  },
+  // 图层
+  layer: {
+    /**
+     * @description: 初始化
+     * @param {string|number} id 图层id
+     * @param {Geometry|array} geometries 几何图形
+     * @param {object} options 构造选项
+     * @return {*} Layer 图层
+     */
+    init(id, geometries, options) {
+      let layer = map.getLayer(id)
+
+      layer && map.removeLayer(layer)
+      layer = new Maptalks.VectorLayer(id, geometries, options).addTo(map)
+
+      return layer
+    },
+
+    /**
+     * @description: 获取所有几何图形或过滤的几何图形
+     * @param {*} layerId
+     * @param {*} filter
+     * @param {*} context
+     * @return {*}
+     */
+    getGeometries(layerId, filter, context) {
+      const layer = map.getLayer(layerId)
+
+      if (!layer) return []
+
+      const polygon = layer.getGeometries(filter, context)
+
+      return polygon
+    },
+
+    /**
+     * @description: 判断图层是否可见
+     * @param {*} layerId
+     * @return {*}
+     */
+    isVisible(layerId) {
+      const layer = map.getLayer(layerId)
+
+      return layer && layer.isVisible()
+    },
+
+    /**
+     * @description: 根据 id 获取图层内的指定 Marker
+     * @param {*} layerId
+     * @param {*} markerId
+     * @return {*} marker
+     */
+    getMarker(layerId, markerId) {
+      const layer = map.getLayer(layerId)
+      const markers = layer.getGeometries(marker => {
+        return marker._id === markerId
+      })
+
+      return markers && markers.length ? markers[0] : null
+    },
+
+    /**
+     * @description: 获取图层内多个marker
+     * @param {*} layerId
+     * @param {function} filter 过滤函数
+     * @return {*} marker
+     */
+    getMarkers(layerId, filter) {
+      const layer = map.getLayer(layerId)
+      let markers = []
+
+      if (layer) {
+        markers = layer.getGeometries(filter)
+      }
+
+      return markers
+    },
   },
   // 点位
   marker: {
@@ -99,10 +225,6 @@ export default {
     showAllInfoWindow(id) {
       const layer = map.getLayer(id)
       const markers = layer.getGeometries()
-
-      // markers.forEach(marker => {
-      //   marker && marker.openInfoWindow()
-      // })
 
       markers.forEach(marker => {
         const hasInfoWindow = marker.getInfoWindow()
@@ -132,21 +254,6 @@ export default {
       markers.forEach(marker => {
         marker && marker.getInfoWindow() && marker.closeInfoWindow()
       })
-    },
-
-    /**
-     * @description: 根据 id 获取图层内的指定 Marker
-     * @param {*} layerId
-     * @param {*} markerId
-     * @return {*} marker
-     */
-    getMarker(layerId, markerId) {
-      const layer = map.getLayer(layerId)
-      const markers = layer.getGeometries(marker => {
-        return marker._id === markerId
-      })
-
-      return markers && markers.length ? markers[0] : null
     },
   },
   // 标签
@@ -192,124 +299,6 @@ export default {
       const polygon = new Maptalks.Polygon(coordinates, options)
 
       return polygon
-    },
-  },
-  // 图层
-  layer: {
-    /**
-     * @description: 初始化
-     * @param {string|number} id 图层id
-     * @param {Geometry|array} geometries 几何图形
-     * @param {object} options 构造选项
-     * @return {*} Layer 图层
-     */
-    init(id, geometries, options) {
-      let layer = map.getLayer(id)
-
-      layer && map.removeLayer(layer)
-      layer = new Maptalks.VectorLayer(id, geometries, options).addTo(map)
-
-      return layer
-    },
-
-    /**
-     * @description: 隐藏图层
-     * @param {array} id 图层id
-     * @return {*}
-     */
-    hide(id) {
-      const layer = map.getLayer(id)
-
-      layer && layer.hide()
-    },
-
-    /**
-     * @description: 隐藏全部图层
-     * @param {array} ignoreLayerIds 忽略的图层id
-     * @return {*}
-     */
-    hideAll(ignoreLayerIds = []) {
-      const vectorLayers = map.getLayers()
-
-      vectorLayers.forEach(layer => {
-        const ignore = ignoreLayerIds.includes(layer._id)
-
-        if (!ignore) {
-          layer && layer.hide()
-        }
-      })
-    },
-
-    /**
-     * @description: 显示图层
-     * @param {array} id 图层id
-     * @return {*}
-     */
-    show(id) {
-      const layer = map.getLayer(id)
-
-      layer && layer.show()
-    },
-
-    /**
-     * @description: 显示全部图层
-     * @param {array} ignoreLayerIds 忽略的图层id
-     * @return {*}
-     */
-    showAll(ignoreLayerIds = []) {
-      const vectorLayers = map.getLayers()
-
-      vectorLayers.forEach(layer => {
-        const ignore = ignoreLayerIds.includes(layer._id)
-
-        if (!ignore) {
-          layer && layer.show()
-        }
-      })
-    },
-
-    /**
-     * @description: 获取所有几何图形或过滤的几何图形
-     * @param {*} layerId
-     * @param {*} filter
-     * @param {*} context
-     * @return {*}
-     */
-    getGeometries(layerId, filter, context) {
-      const layer = map.getLayer(layerId)
-
-      if (!layer) return []
-
-      const polygon = layer.getGeometries(filter, context)
-
-      return polygon
-    },
-
-    /**
-     * @description: 判断图层是否可见
-     * @param {*} layerId
-     * @return {*}
-     */
-    isVisible(layerId) {
-      const layer = map.getLayer(layerId)
-
-      return layer && layer.isVisible()
-    },
-
-    /**
-     * @description: 获取图层内所有marker
-     * @param {*} layerId
-     * @return {*} marker
-     */
-    getMarkers(layerId) {
-      const layer = map.getLayer(layerId)
-      let markers = []
-
-      if (layer) {
-        markers = layer.getGeometries()
-      }
-
-      return markers
     },
   },
   // 点位聚合

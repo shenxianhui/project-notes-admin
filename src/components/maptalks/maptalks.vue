@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 14:15:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-07-03 11:20:24
+ * @LastEditTime: 2023-07-03 13:16:35
 -->
 
 <template>
@@ -79,6 +79,7 @@ export default {
   mounted() {
     this.init()
 
+    this.$root.$on('before-change-map-tab', this.beforeChangeMapTab)
     this.$root.$on('selected-map-legend', this.selectedMapLegend)
     this.$root.$on('switched-map-legend', this.switchedMapLegend)
 
@@ -87,6 +88,7 @@ export default {
   beforeDestroy() {
     MT.map.remove()
 
+    this.$root.$off('before-change-map-tab', this.beforeChangeMapTab)
     this.$root.$off('selected-map-legend', this.selectedMapLegend)
     this.$root.$off('switched-map-legend', this.switchedMapLegend)
   },
@@ -106,12 +108,12 @@ export default {
         const layer = map.getLayer(legend.value)
 
         if (layer) {
-          MT.layer.show(legend.value)
+          MT.map.showLayer(legend.value)
 
           return
         }
       } else {
-        MT.layer.hide(legend.value)
+        MT.map.hideLayer(legend.value)
 
         return
       }
@@ -133,6 +135,11 @@ export default {
           this.initDrillSurface(legend)
           break
       }
+    },
+
+    // 点击地图Tab之前
+    beforeChangeMapTab(idx, tabData) {
+      MT.map.hideLayers()
     },
 
     // 点击图例开关
