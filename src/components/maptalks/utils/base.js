@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-28 13:45:32
  * @LastEditors: shenxh
- * @LastEditTime: 2023-07-03 13:25:21
+ * @LastEditTime: 2023-07-03 14:31:25
  */
 
 import * as Maptalks from 'maptalks'
@@ -301,7 +301,7 @@ export default {
       return polygon
     },
   },
-  // 点位聚合
+  // 聚合图层
   clusterLayer: {
     /**
      * @description: 初始化
@@ -324,37 +324,38 @@ export default {
           markerFill: {
             property: 'count',
             type: 'interval',
+            // 颜色
             stops: [
               [0, 'rgb(135, 196, 240)'],
-              [9, '#1bbc9b'],
+              [9, 'rgb(27, 188, 155)'],
               [50, 'rgb(116, 115, 149)'],
               [99, 'rgb(216, 115, 149)'],
             ],
           },
-          markerFillOpacity: 0.7,
-          markerLineOpacity: 1,
-          markerLineWidth: 3,
-          markerLineColor: '#fff',
+          markerFillOpacity: 0.7, // 透明度
           markerWidth: {
             property: 'count',
             type: 'interval',
             stops: [
-              [0, 40],
-              [9, 60],
-              [50, 70],
-              [99, 80],
+              [0, 30],
+              [9, 40],
+              [50, 50],
+              [99, 60],
             ],
           },
           markerHeight: {
             property: 'count',
             type: 'interval',
             stops: [
-              [0, 40],
-              [9, 60],
-              [50, 70],
-              [99, 80],
+              [0, 30],
+              [9, 40],
+              [50, 50],
+              [99, 60],
             ],
           },
+          markerLineWidth: 1, // 边框尺寸
+          markerLineColor: '#fff', // 边框颜色
+          markerLineOpacity: 1, // 边框透明度
         },
         drawClusterText: true,
         geometryEvents: true,

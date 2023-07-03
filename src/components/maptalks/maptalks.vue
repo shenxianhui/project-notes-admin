@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 14:15:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-07-03 13:16:35
+ * @LastEditTime: 2023-07-03 14:32:57
 -->
 
 <template>
@@ -15,13 +15,13 @@ import MT from './utils/base'
 import MARKER from './utils/marker'
 
 import basePointData from '@/data/maptalks/base-point.js'
+import baseClusterData from '@/data/maptalks/cluster-point.js'
 
 let map = null
 
 // 待整理:
 // 1. 手动定位
 // 2. 图例相关项
-// 3. 点位聚合弹窗设置
 export default {
   name: 'maptalks',
   components: {},
@@ -185,13 +185,26 @@ export default {
       })
 
       MT.layer.init(legend.value, markers, {
-        zIndex: 10,
+        zIndex: 15,
       })
     },
 
     // 聚合点
-    initClusterPoint() {
-      console.log('聚合点')
+    initClusterPoint(legend) {
+      const markers = baseClusterData.map(item => {
+        const data = {
+          ...item,
+          markerFile: legend.pointIcon,
+          hasInfoWindow: true,
+        }
+        const marker = MARKER.init(data)
+
+        return marker
+      })
+
+      MT.clusterLayer.init(legend.value, markers, {
+        zIndex: 10,
+      })
     },
 
     // 聚合线
