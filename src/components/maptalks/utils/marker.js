@@ -3,38 +3,28 @@ import MT from './base'
 export default {
   // Marker 初始化
   init(data = {}) {
-    const {
-      id,
-      name,
-      coordinate,
-      markerFile,
-
-      /* 样式 */
-      markerWidth = 40,
-      markerHeight = 60,
-      markerDx = 0,
-      markerDy = 0,
-      markerOpacity = 1,
-    } = data
+    const { id, name, coordinate, markerFile } = data
 
     const options = {
       id,
       cursor: 'pointer',
+      // 文档: ttps://github.com/maptalks/maptalks.js/wiki/Symbol-Reference
       symbol: [
         {
           markerFile,
-          markerWidth,
-          markerHeight,
-          markerDx,
-          markerDy,
-          markerOpacity,
+          markerWidth: 20,
+          markerHeight: 30,
+          markerDx: 0,
+          markerDy: 0,
+          markerOpacity: 1,
         },
         {
-          markerType: 'square',
+          markerType: 'bar', // ellipse cross x diamond bar square triangle pin pie
           markerWidth: this.getLabelWidth(name),
-          markerHeight: 34,
+          markerHeight: 22,
           markerLineWidth: 1,
-          markerDy: -93,
+          markerDy: -35,
+          markerFillOpacity: 0.8,
           ...this.getLabelColor(data),
         },
         {
@@ -42,11 +32,11 @@ export default {
           textName: name, //value from name in geometry's properties
           textWeight: 600, //'bold', 'bolder'
           textStyle: 'normal', //'italic', 'oblique'
-          textSize: 16,
+          textSize: 12,
           textFont: null, //same as CanvasRenderingContext2D.font, override textName, textWeight and textStyle
           textFill: '#fff',
           textOpacity: 1,
-          textDy: -100,
+          textDy: -52,
           textHorizontalAlignment: 'middle', //left | middle | right | auto
           textVerticalAlignment: 'bottom', // top | middle | bottom | auto
           textAlign: 'center', //left | right | center | auto
@@ -54,6 +44,8 @@ export default {
       ],
     }
     const marker = MT.marker.init(coordinate, options)
+
+    marker.data = data
 
     return marker
   },
@@ -66,8 +58,7 @@ export default {
       autoPan: false, // 地图进行平移动画以适应打开的窗口
       animation: 'fade',
       animationDuration: 150,
-      // dy: -8, // y轴偏移
-      dy: 40, // y轴偏移
+      dy: 22, // y轴偏移
       content: this.getInfoWindowContent(data),
     })
   },
@@ -159,15 +150,15 @@ export default {
 
   // 获取标签名长度
   getLabelWidth(label = '') {
-    let len = 20
+    let len = 14
 
     for (let i = 0; i < label.length; i++) {
       const reg = /^[\u2E80-\u9FFF]+$/
 
       if (reg.test(label[i])) {
-        len += 20
-      } else {
         len += 12
+      } else {
+        len += 8
       }
     }
 

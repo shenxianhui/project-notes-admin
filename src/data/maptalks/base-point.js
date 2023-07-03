@@ -15,7 +15,7 @@ export default [
         value: '0.054',
       },
       {
-        alarm: false,
+        alarm: true,
         baseItemCode: 'YLv',
         formulaType: '0',
         itemCode: 'YLv_CS',
@@ -39,7 +39,7 @@ export default [
         value: '0.367',
       },
       {
-        alarm: false,
+        alarm: true,
         baseItemCode: 'YL',
         formulaType: '0',
         itemCode: 'YL_CS2',

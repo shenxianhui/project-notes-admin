@@ -3,13 +3,15 @@
  * @Author: shenxh
  * @Date: 2022-08-28 13:45:32
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-30 17:02:29
+ * @LastEditTime: 2023-07-03 11:00:02
  */
 
 import * as Maptalks from 'maptalks'
 import MapboxGL from 'mapbox-gl'
 import { MapboxglLayer } from 'maptalks.mapboxgl/dist/maptalks.mapboxgl.js'
 import { ClusterLayer } from 'maptalks.markercluster'
+
+import MARKER from './marker'
 
 let map = null // 地图
 
@@ -98,8 +100,20 @@ export default {
       const layer = map.getLayer(id)
       const markers = layer.getGeometries()
 
+      // markers.forEach(marker => {
+      //   marker && marker.openInfoWindow()
+      // })
+
       markers.forEach(marker => {
-        marker && marker.openInfoWindow()
+        const hasInfoWindow = marker.getInfoWindow()
+
+        // 判断当前弹窗状态
+        if (hasInfoWindow) {
+          marker.openInfoWindow()
+        } else {
+          MARKER.initInfoWindow(marker, marker.data)
+          marker.openInfoWindow()
+        }
       })
     },
 
@@ -133,22 +147,6 @@ export default {
       })
 
       return markers && markers.length ? markers[0] : null
-    },
-
-    /**
-     * @description: 获取图层内所有marker
-     * @param {*} layerId
-     * @return {*} marker
-     */
-    getMarkers(layerId) {
-      const layer = map.getLayer(layerId)
-      let markers = []
-
-      if (layer) {
-        markers = layer.getGeometries()
-      }
-
-      return markers
     },
   },
   // 标签
@@ -243,6 +241,17 @@ export default {
     },
 
     /**
+     * @description: 显示图层
+     * @param {array} id 图层id
+     * @return {*}
+     */
+    show(id) {
+      const layer = map.getLayer(id)
+
+      layer && layer.show()
+    },
+
+    /**
      * @description: 显示全部图层
      * @param {array} ignoreLayerIds 忽略的图层id
      * @return {*}
@@ -285,6 +294,22 @@ export default {
       const layer = map.getLayer(layerId)
 
       return layer && layer.isVisible()
+    },
+
+    /**
+     * @description: 获取图层内所有marker
+     * @param {*} layerId
+     * @return {*} marker
+     */
+    getMarkers(layerId) {
+      const layer = map.getLayer(layerId)
+      let markers = []
+
+      if (layer) {
+        markers = layer.getGeometries()
+      }
+
+      return markers
     },
   },
   // 点位聚合

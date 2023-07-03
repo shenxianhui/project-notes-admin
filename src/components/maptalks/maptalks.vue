@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 14:15:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-30 17:30:12
+ * @LastEditTime: 2023-07-03 11:20:24
 -->
 
 <template>
@@ -18,6 +18,10 @@ import basePointData from '@/data/maptalks/base-point.js'
 
 let map = null
 
+// 待整理:
+// 1. 手动定位
+// 2. 图例相关项
+// 3. 点位聚合弹窗设置
 export default {
   name: 'maptalks',
   components: {},
@@ -25,7 +29,7 @@ export default {
     center: {
       type: Array,
       default() {
-        return [120.722249, 27.963267]
+        return [120.63162014397112, 28.003668677143096]
       },
     },
     zoom: {
@@ -74,11 +78,17 @@ export default {
   created() {},
   mounted() {
     this.init()
-    this.$root.$on('change-map-legend', this.changeMapLegend)
+
+    this.$root.$on('selected-map-legend', this.selectedMapLegend)
+    this.$root.$on('switched-map-legend', this.switchedMapLegend)
+
+    window.handleMarkerPopup = this.handleMarkerPopup
   },
   beforeDestroy() {
     MT.map.remove()
-    this.$root.$off('change-map-legend', this.changeMapLegend)
+
+    this.$root.$off('selected-map-legend', this.selectedMapLegend)
+    this.$root.$off('switched-map-legend', this.switchedMapLegend)
   },
   methods: {
     // 地图初始化
@@ -88,9 +98,24 @@ export default {
       })
     },
 
-    // 改变地图图例
-    changeMapLegend(legend = {}, tab = {}) {
-      // console.log(legend, tab)
+    // 点击图例
+    selectedMapLegend(legend = {}, tab = {}) {
+      const { selected } = legend
+
+      if (selected) {
+        const layer = map.getLayer(legend.value)
+
+        if (layer) {
+          MT.layer.show(legend.value)
+
+          return
+        }
+      } else {
+        MT.layer.hide(legend.value)
+
+        return
+      }
+
       switch (legend.value) {
         case 'basePoint':
           this.initBasePoint(legend)
@@ -110,6 +135,17 @@ export default {
       }
     },
 
+    // 点击图例开关
+    switchedMapLegend(legend = {}, tab = {}) {
+      const { switched } = legend
+
+      if (switched) {
+        MT.marker.showAllInfoWindow(legend.value)
+      } else {
+        MT.marker.hideAllInfoWindow(legend.value)
+      }
+    },
+
     // 基础点
     initBasePoint(legend) {
       const markers = basePointData.map(item => {
@@ -121,17 +157,21 @@ export default {
         const marker = MARKER.init(data)
 
         marker.on('click', e => {
-          // const hasInfoWindow = marker.getInfoWindow()
+          const infoWindow = marker.getInfoWindow()
+
           // 判断当前弹窗状态
-          // if (hasInfoWindow) {
-          //   if (hasInfoWindow.isVisible()) {
-          //     marker.closeInfoWindow()
-          //   } else {
-          //     marker.openInfoWindow()
-          //   }
-          // } else {
-          //   MARKER.initInfoWindow(marker, data)
-          // }
+          if (infoWindow) {
+            if (infoWindow.isVisible()) {
+              setTimeout(() => {
+                marker.closeInfoWindow()
+              }, 30)
+            } else {
+              marker.openInfoWindow()
+            }
+          } else {
+            MARKER.initInfoWindow(marker, marker.data)
+            marker.openInfoWindow()
+          }
         })
 
         return marker
@@ -160,6 +200,11 @@ export default {
     // 下钻面
     initDrillSurface() {
       console.log('下钻面')
+    },
+
+    // 点击点位弹窗
+    handleMarkerPopup(type, jsonData) {
+      console.log(type, jsonData)
     },
   },
 }

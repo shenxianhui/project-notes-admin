@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 09:37:44
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-30 13:57:28
+ * @LastEditTime: 2023-07-03 11:17:15
 -->
 
 <template>
@@ -62,7 +62,14 @@ export default {
     changeMapTab(idx, tabData) {
       this.tabData = tabData
       this.legendList.forEach(item => {
-        if (item.selected) {
+        const { selected, switched } = item
+
+        if (selected) {
+          this.$root.$emit('selected-map-legend', item, this.tabData)
+          this.$root.$emit('change-map-legend', item, this.tabData)
+        }
+        if (switched) {
+          this.$root.$emit('switched-map-legend', item, this.tabData)
           this.$root.$emit('change-map-legend', item, this.tabData)
         }
       })
@@ -71,14 +78,17 @@ export default {
     // 点击图例的某项
     handleLegendItem(itm, idx) {
       itm.selected = !itm.selected
+      itm.switched = false
 
       this.$emit('change-legend', itm, this.tabData)
+      this.$root.$emit('selected-map-legend', itm, this.tabData)
       this.$root.$emit('change-map-legend', itm, this.tabData)
     },
 
     // 切换右侧开关状态
     changeSwitch(itm, idx) {
       this.$emit('change-switch', itm, this.tabData)
+      this.$root.$emit('switched-map-legend', itm, this.tabData)
       this.$root.$emit('change-map-legend', itm, this.tabData)
     },
   },
