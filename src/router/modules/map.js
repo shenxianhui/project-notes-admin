@@ -1,28 +1,28 @@
 /*
- * @Description: maptalks
+ * @Description: 地图
  * @Author: shenxh
  * @Date: 2023-06-27 14:22:09
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-29 16:45:03
+ * @LastEditTime: 2023-09-05 16:05:20
  */
 
 export default [
   {
-    path: '/maptalks',
-    name: 'maptalks',
+    path: '/map',
+    name: 'map',
     meta: {
-      label: 'Maptalks',
+      label: '地图',
     },
-    redirect: '/maptalks/base-map',
+    redirect: '/map/maptalks',
     component: loadView('layout/Layout'),
     children: [
       {
-        path: 'base-map',
-        name: 'base-map',
+        path: 'maptalks',
+        name: 'maptalks',
         meta: {
-          label: '基础',
+          label: 'Maptalks',
         },
-        component: loadView('maptalks/base-map'),
+        component: loadView('map/maptalks'),
       },
     ],
   },
