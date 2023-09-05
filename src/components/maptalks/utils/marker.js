@@ -1,4 +1,4 @@
-import MT from './base'
+import MT from '.'
 
 export default {
   // Marker 初始化

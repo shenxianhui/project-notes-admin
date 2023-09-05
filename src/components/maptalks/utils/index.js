@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-28 13:45:32
  * @LastEditors: shenxh
- * @LastEditTime: 2023-07-03 14:31:25
+ * @LastEditTime: 2023-09-05 15:56:40
  */
 
 import * as Maptalks from 'maptalks'
@@ -15,7 +15,7 @@ import MARKER from './marker'
 
 let map = null // 地图
 
-export default {
+const utils = {
   // 地图
   map: {
     /**
@@ -369,3 +369,4 @@ export default {
     },
   },
 }
+export default utils

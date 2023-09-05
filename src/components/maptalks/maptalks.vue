@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 14:15:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-07-03 14:32:57
+ * @LastEditTime: 2023-09-05 15:49:05
 -->
 
 <template>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import MT from './utils/base'
+import MT from './utils'
 import MARKER from './utils/marker'
 
 import basePointData from '@/data/maptalks/base-point.js'
@@ -207,9 +207,9 @@ export default {
       })
     },
 
-    // 聚合线
+    // 基础线
     initBaseLine() {
-      console.log('聚合线')
+      console.log('基础线')
     },
 
     // 基础面
