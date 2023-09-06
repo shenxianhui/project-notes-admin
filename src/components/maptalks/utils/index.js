@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-28 13:45:32
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-05 15:56:40
+ * @LastEditTime: 2023-09-06 13:58:21
  */
 
 import * as Maptalks from 'maptalks'
@@ -100,7 +100,7 @@ const utils = {
     },
 
     /**
-     * @description: 显示图层
+     * @description: 隐藏图层
      * @param {string} id 图层id
      * @return {*}
      */
@@ -120,6 +120,18 @@ const utils = {
 
       layers.forEach(layer => {
         layer && layer.hide()
+      })
+    },
+
+    /**
+     * @description: 销毁图层
+     * @return {*}
+     */
+    removeAllLayers() {
+      const layers = map.getLayers()
+
+      layers.forEach(layer => {
+        layer && layer.remove()
       })
     },
   },
@@ -200,31 +212,33 @@ const utils = {
 
       return markers
     },
-  },
-  // 点位
-  marker: {
-    /**
-     * @description: 初始化
-     * @param {array} coordinates 坐标
-     * @param {object} options 构造选项
-     * @return {*} Marker 标记
-     */
-    init(coordinates, options) {
-      const marker = new Maptalks.Marker(coordinates, {
-        ...options,
-      })
 
-      return marker
+    /**
+     * @description: 获取图层内指定类型的所有的图形
+     * @param {*} layerId
+     * @param {function} jsonType 图形类型
+     * @return {*} marker
+     */
+    getAllGeometry(layerId, jsonType) {
+      const layer = map.getLayer(layerId)
+      let markers = []
+
+      if (layer) {
+        markers = layer
+          .getGeometries()
+          .filter(geometry => geometry.geometryType === jsonType)
+      }
+
+      return markers
     },
 
     /**
      * @description: 显示图层内的所有 InfoWindow
-     * @param {*} id 图层 id
+     * @param {*} layerId 图层 id
      * @return {*}
      */
-    showAllInfoWindow(id) {
-      const layer = map.getLayer(id)
-      const markers = layer.getGeometries()
+    showAllInfoWindow(layerId) {
+      const markers = utils.layer.getAllGeometry(layerId, 'Marker')
 
       markers.forEach(marker => {
         const hasInfoWindow = marker.getInfoWindow()
@@ -241,19 +255,49 @@ const utils = {
 
     /**
      * @description: 隐藏图层内的所有 InfoWindow
-     * @param {*} id 图层 id
+     * @param {*} layerId 图层 id
      * @return {*}
      */
-    hideAllInfoWindow(id) {
-      const layer = map.getLayer(id)
-
-      if (!layer) return
-
-      const markers = layer.getGeometries()
+    hideAllInfoWindow(layerId) {
+      const markers = utils.layer.getAllGeometry(layerId, 'Marker')
 
       markers.forEach(marker => {
         marker && marker.getInfoWindow() && marker.closeInfoWindow()
       })
+    },
+
+    playAnimate(layerId) {
+      const markers = utils.layer.getAllGeometry(layerId, 'MarkerPoint')
+
+      markers &&
+        markers.forEach(item => {
+          item.animate.play()
+        })
+    },
+
+    cancelAnimate(layerId) {
+      const markers = utils.layer.getAllGeometry(layerId, 'MarkerPoint')
+
+      markers &&
+        markers.forEach(item => {
+          item.animate.cancel()
+        })
+    },
+  },
+  // 点位
+  marker: {
+    /**
+     * @description: 初始化
+     * @param {array} coordinates 坐标
+     * @param {object} options 构造选项
+     * @return {*} Marker 标记
+     */
+    init(coordinates, options) {
+      const marker = new Maptalks.Marker(coordinates, {
+        ...options,
+      })
+
+      return marker
     },
   },
   // 标签
@@ -271,6 +315,20 @@ const utils = {
       })
 
       return label
+    },
+  },
+  // 点
+  point: {
+    /**
+     * @description: 初始化
+     * @param {object|number[]} coordinate 坐标
+     * @param {object} options 构造选项
+     * @return {*} Point
+     */
+    init(coordinate, options) {
+      const point = new Maptalks.Point(coordinate, options)
+
+      return point
     },
   },
   // 线

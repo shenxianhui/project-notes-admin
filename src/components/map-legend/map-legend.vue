@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 09:37:44
  * @LastEditors: shenxh
- * @LastEditTime: 2023-07-03 13:41:46
+ * @LastEditTime: 2023-09-06 14:26:35
 -->
 
 <template>
@@ -17,15 +17,16 @@
         @click="handleLegendItem(item, index)"
       >
         <div class="map-legend-item-group">
-          <img class="map-legend-item-icon" :src="item.legendIcon" />
+          <img class="map-legend-item-icon" :src="item.icon" />
           <div class="map-legend-item-label text-ellipsis">
             {{ item.label }}
           </div>
         </div>
         <el-switch
-          v-if="item.showSwitch && item.selected"
+          v-if="item.switch && item.switch.show"
+          v-model="item.switch.checked"
+          :disabled="!item.selected"
           class="switch"
-          v-model="item.switched"
           @click.native.stop
           @change="changeSwitch(item, index)"
         ></el-switch>
@@ -35,61 +36,56 @@
 </template>
 
 <script>
+import legend from '@/data/maptalks/legend'
+
 export default {
   name: 'map-legend',
   components: {},
   props: {},
   data() {
     return {
-      tabData: {},
+      legend,
     }
   },
   computed: {
+    currentLegend() {
+      return this.legend[this.$route.name] || {}
+    },
+
     legendList() {
-      return this.tabData.data || []
+      return this.currentLegend.data || []
     },
   },
-  watch: {},
+  watch: {
+    legendList(val) {
+      this.setDefEvt()
+    },
+  },
   created() {},
   mounted() {
-    this.$root.$on('change-map-tab', this.changeMapTab)
+    this.setDefEvt()
   },
-  beforeDestroy() {
-    this.$root.$off('change-map-tab', this.changeMapTab)
-  },
+  beforeDestroy() {},
   methods: {
-    // 点击地图Tab
-    changeMapTab(val, tabData) {
-      this.tabData = JSON.parse(JSON.stringify(tabData))
+    // 触发默认事件
+    setDefEvt() {
       this.legendList.forEach(item => {
-        const { selected, switched } = item
-
-        if (selected) {
-          this.$root.$emit('selected-map-legend', item, this.tabData)
-          this.$root.$emit('change-map-legend', item, this.tabData)
-        }
-        if (switched) {
-          this.$root.$emit('switched-map-legend', item, this.tabData)
-          this.$root.$emit('change-map-legend', item, this.tabData)
-        }
+        item.selected && this.$emit('change-legend', item)
+        item.switch && item.switch.checked && this.$emit('change-switch', item)
       })
     },
 
-    // 点击图例的某项
+    // 点击图例项
     handleLegendItem(itm, idx) {
       itm.selected = !itm.selected
-      itm.switched = false
+      itm.switch && (itm.switch.checked = false)
 
-      this.$emit('change-legend', itm, this.tabData)
-      this.$root.$emit('selected-map-legend', itm, this.tabData)
-      this.$root.$emit('change-map-legend', itm, this.tabData)
+      this.$emit('change-legend', itm)
     },
 
     // 切换右侧开关状态
     changeSwitch(itm, idx) {
-      this.$emit('change-switch', itm, this.tabData)
-      this.$root.$emit('switched-map-legend', itm, this.tabData)
-      this.$root.$emit('change-map-legend', itm, this.tabData)
+      this.$emit('change-switch', itm)
     },
   },
 }

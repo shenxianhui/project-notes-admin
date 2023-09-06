@@ -3,14 +3,24 @@
  * @Author: shenxh
  * @Date: 2023-06-27 16:46:54
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-05 16:04:47
+ * @LastEditTime: 2023-09-06 14:44:25
 -->
 
 <template>
   <div class="screen-wz admin-content">
-    <base-map class="base-map"></base-map>
-    <map-legend class="map-legend"></map-legend>
-    <map-tab v-model="selectedTab" class="map-tab"></map-tab>
+    <router-view />
+    <base-map ref="map" class="base-map"></base-map>
+    <map-legend
+      ref="legend"
+      class="map-legend"
+      @change-legend="changeLegend"
+      @change-switch="changeSwitch"
+    ></map-legend>
+    <map-tab
+      v-model="selectedTab"
+      class="map-tab"
+      @change="changeTab"
+    ></map-tab>
   </div>
 </template>
 
@@ -29,15 +39,33 @@ export default {
   props: {},
   data() {
     return {
-      selectedTab: 'point',
+      selectedTab: this.$route.name,
     }
   },
   computed: {},
   watch: {},
+  beforeRouteUpdate(to, from, next) {
+    this.selectedTab = to.name
+    this.$refs.map && this.$refs.map.beforeChangeMapTab()
+    next()
+  },
   created() {},
   mounted() {},
   beforeDestroy() {},
-  methods: {},
+  methods: {
+    changeTab(name) {
+      // this.$refs.map && this.$refs.map.beforeChangeMapTab()
+      this.$router.push('/map/maptalks/' + name)
+    },
+
+    changeLegend(data) {
+      this.$refs.map && this.$refs.map.selectedMapLegend(data)
+    },
+
+    changeSwitch(data) {
+      this.$refs.map && this.$refs.map.switchedMapLegend(data)
+    },
+  },
 }
 </script>
 

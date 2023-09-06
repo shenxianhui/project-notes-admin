@@ -1,63 +1,84 @@
-export default [
-  {
-    label: '点',
-    value: 'point',
+export default {
+  point: {
+    name: '点',
     data: [
       {
         label: '基础',
-        value: 'basePoint',
+        value: 'point-base',
         selected: true,
-        switched: false,
-        showSwitch: true,
-        legendIcon:
+        switch: {
+          show: true,
+          checked: false,
+        },
+        icon:
           'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_水厂.svg',
-        pointIcon:
-          'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113744400_水厂点.svg',
+        map: {
+          marker: {
+            icon:
+              'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113744400_水厂点.svg',
+            // active: {
+            //   icon: 'xxx',
+            // },
+            // alarm: {
+            //   icon: 'xxx',
+            // },
+          },
+        },
       },
       {
         label: '聚合',
-        value: 'clusterPoint',
+        value: 'point-cluster',
         selected: false,
-        legendIcon:
+        icon:
           'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_压力.svg',
-        pointIcon:
-          'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113744400_压力监测点.svg',
+        map: {
+          marker: {
+            icon:
+              'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113744400_压力监测点.svg',
+          },
+        },
       },
     ],
   },
-  {
-    label: '线',
-    value: 'line',
+  line: {
+    name: '线',
     data: [
       {
         label: '基础',
-        value: 'baseLine',
+        value: 'line-base',
         selected: true,
-        legendIcon:
+        icon:
           'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_车辆.svg',
-        pointIcon:
-          'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113744400_车辆.svg',
+        map: {
+          marker: {
+            icon:
+              'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113744400_车辆.svg',
+          },
+        },
       },
     ],
   },
-  {
-    label: '面',
-    value: 'surface',
+  surface: {
+    name: '面',
     data: [
       {
         label: '基础',
-        value: 'baseSurface',
+        value: 'surface-base',
         selected: true,
-        legendIcon:
+        switch: {
+          show: true,
+          checked: false,
+        },
+        icon:
           'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_供水范围.svg',
       },
       {
         label: '下钻',
-        value: 'drillSurface',
+        value: 'surface-drill',
         selected: false,
-        legendIcon:
+        icon:
           'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_分区.svg',
       },
     ],
   },
-]
+}

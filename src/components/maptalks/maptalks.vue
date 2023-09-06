@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 14:15:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-05 16:05:12
+ * @LastEditTime: 2023-09-06 14:28:28
 -->
 
 <template>
@@ -13,6 +13,7 @@
 <script>
 import MT from './utils'
 import MARKER from './utils/marker'
+import LABEL from './utils/label'
 
 import basePointData from '@/data/maptalks/base-point.js'
 import baseClusterData from '@/data/maptalks/cluster-point.js'
@@ -79,18 +80,10 @@ export default {
   mounted() {
     this.init()
 
-    this.$root.$on('before-change-map-tab', this.beforeChangeMapTab)
-    this.$root.$on('selected-map-legend', this.selectedMapLegend)
-    this.$root.$on('switched-map-legend', this.switchedMapLegend)
-
     window.handleMarkerPopup = this.handleMarkerPopup
   },
   beforeDestroy() {
     MT.map.remove()
-
-    this.$root.$off('before-change-map-tab', this.beforeChangeMapTab)
-    this.$root.$off('selected-map-legend', this.selectedMapLegend)
-    this.$root.$off('switched-map-legend', this.switchedMapLegend)
   },
   methods: {
     // 地图初始化
@@ -101,7 +94,7 @@ export default {
     },
 
     // 点击图例
-    selectedMapLegend(legend = {}, tab = {}) {
+    selectedMapLegend(legend = {}) {
       const { selected } = legend
 
       if (selected) {
@@ -119,49 +112,55 @@ export default {
       }
 
       switch (legend.value) {
-        case 'basePoint':
+        case 'point-base':
           this.initBasePoint(legend)
           break
-        case 'clusterPoint':
+        case 'point-cluster':
           this.initClusterPoint(legend)
           break
-        case 'baseLine':
+        case 'line-base':
           this.initBaseLine(legend)
           break
-        case 'baseSurface':
+        case 'surface-base':
           this.initBaseSurface(legend)
           break
-        case 'drillSurface':
+        case 'surface-drill':
           this.initDrillSurface(legend)
           break
       }
     },
 
     // 点击地图Tab之前
-    beforeChangeMapTab(idx, tabData) {
+    beforeChangeMapTab() {
       MT.map.hideLayers()
+      // MT.map.removeAllLayers()
     },
 
     // 点击图例开关
-    switchedMapLegend(legend = {}, tab = {}) {
-      const { switched } = legend
-
-      if (switched) {
-        MT.marker.showAllInfoWindow(legend.value)
+    switchedMapLegend(legend = {}) {
+      if (legend.switch?.checked) {
+        MT.layer.showAllInfoWindow(legend.value)
       } else {
-        MT.marker.hideAllInfoWindow(legend.value)
+        MT.layer.hideAllInfoWindow(legend.value)
       }
     },
 
     // 基础点
-    initBasePoint(legend) {
-      const markers = basePointData.map(item => {
+    initBasePoint(legend = {}) {
+      const markers = []
+      const labels = []
+
+      basePointData.forEach(item => {
         const data = {
           ...item,
-          markerFile: legend.pointIcon,
+          markerFile: legend.map?.marker?.icon,
           hasInfoWindow: true,
         }
         const marker = MARKER.init(data)
+        const label = LABEL.init(data)
+
+        markers.push(marker)
+        labels.push(label)
 
         marker.on('click', e => {
           const infoWindow = marker.getInfoWindow()
@@ -180,21 +179,20 @@ export default {
             marker.openInfoWindow()
           }
         })
-
-        return marker
       })
 
-      MT.layer.init(legend.value, markers, {
+      MT.layer.init(legend.value, [...markers, ...labels], {
         zIndex: 15,
       })
     },
 
     // 聚合点
-    initClusterPoint(legend) {
+    initClusterPoint(legend = {}) {
       const markers = baseClusterData.map(item => {
         const data = {
           ...item,
-          markerFile: legend.pointIcon,
+          id: item.stationCode,
+          markerFile: legend.map?.marker?.icon,
           hasInfoWindow: true,
         }
         const marker = MARKER.init(data)

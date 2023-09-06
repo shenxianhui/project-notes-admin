@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-27 17:22:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-07-03 13:16:08
+ * @LastEditTime: 2023-09-06 14:13:47
 -->
 
 <template>
@@ -38,20 +38,29 @@ export default {
   },
   computed: {
     tabList() {
-      return legend
+      let arr = []
+
+      for (const key in legend) {
+        const val = legend[key]
+        const obj = {
+          label: val.name,
+          value: key,
+        }
+
+        arr.push(obj)
+      }
+
+      return arr
     },
   },
   watch: {},
   created() {},
-  mounted() {
-    this.$root.$emit('change-map-tab', 0, this.tabList[0])
-  },
+  mounted() {},
   beforeDestroy() {},
   methods: {
     handleTab(itm) {
-      this.$root.$emit('before-change-map-tab', itm.value, itm)
       this.$emit('set-value', itm.value)
-      this.$root.$emit('change-map-tab', itm.value, itm)
+      this.$emit('change', itm.value)
     },
   },
 }

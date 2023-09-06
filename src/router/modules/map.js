@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-27 14:22:09
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-05 16:05:20
+ * @LastEditTime: 2023-09-06 14:16:09
  */
 
 export default [
@@ -13,7 +13,7 @@ export default [
     meta: {
       label: '地图',
     },
-    redirect: '/map/maptalks',
+    redirect: '/map/maptalks/point',
     component: loadView('layout/Layout'),
     children: [
       {
@@ -22,7 +22,33 @@ export default [
         meta: {
           label: 'Maptalks',
         },
-        component: loadView('map/maptalks'),
+        component: loadView('map/maptalks/maptalks'),
+        children: [
+          {
+            path: 'point',
+            name: 'point',
+            meta: {
+              label: '点',
+            },
+            component: loadView('map/maptalks/point'),
+          },
+          {
+            path: 'line',
+            name: 'line',
+            meta: {
+              label: '线',
+            },
+            component: loadView('map/maptalks/line'),
+          },
+          {
+            path: 'surface',
+            name: 'surface',
+            meta: {
+              label: '面',
+            },
+            component: loadView('map/maptalks/surface'),
+          },
+        ],
       },
     ],
   },
