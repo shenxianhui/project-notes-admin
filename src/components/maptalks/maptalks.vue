@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 14:15:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-07 17:10:11
+ * @LastEditTime: 2023-09-07 17:32:36
 -->
 
 <template>
@@ -187,9 +187,8 @@ export default {
 
       mockData.forEach(item => {
         const data = {
+          legend,
           ...item,
-          markerFile: legend.map?.marker?.icon,
-          hasInfoWindow: true,
         }
         const marker = MARKER.init(data)
         const label = LABEL.init(data)
@@ -249,9 +248,8 @@ export default {
       ]
       const markers = mockData.map(item => {
         const data = {
+          legend,
           ...item,
-          markerFile: legend.map?.marker?.icon,
-          hasInfoWindow: true,
         }
         const marker = MARKER.init(data)
 

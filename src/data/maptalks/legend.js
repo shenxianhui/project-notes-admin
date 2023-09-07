@@ -10,18 +10,11 @@ export default {
           show: true,
           checked: false,
         },
-        icon:
-          'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_水厂.svg',
+        icon: require('@/assets/img/map/水源.png'),
         map: {
           marker: {
-            icon:
-              'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113744400_水厂点.svg',
-            // active: {
-            //   icon: 'xxx',
-            // },
-            // alarm: {
-            //   icon: 'xxx',
-            // },
+            width: 32,
+            height: 32,
           },
         },
       },
@@ -35,6 +28,12 @@ export default {
           marker: {
             icon:
               'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113744400_压力监测点.svg',
+            // active: {
+            //   icon: 'xxx',
+            // },
+            // alarm: {
+            //   icon: 'xxx',
+            // },
           },
         },
       },

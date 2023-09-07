@@ -4,14 +4,16 @@ import MT from '.'
 export default {
   // Marker 初始化
   init(data = {}) {
-    const { id, coordinate, markerFile } = data
+    const { id, coordinate, legend = {} } = data
+    const { map = {}, icon } = legend
+    const { marker: legMarker = {} } = map
     const options = {
       id,
       cursor: 'pointer',
       symbol: {
-        markerFile,
-        markerWidth: 32,
-        markerHeight: 49,
+        markerFile: legMarker.icon || icon,
+        markerWidth: legMarker.width || 32,
+        markerHeight: legMarker.height || 49,
         markerDx: 0,
         markerDy: 0,
         markerOpacity: 1,
