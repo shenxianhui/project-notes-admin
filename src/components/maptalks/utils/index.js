@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-28 13:45:32
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-06 13:58:21
+ * @LastEditTime: 2023-09-06 15:51:57
  */
 
 import * as Maptalks from 'maptalks'
@@ -14,6 +14,9 @@ import { ClusterLayer } from 'maptalks.markercluster'
 import MARKER from './marker'
 
 let map = null // 地图
+
+MapboxGL.accessToken =
+  'pk.eyJ1Ijoic2hlbnhoMDkyOCIsImEiOiJjbGpnZmhqMmowM3hkM29xbWk1aWY0eHJ6In0.xwShSuiFuLRxRd0eKVtu6g'
 
 const utils = {
   // 地图
@@ -30,9 +33,6 @@ const utils = {
           style: 'mapbox://styles/shenxh0928/cljgibp4c002r01prdnwn4o5r',
         },
       })
-
-      MapboxGL.accessToken =
-        'pk.eyJ1Ijoic2hlbnhoMDkyOCIsImEiOiJjbGpnZmhqMmowM3hkM29xbWk1aWY0eHJ6In0.xwShSuiFuLRxRd0eKVtu6g'
 
       map = new Maptalks.Map(container, {
         ...options,

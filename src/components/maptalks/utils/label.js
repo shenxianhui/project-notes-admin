@@ -3,13 +3,13 @@ import MT from '.'
 export default {
   // Label 初始化
   init(data = {}) {
-    const { name, coordinate } = data
+    const { name, coordinate, alarm } = data
     const options = {
       cursor: 'default',
       boxStyle: {
         padding: [10, 6],
         symbol: {
-          markerFill: '#0E161F',
+          markerFill: alarm ? '#f05c6b' : '#0E161F',
           textWeight: 400,
           markerFillOpacity: 1,
           markerLineWidth: 1,

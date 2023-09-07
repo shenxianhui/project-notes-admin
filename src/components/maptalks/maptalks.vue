@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 14:15:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-06 14:28:28
+ * @LastEditTime: 2023-09-07 15:09:22
 -->
 
 <template>
@@ -14,9 +14,6 @@
 import MT from './utils'
 import MARKER from './utils/marker'
 import LABEL from './utils/label'
-
-import basePointData from '@/data/maptalks/base-point.js'
-import baseClusterData from '@/data/maptalks/cluster-point.js'
 
 let map = null
 
@@ -30,7 +27,7 @@ export default {
     center: {
       type: Array,
       default() {
-        return [120.63162014397112, 28.003668677143096]
+        return [116.39133827116365, 39.90468692443804]
       },
     },
     zoom: {
@@ -43,12 +40,11 @@ export default {
     },
     maxZoom: {
       type: Number,
-      default: 25,
+      default: 18,
     },
-    // 地图将被限制在给定的最大范围内，并在用户尝试平移范围外时弹回
+    // 设置地图可视范围的经纬度范围 [西经，南纬，东经，北纬]
     maxExtent: {
-      type: Number,
-      default: 2,
+      type: Array, // [114.5, 31.6, 115.1, 32.2]
     },
     // 可以通过右键单击或 ctrl + 左键单击拖动地图进行旋转
     dragRotate: {
@@ -63,12 +59,12 @@ export default {
     // 俯仰角度
     pitch: {
       type: Number,
-      default: 57,
+      default: 50,
     },
     // 旋转
     bearing: {
       type: Number,
-      default: 38,
+      default: 0,
     },
   },
   data() {
@@ -147,10 +143,43 @@ export default {
 
     // 基础点
     initBasePoint(legend = {}) {
+      const mockData = [
+        {
+          id: 'marker-0',
+          name: '天安门',
+          coordinate: [116.39103647015702, 39.912311286085355],
+          alarm: true,
+          infoWindow: [
+            {
+              alarm: true,
+              label: '朝代',
+              value: '明清',
+              unit: '',
+            },
+            {
+              label: '面积',
+              value: '4800',
+              unit: '㎡',
+            },
+          ],
+        },
+        {
+          id: 'marker-1',
+          name: '北京大学',
+          coordinate: [116.30976921553298, 39.989304628302506],
+          infoWindow: [
+            {
+              label: '面积',
+              value: '4127',
+              unit: '亩',
+            },
+          ],
+        },
+      ]
       const markers = []
       const labels = []
 
-      basePointData.forEach(item => {
+      mockData.forEach(item => {
         const data = {
           ...item,
           markerFile: legend.map?.marker?.icon,
@@ -188,10 +217,31 @@ export default {
 
     // 聚合点
     initClusterPoint(legend = {}) {
-      const markers = baseClusterData.map(item => {
+      const mockData = [
+        {
+          id: 'cluster-0',
+          name: '点位0',
+          coordinate: [116.42327258286122, 39.921218242921924],
+        },
+        {
+          id: 'cluster-1',
+          name: '点位1',
+          coordinate: [116.41672662318155, 39.91841479974909],
+        },
+        {
+          id: 'cluster-2',
+          name: '点位2',
+          coordinate: [116.4102017274933, 39.91229350120264],
+        },
+        {
+          id: 'cluster-3',
+          name: '点位3',
+          coordinate: [116.45187329128277, 39.90531229467916],
+        },
+      ]
+      const markers = mockData.map(item => {
         const data = {
           ...item,
-          id: item.stationCode,
           markerFile: legend.map?.marker?.icon,
           hasInfoWindow: true,
         }

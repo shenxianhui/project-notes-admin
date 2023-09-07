@@ -56,6 +56,19 @@ export default {
           },
         },
       },
+      {
+        label: '动画',
+        value: 'line-animate',
+        selected: true,
+        icon:
+          'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_车辆.svg',
+        map: {
+          marker: {
+            icon:
+              'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113744400_车辆.svg',
+          },
+        },
+      },
     ],
   },
   surface: {
