@@ -49,25 +49,13 @@ export default {
         selected: true,
         icon:
           'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_车辆.svg',
-        map: {
-          marker: {
-            icon:
-              'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113744400_车辆.svg',
-          },
-        },
       },
       {
         label: '动画',
         value: 'line-animate',
         selected: true,
         icon:
-          'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_车辆.svg',
-        map: {
-          marker: {
-            icon:
-              'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113744400_车辆.svg',
-          },
-        },
+          'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_压力.svg',
       },
     ],
   },
@@ -78,20 +66,16 @@ export default {
         label: '基础',
         value: 'surface-base',
         selected: true,
-        switch: {
-          show: true,
-          checked: false,
-        },
         icon:
           'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_供水范围.svg',
       },
-      {
-        label: '下钻',
-        value: 'surface-drill',
-        selected: false,
-        icon:
-          'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_分区.svg',
-      },
+      // {
+      //   label: '下钻',
+      //   value: 'surface-drill',
+      //   selected: false,
+      //   icon:
+      //     'https://eslink-iot.oss-cn-beijing.aliyuncs.com/20220905113240943_分区.svg',
+      // },
     ],
   },
 }

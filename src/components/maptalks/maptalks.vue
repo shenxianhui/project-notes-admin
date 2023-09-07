@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 14:15:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-07 15:41:18
+ * @LastEditTime: 2023-09-07 16:19:59
 -->
 
 <template>
@@ -15,6 +15,7 @@ import MT from './utils'
 import MARKER from './utils/marker'
 import LABEL from './utils/label'
 import LINE from './utils/line'
+import POLYGON from './utils/polygon'
 
 let map = null
 
@@ -123,9 +124,6 @@ export default {
           break
         case 'surface-base':
           this.initBaseSurface(legend)
-          break
-        case 'surface-drill':
-          this.initDrillSurface(legend)
           break
       }
     },
@@ -300,7 +298,7 @@ export default {
       ]
 
       const line = LINE.init(coordinates)
-      MT.layer.init(legend.value, [line], {
+      MT.layer.init(legend.value, line, {
         zIndex: 5,
       })
     },
@@ -379,21 +377,29 @@ export default {
         [116.34945516181222, 39.94155936103826],
         [116.34930297481338, 39.9407553844043],
       ]
-
       const line = LINE.init(coordinates, true)
-      MT.layer.init(legend.value, [line], {
+
+      MT.layer.init(legend.value, line, {
         zIndex: 5,
       })
     },
 
     // 基础面
-    initBaseSurface() {
-      console.log('基础面')
-    },
+    initBaseSurface(legend) {
+      const coordinates = [
+        [
+          [116.30554439841819, 39.96156221274745],
+          [116.30554439841819, 39.86245160931375],
+          [116.45137577530619, 39.86245160931375],
+          [116.45137577530619, 39.96156221274745],
+          [116.30554439841819, 39.96156221274745],
+        ],
+      ]
+      const polygon = POLYGON.init(coordinates)
 
-    // 下钻面
-    initDrillSurface() {
-      console.log('下钻面')
+      MT.layer.init(legend.value, polygon, {
+        zIndex: 5,
+      })
     },
 
     // 点击点位弹窗
