@@ -1,3 +1,4 @@
+import * as Maptalks from 'maptalks'
 import MT from '.'
 
 export default {
@@ -23,6 +24,65 @@ export default {
     marker.data = data
 
     return marker
+  },
+
+  // 闪烁点初始化
+  initFlashingPoint(data = {}) {
+    const { id, coordinate } = data
+    const options = {
+      id: 'point-' + id,
+      cursor: 'pointer',
+      symbol: {
+        markerFile: require('@/assets/img/map/flashing_point.png'),
+        markerWidth: 55,
+        markerHeight: 20,
+        markerDx: 0,
+        markerDy: 10,
+        markerOpacity: 1,
+      },
+      zIndex: 1,
+    }
+    const marker = MT.marker.init(coordinate, options)
+
+    marker.geometryType = 'FlashingPoint'
+
+    const animate = this.animate(marker)
+
+    marker.animate = animate
+
+    return marker
+  },
+
+  // 运动, 不需要时记得清除
+  animate(marker) {
+    const targetStyles = {
+      symbol: {
+        markerWidth: 55,
+        markerHeight: 20,
+        markerDx: 0,
+        markerDy: 10,
+      },
+    }
+    const player = new Maptalks.animation.Animation.animate(
+      targetStyles,
+      {
+        duration: 2000,
+        easing: 'out',
+      },
+      // callback of each frame
+      frame => {
+        if (frame.state.playState === 'running') {
+          marker.updateSymbol(frame.styles.symbol)
+        } else if (frame.state.playState === 'finished') {
+          player.cancel()
+          player.play()
+        }
+      },
+    )
+
+    player.play()
+
+    return player
   },
 
   // 创建点位弹窗

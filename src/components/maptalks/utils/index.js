@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-28 13:45:32
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-07 15:44:13
+ * @LastEditTime: 2023-09-07 17:10:49
  */
 
 import * as Maptalks from 'maptalks'
@@ -132,6 +132,26 @@ const utils = {
 
       layers.forEach(layer => {
         layer && layer.remove()
+      })
+    },
+
+    /**
+     * @description: 停止所有发光点
+     * @param {*} layerId 图层id
+     * @return {*}
+     */
+    cancelFlashingPoint() {
+      const layers = map.getLayers()
+
+      layers.forEach(layer => {
+        const markers = layer
+          .getGeometries()
+          .filter(geometry => geometry.geometryType === 'FlashingPoint')
+
+        markers &&
+          markers.forEach(item => {
+            item.animate.cancel()
+          })
       })
     },
   },
@@ -264,6 +284,34 @@ const utils = {
       markers.forEach(marker => {
         marker && marker.getInfoWindow() && marker.closeInfoWindow()
       })
+    },
+
+    /**
+     * @description: 启动图层内所有发光点
+     * @param {*} layerId 图层id
+     * @return {*}
+     */
+    playFlashingPoint(layerId) {
+      const markers = utils.layer.getAllGeometry(layerId, 'FlashingPoint')
+
+      markers &&
+        markers.forEach(item => {
+          item.animate.play()
+        })
+    },
+
+    /**
+     * @description: 停止图层内所有发光点
+     * @param {*} layerId 图层id
+     * @return {*}
+     */
+    cancelFlashingPoint(layerId) {
+      const markers = utils.layer.getAllGeometry(layerId, 'FlashingPoint')
+
+      markers &&
+        markers.forEach(item => {
+          item.animate.cancel()
+        })
     },
   },
   // 点位

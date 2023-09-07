@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-28 14:15:00
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-07 16:19:59
+ * @LastEditTime: 2023-09-07 17:10:11
 -->
 
 <template>
@@ -81,6 +81,7 @@ export default {
     window.handleMarkerPopup = this.handleMarkerPopup
   },
   beforeDestroy() {
+    MT.map.cancelFlashingPoint()
     MT.map.remove()
   },
   methods: {
@@ -100,11 +101,13 @@ export default {
 
         if (layer) {
           MT.map.showLayer(legend.value)
+          MT.layer.playFlashingPoint(legend.value)
 
           return
         }
       } else {
         MT.map.hideLayer(legend.value)
+        MT.layer.cancelFlashingPoint(legend.value)
 
         return
       }
@@ -180,6 +183,7 @@ export default {
       ]
       const markers = []
       const labels = []
+      const points = []
 
       mockData.forEach(item => {
         const data = {
@@ -189,9 +193,11 @@ export default {
         }
         const marker = MARKER.init(data)
         const label = LABEL.init(data)
+        const point = MARKER.initFlashingPoint(data)
 
         markers.push(marker)
         labels.push(label)
+        points.push(point)
 
         marker.on('click', e => {
           const infoWindow = marker.getInfoWindow()
@@ -212,7 +218,7 @@ export default {
         })
       })
 
-      MT.layer.init(legend.value, [...markers, ...labels], {
+      MT.layer.init(legend.value, [...markers, ...labels, ...points], {
         zIndex: 15,
       })
     },
