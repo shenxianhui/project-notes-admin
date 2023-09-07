@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-28 13:45:32
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-06 15:51:57
+ * @LastEditTime: 2023-09-07 15:44:13
  */
 
 import * as Maptalks from 'maptalks'
@@ -264,24 +264,6 @@ const utils = {
       markers.forEach(marker => {
         marker && marker.getInfoWindow() && marker.closeInfoWindow()
       })
-    },
-
-    playAnimate(layerId) {
-      const markers = utils.layer.getAllGeometry(layerId, 'MarkerPoint')
-
-      markers &&
-        markers.forEach(item => {
-          item.animate.play()
-        })
-    },
-
-    cancelAnimate(layerId) {
-      const markers = utils.layer.getAllGeometry(layerId, 'MarkerPoint')
-
-      markers &&
-        markers.forEach(item => {
-          item.animate.cancel()
-        })
     },
   },
   // 点位
