@@ -7,7 +7,7 @@
  */
 
 import * as maptalks from 'maptalks'
-import MapboxGL from 'mapbox-gl'
+import mapboxgl from 'mapbox-gl'
 import { MapboxglLayer } from 'maptalks.mapboxgl/dist/maptalks.mapboxgl.js'
 import { ClusterLayer } from 'maptalks.markercluster'
 
@@ -15,7 +15,7 @@ import MARKER from './marker'
 
 let map = null // 地图
 
-MapboxGL.accessToken =
+mapboxgl.accessToken =
   'pk.eyJ1Ijoic2hlbnhoMDkyOCIsImEiOiJjbGpnZmhqMmowM3hkM29xbWk1aWY0eHJ6In0.xwShSuiFuLRxRd0eKVtu6g'
 
 const utils = {

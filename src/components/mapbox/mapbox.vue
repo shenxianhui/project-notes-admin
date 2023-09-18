@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import MapboxGL from 'mapbox-gl'
+import mapboxgl from 'mapbox-gl'
 
 export default {
   name: 'mapbox',
@@ -79,10 +79,10 @@ export default {
     // 地图初始化
     init() {
       // https://studio.mapbox.com
-      MapboxGL.accessToken =
+      mapboxgl.accessToken =
         'pk.eyJ1Ijoic2hlbnhoMDkyOCIsImEiOiJjbGpnZmhqMmowM3hkM29xbWk1aWY0eHJ6In0.xwShSuiFuLRxRd0eKVtu6g'
 
-      const map = new MapboxGL.Map({
+      const map = new mapboxgl.Map({
         container: 'map-mapbox',
         style: 'mapbox://styles/shenxh0928/cljgibp4c002r01prdnwn4o5r',
         center: this.center,
