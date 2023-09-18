@@ -3,13 +3,13 @@
  * @Author: shenxh
  * @Date: 2023-06-27 16:46:54
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-06 14:44:25
+ * @LastEditTime: 2023-09-18 14:10:45
 -->
 
 <template>
   <div class="screen-wz admin-content">
     <router-view />
-    <base-map ref="map" class="base-map"></base-map>
+    <map-talks ref="maptalks" class="maptalks"></map-talks>
     <map-legend
       ref="legend"
       class="map-legend"
@@ -25,14 +25,14 @@
 </template>
 
 <script>
-import BaseMap from '@/components/maptalks/maptalks.vue'
+import MapTalks from '@/components/maptalks/maptalks.vue'
 import MapTab from '@/components/map-tab/map-tab.vue'
 import MapLegend from '@/components/map-legend/map-legend.vue'
 
 export default {
   name: 'screen-wz',
   components: {
-    BaseMap,
+    MapTalks,
     MapTab,
     MapLegend,
   },
@@ -46,7 +46,7 @@ export default {
   watch: {},
   beforeRouteUpdate(to, from, next) {
     this.selectedTab = to.name
-    this.$refs.map && this.$refs.map.beforeChangeMapTab()
+    this.$refs.maptalks && this.$refs.maptalks.beforeChangeMapTab()
     next()
   },
   created() {},
@@ -54,16 +54,16 @@ export default {
   beforeDestroy() {},
   methods: {
     changeTab(name) {
-      // this.$refs.map && this.$refs.map.beforeChangeMapTab()
+      // this.$refs.maptalks && this.$refs.maptalks.beforeChangeMapTab()
       this.$router.push('/map/maptalks/' + name)
     },
 
     changeLegend(data) {
-      this.$refs.map && this.$refs.map.selectedMapLegend(data)
+      this.$refs.maptalks && this.$refs.maptalks.selectedMapLegend(data)
     },
 
     changeSwitch(data) {
-      this.$refs.map && this.$refs.map.switchedMapLegend(data)
+      this.$refs.maptalks && this.$refs.maptalks.switchedMapLegend(data)
     },
   },
 }
@@ -74,7 +74,7 @@ export default {
   user-select: none;
   padding: 0;
   background: #061225cc;
-  .base-map {
+  .maptalks {
     width: 100%;
     height: 100%;
   }

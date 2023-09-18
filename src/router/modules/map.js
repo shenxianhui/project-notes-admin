@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-27 14:22:09
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-06 14:16:09
+ * @LastEditTime: 2023-09-18 13:58:43
  */
 
 export default [
@@ -49,6 +49,14 @@ export default [
             component: loadView('map/maptalks/surface'),
           },
         ],
+      },
+      {
+        path: 'mapbox',
+        name: 'mapbox',
+        meta: {
+          label: 'Mapbox',
+        },
+        component: loadView('map/mapbox/mapbox'),
       },
     ],
   },
