@@ -6,7 +6,7 @@
  * @LastEditTime: 2023-09-07 17:10:49
  */
 
-import * as Maptalks from 'maptalks'
+import * as maptalks from 'maptalks'
 import MapboxGL from 'mapbox-gl'
 import { MapboxglLayer } from 'maptalks.mapboxgl/dist/maptalks.mapboxgl.js'
 import { ClusterLayer } from 'maptalks.markercluster'
@@ -34,7 +34,7 @@ const utils = {
         },
       })
 
-      map = new Maptalks.Map(container, {
+      map = new maptalks.Map(container, {
         ...options,
         baseLayer,
       })
@@ -168,7 +168,7 @@ const utils = {
       let layer = map.getLayer(id)
 
       layer && map.removeLayer(layer)
-      layer = new Maptalks.VectorLayer(id, geometries, options).addTo(map)
+      layer = new maptalks.VectorLayer(id, geometries, options).addTo(map)
 
       return layer
     },
@@ -323,7 +323,7 @@ const utils = {
      * @return {*} Marker 标记
      */
     init(coordinates, options) {
-      const marker = new Maptalks.Marker(coordinates, {
+      const marker = new maptalks.Marker(coordinates, {
         ...options,
       })
 
@@ -340,7 +340,7 @@ const utils = {
      * @return {*} Marker 标记
      */
     init(content, coordinates, options) {
-      const label = new Maptalks.Label(content, coordinates, {
+      const label = new maptalks.Label(content, coordinates, {
         ...options,
       })
 
@@ -356,7 +356,7 @@ const utils = {
      * @return {*} Point
      */
     init(coordinate, options) {
-      const point = new Maptalks.Point(coordinate, options)
+      const point = new maptalks.Point(coordinate, options)
 
       return point
     },
@@ -370,7 +370,7 @@ const utils = {
      * @return {*}
      */
     init(coordinates, options) {
-      const line = new Maptalks.LineString(coordinates, options)
+      const line = new maptalks.LineString(coordinates, options)
 
       return line
     },
@@ -384,7 +384,7 @@ const utils = {
      * @return {*}
      */
     init(coordinates, options) {
-      const polygon = new Maptalks.Polygon(coordinates, options)
+      const polygon = new maptalks.Polygon(coordinates, options)
 
       return polygon
     },

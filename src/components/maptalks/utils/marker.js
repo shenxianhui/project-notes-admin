@@ -1,4 +1,4 @@
-import * as Maptalks from 'maptalks'
+import * as maptalks from 'maptalks'
 import MT from '.'
 
 export default {
@@ -65,7 +65,7 @@ export default {
         markerDy: 10,
       },
     }
-    const player = new Maptalks.animation.Animation.animate(
+    const player = new maptalks.animation.Animation.animate(
       targetStyles,
       {
         duration: 2000,
