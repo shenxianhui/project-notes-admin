@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2023-06-27 14:15:32
+ * @LastEditTime: 2024-01-26 11:09:19
 -->
 
 <template>
@@ -436,6 +436,86 @@ export default {
               {
                 name: 'demo1',
                 type: 'pie',
+              },
+            ],
+          },
+        },
+        {
+          noSeriesData: true,
+          option: {
+            title: {
+              show: false,
+              text: '半环进度图',
+            },
+            tooltip: {
+              trigger: 'item',
+            },
+            legend: {
+              show: false,
+            },
+            series: [
+              {
+                type: 'pie',
+                radius: ['80%', '90%'],
+                center: ['50%', '70%'],
+                startAngle: 180,
+                data: [
+                  {
+                    value: 80,
+                    name: '进度',
+                    label: {
+                      show: false,
+                    },
+                  },
+                  {
+                    value: 20,
+                    name: '剩余',
+                    itemStyle: {
+                      color: '#ccc',
+                    },
+                    label: {
+                      show: false,
+                    },
+                  },
+                  {
+                    value: 100,
+                    itemStyle: {
+                      color: 'none',
+                      decal: {
+                        symbol: 'none',
+                      },
+                    },
+                    label: {
+                      show: true,
+                      position: 'center',
+                      formatter: params => {
+                        return [
+                          '{a|进度}',
+                          '{b|' + params.value + '%}',
+                          '{c|半环进度条}',
+                        ].join('\n')
+                      },
+                      rich: {
+                        a: {
+                          color: '#000',
+                          fontWeight: 700,
+                          fontSize: 16,
+                          padding: [-50, 0, 0, 0],
+                        },
+                        b: {
+                          color: '#000',
+                          fontWeight: 700,
+                          fontSize: 20,
+                          padding: [-10, 0, 0, 0],
+                        },
+                        c: {
+                          color: '#9b9b9b',
+                          lineHeight: 20,
+                        },
+                      },
+                    },
+                  },
+                ],
               },
             ],
           },
