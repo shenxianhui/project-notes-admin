@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2024-01-26 11:09:19
+ * @LastEditTime: 2024-01-26 11:12:30
 -->
 
 <template>
@@ -448,6 +448,7 @@ export default {
               text: '半环进度图',
             },
             tooltip: {
+              show: false,
               trigger: 'item',
             },
             legend: {
