@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2024-01-26 11:12:30
+ * @LastEditTime: 2024-01-29 15:37:28
 -->
 
 <template>
@@ -467,6 +467,9 @@ export default {
                     label: {
                       show: false,
                     },
+                    emphasis: {
+                      disabled: true,
+                    },
                   },
                   {
                     value: 20,
@@ -476,6 +479,9 @@ export default {
                     },
                     label: {
                       show: false,
+                    },
+                    emphasis: {
+                      disabled: true,
                     },
                   },
                   {
