@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2024-01-29 15:37:28
+ * @LastEditTime: 2024-02-21 22:50:28
 -->
 
 <template>
@@ -27,7 +27,7 @@
       >
         <el-card shadow="hover">
           <div slot="header" class="clearfix">
-            <span>{{ item.option?.title?.text }}</span>
+            <span>{{ item.option.title.text }}</span>
             <el-button
               class="button-config"
               type="text"
@@ -47,7 +47,8 @@
     </div>
 
     <el-drawer
-      :title="currentChartOption?.title?.text"
+      v-if="currentChartOption.title"
+      :title="currentChartOption.title.text"
       :visible.sync="showDrawer"
       direction="ltr"
       append-to-body
