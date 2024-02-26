@@ -1,3 +1,11 @@
+<!--
+ * @Description: [Demo]高德地图
+ * @Author: shenxh
+ * @Date: 2024-02-26 16:00:58
+ * @LastEditors: shenxh
+ * @LastEditTime: 2024-02-26 16:23:03
+-->
+
 <template>
   <div class="amap-demo admin-content">
     <amap></amap>

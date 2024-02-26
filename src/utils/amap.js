@@ -496,8 +496,8 @@ class Map {
   toAddress(lnglat) {
     return new Promise((resolve, reject) => {
       this.plugins.Geocoder.getAddress(lnglat, function(status, result) {
-        if (status === 'complete' && result.regeocode) {
-          resolve(result.regeocode.formattedAddress)
+        if (status === 'complete') {
+          resolve(result.regeocode)
         } else {
           reject(new Error('address has not found...'))
         }

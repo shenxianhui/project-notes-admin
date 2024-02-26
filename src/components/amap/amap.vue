@@ -1,11 +1,35 @@
+<!--
+ * @Description: 高德地图
+ * @Author: shenxh
+ * @Date: 2024-02-26 15:51:01
+ * @LastEditors: shenxh
+ * @LastEditTime: 2024-02-26 16:53:28
+-->
+
 <template>
   <div class="map">
     <div id="amap"></div>
+    <div class="select-address">
+      <el-cascader
+        v-model="selectedAddress.region"
+        :options="regionData"
+        class="cascader"
+      >
+      </el-cascader>
+      <el-input v-model="selectedAddress.detail" clearable class="address-det">
+        <el-button
+          slot="append"
+          icon="el-icon-search"
+          @click="handleSearch"
+        ></el-button>
+      </el-input>
+    </div>
   </div>
 </template>
 
 <script>
 import AMap from '@/utils/amap.js'
+import { regionData } from 'element-china-area-data'
 
 export default {
   name: 'amap',
@@ -15,6 +39,11 @@ export default {
     return {
       map: null,
       marker: null,
+      regionData,
+      selectedAddress: {
+        region: [],
+        detail: '',
+      },
     }
   },
   computed: {},
@@ -49,8 +78,18 @@ export default {
             this.initMarker(lng, lat)
           }
 
-          this.map.toAddress(lnglat).then(res => {
-            console.log('选中地址: ', res)
+          this.map.toAddress(lnglat).then((res = {}) => {
+            const { formattedAddress, addressComponent = {} } = res
+            const { adcode, province, city, district } = addressComponent
+            const area = province + city + district
+            const detAddress = formattedAddress.replace(area, '')
+
+            this.selectedAddress.region = [
+              adcode.substring(0, 2),
+              adcode.substring(0, 4),
+              adcode.substring(0, 6),
+            ]
+            this.selectedAddress.detail = detAddress
           })
         })
       })
@@ -64,6 +103,10 @@ export default {
       })
 
       this.marker.setMap(this.map.mapInstance)
+    },
+
+    handleSearch() {
+      console.log(this.selectedAddress)
     },
   },
 }
@@ -91,6 +134,21 @@ export default {
       background: #5f627d;
       color: #ffffff;
       border: none;
+    }
+  }
+  .select-address {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    .cascader {
+      width: 200px;
+    }
+    .address-det {
+      width: 400px;
+      margin-left: 10px;
     }
   }
 }
