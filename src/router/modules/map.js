@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2023-06-27 14:22:09
  * @LastEditors: shenxh
- * @LastEditTime: 2023-09-18 13:58:43
+ * @LastEditTime: 2024-02-26 16:03:02
  */
 
 export default [
@@ -57,6 +57,14 @@ export default [
           label: 'Mapbox',
         },
         component: loadView('map/mapbox/mapbox'),
+      },
+      {
+        path: 'amap',
+        name: 'amap',
+        meta: {
+          label: '高德地图',
+        },
+        component: loadView('map/amap/amap'),
       },
     ],
   },
