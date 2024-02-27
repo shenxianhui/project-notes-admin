@@ -515,6 +515,7 @@ class Map {
       })
     })
   }
+
   // 模糊搜索
   search(address) {
     return new Promise((resolve, reject) => {
@@ -532,11 +533,7 @@ class Map {
   usePoiSearch(address) {
     return new Promise((resolve, reject) => {
       this.plugins.AutoComplete.search(address, function(status, result) {
-        if (status === 'complete') {
-          resolve(result)
-        } else {
-          reject(new Error('没有找到匹配的数据'))
-        }
+        resolve(result)
       })
     })
   }

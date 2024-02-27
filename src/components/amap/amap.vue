@@ -3,33 +3,35 @@
  * @Author: shenxh
  * @Date: 2024-02-26 15:51:01
  * @LastEditors: shenxh
- * @LastEditTime: 2024-02-26 16:53:28
+ * @LastEditTime: 2024-02-27 10:03:32
 -->
 
 <template>
   <div class="map">
     <div id="amap"></div>
     <div class="select-address">
-      <el-cascader
-        v-model="selectedAddress.region"
-        :options="regionData"
-        class="cascader"
+      <el-autocomplete
+        class="address-det"
+        v-model="address"
+        :fetch-suggestions="querySearch"
+        value-key="label"
+        select-when-unmatched
+        clearable
+        placeholder="请输入详细地址"
+        @select="handleSelect"
       >
-      </el-cascader>
-      <el-input v-model="selectedAddress.detail" clearable class="address-det">
         <el-button
           slot="append"
           icon="el-icon-search"
           @click="handleSearch"
-        ></el-button>
-      </el-input>
+        ></el-button
+      ></el-autocomplete>
     </div>
   </div>
 </template>
 
 <script>
 import AMap from '@/utils/amap.js'
-import { regionData } from 'element-china-area-data'
 
 export default {
   name: 'amap',
@@ -39,11 +41,7 @@ export default {
     return {
       map: null,
       marker: null,
-      regionData,
-      selectedAddress: {
-        region: [],
-        detail: '',
-      },
+      address: '',
     }
   },
   computed: {},
@@ -79,17 +77,7 @@ export default {
           }
 
           this.map.toAddress(lnglat).then((res = {}) => {
-            const { formattedAddress, addressComponent = {} } = res
-            const { adcode, province, city, district } = addressComponent
-            const area = province + city + district
-            const detAddress = formattedAddress.replace(area, '')
-
-            this.selectedAddress.region = [
-              adcode.substring(0, 2),
-              adcode.substring(0, 4),
-              adcode.substring(0, 6),
-            ]
-            this.selectedAddress.detail = detAddress
+            this.address = res.formattedAddress
           })
         })
       })
@@ -107,6 +95,25 @@ export default {
 
     handleSearch() {
       console.log(this.selectedAddress)
+    },
+
+    handleSelect(data) {
+      console.log(data)
+    },
+
+    async querySearch(queryString, cb) {
+      if (queryString === '') cb([])
+
+      const data = await this.map.usePoiSearch(queryString)
+      const { tips = [] } = data || {}
+      const list = tips.map(item => {
+        return {
+          ...item,
+          label: item.district + item.name,
+        }
+      })
+
+      cb(list)
     },
   },
 }
@@ -143,11 +150,8 @@ export default {
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    .cascader {
-      width: 200px;
-    }
     .address-det {
-      width: 400px;
+      width: 600px;
       margin-left: 10px;
     }
   }
