@@ -554,6 +554,13 @@ class Map {
     })
   }
 
+  // 根据内容查询
+  PlaceSearch() {
+    return new window.AMap.PlaceSearch({
+      map: this.mapInstance,
+    })
+  }
+
   // 移除监听事件
   off(eventName, fn) {
     this.mapInstance.off(eventName, fn)

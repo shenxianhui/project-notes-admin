@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2024-02-26 15:51:01
  * @LastEditors: shenxh
- * @LastEditTime: 2024-02-27 10:03:32
+ * @LastEditTime: 2024-02-27 14:10:28
 -->
 
 <template>
@@ -14,7 +14,6 @@
         class="address-det"
         v-model="address"
         :fetch-suggestions="querySearch"
-        value-key="label"
         select-when-unmatched
         clearable
         placeholder="请输入详细地址"
@@ -94,11 +93,13 @@ export default {
     },
 
     handleSearch() {
-      console.log(this.selectedAddress)
+      this.searchMap(this.address)
     },
 
     handleSelect(data) {
-      console.log(data)
+      const { value = '' } = data || {}
+
+      this.searchMap(value)
     },
 
     async querySearch(queryString, cb) {
@@ -109,11 +110,17 @@ export default {
       const list = tips.map(item => {
         return {
           ...item,
-          label: item.district + item.name,
+          value: item.district + item.name,
         }
       })
 
       cb(list)
+    },
+
+    searchMap(content) {
+      this.map.PlaceSearch().search(content, (status, result) => {
+        // const { poiList = {} } = result || {}
+      })
     },
   },
 }
