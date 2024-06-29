@@ -1,0 +1,662 @@
+[
+  {
+    "name": "build1YNSCYQ",
+    "type": "build1YNSCYQ",
+    "position": { "x": "-16545.1", "y": "336.535", "z": "659.601" }
+  },
+  {
+    "name": "build2YNSCYQ",
+    "type": "build2YNSCYQ",
+    "position": { "x": "-20144.2", "y": "413.103", "z": "-3364.22" }
+  },
+  {
+    "name": "build3YNSCYQ",
+    "type": "build3YNSCYQ",
+    "position": { "x": "-24440.6", "y": "362.091", "z": "-5266.12" }
+  },
+  {
+    "name": "build3YNSCYQ",
+    "type": "build3YNSCYQ",
+    "position": { "x": "-22062.8", "y": "362.091", "z": "-4001.24" }
+  },
+  {
+    "name": "dimianYNSCYQ",
+    "type": "dimianYNSCYQ",
+    "position": { "x": "-12713.6", "y": "7.58873", "z": "-2198.63" }
+  },
+  {
+    "name": "dixingYNSCYQ",
+    "type": "dixingYNSCYQ",
+    "position": { "x": "-16079.6", "y": "1899.47", "z": "6821.83" }
+  },
+  {
+    "name": "grassYNSCYQ",
+    "type": "grassYNSCYQ",
+    "position": { "x": "-9778.03", "y": "130.187", "z": "-1968.99" }
+  },
+  {
+    "name": "qitaYNSCYQ",
+    "type": "qitaYNSCYQ",
+    "position": { "x": "-2468", "y": "307.48", "z": "-574.314" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-12463", "y": "405.355", "z": "3328.29" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-12874.6", "y": "312.075", "z": "1178.48" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-12874.6", "y": "312.075", "z": "1503.94" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-12874.6", "y": "312.075", "z": "1824.85" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-13493.5", "y": "354.635", "z": "312.579" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-13493.5", "y": "354.635", "z": "1055.77" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-13493.5", "y": "354.635", "z": "1831.21" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-13493.5", "y": "354.635", "z": "2574.4" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-6663.81", "y": "405.355", "z": "-323.317" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-7170.09", "y": "405.355", "z": "-323.317" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-7710.56", "y": "405.355", "z": "-323.317" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-8216.84", "y": "405.355", "z": "-323.317" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-8788.58", "y": "405.355", "z": "-323.317" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-9294.86", "y": "405.355", "z": "-323.317" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-9835.33", "y": "405.355", "z": "-323.317" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-10341.6", "y": "405.355", "z": "-323.317" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-10909.9", "y": "405.355", "z": "-323.317" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-11416.2", "y": "405.355", "z": "-323.317" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-11956.7", "y": "405.355", "z": "-323.317" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-12463", "y": "405.355", "z": "-323.317" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-6663.81", "y": "405.355", "z": "3328.29" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-7170.09", "y": "405.355", "z": "3328.29" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-7710.56", "y": "405.355", "z": "3328.29" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-8216.84", "y": "405.355", "z": "3328.29" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-8788.58", "y": "405.355", "z": "3328.29" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-9294.86", "y": "405.355", "z": "3328.29" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-9835.33", "y": "405.355", "z": "3328.29" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-10341.6", "y": "405.355", "z": "3328.29" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-10909.9", "y": "405.355", "z": "3328.29" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-11416.2", "y": "405.355", "z": "3328.29" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-11956.7", "y": "405.355", "z": "3328.29" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-6091.06", "y": "405.355", "z": "2894.69" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-6091.06", "y": "405.355", "z": "2433.08" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-6091.06", "y": "405.355", "z": "1933.02" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-6091.06", "y": "405.355", "z": "1074.54" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-6091.06", "y": "405.355", "z": "612.925" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-6091.06", "y": "405.355", "z": "112.861" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-17815.9", "y": "312.075", "z": "-3341.3" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-17815.9", "y": "312.075", "z": "-3015.84" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-17815.9", "y": "312.075", "z": "-2694.93" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-18434.8", "y": "354.635", "z": "-4207.2" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-18434.8", "y": "354.635", "z": "-3464.01" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-18434.8", "y": "354.635", "z": "-2688.56" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-18434.8", "y": "354.635", "z": "-1945.37" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-11605.1", "y": "405.355", "z": "-4843.1" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-12111.4", "y": "405.355", "z": "-4843.1" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-12651.8", "y": "405.355", "z": "-4843.1" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-13158.1", "y": "405.355", "z": "-4843.1" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-13729.9", "y": "405.355", "z": "-4843.1" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-14236.2", "y": "405.355", "z": "-4843.1" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-14776.6", "y": "405.355", "z": "-4843.1" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-15282.9", "y": "405.355", "z": "-4843.1" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-15851.2", "y": "405.355", "z": "-4843.1" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-16357.5", "y": "405.355", "z": "-4843.1" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-16898", "y": "405.355", "z": "-4843.1" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-17404.2", "y": "405.355", "z": "-4843.1" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-11605.1", "y": "405.355", "z": "-1191.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-12111.4", "y": "405.355", "z": "-1191.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-12651.8", "y": "405.355", "z": "-1191.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-13158.1", "y": "405.355", "z": "-1191.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-13729.9", "y": "405.355", "z": "-1191.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-14236.2", "y": "405.355", "z": "-1191.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-14776.6", "y": "405.355", "z": "-1191.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-15282.9", "y": "405.355", "z": "-1191.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-15851.2", "y": "405.355", "z": "-1191.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-16357.5", "y": "405.355", "z": "-1191.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-16898", "y": "405.355", "z": "-1191.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-17404.2", "y": "405.355", "z": "-1191.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-11032.3", "y": "405.355", "z": "-1625.08" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-11032.3", "y": "405.355", "z": "-2086.7" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-11032.3", "y": "405.355", "z": "-2586.76" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-11032.3", "y": "405.355", "z": "-3445.24" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-11032.3", "y": "405.355", "z": "-3906.85" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-11032.3", "y": "405.355", "z": "-4406.92" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-8436.91", "y": "378.748", "z": "-1126.78" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-7332.98", "y": "262.287", "z": "-1124.36" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-6388.8", "y": "262.287", "z": "-1434.93" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-9279.5", "y": "354.11", "z": "-4768.91" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-8431.38", "y": "277.941", "z": "-4766.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-7003.46", "y": "238.791", "z": "-4766.49" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-9911.21", "y": "244.76", "z": "-4316.35" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-6388.8", "y": "262.287", "z": "-4538.71" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-7810.63", "y": "327.151", "z": "-7473.64" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-8408.86", "y": "327.151", "z": "-7473.64" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-9072.6", "y": "327.151", "z": "-7473.64" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-9725.04", "y": "327.151", "z": "-7473.64" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-10453.1", "y": "327.151", "z": "-7473.64" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-4509.07", "y": "341.529", "z": "-38.2696" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-4247.75", "y": "341.529", "z": "197.146" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-4899.79", "y": "341.529", "z": "197.146" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-4954.91", "y": "341.529", "z": "2620.36" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-4895.53", "y": "341.529", "z": "2974.94" }
+  },
+  {
+    "name": "tree1COM",
+    "type": "tree1COM",
+    "position": { "x": "-4895.53", "y": "341.529", "z": "3671.38" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-1758.75", "y": "341.713", "z": "50.7948" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-1758.75", "y": "341.713", "z": "-312.029" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-1418.28", "y": "371.617", "z": "574.116" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-1434.46", "y": "341.713", "z": "-312.029" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-2617.7", "y": "426.089", "z": "-2297.21" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-3990.69", "y": "512.367", "z": "-2297.21" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-3027.15", "y": "426.089", "z": "-3207.88" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-4642.66", "y": "339.252", "z": "-1148.71" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-5025.08", "y": "415.874", "z": "-1755.16" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-1629.37", "y": "487.858", "z": "-1765.31" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-1758.09", "y": "426.089", "z": "-3356.68" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-1240.15", "y": "426.089", "z": "-2657.36" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-2037.19", "y": "426.089", "z": "-1211.4" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-8878.53", "y": "327.151", "z": "-5578.95" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-9787.2", "y": "327.151", "z": "-5578.95" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-8370.04", "y": "327.151", "z": "-5985.51" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-3954.42", "y": "371.617", "z": "-88.9062" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-1592.26", "y": "327.151", "z": "-4772.37" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-1592.26", "y": "327.151", "z": "-5175.32" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-1592.26", "y": "327.151", "z": "-5612.76" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-1592.26", "y": "327.151", "z": "-6322.97" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-1592.26", "y": "327.151", "z": "-6760.41" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-3577.66", "y": "327.151", "z": "-7262.85" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-4310.29", "y": "327.151", "z": "-7262.85" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-2946.93", "y": "327.151", "z": "-7411.47" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-4310.29", "y": "327.151", "z": "-5325.65" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-3741.89", "y": "327.151", "z": "-5325.65" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-3577.66", "y": "327.151", "z": "-4342.47" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-3030.25", "y": "327.151", "z": "-4342.47" }
+  },
+  {
+    "name": "tree2COM",
+    "type": "tree2COM",
+    "position": { "x": "-4285.19", "y": "327.151", "z": "-4342.47" }
+  },
+  {
+    "name": "weilanYNSCYQ",
+    "type": "weilanYNSCYQ",
+    "position": { "x": "-12469", "y": "126.322", "z": "-2224.38" }
+  }
+]
