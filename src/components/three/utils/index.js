@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-08-03 14:14:01
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-21 14:46:47
+ * @LastEditTime: 2023-05-26 09:52:33
  */
 
 import Events from 'events'
@@ -76,25 +76,23 @@ class Three extends Events {
    * @return {*}
    */
   clearThree() {
-    cancelAnimationFrame(this.animationFrame) // 停止动画
+    // 停止动画
+    cancelAnimationFrame(this.animationFrame)
 
-    this.container = null // this 容器
-    this.statsContainer = null // 性能监测容器
-    this.stats = null // 性能监测
-    this.scene = null // 场景
-    this.renderer = null // 渲染器
-    this.clock = null // 时间
-    this.camera = null // 相机
-    this.axesHelper = null // 坐标轴
-    this.gridHelper = null // 坐标格
-    this.controls = null // 轨道控制器
-    this.pointLight = null // 点光源
-    this.ambientLight = null // 环境光
-    this.directionalLight = null // 平行光
-    this.vector3 = null // 三维向量
-    this.dracoLoader = null // 已压缩模型加载器
-    this.loader = null // 加载器
-    this.animationFrame = null // 动画
+    // 从场景中删除所有对象
+    this.scene && this.scene.remove(...this.scene.children)
+
+    // 从内存中删除所有纹理
+    this.renderer && this.renderer.dispose()
+
+    // 从内存中删除所有几何体
+    this.geometry && this.geometry.dispose()
+
+    // 从内存中删除所有材质
+    this.material && this.material.dispose()
+
+    // 从内存中删除所有渲染目标
+    this.renderTarget && this.renderTarget.dispose()
   }
 
   loadModules() {

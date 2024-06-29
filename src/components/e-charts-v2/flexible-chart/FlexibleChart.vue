@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:26:09
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-09 13:53:46
+ * @LastEditTime: 2023-06-27 13:59:24
 -->
 
 <template>
@@ -96,6 +96,7 @@ export default {
       type: Number,
       default: 2, // 0: 个位; 1: 十位; 2: 百位; ...
     },
+    loading: Boolean, // 加载动画效果
   },
   data() {
     return {
@@ -269,7 +270,11 @@ export default {
       return data
     },
   },
-  watch: {},
+  watch: {
+    loading() {
+      this.setLoading()
+    },
+  },
   created() {},
   mounted() {
     this.init()
@@ -282,24 +287,27 @@ export default {
   methods: {
     // 实例初始化
     init() {
-      this.clear()
+      this.clear(true)
 
       const chartDom = this.$refs['$_flexibleChart']
 
       this.chart = Echarts.init(chartDom)
 
       // this.setOption();
+      this.setLoading()
       this.click()
     },
 
     // 设置配置项, 刷新图表 (需父组件主动调用)
     setOption() {
+      let chartOpt = { ...this.option }
+
       Object.entries(this.optionData).forEach(item => {
         const isArray = Array.isArray(item[1])
 
         if (isArray) {
           let arr = []
-          const list = this.option[item[0]] || []
+          const list = chartOpt[item[0]] || []
 
           list.forEach((item1, index1) => {
             arr[index1] = {
@@ -308,16 +316,18 @@ export default {
             }
           })
 
-          this.option[item[0]] = arr
+          chartOpt[item[0]] = arr
         } else {
-          this.option[item[0]] = {
+          chartOpt[item[0]] = {
             ...item[1],
-            ...this.option[item[0]],
+            ...chartOpt[item[0]],
           }
         }
       })
 
-      this.chart && this.chart.setOption(this.option)
+      this.chart && this.chart.setOption(chartOpt)
+
+      this.$emit('set-option', chartOpt)
     },
 
     // 点击事件
@@ -362,6 +372,16 @@ export default {
 
         this.chartOption.xAxis = tmpYAxis
         this.chartOption.yAxis = tmpXAxis
+      }
+    },
+
+    // 设置 loading
+    setLoading() {
+      if (!this.chart) return
+      if (this.loading) {
+        this.chart.showLoading()
+      } else {
+        this.chart.hideLoading()
       }
     },
   },

@@ -3,24 +3,58 @@
  * @Author: shenxh
  * @Date: 2022-07-11 09:30:22
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-11 10:00:35
+ * @LastEditTime: 2024-02-21 22:50:28
 -->
 
 <template>
   <div class="dm-flexible-chart admin-content">
+    <div class="buttons">
+      <span></span>
+      <el-button
+        class="update-btn"
+        type="primary"
+        size="mini"
+        @click="handleUpdateData"
+      >
+        数据更新
+      </el-button>
+    </div>
     <div class="dm-flexible-chart-wrap">
       <div
-        v-for="(item, index) in chart"
+        v-for="(item, index) in charts"
         :key="index"
         class="dm-flexible-chart-item"
       >
-        <flexible-chart
-          ref="chart"
-          :option="item.option"
-          :horizontal="item.horizontal"
-        ></flexible-chart>
+        <el-card shadow="hover">
+          <div slot="header" class="clearfix">
+            <span>{{ item.option.title.text }}</span>
+            <el-button
+              class="button-config"
+              type="text"
+              @click="handleConfig(item, index)"
+            >
+              配置项
+            </el-button>
+          </div>
+          <flexible-chart
+            ref="chart"
+            :option="item.option"
+            :horizontal="item.horizontal"
+            @set-option="setOption($event, item, index)"
+          ></flexible-chart>
+        </el-card>
       </div>
     </div>
+
+    <el-drawer
+      v-if="currentChartOption.title"
+      :title="currentChartOption.title.text"
+      :visible.sync="showDrawer"
+      direction="ltr"
+      append-to-body
+    >
+      <pre>{{ currentChartOption }}</pre>
+    </el-drawer>
   </div>
 </template>
 
@@ -37,11 +71,14 @@ export default {
   props: {},
   data() {
     return {
-      chart: [
+      showDrawer: false,
+      chartsOption: [],
+      currentChartOption: {},
+      charts: [
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '折线图',
             },
             yAxis: {
@@ -58,7 +95,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '柱状图',
             },
             yAxis: {
@@ -75,7 +112,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '柱线混合',
             },
             yAxis: [
@@ -102,7 +139,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '柱状图(组)',
             },
             yAxis: {
@@ -130,7 +167,7 @@ export default {
           horizontal: true,
           option: {
             title: {
-              show: true,
+              show: false,
               text: '水平柱状图',
             },
             grid: {
@@ -150,7 +187,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '上下双图',
             },
             grid: [
@@ -158,7 +195,7 @@ export default {
                 top: 40,
                 left: 50,
                 right: 20,
-                bottom: undefined,
+                bottom: null,
                 height: '30%',
                 containLabel: false,
                 tooltip: {
@@ -170,7 +207,7 @@ export default {
               {
                 left: 50,
                 right: 20,
-                top: undefined,
+                top: null,
                 bottom: 15,
                 height: '30%',
                 containLabel: false,
@@ -214,7 +251,7 @@ export default {
           horizontal: true,
           option: {
             title: {
-              show: true,
+              show: false,
               text: '左右双图',
             },
             grid: [
@@ -222,7 +259,7 @@ export default {
                 top: 40,
                 bottom: 30,
                 left: 30,
-                right: undefined,
+                right: null,
                 width: '38%',
                 containLabel: false,
                 tooltip: {
@@ -234,7 +271,7 @@ export default {
               {
                 top: 40,
                 bottom: 30,
-                left: undefined,
+                left: null,
                 right: 30,
                 width: '38%',
                 containLabel: false,
@@ -275,10 +312,65 @@ export default {
           },
         },
         {
+          noSeriesData: true,
+          option: {
+            title: {
+              show: false,
+              text: '图表标线',
+            },
+            legend: {
+              show: false,
+            },
+            grid: {
+              top: 0,
+              tooltip: {
+                show: false,
+              },
+            },
+            xAxis: {
+              data: ['X0', 'X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'X8'],
+            },
+            yAxis: {
+              name: '',
+              type: 'value',
+            },
+            series: [
+              {
+                name: 'demo1',
+                type: 'line',
+                markLine: {
+                  lineStyle: {
+                    type: 'solid',
+                  },
+                  symbol: 'none',
+                  label: {
+                    show: false,
+                  },
+                  emphasis: {
+                    disabled: true,
+                  },
+                  data: [
+                    {
+                      xAxis: 'X2',
+                    },
+                    {
+                      xAxis: 'X3',
+                    },
+                    {
+                      xAxis: 'X5',
+                    },
+                  ],
+                },
+                data: [],
+              },
+            ],
+          },
+        },
+        {
           setSeries: true,
           option: {
             title: {
-              show: true,
+              show: false,
               text: '长方体柱图',
             },
             tooltip: {
@@ -295,7 +387,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '象形柱图',
             },
             yAxis: {
@@ -320,7 +412,7 @@ export default {
         {
           option: {
             title: {
-              show: true,
+              show: false,
               text: '饼图',
             },
             series: [
@@ -335,7 +427,7 @@ export default {
           key: 'spacing-annular-chart',
           option: {
             title: {
-              show: true,
+              show: false,
               text: '环形间隔图表',
             },
             legend: {
@@ -350,9 +442,96 @@ export default {
           },
         },
         {
+          noSeriesData: true,
           option: {
             title: {
-              show: true,
+              show: false,
+              text: '半环进度图',
+            },
+            tooltip: {
+              show: false,
+              trigger: 'item',
+            },
+            legend: {
+              show: false,
+            },
+            series: [
+              {
+                type: 'pie',
+                radius: ['80%', '90%'],
+                center: ['50%', '70%'],
+                startAngle: 180,
+                data: [
+                  {
+                    value: 80,
+                    name: '进度',
+                    label: {
+                      show: false,
+                    },
+                    emphasis: {
+                      disabled: true,
+                    },
+                  },
+                  {
+                    value: 20,
+                    name: '剩余',
+                    itemStyle: {
+                      color: '#ccc',
+                    },
+                    label: {
+                      show: false,
+                    },
+                    emphasis: {
+                      disabled: true,
+                    },
+                  },
+                  {
+                    value: 100,
+                    itemStyle: {
+                      color: 'none',
+                      decal: {
+                        symbol: 'none',
+                      },
+                    },
+                    label: {
+                      show: true,
+                      position: 'center',
+                      formatter: params => {
+                        return [
+                          '{a|进度}',
+                          '{b|' + params.value + '%}',
+                          '{c|半环进度条}',
+                        ].join('\n')
+                      },
+                      rich: {
+                        a: {
+                          color: '#000',
+                          fontWeight: 700,
+                          fontSize: 16,
+                          padding: [-50, 0, 0, 0],
+                        },
+                        b: {
+                          color: '#000',
+                          fontWeight: 700,
+                          fontSize: 20,
+                          padding: [-10, 0, 0, 0],
+                        },
+                        c: {
+                          color: '#9b9b9b',
+                          lineHeight: 20,
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        {
+          option: {
+            title: {
+              show: false,
               text: '雷达图',
             },
             radar: {
@@ -380,38 +559,43 @@ export default {
   watch: {},
   created() {},
   mounted() {
-    this.initData()
+    this.getData()
   },
-  beforeDestroy() {
-    this.clearTimer()
-  },
+  beforeDestroy() {},
   methods: {
-    initData() {
-      this.clearTimer()
+    handleUpdateData() {
       this.getData()
+    },
 
-      timer = setInterval(() => {
-        this.getData()
-      }, 2000)
+    handleConfig(itm, idx) {
+      this.currentChartOption = this.chartsOption[idx]
+      this.showDrawer = true
     },
 
     getData() {
-      this.chart.forEach((item, index) => {
+      this.charts.forEach((item, index) => {
         this.getChartData(item, index)
       })
     },
 
     getChartData(itm, idx) {
       for (let i = 0; i < 3; i++) {
-        let chart = this.chart[idx]
-        let chartOptionSeries = chart.option.series
+        const chart = this.charts[idx]
+        const chartOptionSeries = chart.option.series
 
         if (!chart.setSeries) {
           if (chartOptionSeries[i]) {
             if (chartOptionSeries[i].type === 'radar') {
               chartOptionSeries[i].data = this.mockRadarData()
             } else {
-              chartOptionSeries[i].data = this.mockData()[i]
+              if (!chart.noSeriesData) {
+                chartOptionSeries[i].data = this.mockData()[i]
+
+                // 解决数据不更新问题
+                this.charts[idx].option.series = JSON.parse(
+                  JSON.stringify(chartOptionSeries),
+                )
+              }
             }
           }
         } else {
@@ -431,6 +615,10 @@ export default {
       this.$refs.chart[idx].setOption()
     },
 
+    setOption(opt, itm, idx) {
+      this.chartsOption[idx] = opt
+    },
+
     clearTimer() {
       if (timer) {
         clearInterval(timer)
@@ -439,11 +627,12 @@ export default {
     },
 
     mockData() {
+      const total = Math.round(Math.random() * 5) + 5
       let data1 = []
       let data2 = []
       let data3 = []
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < total; i++) {
         data1.push({
           name: 'X' + i,
           value: Math.round(Math.random() * 1000),
@@ -625,23 +814,50 @@ export default {
 
 <style lang="less" scoped>
 .dm-flexible-chart {
+  display: flex;
+  flex-direction: column;
   .dm-flexible-chart-wrap {
     display: flex;
     flex-wrap: wrap;
+    flex-grow: 1;
     width: 100%;
-    height: 100%;
-    min-height: 100%;
-    border: 1px solid #efefef;
+    // height: 100%;
+    // min-height: 100%;
     overflow: auto;
     .dm-flexible-chart-item {
       flex-shrink: 0;
-      width: 33.3%;
-      height: 50%;
-      border-bottom: 1px solid #efefef;
+      width: 32.6%;
+      height: 48%;
+      margin-bottom: 1%;
       &:not(:nth-of-type(3n)) {
-        border-right: 1px solid #efefef;
+        margin-right: 1%;
+      }
+      /deep/ .el-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        .el-card__header {
+          height: 40px;
+          padding: 0 10px;
+          .clearfix {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+          }
+        }
+        .el-card__body {
+          flex-grow: 1;
+          padding: 10px;
+        }
       }
     }
+  }
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
   }
 }
 </style>

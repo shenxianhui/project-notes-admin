@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2020-05-01 18:28:06
  * @LastEditors: shenxh
- * @LastEditTime: 2022-04-02 08:54:36
+ * @LastEditTime: 2023-02-06 19:29:22
  */
 export default [
   {
@@ -22,6 +22,14 @@ export default [
           label: 'vue-drag-zoom',
         },
         component: loadView('tools/DragZoom'),
+      },
+      {
+        path: 'full-screen-adaptive-container',
+        name: 'full-screen-adaptive-container',
+        meta: {
+          label: '全屏自适应容器',
+        },
+        component: loadView('tools/full-screen-adaptive-container'),
       },
     ],
   },

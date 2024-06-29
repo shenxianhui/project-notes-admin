@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2020-09-04 17:56:08
  * @LastEditors: shenxh
- * @LastEditTime: 2022-11-18 13:56:17
+ * @LastEditTime: 2023-06-06 17:05:44
  */
 export default [
   {
@@ -32,12 +32,20 @@ export default [
         component: loadView('three/water-works-zy.vue'),
       },
       {
-        path: 'water-works-sgs',
-        name: 'water-works-sgs',
+        path: 'water-works-zy-new',
+        name: 'water-works-zy-new',
         meta: {
-          label: '石鼓山水厂',
+          label: '状元水厂-新',
         },
-        component: loadView('three/water-works-sgs.vue'),
+        component: loadView('three/water-works-zy-new/water-works-zy-new.vue'),
+      },
+      {
+        path: 'earth-rotation',
+        name: 'earth-rotation',
+        meta: {
+          label: '地球自转',
+        },
+        component: loadView('three/earth-rotation.vue'),
       },
     ],
   },
