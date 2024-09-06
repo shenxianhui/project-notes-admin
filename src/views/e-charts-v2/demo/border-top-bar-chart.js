@@ -3,15 +3,25 @@
  * @Author: shenxh
  * @Date: 2024-09-06 14:53:54
  * @LastEditors: shenxh
- * @LastEditTime: 2024-09-06 17:15:09
+ * @LastEditTime: 2024-09-06 17:33:44
  */
 
 function getBorderHeight(list = []) {
-  const sum = list.reduce((acc, curr) => acc + curr, 0)
-  const average = sum / list.length / 40
-  const arr = Array(list.length).fill(average)
+  const max = Math.max.apply(null, list)
+  let min = Math.min.apply(null, list)
 
-  return arr
+  // 防止除零错误
+  if (min === 0) {
+    min = 1
+  }
+
+  // 计算高度比例的系数
+  const heightRatio = 0.05 // 设定比例，例如 5%
+
+  // 计算边框高度
+  const borderHeight = (max - min) * heightRatio
+
+  return Array(list.length).fill(borderHeight)
 }
 
 const seriesData1 = [120, 200, 150, 80, 70, 110, 130]
@@ -83,7 +93,7 @@ const option = {
       tooltip: {
         show: false,
       },
-      data: getBorderHeight([...seriesData1, ...seriesData2]),
+      data: getBorderHeight(seriesData1),
     },
     {
       name: '柱2',
@@ -105,7 +115,7 @@ const option = {
       tooltip: {
         show: false,
       },
-      data: getBorderHeight([...seriesData1, ...seriesData2]),
+      data: getBorderHeight(seriesData2),
     },
     {
       name: '线1',
