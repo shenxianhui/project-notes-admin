@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2024-09-06 14:53:54
  * @LastEditors: shenxh
- * @LastEditTime: 2024-09-06 16:57:23
+ * @LastEditTime: 2024-09-06 17:15:09
  */
 
 function getBorderHeight(list = []) {
@@ -83,7 +83,7 @@ const option = {
       tooltip: {
         show: false,
       },
-      data: getBorderHeight(seriesData1),
+      data: getBorderHeight([...seriesData1, ...seriesData2]),
     },
     {
       name: '柱2',
@@ -105,7 +105,7 @@ const option = {
       tooltip: {
         show: false,
       },
-      data: getBorderHeight(seriesData2),
+      data: getBorderHeight([...seriesData1, ...seriesData2]),
     },
     {
       name: '线1',
