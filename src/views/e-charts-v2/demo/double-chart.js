@@ -3,13 +3,13 @@
  * @Author: shenxh
  * @Date: 2024-09-06 14:35:32
  * @LastEditors: shenxh
- * @LastEditTime: 2024-09-06 14:35:34
+ * @LastEditTime: 2024-09-06 14:57:05
  */
 
 const containerHeight = document.getElementById('chart-container').offsetHeight
 const gridHeight = (containerHeight - 108) / 2
 
-option = {
+const option = {
   grid: [
     {
       left: 50,
