@@ -1,14 +1,6 @@
-/*
- * @Description: 顶部边框柱状图 (自定义图例icon纯色)
- * @Author: shenxh
- * @Date: 2024-09-06 14:53:54
- * @LastEditors: shenxh
- * @LastEditTime: 2024-09-06 17:33:44
- */
-
-function getBorderHeight(list = []) {
-  const max = Math.max.apply(null, list)
-  let min = Math.min.apply(null, list)
+function getBorderHeight(list1 = [], list2 = []) {
+  const max = Math.max(Math.max.apply(null, list1), Math.max.apply(null, list2))
+  let min = Math.min(Math.min.apply(null, list1), Math.min.apply(null, list2))
 
   // 防止除零错误
   if (min === 0) {
@@ -16,16 +8,16 @@ function getBorderHeight(list = []) {
   }
 
   // 计算高度比例的系数
-  const heightRatio = 0.05 // 设定比例，例如 5%
+  const heightRatio = 0.02 // 设定比例，例如 2%
 
   // 计算边框高度
   const borderHeight = (max - min) * heightRatio
 
-  return Array(list.length).fill(borderHeight)
+  return Array(list1.length).fill(borderHeight)
 }
 
-const seriesData1 = [120, 200, 150, 80, 70, 110, 130]
-const seriesData2 = [125, 150, 220, 120, 80, 60, 110]
+const seriesData1 = [300, 332, 301, 334, 390, 330, 320]
+const seriesData2 = [10, 23, 21, 15, 10, 30, 40]
 
 const option = {
   legend: {
@@ -93,7 +85,7 @@ const option = {
       tooltip: {
         show: false,
       },
-      data: getBorderHeight(seriesData1),
+      data: getBorderHeight(seriesData1, seriesData2),
     },
     {
       name: '柱2',
@@ -115,7 +107,7 @@ const option = {
       tooltip: {
         show: false,
       },
-      data: getBorderHeight(seriesData2),
+      data: getBorderHeight(seriesData1, seriesData2),
     },
     {
       name: '线1',
