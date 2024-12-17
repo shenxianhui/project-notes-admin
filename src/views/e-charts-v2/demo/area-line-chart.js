@@ -3,7 +3,7 @@
  * @Author: shenxh
  * @Date: 2024-12-16 14:40:44
  * @LastEditors: shenxh
- * @LastEditTime: 2024-12-17 09:47:58
+ * @LastEditTime: 2024-12-17 10:00:35
  */
 
 const xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -13,6 +13,9 @@ function getMarkAreaData(seriesData = []) {
   const result = []
   let tempGroup = []
   let currentValue = null
+  const itemStyle = {
+    opacity: 0,
+  }
 
   for (let i = 0; i < xAxisData.length; i++) {
     const name = xAxisData[i]
@@ -20,10 +23,10 @@ function getMarkAreaData(seriesData = []) {
 
     if (value !== null) {
       if (currentValue === null) {
-        tempGroup = [{ name: `${value}`, xAxis: name, yAxis: value }]
+        tempGroup = [{ name: `${value}`, xAxis: name, yAxis: value, itemStyle }]
         currentValue = value
       }
-      tempGroup[1] = { xAxis: name, yAxis: value }
+      tempGroup[1] = { xAxis: name, yAxis: value, itemStyle }
     } else {
       if (currentValue !== null) {
         result.push(tempGroup)
