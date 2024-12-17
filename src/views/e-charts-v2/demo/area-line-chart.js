@@ -3,18 +3,12 @@
  * @Author: shenxh
  * @Date: 2024-12-16 14:40:44
  * @LastEditors: shenxh
- * @LastEditTime: 2024-12-16 14:42:03
+ * @LastEditTime: 2024-12-17 09:01:00
  */
 
 const option = {
   legend: {
     show: true,
-  },
-  tooltip: {
-    trigger: 'axis',
-    axisPointer: {
-      type: 'shadow',
-    },
   },
   xAxis: {
     type: 'category',
@@ -33,6 +27,21 @@ const option = {
       lineStyle: {
         width: 10,
       },
+      markArea: {
+        data: [
+          [
+            {
+              name: '100',
+              xAxis: 'Mon',
+              yAxis: 100,
+            },
+            {
+              xAxis: 'Tue',
+              yAxis: 100,
+            },
+          ],
+        ],
+      },
       areaStyle: {},
     },
     {
@@ -42,6 +51,21 @@ const option = {
       symbol: 'none',
       lineStyle: {
         width: 10,
+      },
+      markArea: {
+        data: [
+          [
+            {
+              name: '200',
+              xAxis: 'Tue',
+              yAxis: 200,
+            },
+            {
+              xAxis: 'Thu',
+              yAxis: 200,
+            },
+          ],
+        ],
       },
       areaStyle: {},
     },
@@ -53,6 +77,21 @@ const option = {
       lineStyle: {
         width: 10,
       },
+      markArea: {
+        data: [
+          [
+            {
+              name: '150',
+              xAxis: 'Thu',
+              yAxis: 150,
+            },
+            {
+              xAxis: 'Fri',
+              yAxis: 150,
+            },
+          ],
+        ],
+      },
       areaStyle: {},
     },
     {
@@ -62,6 +101,21 @@ const option = {
       symbol: 'none',
       lineStyle: {
         width: 10,
+      },
+      markArea: {
+        data: [
+          [
+            {
+              name: '250',
+              xAxis: 'Fri',
+              yAxis: 250,
+            },
+            {
+              xAxis: 'Sun',
+              yAxis: 250,
+            },
+          ],
+        ],
       },
       areaStyle: {},
     },
