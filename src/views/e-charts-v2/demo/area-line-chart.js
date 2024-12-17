@@ -3,8 +3,43 @@
  * @Author: shenxh
  * @Date: 2024-12-16 14:40:44
  * @LastEditors: shenxh
- * @LastEditTime: 2024-12-17 09:01:00
+ * @LastEditTime: 2024-12-17 09:47:58
  */
+
+const xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+// 自动计算 markArea.data
+function getMarkAreaData(seriesData = []) {
+  const result = []
+  let tempGroup = []
+  let currentValue = null
+
+  for (let i = 0; i < xAxisData.length; i++) {
+    const name = xAxisData[i]
+    const value = seriesData[i]
+
+    if (value !== null) {
+      if (currentValue === null) {
+        tempGroup = [{ name: `${value}`, xAxis: name, yAxis: value }]
+        currentValue = value
+      }
+      tempGroup[1] = { xAxis: name, yAxis: value }
+    } else {
+      if (currentValue !== null) {
+        result.push(tempGroup)
+        tempGroup = []
+        currentValue = null
+      }
+    }
+  }
+
+  // 检查最后一组是否需要加入
+  if (tempGroup.length > 0) {
+    result.push(tempGroup)
+  }
+
+  return result
+}
 
 const option = {
   legend: {
@@ -13,7 +48,7 @@ const option = {
   xAxis: {
     type: 'category',
     boundaryGap: false,
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    data: xAxisData,
   },
   yAxis: {
     type: 'value',
@@ -28,19 +63,7 @@ const option = {
         width: 10,
       },
       markArea: {
-        data: [
-          [
-            {
-              name: '100',
-              xAxis: 'Mon',
-              yAxis: 100,
-            },
-            {
-              xAxis: 'Tue',
-              yAxis: 100,
-            },
-          ],
-        ],
+        data: getMarkAreaData([100, 100, null, null, null, null, null]),
       },
       areaStyle: {},
     },
@@ -53,19 +76,7 @@ const option = {
         width: 10,
       },
       markArea: {
-        data: [
-          [
-            {
-              name: '200',
-              xAxis: 'Tue',
-              yAxis: 200,
-            },
-            {
-              xAxis: 'Thu',
-              yAxis: 200,
-            },
-          ],
-        ],
+        data: getMarkAreaData([null, 200, 200, 200, null, null, null]),
       },
       areaStyle: {},
     },
